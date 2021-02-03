@@ -1,0 +1,37 @@
+.sendMessageAreaFromProfile {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-left: 120px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+
+}
+
+
+textarea {
+    min-height: 50px;
+    border-radius: 10px 10px 0px 0px ;
+    border: 2px solid #492F7E;
+    outline-color: #492F7E;
+    resize: none;
+    padding: 5px;
+}
+
+button {
+    height: 30px;
+    background-color: #492F7E;
+    color: white;
+    border: none;
+    transition-duration: 0.4s;
+    outline: none;
+}
+
+button:hover {
+    background-color: #69BA85;
+    color: #050000;
+}
+
+button:active {
+    box-shadow: inset 0px 1px 10px 2px #492F7E;
+    color: white;
+}

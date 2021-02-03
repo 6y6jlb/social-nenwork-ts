@@ -1,0 +1,6 @@
+.mainWrapper {
+    text-align: start;
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    margin: 10px 10% 10px 10%;
+}

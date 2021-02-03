@@ -1,0 +1,40 @@
+
+.profileContent {
+    margin-left: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px minmax(70px, auto) 1fr;
+}
+
+.profileHeader img {
+    height: 200px;
+    width: 100%;
+}
+
+.selfPhotoFromProfile img {
+    padding-top: 5px;
+    width: 110px;
+    height: auto;
+
+}
+
+.selfText {
+    margin-top: 5px;
+    padding: 5px 10px 5px 10px;
+    height: 110px;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    border-radius: 10px;
+    border-color: #492F7E;
+    background-color: #d7f8e2;
+}
+
+.profileInfo {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    margin-bottom: 15px;
+}
+.profilePosts {
+    margin-left: 120px;
+
+}

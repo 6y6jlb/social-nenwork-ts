@@ -1,8 +1,10 @@
 import React from "react";
+import s from './Header.module.css'
 
 export function Header() {
     return (
-        <header className="App-header">
+        <header className={s.appHeader}>
+            Header
         </header>
     )
 }

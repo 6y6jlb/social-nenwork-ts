@@ -1,0 +1,14 @@
+.navigationBar {
+    display: grid;
+    background-color: #69BA85;
+    grid-template-columns: 1fr;
+    grid-template-rows: 200px 2fr;
+    padding: 0px 5px 5px 5px;
+    color: white;
+}
+.NavElements{
+    display: grid;
+    height: 150px;
+    margin-bottom: 5px;
+    gap: 10px;
+}
