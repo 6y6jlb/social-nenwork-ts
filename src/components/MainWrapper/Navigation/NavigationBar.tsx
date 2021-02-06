@@ -1,18 +1,31 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
 import s from './NavigationBar.module.css'
 import {SmallInfo} from "./SmallInfo/SmallInfo";
 
 export function NavigationBar() {
     return (
         <div className={s.navigationBar}>
-            <SmallInfo />
+            <SmallInfo/>
             <div className={s.NavElements}>
-                <div>Profile</div>
-                <div>Messages</div>
-                <div>Friend List</div>
-                <div>News</div>
-                <div>Audio</div>
-                <div>Settings</div>
+                <div>
+                    <NavLink to={'profilePage'}>profile</NavLink>
+                </div>
+                <div>
+                    <NavLink to={'dialogsPage'}>dialogs</NavLink>
+                </div>
+                <div>
+                    <NavLink to={'friendList'}>Friend List</NavLink>
+                </div>
+                <div>
+                    <NavLink to={'newsFeed'}>News</NavLink>
+                </div>
+                <div>
+                    <NavLink to={'audioPage'}>Audio</NavLink>
+                </div>
+                <div>
+                    <NavLink to={'settings'}>Settings</NavLink>
+                </div>
             </div>
         </div>
     )

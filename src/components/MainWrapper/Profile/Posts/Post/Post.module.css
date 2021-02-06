@@ -1,0 +1,17 @@
+.profilePost{
+    padding: 5px 10px 5px 10px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    border-top: 3px solid;
+    border-bottom: 3px solid;
+    border-radius: 10px;
+    border-color: #492F7E;
+    background-color: #d7f8e2;
+}
+
+.profilePost img {
+    margin-top: 5px;
+    width: 50px;
+    height: auto;
+    border-radius: 50%;
+}

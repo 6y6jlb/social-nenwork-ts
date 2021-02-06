@@ -1,5 +1,11 @@
 .appHeader {
+    display: grid;
+    grid-template-columns: 200px 1fr;
     color: white;
     background-color: #492F7E;
 
+}
+.appHeader img{
+    width: auto;
+    height: 50px;
 }
