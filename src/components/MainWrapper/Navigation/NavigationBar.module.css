@@ -7,10 +7,38 @@
     color: white;
 
 }
-.NavElements{
+
+.NavElements {
     display: grid;
     height: 150px;
     margin-bottom: 5px;
     gap: 10px;
     font-size: 1.2em;
 }
+
+a {
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: #defae6;
+    transition-duration: 0.5s;
+}
+
+a:hover {
+    background-color: #a6e2b8;
+}
+
+a:focus {
+    background-color: #549d6a;
+}
+
+a:visited {
+    color: #fcfdfd;
+
+}
+
+a:active {
+    background-color: #492F7E;
+}
+
+

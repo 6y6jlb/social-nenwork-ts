@@ -4,7 +4,7 @@ import React from "react";
 import s from './MainWrapper.module.css'
 import {DialogsWrapper} from "./DialogsWrapper/DialogsWrapper";
 import {BrowserRouter, Route} from "react-router-dom";
-import {FriendList} from "./FriendListr/FriendListr";
+import {FriendList} from "./FriendList/FriendListr";
 import {NewsFeed} from "./NewsFeed/NewsFeed";
 import {AudioPage} from "./AudioPage/AudioPage";
 import {Settings} from "./Settings/Settings";
