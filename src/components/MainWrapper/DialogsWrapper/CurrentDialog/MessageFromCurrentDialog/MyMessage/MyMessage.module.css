@@ -1,0 +1,79 @@
+.message {
+    min-height: 80px;
+    height: max-content;
+    display: grid;
+    grid-template-areas: "mF a";
+    grid-auto-columns: minmax(auto, 400px) 80px;
+    padding-left: 60%;
+
+
+}
+
+.avatar {
+    text-align: center;
+    grid-area: a;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    justify-self: start;
+    align-self: end;
+    border-radius: 50%;
+    background-color: #150b22;
+}
+
+
+.avatar img {
+
+    border-radius: 50%;
+    width: 31px;
+    height: 31px;
+
+}
+
+.messageFrame {
+    grid-area: mF;
+    display: grid;
+    grid-template-columns: 1fr 20px;
+
+
+}
+
+.cornet {
+    align-self: end;
+    border: 20px solid transparent;
+    border-left: 20px solid #150b22;
+    border-bottom: 20px solid #150b22;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    right: 40px;
+
+
+}
+
+.textMessage {
+    text-align: start;
+    padding: 20px 30px 20px 30px;
+
+}
+
+.textFrame {
+    padding: 5px 30px 5px 30px;
+    background-color: #150b22;
+    color: white;
+    border-radius: 15px 15px 0px 15px;
+}
+
+.name {
+    color: #cb8dec;
+}
+
+.time {
+    text-align: end;
+    color: #614272;
+    position: relative;
+    z-index: 1;
+
+}

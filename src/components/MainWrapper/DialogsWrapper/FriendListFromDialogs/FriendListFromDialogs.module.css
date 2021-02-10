@@ -1,0 +1,18 @@
+.friendListFromDialogs {
+    display: grid;
+    grid-template-rows: repeat(auto-fill,70px);
+    background-color: #cfeed9;
+    margin-left: 25px;
+    margin-right: 20px;
+    padding: 50px 10px;
+}
+.item {
+    height: 20px;
+    background-color: #6f589f;
+    padding: 7px;
+    border-radius: 10%;
+    color: white;
+}
+.active {
+    background-color: #2c1c4e;
+}
