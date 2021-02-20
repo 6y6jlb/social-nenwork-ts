@@ -3,8 +3,10 @@
     height: max-content;
     display: grid;
     grid-template-areas: "mF a";
-    grid-auto-columns: minmax(auto, 400px) 80px;
-    padding-left: 60%;
+    grid-auto-columns: minmax(auto, 400px) auto;
+    margin-left: auto;
+    min-width: 100px;
+    max-width: 300px;
 
 
 }
@@ -36,6 +38,7 @@
     grid-area: mF;
     display: grid;
     grid-template-columns: 1fr 20px;
+
 
 
 }

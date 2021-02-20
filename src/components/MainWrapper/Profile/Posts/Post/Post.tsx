@@ -1,15 +1,13 @@
 import s from "./Post.module.css";
 import React from "react";
+import {MyPostArrayType} from "../../../../../index";
 
-export type PostType={
-    message: string
-}
 
-export function Post(props:PostType) {
+export function Post(props: MyPostArrayType) {
     return (
-        <div className={s.profilePost}>
+        <div className={s.profilePost} key={props.id}>
             <div>
-                <img src={'./images/face.png'}/>
+                <img src={props.profileSelfPhotoImgUrl}/>
                 <div>likes</div>
             </div>
             <div>

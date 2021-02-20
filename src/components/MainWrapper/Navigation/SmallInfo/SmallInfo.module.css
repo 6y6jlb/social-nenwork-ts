@@ -1,12 +1,17 @@
 .smallInfo {
+    position: relative;
+    left: 10px;
+    width: 140px;
     background-color: #492F7E;
-    border-radius: 0px 0px 10px 10px;
+    border: 10px solid white;
+    border-radius: 0px 0px 5px 5px;
+    border-top: none;
     margin-bottom: 100px;
-    padding-top: 50px;
     text-align: center;
 
 }
-.smallInfo img{
+
+.smallInfo img {
     width: 50px;
     height: auto;
 }

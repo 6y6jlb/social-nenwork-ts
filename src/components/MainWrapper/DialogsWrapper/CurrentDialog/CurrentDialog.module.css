@@ -1,4 +1,5 @@
 .currentDialogWrapper{
     display: grid;
     grid-template-rows: 1fr auto;
+    align-content: start ;
 }

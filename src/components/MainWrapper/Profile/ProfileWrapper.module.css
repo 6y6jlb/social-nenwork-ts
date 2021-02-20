@@ -6,24 +6,43 @@
     grid-template-rows: 200px minmax(70px, auto) 1fr;
 }
 
-.profileHeader img{
-    height: 200px;
+.profileHeader {
+    display: grid;
+    background-image: url("/src/images/logo193.png");
     width: 100%;
 
 
 }
 
+.selfPhotoFromProfile {
+    position: relative;
+    top: 20px;
+    width: 125px;
+    height: 125px;
+    align-self: end;
+    margin-left: 125px;
+    border: 10px solid white;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+    background-color: white;
+}
+
+
 .selfPhotoFromProfile img {
-    padding-top: 5px;
-    width: 110px;
+    border-radius: 10px 10px 0 0;
+    width: 125px;
     height: auto;
+
 
 }
 
 .selfText {
-    margin-top: 5px;
-    padding: 5px 10px 5px 10px;
-    height: 110px;
+    display: grid;
+    row-gap: 5px;
+    margin-top: 40px;
+    padding: 10px 0 10px 10px;
+    font-size: 1.1em;
+    height: auto;
     border-top: 3px solid;
     border-bottom: 3px solid;
     border-radius: 10px;

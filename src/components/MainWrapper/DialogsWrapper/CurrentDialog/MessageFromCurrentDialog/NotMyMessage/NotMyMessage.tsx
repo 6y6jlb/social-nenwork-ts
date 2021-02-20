@@ -1,10 +1,10 @@
 import s from "./NotMyMessage.module.css";
 import React from "react";
-import {MessagesArrayFromCurrentDialogType} from "../MessageFromCurrentDialog";
+import {MessagesFromDialogsType} from "../../../../../../index";
 
-export function NotMyMessage(props: MessagesArrayFromCurrentDialogType) {
+export function NotMyMessage(props: MessagesFromDialogsType) {
     return (
-        <div className={s.message} key={props.id}>
+        <div className={s.message}>
             <div className={s.avatar}><img className={s.avatarChild} src={props.avatarURL}/></div>
             <div className={s.messageFrame}>
                 <div className={s.cornet}></div>

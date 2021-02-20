@@ -2,31 +2,38 @@ import React from "react";
 import s from './ProfileWrapper.module.css'
 import {SendMessageAreaFromProfile} from "./SendMessageAreaFromProfile/SendMessageAreaFromProfile";
 import {Posts} from "./Posts/Posts";
+import {ProfileWrapperObjType} from "../../../index";
 
 
-export function ProfileWrapper() {
-    let profileWrapperObj = {
-        profileHeaderImgUrl: './images/logo193.png',
-        profileSelfPhotoImgUrl: 'images/face.png',
-        profileInfoText: 'modo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim '
-    }
+export function ProfileWrapper(props: ProfileWrapperObjType) {
+
+    const profileSelfPhotoImgUrl = props.profileSelfPhotoImgUrl
+    const profileInfoText = props.profileInfoText
+    const myPostArray = props.myPostArray
+
     return (
         <div className={s.profileContent}>
             <div className={s.profileHeader}>
-                <img src={profileWrapperObj.profileHeaderImgUrl}/>
-
+                <div className={s.selfPhotoFromProfile}>
+                    <img src={profileSelfPhotoImgUrl}/>
+                </div>
             </div>
             <div className={s.profileInfo}>
 
-                <div className={s.selfPhotoFromProfile}>
-                    <img src={profileWrapperObj.profileSelfPhotoImgUrl}/>
-                </div>
+                <div></div>
                 <div className={s.selfText}>
-                    {profileWrapperObj.profileInfoText}
+                    {profileInfoText.map(p => {
+                        return (
+                            <div key={p.id}>
+                                -<em>{p.postMessage}</em>
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
             <SendMessageAreaFromProfile/>
-            <Posts/>
+            <Posts profileInfoText={profileInfoText} profileSelfPhotoImgUrl={profileSelfPhotoImgUrl}
+                   myPostArray={myPostArray}/>
         </div>
     )
 }

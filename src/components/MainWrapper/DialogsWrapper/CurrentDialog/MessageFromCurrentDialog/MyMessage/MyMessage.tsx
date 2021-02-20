@@ -1,9 +1,9 @@
 import s from "./MyMessage.module.css";
 import React from "react";
-import {MessagesArrayFromCurrentDialogType} from "../MessageFromCurrentDialog";
+import {MessagesFromDialogsType} from "../../../../../../index";
 
 
-export function MyMessage(props: MessagesArrayFromCurrentDialogType) {
+export function MyMessage(props: MessagesFromDialogsType) {
     return (
         <div className={s.message} key={props.id}>
             <div className={s.avatar}><img className={s.avatarChild} src={props.avatarURL}/></div>

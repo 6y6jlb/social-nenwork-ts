@@ -8,18 +8,23 @@ import {FriendList} from "./FriendList/FriendListr";
 import {NewsFeed} from "./NewsFeed/NewsFeed";
 import {AudioPage} from "./AudioPage/AudioPage";
 import {Settings} from "./Settings/Settings";
+import { AppStatePropsType } from "../../App";
 
-export function MainWrapper() {
+export function MainWrapper(props:AppStatePropsType) {
     return (
         <BrowserRouter>
             <div className={s.mainWrapper}>
-                <NavigationBar/>
+                <NavigationBar navLinkBar={props.state.navBarObj.navLinkBar} />
                 <div className={s.contentWrapper}>
-                    <Route path={'/profilePage'} render={() => <ProfileWrapper/>}/>
-                    <Route path={'/dialogsPage'} render={() => <DialogsWrapper/>}/>
-                    <Route path={'/friendList'} render={() => <FriendList/>}/>
-                    <Route path={'/newsFeed'} render={() => <NewsFeed/>}/>
-                    <Route path={'/audioPage'} render={() => <AudioPage/>}/>
+                    <Route path={'/profile'}
+                           render={() => <ProfileWrapper myPostArray={props.state.profileWrapperObj.myPostArray}
+                                                         profileSelfPhotoImgUrl={props.state.profileWrapperObj.profileSelfPhotoImgUrl}
+                                                         profileInfoText={props.state.profileWrapperObj.profileInfoText}/>}/>
+                    <Route path={'/dialogs'}
+                           render={() => <DialogsWrapper messages={props.state.dialogWrapperObj.messages}/>}/>
+                    <Route path={'/friends'} render={() => <FriendList/>}/>
+                    <Route path={'/news'} render={() => <NewsFeed/>}/>
+                    <Route path={'/audio'} render={() => <AudioPage/>}/>
                     <Route path={'/settings'} render={() => <Settings/>}/>
                 </div>
 
