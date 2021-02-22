@@ -1,10 +1,15 @@
 import React from "react";
 import s from './SendMessageAreaFromCurrentDialog.module.css'
 
-export function SendMessageAreaFromCurrentDialog() {
+type SendMessageAreaFromCurrentDialogPropsType = {
+    addMessageFromDialogs: (message:string, enemy:boolean)=>void
+}
+
+export function SendMessageAreaFromCurrentDialog(props:SendMessageAreaFromCurrentDialogPropsType) {
     const newMessageElement = React.createRef<HTMLTextAreaElement>()
     const addMessage = () => {
-        console.log(newMessageElement.current?.value)
+        props.addMessageFromDialogs(newMessageElement.current? newMessageElement.current.value:' '
+            ,true)
     }
     return (
         <div className={s.sendMessageAreaFromCurrentDialog}>

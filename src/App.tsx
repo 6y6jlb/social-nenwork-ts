@@ -8,13 +8,17 @@ import {RootStateType} from "./Redux/State";
 
 export type AppStatePropsType={
     state: RootStateType
+    addMessageFromDialogs: (message:string, enemy:boolean)=>void
+    addPostFromProfile: (message:string)=>void
 }
 
 function App(props: AppStatePropsType) {
     return (
         <div className="App">
             <Header/>
-            <MainWrapper state={props.state}  />
+            <MainWrapper state={props.state}
+                         addPostFromProfile={props.addPostFromProfile}
+                         addMessageFromDialogs={props.addMessageFromDialogs} />
             <Footer/>
         </div>
     );

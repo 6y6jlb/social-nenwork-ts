@@ -2,15 +2,22 @@ import React from "react";
 import s from './ProfileWrapper.module.css'
 import {SendMessageAreaFromProfile} from "./SendMessageAreaFromProfile/SendMessageAreaFromProfile";
 import {Posts} from "./Posts/Posts";
-import {ProfileWrapperObjType} from "../../../Redux/State";
+import {MyPostArrayType, ProfileInfoTextType, ProfileSelfPhotoImgUrlType} from "../../../Redux/State";
 
+export type ProfileWrapperPropsType = {
+    profileSelfPhotoImgUrl: ProfileSelfPhotoImgUrlType
+    profileInfoText: Array<ProfileInfoTextType>
+    myPostArray: Array<MyPostArrayType>
+    addPostFromProfile: (message: string) => void
+}
 
+export function ProfileWrapper({
+                                   profileSelfPhotoImgUrl,
+                                   profileInfoText,
+                                   myPostArray,
+                                   addPostFromProfile
+                               }: ProfileWrapperPropsType) {
 
-export function ProfileWrapper(props: ProfileWrapperObjType) {
-
-    const profileSelfPhotoImgUrl = props.profileSelfPhotoImgUrl
-    const profileInfoText = props.profileInfoText
-    const myPostArray = props.myPostArray
 
     return (
         <div className={s.profileContent}>
@@ -32,7 +39,7 @@ export function ProfileWrapper(props: ProfileWrapperObjType) {
                     })}
                 </div>
             </div>
-            <SendMessageAreaFromProfile/>
+            <SendMessageAreaFromProfile addPostFromProfile={addPostFromProfile}/>
             <Posts profileInfoText={profileInfoText} profileSelfPhotoImgUrl={profileSelfPhotoImgUrl}
                    myPostArray={myPostArray}/>
         </div>

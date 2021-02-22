@@ -2,11 +2,12 @@ import React from "react";
 import s from './CurrentDialog.module.css'
 import {SendMessageAreaFromCurrentDialog} from "./SendMessageAreaFromCurrentDialog/SendMessageAreaFromCurrentDialog";
 import {MessageFromCurrentDialog} from "./MessageFromCurrentDialog/MessageFromCurrentDialog";
-import {DialogWrapperObjType} from "../../../../Redux/State";
+import { DialogsWrapperPropsType } from "../DialogsWrapper";
 
 
 
-export function CurrentDialog(props: DialogWrapperObjType) {
+
+export function CurrentDialog(props: DialogsWrapperPropsType) {
 
 
     return (
@@ -14,7 +15,7 @@ export function CurrentDialog(props: DialogWrapperObjType) {
 
             <MessageFromCurrentDialog messages={props.messages}/>
 
-            <SendMessageAreaFromCurrentDialog/>
+            <SendMessageAreaFromCurrentDialog addMessageFromDialogs={props.addMessageFromDialogs} />
 
         </div>
     )

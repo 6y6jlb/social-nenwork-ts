@@ -10,8 +10,8 @@ export function MessageFromCurrentDialog(props: DialogWrapperObjType) {
 
     let messagesBlock = props.messages.map(m => {
         return (
-            !m.enemy ? <NotMyMessage enemy={m.enemy} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/> :
-                <MyMessage enemy={m.enemy} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/>)
+            !m.self ? <NotMyMessage self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/> :
+                <MyMessage self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/>)
     })
 
 
