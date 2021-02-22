@@ -3,7 +3,8 @@ import './App.css';
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
 import {MainWrapper} from "./components/MainWrapper/MainWrapper";
-import {RootStateType} from "./index";
+import {RootStateType} from "./Redux/State";
+
 
 export type AppStatePropsType={
     state: RootStateType

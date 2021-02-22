@@ -2,7 +2,8 @@ import React from "react";
 import s from './CurrentDialog.module.css'
 import {SendMessageAreaFromCurrentDialog} from "./SendMessageAreaFromCurrentDialog/SendMessageAreaFromCurrentDialog";
 import {MessageFromCurrentDialog} from "./MessageFromCurrentDialog/MessageFromCurrentDialog";
-import {DialogWrapperObjType} from "../../../../index";
+import {DialogWrapperObjType} from "../../../../Redux/State";
+
 
 
 export function CurrentDialog(props: DialogWrapperObjType) {

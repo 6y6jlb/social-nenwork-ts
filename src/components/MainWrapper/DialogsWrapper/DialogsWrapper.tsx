@@ -2,7 +2,8 @@ import React from "react";
 import {CurrentDialog} from "./CurrentDialog/CurrentDialog";
 import {FriendListFromDialogs} from "./FriendListFromDialogs/FriendListFromDialogs";
 import s from './DialogsWrapper.module.css'
-import {DialogWrapperObjType} from "../../../index";
+import { DialogWrapperObjType } from "../../../Redux/State";
+
 
 export function DialogsWrapper(props: DialogWrapperObjType) {
     const messages = props.messages

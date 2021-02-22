@@ -1,4 +1,6 @@
 .profilePosts {
+    display: grid;
     margin-left: 120px;
+    row-gap: 10px;
 
 }

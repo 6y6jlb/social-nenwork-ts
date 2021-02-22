@@ -1,5 +1,6 @@
-.profilePost{
-    padding: 5px 10px 5px 10px;
+.profilePost {
+
+    padding: 10px 30px 40px 10px;
     display: grid;
     grid-template-columns: 60px 1fr;
     border-top: 3px solid;
@@ -8,10 +9,24 @@
     border-color: #492F7E;
     background-color: #d7f8e2;
 }
+.avatarAndLikes{
+    text-align: center;
+    justify-self: right;
+    padding: 10px  0 0 10px;
 
-.profilePost img {
+}
+
+
+
+
+.avatarAndLikes img {
     margin-top: 5px;
     width: 50px;
     height: auto;
     border-radius: 50%;
+}
+
+
+.message {
+    margin: 10px  50px;
 }

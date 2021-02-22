@@ -14,7 +14,7 @@ export function MainWrapper(props:AppStatePropsType) {
     return (
         <BrowserRouter>
             <div className={s.mainWrapper}>
-                <NavigationBar navLinkBar={props.state.navBarObj.navLinkBar} />
+                <NavigationBar friendsIcons={props.state.navBarObj.friendsIcons} navLinkBar={props.state.navBarObj.navLinkBar} />
                 <div className={s.contentWrapper}>
                     <Route path={'/profile'}
                            render={() => <ProfileWrapper myPostArray={props.state.profileWrapperObj.myPostArray}

@@ -2,7 +2,8 @@ import React from "react";
 import s from './ProfileWrapper.module.css'
 import {SendMessageAreaFromProfile} from "./SendMessageAreaFromProfile/SendMessageAreaFromProfile";
 import {Posts} from "./Posts/Posts";
-import {ProfileWrapperObjType} from "../../../index";
+import {ProfileWrapperObjType} from "../../../Redux/State";
+
 
 
 export function ProfileWrapper(props: ProfileWrapperObjType) {

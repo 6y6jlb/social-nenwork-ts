@@ -16,14 +16,49 @@
     gap: 10px;
     font-size: 1.2em;
 }
-.activeFriends {
 
+.activeFriends {
+    text-align: center;
+    display: grid;
+    grid-template-columns: 60px 60px;
+    align-items: center;
+    justify-items: center;
+    padding: 5px;
     width: 130px;
-    height: 50px;
+    height: 240px;
     border-radius: 10px;
     margin-top: 20px;
     align-self: start;
-    background-color:#492F7E ;
+    background-color: #492F7E;
+}
+
+
+.backGroundBlock {
+    background-color: white;
+    border-radius: 50%;
+    display: grid;
+    width: 50px;
+    height: 50px;
+}
+
+.iconBlock {
+
+    width: 55px;
+    height: 65px;
+
+}
+
+.iconBlock img {
+    align-self: center;
+    justify-self: center;
+    width: 45px;
+    height: auto;
+    border-radius: 50%;
+
+}
+
+.iconBlock span {
+    font-size: 0.7em;
 }
 
 a {
