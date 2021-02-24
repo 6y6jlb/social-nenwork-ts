@@ -29,11 +29,13 @@ export type MyPostArrayType = {
 }
 export type DialogWrapperObjType = {
     messages: Array<MessagesFromDialogsType>
+    currentInputMessageString: string
 }
 export type ProfileWrapperObjType = {
     profileSelfPhotoImgUrl: ProfileSelfPhotoImgUrlType
     profileInfoText: Array<ProfileInfoTextType>
     myPostArray: Array<MyPostArrayType>
+    currentInputPost: string
 }
 export type FriendsIconsFromNavBarType = {
     photoUrl: string
@@ -50,6 +52,7 @@ export type RootStateType = {
 
 let State: RootStateType = {
     profileWrapperObj: {
+        currentInputPost: '',
         profileSelfPhotoImgUrl: selfPhoto,
         profileInfoText: [
             {id: 1, postMessage: 'Человек умелый'},
@@ -83,6 +86,7 @@ let State: RootStateType = {
         ]
     },
     dialogWrapperObj: {
+        currentInputMessageString: '',
         messages: [
             {id: 1, item: 'myMessage', self: true, avatarURL: photo},
             {id: 2, item: 'notMyMessage', self: false, avatarURL: photo},
@@ -120,26 +124,34 @@ let State: RootStateType = {
 }
 
 
-export  const addMessageFromDialogs = (message:string|' ', self:boolean)=> {
+export const addMessageFromDialogs = (value: string, self: boolean) => {
     const newMessage = {
         id: State.dialogWrapperObj.messages.length + 1,
-        item: message,
+        item: value,
         self: self,
         avatarURL: selfPhoto
     }
     State.dialogWrapperObj.messages.push(newMessage)
     rerenderEntireThree(State)
 }
-export  const addPostFromProfile = (message:string|' ')=> {
+export const addPostFromProfile = (value: string) => {
     const newPost = {
         profileSelfPhotoImgUrl: selfPhoto,
         id: State.profileWrapperObj.myPostArray.length++,
-        message: message
+        message: value
     }
     State.profileWrapperObj.myPostArray.unshift(newPost)
     rerenderEntireThree(State)
 }
-
+export const textAreaFromPostChanger = (item: string) => {
+    State.profileWrapperObj.currentInputPost = item
+    rerenderEntireThree(State)
+}
+export const textAreaFromDialogsChanger = (item: string) => {
+    debugger
+    State.dialogWrapperObj.currentInputMessageString = item
+    rerenderEntireThree(State)
+}
 
 
 export default State;

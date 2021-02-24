@@ -18,13 +18,14 @@ export function MainWrapper(props: AppStatePropsType) {
                                navLinkBar={props.state.navBarObj.navLinkBar}/>
                 <div className={s.contentWrapper}>
                     <Route path={'/profile'}
-                           render={() => <ProfileWrapper addPostFromProfile={props.addPostFromProfile}
-                                                         myPostArray={props.state.profileWrapperObj.myPostArray}
-                                                         profileSelfPhotoImgUrl={props.state.profileWrapperObj.profileSelfPhotoImgUrl}
-                                                         profileInfoText={props.state.profileWrapperObj.profileInfoText}
+                           render={() => <ProfileWrapper textAreaFromPostChanger={props.textAreaFromPostChanger}
+                                                         addPostFromProfile={props.addPostFromProfile}
+                                                         profileWrapperObj={props.state.profileWrapperObj}
                            />}/>
                     <Route path={'/dialogs'}
-                           render={() => <DialogsWrapper messages={props.state.dialogWrapperObj.messages}
+                           render={() => <DialogsWrapper textAreaFromDialogsChanger={props.textAreaFromDialogsChanger}
+                                                         currentInputMessageString={props.state.dialogWrapperObj.currentInputMessageString}
+                                                         messages={props.state.dialogWrapperObj.messages}
                                                          addMessageFromDialogs={props.addMessageFromDialogs}/>}/>
                     <Route path={'/friends'} render={() => <FriendList/>}/>
                     <Route path={'/news'} render={() => <NewsFeed/>}/>

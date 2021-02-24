@@ -6,8 +6,10 @@ import {MessagesFromDialogsType} from "../../../Redux/State";
 
 
 export type DialogsWrapperPropsType = {
-    addMessageFromDialogs: (message:string, enemy:boolean)=>void
+    addMessageFromDialogs: (value:string,self:boolean)=>void
     messages: Array<MessagesFromDialogsType>
+    textAreaFromDialogsChanger:(item:string)=>void
+    currentInputMessageString:string
 
 }
 
@@ -16,7 +18,10 @@ export function DialogsWrapper(props:DialogsWrapperPropsType) {
     return (
         <div className={s.dialogsWrapper}>
             <FriendListFromDialogs/>
-            <CurrentDialog addMessageFromDialogs={props.addMessageFromDialogs}  messages={messages}/>
+            <CurrentDialog textAreaFromDialogsChanger={props.textAreaFromDialogsChanger}
+                           addMessageFromDialogs={props.addMessageFromDialogs}
+                           currentInputMessageString={props.currentInputMessageString}
+                           messages={messages}/>
         </div>
     )
 }

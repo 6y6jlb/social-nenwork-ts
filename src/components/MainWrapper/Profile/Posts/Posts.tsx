@@ -1,11 +1,20 @@
 import s from "./Posts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
-import {ProfileWrapperObjType} from "../../../../Redux/State";
+import {
+    MyPostArrayType,
+    ProfileInfoTextType,
+    ProfileSelfPhotoImgUrlType,
+    ProfileWrapperObjType
+} from "../../../../Redux/State";
 
+type PostsPropsType = {
+    profileSelfPhotoImgUrl: ProfileSelfPhotoImgUrlType
+    profileInfoText: Array<ProfileInfoTextType>
+    myPostArray: Array<MyPostArrayType>
+}
 
-
-export function Posts(props: ProfileWrapperObjType) {
+export function Posts(props: PostsPropsType) {
     return (
         <div className={s.profilePosts}>
             {props.myPostArray.map(p => {

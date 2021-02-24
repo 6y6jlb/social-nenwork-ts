@@ -1,12 +1,14 @@
 import React from "react";
 import s from './MessageFromCurrentDialog.module.css'
-import {NotMyMessage} from "./NotMyMessage/NotMyMessage";
 import {MyMessage} from "./MyMessage/MyMessage";
-import {DialogWrapperObjType} from "../../../../../Redux/State";
+import {MessagesFromDialogsType} from "../../../../../Redux/State";
+import {NotMyMessage} from "./NotMyMessage/NotMyMessage";
 
+export type MessageFromCurrentDialogPropsType = {
+    messages: Array<MessagesFromDialogsType>
+}
 
-
-export function MessageFromCurrentDialog(props: DialogWrapperObjType) {
+export function MessageFromCurrentDialog(props: MessageFromCurrentDialogPropsType) {
 
     let messagesBlock = props.messages.map(m => {
         return (
