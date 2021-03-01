@@ -11,7 +11,6 @@ export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurre
 
     const addPost = () => {
         const trimmedMessage = props.currentInputMessageString.trim()
-        debugger
         if (trimmedMessage) {
             props.addMessageFromDialogs(trimmedMessage, true)
             props.textAreaFromDialogsChanger('')
@@ -20,7 +19,6 @@ export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurre
         }
     } // adding trimmed post with clearing input
     const inputChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        debugger
         props.textAreaFromDialogsChanger(event.currentTarget.value)
     } //flax changer element
 
