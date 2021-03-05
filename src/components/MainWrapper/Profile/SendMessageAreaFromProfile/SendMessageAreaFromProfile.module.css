@@ -1,7 +1,7 @@
 .sendMessageAreaFromProfile {
+    grid-column-start: 2;
     display: grid;
     grid-template-columns: 1fr;
-    margin-left: 120px;
     margin-top: 5px;
     margin-bottom: 5px;
 

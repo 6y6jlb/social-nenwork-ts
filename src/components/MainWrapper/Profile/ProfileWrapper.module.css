@@ -1,15 +1,18 @@
 
 .profileContent {
     margin-left: 5px;
+    width: 55vw;
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns:120px  minmax(300px,1fr) minmax(10px,90px);
     grid-template-rows: 200px minmax(70px, auto) 1fr;
 }
 
 .profileHeader {
+    grid-column-start: 1;
+    grid-column-end: 3 ;
     display: grid;
     background-image: url("/src/images/logo193.png");
-    width: 100%;
+    width: 1fr;
 
 
 }
@@ -37,6 +40,7 @@
 }
 
 .selfText {
+    grid-column-start: 3;
     display: grid;
     row-gap: 5px;
     margin-top: 40px;
@@ -51,7 +55,6 @@
 }
 
 .profileInfo {
-    display: grid;
-    grid-template-columns: 120px 1fr;
+    grid-column-start: 2;
     margin-bottom: 15px;
 }

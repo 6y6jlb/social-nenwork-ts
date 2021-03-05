@@ -1,11 +1,22 @@
 .appHeader {
+    z-index: 1;
     display: grid;
     grid-template-columns: 200px 1fr;
     color: white;
     background-color: #492F7E;
 
 }
-.appHeader img{
+.circle{
+    margin-left: 30px;
+    display: grid;
+    width: 80px;
+    height:80px;
+    background-color: #492F7E;
+    border-radius: 50%;
+}
+.circle img{
+    align-self: center;
+    justify-self: center;
     width: auto;
-    height: 50px;
+    height: 70px;
 }

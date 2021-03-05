@@ -8,9 +8,18 @@ import {FriendList} from "./FriendList/FriendListr";
 import {NewsFeed} from "./NewsFeed/NewsFeed";
 import {AudioPage} from "./AudioPage/AudioPage";
 import {Settings} from "./Settings/Settings";
-import {AppStatePropsType} from "../../App";
+import {ActionsTypes, RootStateType} from "../../Redux/State";
 
-export function MainWrapper(props: AppStatePropsType) {
+
+type MainWrapperPropsType= {
+    state: RootStateType
+    dispatch: (action:ActionsTypes)=>void
+}
+
+
+
+
+export function MainWrapper(props: MainWrapperPropsType) {
     return (
         <BrowserRouter>
             <div className={s.mainWrapper}>
@@ -18,15 +27,14 @@ export function MainWrapper(props: AppStatePropsType) {
                                navLinkBar={props.state.navBarObj.navLinkBar}/>
                 <div className={s.contentWrapper}>
                     <Route path={'/profile'}
-                           render={() => <ProfileWrapper textAreaFromPostChanger={props.textAreaFromPostChanger}
-                                                         addPostFromProfile={props.addPostFromProfile}
+                           render={() => <ProfileWrapper dispatch={props.dispatch}
                                                          profileWrapperObj={props.state.profileWrapperObj}
                            />}/>
                     <Route path={'/dialogs'}
-                           render={() => <DialogsWrapper textAreaFromDialogsChanger={props.textAreaFromDialogsChanger}
+                           render={() => <DialogsWrapper dispatch={props.dispatch}
                                                          currentInputMessageString={props.state.dialogWrapperObj.currentInputMessageString}
                                                          messages={props.state.dialogWrapperObj.messages}
-                                                         addMessageFromDialogs={props.addMessageFromDialogs}/>}/>
+                                                         />}/>
                     <Route path={'/friends'} render={() => <FriendList/>}/>
                     <Route path={'/news'} render={() => <NewsFeed/>}/>
                     <Route path={'/audio'} render={() => <AudioPage/>}/>

@@ -3,12 +3,11 @@ import s from './CurrentDialog.module.css'
 import {SendMessageAreaFromCurrentDialog} from "./SendMessageAreaFromCurrentDialog/SendMessageAreaFromCurrentDialog";
 import {MessageFromCurrentDialog} from "./MessageFromCurrentDialog/MessageFromCurrentDialog";
 
-import {MessagesFromDialogsType} from "../../../../Redux/State";
+import {ActionsTypes, MessagesFromDialogsType} from "../../../../Redux/State";
 
 export type CurrentDialogPropsType ={
     messages: Array<MessagesFromDialogsType>
-    addMessageFromDialogs: (value:string,self:boolean)=>void
-    textAreaFromDialogsChanger:(item:string)=>void
+    dispatch: (action:ActionsTypes)=>void
     currentInputMessageString:string
 }
 
@@ -21,9 +20,8 @@ export function CurrentDialog(props: CurrentDialogPropsType) {
 
             <MessageFromCurrentDialog   messages={props.messages}/>
 
-            <SendMessageAreaFromCurrentDialog textAreaFromDialogsChanger={props.textAreaFromDialogsChanger}
-                                              currentInputMessageString={props.currentInputMessageString}
-                                              addMessageFromDialogs={props.addMessageFromDialogs} />
+            <SendMessageAreaFromCurrentDialog dispatch={props.dispatch}
+                                              currentInputMessageString={props.currentInputMessageString}/>
 
         </div>
     )

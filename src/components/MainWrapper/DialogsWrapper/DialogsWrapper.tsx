@@ -2,13 +2,12 @@ import React from "react";
 import {CurrentDialog} from "./CurrentDialog/CurrentDialog";
 import {FriendListFromDialogs} from "./FriendListFromDialogs/FriendListFromDialogs";
 import s from './DialogsWrapper.module.css'
-import {MessagesFromDialogsType} from "../../../Redux/State";
+import {ActionsTypes, MessagesFromDialogsType} from "../../../Redux/State";
 
 
 export type DialogsWrapperPropsType = {
-    addMessageFromDialogs: (value:string,self:boolean)=>void
+    dispatch: (action:ActionsTypes)=>void
     messages: Array<MessagesFromDialogsType>
-    textAreaFromDialogsChanger:(item:string)=>void
     currentInputMessageString:string
 
 }
@@ -18,8 +17,7 @@ export function DialogsWrapper(props:DialogsWrapperPropsType) {
     return (
         <div className={s.dialogsWrapper}>
             <FriendListFromDialogs/>
-            <CurrentDialog textAreaFromDialogsChanger={props.textAreaFromDialogsChanger}
-                           addMessageFromDialogs={props.addMessageFromDialogs}
+            <CurrentDialog dispatch={props.dispatch}
                            currentInputMessageString={props.currentInputMessageString}
                            messages={messages}/>
         </div>
