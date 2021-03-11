@@ -1,6 +1,8 @@
 import selfPhoto from "../images/face.png";
 import photo from "../images/face.png";
 
+
+
 type AddPostType = {
     type: 'ADD-POST'
 }
@@ -70,10 +72,6 @@ export type StoreType = {
     _subscriber: () => void
     getState: () => RootStateType
     subscribe: (observer: () => void) => void
-    _addMessageFromDialogs: (value: string, self: boolean) => void
-    _addPostFromProfile: (value: string) => void
-    _textAreaFromPostChanger: (item: string) => void
-    _textAreaFromDialogsChanger: (item: string) => void
     dispatch: (action: ActionsTypes) => void
 }
 
@@ -161,33 +159,6 @@ let store: StoreType = {
         console.log('1')
         this._subscriber = observer;
     },
-    _addMessageFromDialogs(value: string, self: boolean) {
-        const newMessage = {
-            id: this._state.dialogWrapperObj.messages.length + 1,
-            item: value,
-            self: self,
-            avatarURL: selfPhoto
-        }
-        this._state.dialogWrapperObj.messages.push(newMessage)
-        this._subscriber()
-    },
-    _addPostFromProfile() {
-        const newPost = {
-            profileSelfPhotoImgUrl: selfPhoto,
-            id: this._state.profileWrapperObj.myPostArray.length++,
-            message: this._state.profileWrapperObj.currentInputPost
-        }
-        this._state.profileWrapperObj.myPostArray.unshift(newPost)
-        this._subscriber()
-    },
-    _textAreaFromPostChanger(item: string) {
-        this._state.profileWrapperObj.currentInputPost = item
-        this._subscriber()
-    },
-    _textAreaFromDialogsChanger(item: string) {
-        this._state.dialogWrapperObj.currentInputMessageString = item;
-        this._subscriber();
-    },
     dispatch(action) {
         if (action.type === 'ADD-POST') {
             const newPost = {
@@ -213,8 +184,21 @@ let store: StoreType = {
             this._state.dialogWrapperObj.currentInputMessageString = action.item;
             this._subscriber();
         }
-    }
+    },
+
 }
 
+export const addPostActionCreator = ():AddPostType=>{
+    return {type:"ADD-POST",}
+}
+export const changePostInputActionCreator = (item:string):ChangePostInputTextType=>{
+    return {type:"CHANGE-POST-INPUT-TEXT",item}
+}
+export const changeDialogsInputActionCreator = (item:string):ChangeDialogsMessageTextType=>{
+    return {type:"CHANGE-DIALOGS-INPUT-TEXT",item}
+}
+export const addDialogsMessageActionCreator = (self:boolean):AddDialogsMessageType=>{
+    return {type:"ADD-DIALOGS-MESSAGE",self}
+}
 
 export default store;

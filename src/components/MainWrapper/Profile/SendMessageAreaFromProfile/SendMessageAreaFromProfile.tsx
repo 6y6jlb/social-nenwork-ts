@@ -1,26 +1,28 @@
 import s from "./SendMessageAreaFromProfile.module.css";
 import React, {ChangeEvent} from "react";
-import {ActionsTypes} from "../../../../Redux/State";
+import {ActionsTypes, addPostActionCreator, changePostInputActionCreator} from "../../../../Redux/State";
 
 type SendMessageAreaFromProfilePropsType = {
     currentInputPostString: string
     dispatch: (action: ActionsTypes) => void
 }
 
+
 export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfilePropsType) {
+
 
 
     const addPost = () => {
         const trimmedPost = props.currentInputPostString.trim()
         if (trimmedPost) {
-            props.dispatch({type: "ADD-POST"})
-            props.dispatch({type: "CHANGE-POST-INPUT-TEXT", item: ''})
+            props.dispatch(addPostActionCreator())
+            props.dispatch(changePostInputActionCreator(''))
         } else {
-            props.dispatch({type: "CHANGE-POST-INPUT-TEXT", item: ''})
+            props.dispatch(changePostInputActionCreator(''))
         }
     } // adding trimmed post with clearing input
     const inputChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: "CHANGE-POST-INPUT-TEXT", item: event.currentTarget.value})
+        props.dispatch(changePostInputActionCreator(event.currentTarget.value))
     } //flax changer element
 
     return (
