@@ -1,6 +1,7 @@
 import s from "./SendMessageAreaFromProfile.module.css";
 import React, {ChangeEvent} from "react";
-import {ActionsTypes, addPostActionCreator, changePostInputActionCreator} from "../../../../Redux/State";
+import {ActionsTypes} from "../../../../Redux/State";
+import {addPostActionCreator, changePostInputActionCreator} from "../../../../Redux/profileReducer";
 
 type SendMessageAreaFromProfilePropsType = {
     currentInputPostString: string

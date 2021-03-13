@@ -1,24 +1,15 @@
 import selfPhoto from "../images/face.png";
 import photo from "../images/face.png";
+import profileReducer, {addPostActionCreator, changePostInputActionCreator} from "./profileReducer";
+import dialogsReducer, {addDialogsMessageActionCreator, changeDialogsInputActionCreator} from "./dialogsReducer";
+import navBarReducer from "./navBarReducer";
 
 
-
-type AddPostType = {
-    type: 'ADD-POST'
-}
-type AddDialogsMessageType = {
-    type: 'ADD-DIALOGS-MESSAGE'
-    self: boolean
-}
-type ChangePostInputTextType = {
-    type: 'CHANGE-POST-INPUT-TEXT'
-    item: string
-}
-type ChangeDialogsMessageTextType = {
-    type: 'CHANGE-DIALOGS-INPUT-TEXT'
-    item: string
-}
-export type ActionsTypes = AddPostType | ChangePostInputTextType | AddDialogsMessageType | ChangeDialogsMessageTextType
+export type ActionsTypes =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof addDialogsMessageActionCreator>
+    | ReturnType<typeof changePostInputActionCreator>
+    | ReturnType<typeof changeDialogsInputActionCreator>
 
 
 export type NavLinkBarType = {
@@ -156,49 +147,17 @@ let store: StoreType = {
 
     },
     subscribe(observer: () => void) {
-        console.log('1')
         this._subscriber = observer;
     },
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
-            const newPost = {
-                profileSelfPhotoImgUrl: selfPhoto,
-                id: this._state.profileWrapperObj.myPostArray.length++,
-                message: this._state.profileWrapperObj.currentInputPost
-            }
-            this._state.profileWrapperObj.myPostArray.unshift(newPost)
-            this._subscriber()
-        } else if (action.type === 'ADD-DIALOGS-MESSAGE') {
-            const newMessage = {
-                id: this._state.dialogWrapperObj.messages.length + 1,
-                item: this._state.dialogWrapperObj.currentInputMessageString,
-                self: action.self,
-                avatarURL: selfPhoto
-            }
-            this._state.dialogWrapperObj.messages.push(newMessage)
-            this._subscriber()
-        } else if (action.type === 'CHANGE-POST-INPUT-TEXT') {
-            this._state.profileWrapperObj.currentInputPost = action.item
-            this._subscriber()
-        } else if (action.type === 'CHANGE-DIALOGS-INPUT-TEXT') {
-            this._state.dialogWrapperObj.currentInputMessageString = action.item;
-            this._subscriber();
-        }
+
+        profileReducer(this._state.profileWrapperObj, action)
+        dialogsReducer(this._state.dialogWrapperObj, action)
+        navBarReducer(this._state.navBarObj, action)
+
+        this._subscriber()
     },
 
-}
-
-export const addPostActionCreator = ():AddPostType=>{
-    return {type:"ADD-POST",}
-}
-export const changePostInputActionCreator = (item:string):ChangePostInputTextType=>{
-    return {type:"CHANGE-POST-INPUT-TEXT",item}
-}
-export const changeDialogsInputActionCreator = (item:string):ChangeDialogsMessageTextType=>{
-    return {type:"CHANGE-DIALOGS-INPUT-TEXT",item}
-}
-export const addDialogsMessageActionCreator = (self:boolean):AddDialogsMessageType=>{
-    return {type:"ADD-DIALOGS-MESSAGE",self}
 }
 
 export default store;

@@ -3,7 +3,7 @@ import {ProfileWrapper} from "./Profile/ProfileWrapper";
 import React from "react";
 import s from './MainWrapper.module.css'
 import {DialogsWrapper} from "./DialogsWrapper/DialogsWrapper";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route} from "react-router-dom";
 import {FriendList} from "./FriendList/FriendListr";
 import {NewsFeed} from "./NewsFeed/NewsFeed";
 import {AudioPage} from "./AudioPage/AudioPage";
@@ -21,7 +21,7 @@ type MainWrapperPropsType= {
 
 export function MainWrapper(props: MainWrapperPropsType) {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <div className={s.mainWrapper}>
                 <NavigationBar friendsIcons={props.state.navBarObj.friendsIcons}
                                navLinkBar={props.state.navBarObj.navLinkBar}/>
@@ -42,7 +42,7 @@ export function MainWrapper(props: MainWrapperPropsType) {
                 </div>
 
             </div>
-        </BrowserRouter>
+        </HashRouter>
     )
 }
 

@@ -1,10 +1,9 @@
 import React, {ChangeEvent} from "react";
 import s from './SendMessageAreaFromCurrentDialog.module.css'
 import {
-    ActionsTypes,
-    addDialogsMessageActionCreator,
-    changeDialogsInputActionCreator
+    ActionsTypes
 } from "../../../../../Redux/State";
+import {addDialogsMessageActionCreator, changeDialogsInputActionCreator} from "../../../../../Redux/dialogsReducer";
 
 type SendMessageAreaFromCurrentDialogPropsType = {
     currentInputMessageString: string
