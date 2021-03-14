@@ -86,6 +86,48 @@ a:active {
 
     background-color: #549d6a;
     transition-duration: 0.7s;
+
+
+}
+
+@media (max-width: 1400px) {
+
+    .navigationBar {
+        display: grid;
+        grid-template-columns: 150px;
+    }
+    .activeFriends {
+        padding: 12px 5px;
+        justify-content:space-evenly;
+        display: grid;
+        column-gap: 8px;
+        justify-self: center;
+        grid-template-columns: 60px 60px;
+        margin-left: 0;
+        height: max-content;
+        width:max-content;}
+}
+@media (max-width: 1111px) {
+    .navigationBar {
+        display: grid;
+        grid-template-columns: 100px;
+    }
+    .activeFriends {
+        padding: 12px 5px;
+        justify-content:space-evenly;
+        display: grid;
+        column-gap: 18px;
+        justify-self: center;
+        grid-template-columns: 60px;
+        margin-left: 0;
+        height: max-content;
+        width:max-content;}
+
+    .backGroundBlock {
+        display: grid;
+        width:max-content;
+        height:max-content;
+    }
 }
 
 

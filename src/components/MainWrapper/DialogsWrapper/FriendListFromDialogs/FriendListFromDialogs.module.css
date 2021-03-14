@@ -17,3 +17,9 @@
 .active {
     background-color: #2c1c4e;
 }
+@media (max-width:  1111px) {
+    .friendListFromDialogs {
+        margin: 0 5px;
+    }
+
+}
