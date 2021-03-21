@@ -2,21 +2,25 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import s from './NavigationBar.module.css'
 import {SmallInfo} from "./SmallInfo/SmallInfo";
-import {NavBarObjType} from "../../../Redux/State";
+import {FriendIconsFromNAvBArType, NavLinkBarFromNAvBArType} from "../../../Redux/navBarReducer";
 
 
 
+type NavBarPropsType = {
+    navLinkBar: Array<NavLinkBarFromNAvBArType>
+    friendsIcons: Array<FriendIconsFromNAvBArType>
+}
 
-export function NavigationBar({navLinkBar, friendsIcons}:NavBarObjType) {
+export function NavigationBar({navLinkBar, friendsIcons}: NavBarPropsType) {
 
-const navLinkBlock = navLinkBar.map(i=>{
-    return <div key={i.id}>
-        <NavLink to={i.item}>{i.item}</NavLink>
-    </div>
-})
-    const friendsIconsBlock = friendsIcons.map(f=>{
+    const navLinkBlock = navLinkBar.map(i => {
+        return <div key={i.id}>
+            <NavLink to={i.item}>{i.item}</NavLink>
+        </div>
+    })
+    const friendsIconsBlock = friendsIcons.map(f => {
         return <div key={f.id} className={s.iconBlock}>
-            <div className={s.backGroundBlock}> <img src={f.photoUrl}/></div>
+            <div className={s.backGroundBlock}><img src={f.photoUrl}/></div>
 
             <span>{f.name}</span>
         </div>

@@ -2,12 +2,15 @@ import React from "react";
 import s from './ProfileWrapper.module.css'
 import {SendMessageAreaFromProfile} from "./SendMessageAreaFromProfile/SendMessageAreaFromProfile";
 import {Posts} from "./Posts/Posts";
-import {ActionsTypes, ProfileWrapperObjType} from "../../../Redux/State";
+import {InitialStateProfileType} from "../../../Redux/profileReducer";
+
 
 
 export type ProfileWrapperPropsType = {
-    profileWrapperObj: ProfileWrapperObjType
-    dispatch: (action:ActionsTypes)=>void
+    onAddPost: () => void
+    onPostChanger: (text: string) => void
+    profileWrapperObj: InitialStateProfileType
+
 
 }
 
@@ -34,8 +37,8 @@ export function ProfileWrapper(props: ProfileWrapperPropsType) {
                     })}
                 </div>
             </div>
-            <SendMessageAreaFromProfile dispatch={props.dispatch}
-                                        currentInputPostString={props.profileWrapperObj.currentInputPost}/>
+            <SendMessageAreaFromProfile onAddPost={props.onAddPost} onPostChanger={props.onPostChanger}
+                                        currentInputPost={props.profileWrapperObj.currentInputPost}/>
             <Posts profileInfoText={props.profileWrapperObj.profileInfoText}
                    profileSelfPhotoImgUrl={props.profileWrapperObj.profileSelfPhotoImgUrl}
                    myPostArray={props.profileWrapperObj.myPostArray}/>

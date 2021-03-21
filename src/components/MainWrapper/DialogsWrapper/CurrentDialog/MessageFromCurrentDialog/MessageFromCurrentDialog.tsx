@@ -1,8 +1,9 @@
 import React from "react";
 import s from './MessageFromCurrentDialog.module.css'
 import {MyMessage} from "./MyMessage/MyMessage";
-import {MessagesFromDialogsType} from "../../../../../Redux/State";
 import {NotMyMessage} from "./NotMyMessage/NotMyMessage";
+import {MessagesFromDialogsType} from "../../../../../Redux/dialogsReducer";
+
 
 export type MessageFromCurrentDialogPropsType = {
     messages: Array<MessagesFromDialogsType>

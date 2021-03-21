@@ -1,6 +1,6 @@
 .currentDialogWrapper{
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr minmax(max-content,80px);
     align-content: start ;
 }
 

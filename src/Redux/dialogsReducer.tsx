@@ -1,17 +1,53 @@
 import selfPhoto from "../images/face.png";
-import {ActionsTypes, DialogWrapperObjType} from "./State";
+import photo from "../images/face.png";
+import {ActionsTypes} from "./reduxStore";
 
-export const changeDialogsInputActionCreator = (item: string) => {
-    return {type: CHANGE_DIALOGS_INPUT_TEXT, item} as const
+
+export const ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE'
+type AddDialogsMessageType = {
+    type: typeof ADD_DIALOGS_MESSAGE
+    self: boolean
 }
-export const addDialogsMessageActionCreator = (self: boolean) => {
+export const addDialogsMessageActionCreator = (self: boolean): AddDialogsMessageType => {
     return {type: ADD_DIALOGS_MESSAGE, self} as const
 }
 
-export const ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE'
 export const CHANGE_DIALOGS_INPUT_TEXT = 'CHANGE-DIALOGS-INPUT-TEXT'
+type ChangeDialogsInputTextType = {
+    type: typeof CHANGE_DIALOGS_INPUT_TEXT
+    item: string
+}
+export const changeDialogsInputActionCreator = (item: string): ChangeDialogsInputTextType => {
+    return {type: CHANGE_DIALOGS_INPUT_TEXT, item} as const
+}
 
-const dialogsReducer = (state: DialogWrapperObjType, action: ActionsTypes) => {
+
+export type MessagesFromDialogsType = {
+    id: number
+    item: string
+    self: boolean
+    avatarURL: string
+}
+export type InitialStateDialogsType = typeof initialState
+
+const initialState = {
+    currentInputMessageString: '',
+    messages: [
+        {id: 1, item: 'myMessage', self: true, avatarURL: photo},
+        {id: 2, item: 'notMyMessage', self: false, avatarURL: photo},
+        {id: 3, item: 'myMessage', self: true, avatarURL: photo},
+        {id: 4, item: 'myMessage', self: true, avatarURL: photo},
+        {id: 5, item: 'notMyMessage', self: false, avatarURL: photo},
+        {id: 6, item: 'notMyMessage', self: false, avatarURL: photo},
+        {id: 7, item: 'myMessage', self: true, avatarURL: photo},
+        {id: 8, item: 'myMessage', self: true, avatarURL: photo},
+        {id: 9, item: 'notMyMessage', self: false, avatarURL: photo},
+        {id: 10, item: 'myMessage', self: true, avatarURL: photo},
+        {id: 11, item: 'notMyMessage', self: false, avatarURL: photo},
+    ] as Array<MessagesFromDialogsType>
+}
+
+const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateDialogsType => {
     switch (action.type) {
         case ADD_DIALOGS_MESSAGE:
             const newMessage = {

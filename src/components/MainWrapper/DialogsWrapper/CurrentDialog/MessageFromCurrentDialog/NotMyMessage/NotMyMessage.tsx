@@ -1,6 +1,7 @@
 import s from "./NotMyMessage.module.css";
 import React from "react";
-import {MessagesFromDialogsType} from "../../../../../../Redux/State";
+import {MessagesFromDialogsType} from "../../../../../../Redux/dialogsReducer";
+
 
 
 export function NotMyMessage(props: MessagesFromDialogsType) {

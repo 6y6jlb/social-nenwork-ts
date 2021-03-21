@@ -1,30 +1,31 @@
 import React, {ChangeEvent} from "react";
 import s from './SendMessageAreaFromCurrentDialog.module.css'
-import {
-    ActionsTypes
-} from "../../../../../Redux/State";
-import {addDialogsMessageActionCreator, changeDialogsInputActionCreator} from "../../../../../Redux/dialogsReducer";
+
 
 type SendMessageAreaFromCurrentDialogPropsType = {
+    onAddPost: () => void
+    onPostChanger: (text: string) => void
     currentInputMessageString: string
-    dispatch: (action: ActionsTypes) => void
+    /*dispatch: (action: ActionsTypes) => void*/
 }
 
 export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurrentDialogPropsType) {
 
 
     const addPost = () => {
-        const trimmedMessage = props.currentInputMessageString.trim()
+        props.onAddPost();
+        /*const trimmedMessage = props.currentInputMessageString.trim()
         if (trimmedMessage) {
             props.dispatch(addDialogsMessageActionCreator(true))
             props.dispatch(changeDialogsInputActionCreator(''))
         } else {
             props.dispatch(changeDialogsInputActionCreator(''))
-        }
+        }*/
     } // adding trimmed post with clearing input
     const inputChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        console.log(props.currentInputMessageString)
-        props.dispatch(changeDialogsInputActionCreator(event.currentTarget.value))
+        const text = event.currentTarget.value;
+        props.onPostChanger(text);
+        /*props.dispatch(changeDialogsInputActionCreator(event.currentTarget.value))*/
     } //flax changer element
 
     return (

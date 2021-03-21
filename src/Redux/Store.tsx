@@ -1,71 +1,53 @@
-import selfPhoto from "../images/face.png";
-import photo from "../images/face.png";
-import profileReducer, {addPostActionCreator, changePostInputActionCreator} from "./profileReducer";
-import dialogsReducer, {addDialogsMessageActionCreator, changeDialogsInputActionCreator} from "./dialogsReducer";
-import navBarReducer from "./navBarReducer";
+import {ActionsTypes} from "./reduxStore";
+export const one=1
 
-
-export type ActionsTypes =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof addDialogsMessageActionCreator>
-    | ReturnType<typeof changePostInputActionCreator>
-    | ReturnType<typeof changeDialogsInputActionCreator>
-
-
-export type NavLinkBarType = {
+type NavLinkBarType = {
     id: number
     item: string
 }
-export type NavBarObjType = {
+type NavBarObjType = {
     navLinkBar: Array<NavLinkBarType>
     friendsIcons: Array<FriendsIconsFromNavBarType>
 }
-export type MessagesFromDialogsType = {
+type MessagesFromDialogsType = {
     id: number
     item: string
     self: boolean
     avatarURL: string
 
 }
-export type ProfileInfoTextType = {
+type ProfileInfoTextType = {
     id: number
     postMessage: string
 }
-export type ProfileSelfPhotoImgUrlType = string
-export type MyPostArrayType = {
+type ProfileSelfPhotoImgUrlType = string
+type MyPostArrayType = {
     profileSelfPhotoImgUrl: ProfileSelfPhotoImgUrlType
     id: number
     message: string
 }
-export type DialogWrapperObjType = {
+type DialogWrapperObjType = {
     messages: Array<MessagesFromDialogsType>
     currentInputMessageString: string
 }
-export type ProfileWrapperObjType = {
+type ProfileWrapperObjType = {
     profileSelfPhotoImgUrl: ProfileSelfPhotoImgUrlType
     profileInfoText: Array<ProfileInfoTextType>
     myPostArray: Array<MyPostArrayType>
     currentInputPost: string
 }
-export type FriendsIconsFromNavBarType = {
+type FriendsIconsFromNavBarType = {
     photoUrl: string
     id: number
     name: string
 }
-export type RootStateType = {
+type RootStateType = {
     profileWrapperObj: ProfileWrapperObjType
     dialogWrapperObj: DialogWrapperObjType
     navBarObj: NavBarObjType
 
 }
-export type StoreType = {
-    _state: RootStateType
-    _subscriber: () => void
-    getState: () => RootStateType
-    subscribe: (observer: () => void) => void
-    dispatch: (action: ActionsTypes) => void
-}
-
+/*
 let store: StoreType = {
     _state: {
         profileWrapperObj: {
@@ -161,3 +143,11 @@ let store: StoreType = {
 }
 
 export default store;
+*/
+type StoreType = {
+    _state: RootStateType
+    _subscriber: () => void
+    getState: () => RootStateType
+    subscribe: (observer: () => void) => void
+    dispatch: (action: ActionsTypes) => void
+}

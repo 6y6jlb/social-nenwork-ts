@@ -1,10 +1,11 @@
 import s from "./Post.module.css";
 import React from "react";
-import {MyPostArrayType} from "../../../../../Redux/State";
+import {MyPostArrayFromProfileType} from "../../../../../Redux/profileReducer";
 
 
 
-export function Post(props: MyPostArrayType) {
+
+export function Post(props: MyPostArrayFromProfileType) {
     return (
         <div className={s.profilePost} key={props.id}>
             <div className={s.avatarAndLikes}>

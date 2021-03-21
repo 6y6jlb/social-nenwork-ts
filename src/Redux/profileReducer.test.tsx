@@ -1,5 +1,5 @@
 import selfPhoto from "../images/face.png";
-import profileReducer from "./profileReducer";
+import profileReducer, {addPostActionCreator, changePostInputActionCreator} from "./profileReducer";
 
 test('profile reducer and action test', (() => {
     const state = {
@@ -37,15 +37,8 @@ test('profile reducer and action test', (() => {
         ]
     }
 
-    const actionAddPost={
-        type: 'ADD-POST'
-
-    }
-    const actionChangePostInput={
-        type: 'CHANGE-POST-INPUT-TEXT',
-        item: 'stringTest'
-
-    }
+    const actionAddPost=addPostActionCreator()
+    const actionChangePostInput=changePostInputActionCreator('stringTest')
 
     const testProfileReducerAdd = profileReducer(state,actionAddPost)
     const testProfileReducerChange = profileReducer(state,actionChangePostInput)

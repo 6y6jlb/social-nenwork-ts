@@ -1,35 +1,37 @@
 import s from "./SendMessageAreaFromProfile.module.css";
 import React, {ChangeEvent} from "react";
-import {ActionsTypes} from "../../../../Redux/State";
-import {addPostActionCreator, changePostInputActionCreator} from "../../../../Redux/profileReducer";
 
 type SendMessageAreaFromProfilePropsType = {
-    currentInputPostString: string
-    dispatch: (action: ActionsTypes) => void
+    currentInputPost: string
+    onAddPost: () => void
+    onPostChanger: (text: string) => void
+    /* dispatch: (action: ActionsTypes) => void*/
 }
 
 
 export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfilePropsType) {
 
 
-
-    const addPost = () => {
-        const trimmedPost = props.currentInputPostString.trim()
-        if (trimmedPost) {
-            props.dispatch(addPostActionCreator())
-            props.dispatch(changePostInputActionCreator(''))
-        } else {
-            props.dispatch(changePostInputActionCreator(''))
-        }
+    const onAddPost = () => {
+        props.onAddPost()
+        /* const trimmedPost = props.currentInputPostString.trim()
+         if (trimmedPost) {
+             props.dispatch(addPostActionCreator())
+             props.dispatch(changePostInputActionCreator(''))
+         } else {
+             props.dispatch(changePostInputActionCreator(''))
+         }*/
     } // adding trimmed post with clearing input
-    const inputChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(changePostInputActionCreator(event.currentTarget.value))
+    const onPostChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        const text = event.currentTarget.value
+        props.onPostChanger(text)
+        /*props.dispatch(changePostInputActionCreator(event.currentTarget.value))*/
     } //flax changer element
 
     return (
         <div className={s.sendMessageAreaFromProfile}>
-            <textarea value={props.currentInputPostString} onChange={inputChanger}/>
-            <button onClick={addPost}>send message</button>
+            <textarea value={props.currentInputPost} onChange={onPostChanger}/>
+            <button onClick={onAddPost}>send message</button>
         </div>
     )
 }

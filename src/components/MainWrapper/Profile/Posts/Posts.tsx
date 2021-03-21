@@ -1,17 +1,13 @@
 import s from "./Posts.module.css";
 import {Post} from "./Post/Post";
 import React from "react";
-import {
-    MyPostArrayType,
-    ProfileInfoTextType,
-    ProfileSelfPhotoImgUrlType,
-    ProfileWrapperObjType
-} from "../../../../Redux/State";
+import {MyPostArrayFromProfileType, ProfileInfoTextFromProfileType} from "../../../../Redux/profileReducer";
+
 
 type PostsPropsType = {
-    profileSelfPhotoImgUrl: ProfileSelfPhotoImgUrlType
-    profileInfoText: Array<ProfileInfoTextType>
-    myPostArray: Array<MyPostArrayType>
+    profileSelfPhotoImgUrl: string
+    profileInfoText: Array<ProfileInfoTextFromProfileType>
+    myPostArray: Array<MyPostArrayFromProfileType>
 }
 
 export function Posts(props: PostsPropsType) {
