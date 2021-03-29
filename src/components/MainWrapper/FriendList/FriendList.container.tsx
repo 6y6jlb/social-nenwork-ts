@@ -1,17 +1,34 @@
 import React from "react";
 import {connect} from "react-redux";
-import FriendList from "./FriendListr";
+import FriendList from "./FriendList";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {Dispatch} from "redux";
+import {followActionCreator, InitialStateUsersType, unFollowActionCreator} from "../../../Redux/usersReducer";
 
-
-function mapStateToProps(state:AppStateType) {
-    return
+type MapStateToPropsType = {
+    users: InitialStateUsersType
+}
+type MapDispatchToPropsType = {
+    followCallBack: (id: number) => void
+    unFollowCallBack: (id: number) => void
 }
 
-function mapDispatchToProps(dispatch:Dispatch) {
-    return
+function mapStateToProps(state: AppStateType): MapStateToPropsType {
+    return {
+        users:state.usersReducer
+    }
 }
 
-const FriendListContainer = connect(mapStateToProps,mapDispatchToProps)(FriendList)
+function mapDispatchToProps(dispatch: Dispatch): MapDispatchToPropsType {
+    return {
+        followCallBack: (id: number) => {
+            dispatch(followActionCreator(id))
+        },
+        unFollowCallBack: (id: number) => {
+            dispatch(unFollowActionCreator(id))
+        },
+    }
+}
+
+const FriendListContainer = connect(mapStateToProps, mapDispatchToProps)(FriendList)
 export default FriendListContainer;

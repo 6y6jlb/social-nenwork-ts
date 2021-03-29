@@ -1,0 +1,25 @@
+.user {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    background-color: #d3b2e5;
+    color: #150b22;
+    border-radius: 5px;
+    padding: 5px;
+}
+.description {
+    display: grid;
+    
+}
+.photoZone {
+    display: grid;
+}
+.photoZone img{
+    width: 50px;
+    height: 50px;
+    border-radius: 2px;
+}
+.usersFrame {
+    display: grid;
+    margin: 0 auto 0 20px;
+    row-gap: 10px;
+}

@@ -1,14 +1,13 @@
 import React from "react";
 import s from './MainWrapper.module.css'
 import {BrowserRouter, Route} from "react-router-dom";
-import FriendList from "./FriendList/FriendListr";
 import {NewsFeed} from "./NewsFeed/NewsFeed";
 import {AudioPage} from "./AudioPage/AudioPage";
 import {Settings} from "./Settings/Settings";
 import DialogsWrapperContainer from "./DialogsWrapper/DialogsWrapper.container";
 import ProfileWrapperContainer from "./Profile/ProfileWrapper.container";
 import NavigationBarContainer from "./Navigation/NavigationBar.container";
-
+import FriendListContainer from "./FriendList/FriendList.container";
 
 
 export function MainWrapper() {
@@ -18,19 +17,21 @@ export function MainWrapper() {
                 <NavigationBarContainer/>
                 <div className={s.contentWrapper}>
 
-                    <Route path={'/profile'}
+                    <Route exact path={'/profile'}
                            render={() => <ProfileWrapperContainer
                            />}/>
-                    <Route path={'/dialogs'}
+                    <Route exact path={'/dialogs'}
                            render={() => <DialogsWrapperContainer
                            />}/>
-                    <Route path={'/friends'} render={() => <FriendList/>}/>
-                    <Route path={'/news'} render={() => <NewsFeed/>}/>
-                    <Route path={'/audio'} render={() => <AudioPage/>}/>
-                    <Route path={'/settings'} render={() => <Settings/>}/>
-                   {/* <Route path={'/'}
+                    <Route exact path={'/friends'}
+                           render={() => <FriendListContainer
+                    />}/>
+                    <Route exact path={'/news'} render={() => <NewsFeed/>}/>
+                    <Route exact path={'/audio'} render={() => <AudioPage/>}/>
+                    <Route exact path={'/settings'} render={() => <Settings/>}/>
+                    <Route exact path={'/'}
                            render={() => <ProfileWrapperContainer
-                           />}/>*/}
+                           />}/>
                 </div>
 
             </div>
