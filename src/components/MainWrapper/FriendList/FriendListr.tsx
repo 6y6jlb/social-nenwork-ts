@@ -1,9 +1,10 @@
 import React from "react";
 
-export function FriendList() {
+function FriendList() {
     return (
         <div>
             friends
         </div>
     )
 }
+export default FriendList;

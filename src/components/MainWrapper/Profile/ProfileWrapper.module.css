@@ -1,7 +1,7 @@
 
 .profileContent {
     margin-left: 5px;
-    width: 55vw;
+    width: 60vw;
     display: grid;
     grid-template-columns:120px  minmax(300px,1fr) minmax(10px,90px);
     grid-template-rows: 200px minmax(70px, auto) 1fr;
@@ -57,4 +57,15 @@
 .profileInfo {
     grid-column-start: 2;
     margin-bottom: 15px;
+}
+@media (max-width: 900px) {
+    .profileContent {
+        margin-left: 5px;
+        width: min-content;
+        display: grid;
+        grid-template-columns:20px  minmax(300px,1fr) minmax(10px,90px);
+        grid-template-rows: 200px minmax(70px, auto) 1fr;
+    }
+
+
 }

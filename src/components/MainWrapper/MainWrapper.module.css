@@ -1,14 +1,14 @@
 .mainWrapper {
     text-align: start;
     display: grid;
-    grid-template-columns: 200px minmax(600px,1fr);
+    grid-template-columns: 200px minmax(max-content,2fr);
     margin: 10px auto 10px auto;
 }
 
 @media (max-width: 1400px) {
     .mainWrapper {
         display: grid;
-        grid-template-columns: 150px minmax(600px,1fr);
+        grid-template-columns: 150px minmax(max-content,2fr);
     }
 
 }
@@ -17,7 +17,7 @@
 @media (max-width: 1111px) {
 .mainWrapper {
     display: grid;
-    grid-template-columns: 100px minmax(600px,1fr);
+    grid-template-columns: 100px minmax(max-content,2fr);
 }
 
 }

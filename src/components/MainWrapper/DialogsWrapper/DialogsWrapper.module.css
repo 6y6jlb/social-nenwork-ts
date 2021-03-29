@@ -8,14 +8,14 @@
     width: 55vw;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: minmax(250px,auto) minmax(500px,3fr);
+    grid-template-columns: minmax(250px,auto) minmax(max-content,3fr);
 
 
 }}
 @media (max-width:  1111px) {
     .dialogsWrapper{
         display: grid;
-        grid-template-columns: minmax(150px,auto) minmax(300px,2fr);
+        grid-template-columns: minmax(150px,auto) minmax(max-content,2fr);
     }
 
 }
