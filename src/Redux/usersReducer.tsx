@@ -97,7 +97,7 @@ const initialState = [
 const usersReducer = (state = initialState, action: ActionsTypes): InitialStateUsersType => {
     switch (action.type) {
         case FOLLOW:
-            return {
+            return [
                 ...state.map(user => {
                         if (user.id === action.id) {
                             return {...user, followed: true}
@@ -106,9 +106,9 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateU
                         }
                     }
                 )
-            };
+            ];
         case UN_FOLLOW:
-            return {
+            return [
                 ...state.map(user => {
                         if (user.id === action.id) {
                             return {...user, followed: false}
@@ -117,7 +117,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateU
                         }
                     }
                 )
-            };
+            ];
         case ADD_MORE_USERS:
             return {...state, ...action.users}
         default:
