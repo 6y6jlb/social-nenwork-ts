@@ -1,25 +1,74 @@
 .user {
     display: grid;
-    grid-template-columns: max-content 1fr;
-    background-color: #d3b2e5;
-    color: #150b22;
+    grid-template-columns: 150px 1fr;
+    background-color: #492F7E;
+    color: white;
     border-radius: 5px;
-    padding: 5px;
+    padding: 15px 5px;
 }
+
 .description {
     display: grid;
-    
+    column-gap: 20px;
+    grid-template-columns: 1fr 100px;
+    grid-template-rows: repeat(auto-fill, 1fr);
+
 }
+
+.userStatus {
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+.location {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    align-self: end;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    text-transform: uppercase;
+    background-color:#6f589f;
+    border-radius: 5px;
+    justify-self: center;
+    padding: 5px 2px;
+}
+
+.country {
+    font-size: 1.1em;
+}
+
+.city {
+    font-size: 0.8em;
+}
+
 .photoZone {
     display: grid;
+    row-gap: 10px;
+    align-self: center;
+    justify-self: center;
 }
-.photoZone img{
+
+.photoZone img {
+    align-self: center;
+    justify-self: center;
     width: 50px;
     height: 50px;
     border-radius: 2px;
 }
+
+.followed {
+    display: inline-block;
+    align-self: center;
+    justify-self: center;
+    cursor: pointer;
+    background-color: #69BA85;
+    text-align: center;
+    border-radius: 5px;
+}
+
 .usersFrame {
     display: grid;
-    margin: 0 auto 0 20px;
+    width: 60vw;
+    margin: 0 auto 0 30px;
     row-gap: 10px;
 }
