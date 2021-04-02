@@ -1,5 +1,6 @@
 import selfPhoto from "../images/face.png";
 import {ActionsTypes} from "./reduxStore";
+import {UserResponseType} from "../components/MainWrapper/FriendList/FriendListC";
 
 export const FOLLOW = 'FOLLOW'
 type followActionCreationType = {
@@ -24,7 +25,7 @@ type addMoreUsersActionCreatorType = {
     type: typeof ADD_MORE_USERS
     users: UserType[]
 }
-export const addMoreUsersActionCreator = (users: UserType[]): addMoreUsersActionCreatorType => {
+export const addMoreUsersActionCreator = (users: UserType[]|UserResponseType[]): addMoreUsersActionCreatorType => {
     return {type: ADD_MORE_USERS, users} as const
 }
 
@@ -35,19 +36,19 @@ export type LocationType = {
 }
 
 export type UserType = {
-    id: number
-    followed: boolean
-    photoImgUrl: string
-    status: string
-    location: LocationType
+    id:number
+    name:string
+    status:string
+    photos:{small:string|null,large:string|null}
+    followed:boolean
 
 
 }
 
-export type InitialStateUsersType = UserType[]
+export type InitialStateUsersType = UserType[]|UserResponseType[] | []
 //export type InitialStateUsersType = typeof initialState
 
-const initialState = [
+/*const initialState = [
     {
         photoImgUrl: selfPhoto,
         id: 1,
@@ -91,10 +92,10 @@ const initialState = [
             city: 'Kukuevo'
         } as LocationType
     } as UserType,
-] as UserType[]
+] as UserType[]*/
 
 
-const usersReducer = (state = initialState, action: ActionsTypes): InitialStateUsersType => {
+const usersReducer = (state:UserType[] = [] , action: ActionsTypes): InitialStateUsersType => {
     switch (action.type) {
         case FOLLOW:
             return [
@@ -119,7 +120,7 @@ const usersReducer = (state = initialState, action: ActionsTypes): InitialStateU
                 )
             ];
         case ADD_MORE_USERS:
-            return {...state, ...action.users}
+            return [...state, ...action.users]
         default:
             return state
     }
