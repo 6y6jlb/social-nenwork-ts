@@ -1,0 +1,6 @@
+.preloader {
+    width: 60vw;
+    padding-top: 50px;
+    display: grid;
+    justify-content: center;
+}

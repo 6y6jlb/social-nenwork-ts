@@ -1,22 +1,11 @@
 import selfPhoto from "../images/face.png";
 import {ActionsTypes} from "./reduxStore";
 
-export const ADD_POST = 'ADD-POST'
-type AddPostActionCreationType = {
-    type: typeof ADD_POST
-}
-export const addPostActionCreator = ():AddPostActionCreationType => {
-    return {type: ADD_POST,} as const
+export enum PROFILE_CONST {
+    ADD_POST = 'ADD-POST',
+    CHANGE_POST_INPUT_TEXT = 'CHANGE-POST-INPUT-TEXT'
 }
 
-export const CHANGE_POST_INPUT_TEXT = 'CHANGE-POST-INPUT-TEXT'
-type ChangePostInputActionCreatorType = {
-    type: typeof CHANGE_POST_INPUT_TEXT
-    item: string
-}
-export const changePostInputActionCreator = (item: string):ChangePostInputActionCreatorType => {
-    return {type: CHANGE_POST_INPUT_TEXT, item} as const
-}
 
 
 export type ProfileInfoTextFromProfileType = {
@@ -29,6 +18,21 @@ export type MyPostArrayFromProfileType = {
     message:string
 }
 export type InitialStateProfileType = typeof initialState
+
+type ChangePostInputActionCreatorType = {
+    type: typeof PROFILE_CONST.CHANGE_POST_INPUT_TEXT
+    item: string
+}
+type AddPostActionCreationType = {
+    type: typeof PROFILE_CONST.ADD_POST
+}
+
+export const addPostActionCreator = ():AddPostActionCreationType => {
+    return {type: PROFILE_CONST.ADD_POST,} as const
+}
+export const changePostInputActionCreator = (item: string):ChangePostInputActionCreatorType => {
+    return {type: PROFILE_CONST.CHANGE_POST_INPUT_TEXT, item} as const
+}
 
 const initialState = {
     currentInputPost: '',
@@ -65,10 +69,9 @@ const initialState = {
     ] as Array<MyPostArrayFromProfileType>
 }
 
-
 const profileReducer = (state = initialState, action: ActionsTypes):InitialStateProfileType => {
     switch (action.type) {
-        case ADD_POST:
+        case PROFILE_CONST.ADD_POST:
             const newPost = {
                 profileSelfPhotoImgUrl: selfPhoto,
                 id: state.myPostArray.length++,
@@ -76,7 +79,7 @@ const profileReducer = (state = initialState, action: ActionsTypes):InitialState
             }
             state.myPostArray.unshift(newPost)
             return {...state}
-        case CHANGE_POST_INPUT_TEXT:
+        case PROFILE_CONST.CHANGE_POST_INPUT_TEXT:
             state.currentInputPost = action.item
             return {...state}
         default:

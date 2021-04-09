@@ -6,7 +6,6 @@ export type FriendIconsFromNAvBArType = {
     name: string
     photoUrl: string
 }
-
 export type NavLinkBarFromNAvBArType = {
     id: number
     item: string

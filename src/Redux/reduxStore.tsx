@@ -2,7 +2,9 @@ import {combineReducers, createStore} from 'redux'
 import profileReducer, {addPostActionCreator, changePostInputActionCreator} from "./profileReducer";
 import dialogsReducer, {addDialogsMessageActionCreator, changeDialogsInputActionCreator} from "./dialogsReducer";
 import navBarReducer from "./navBarReducer";
-import usersReducer, {addMoreUsersActionCreator, followActionCreator, unFollowActionCreator} from "./usersReducer";
+import usersReducer, {addMoreUsersActionCreator, changeCurrentPageActionCreator,
+    changeIsFetchingActionCreator, changeTotalCountActionCreator,
+    followActionCreator, unFollowActionCreator} from "./usersReducer";
 
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator>
@@ -12,19 +14,23 @@ export type ActionsTypes =
     | ReturnType<typeof followActionCreator>
     | ReturnType<typeof unFollowActionCreator>
     | ReturnType<typeof addMoreUsersActionCreator>
+    | ReturnType<typeof changeCurrentPageActionCreator>
+    | ReturnType<typeof changeTotalCountActionCreator>
+    | ReturnType<typeof changeIsFetchingActionCreator>
 
-const rootReducer = combineReducers({
+
+const rootReducer = combineReducers ( {
     profileReducer,
     dialogsReducer,
     navBarReducer,
     usersReducer
 
-});
+} );
 
 export type RootReducersType = typeof rootReducer
 export type AppStateType = ReturnType<RootReducersType>
 
-let store = createStore(rootReducer);
+let store = createStore ( rootReducer,(window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__() );
 
 
 export default store;

@@ -7,7 +7,7 @@ import {Settings} from "./Settings/Settings";
 import DialogsWrapperContainer from "./DialogsWrapper/DialogsWrapper.container";
 import ProfileWrapperContainer from "./Profile/ProfileWrapper.container";
 import NavigationBarContainer from "./Navigation/NavigationBar.container";
-import FriendListContainer from "./FriendList/FriendList.container";
+import UserPageContainer from "./UserPage/UserPage.container";
 
 
 export function MainWrapper() {
@@ -24,7 +24,7 @@ export function MainWrapper() {
                            render={() => <DialogsWrapperContainer
                            />}/>
                     <Route exact path={'/friends'}
-                           render={() => <FriendListContainer
+                           render={() => <UserPageContainer
                     />}/>
                     <Route exact path={'/news'} render={() => <NewsFeed/>}/>
                     <Route exact path={'/audio'} render={() => <AudioPage/>}/>

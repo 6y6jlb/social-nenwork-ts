@@ -6,7 +6,7 @@ export function Header() {
     return (
         <header className={s.appHeader}>
             <div className={s.circle}><img src={imageLogo}/></div>
-            <div>Header</div>
+            <div className={s.headerString}>Header</div>
 
         </header>
     )

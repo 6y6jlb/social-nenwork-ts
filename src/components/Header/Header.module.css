@@ -5,6 +5,12 @@
     color: white;
     background-color: #492F7E;
 
+
+}
+.headerString{
+    padding-top: 10px;
+    height: min-content;
+    align-self: start;
 }
 .circle{
     margin-left: 30px;

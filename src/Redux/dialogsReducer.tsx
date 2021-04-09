@@ -3,24 +3,10 @@ import photo from "../images/face.png";
 import {ActionsTypes} from "./reduxStore";
 
 
-export const ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE'
-type AddDialogsMessageType = {
-    type: typeof ADD_DIALOGS_MESSAGE
-    self: boolean
+export enum DIALOGS_CONST {
+    ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE',
+    CHANGE_DIALOGS_INPUT_TEXT = 'CHANGE-DIALOGS-INPUT-TEXT'
 }
-export const addDialogsMessageActionCreator = (self: boolean): AddDialogsMessageType => {
-    return {type: ADD_DIALOGS_MESSAGE, self} as const
-}
-
-export const CHANGE_DIALOGS_INPUT_TEXT = 'CHANGE-DIALOGS-INPUT-TEXT'
-type ChangeDialogsInputTextType = {
-    type: typeof CHANGE_DIALOGS_INPUT_TEXT
-    item: string
-}
-export const changeDialogsInputActionCreator = (item: string): ChangeDialogsInputTextType => {
-    return {type: CHANGE_DIALOGS_INPUT_TEXT, item} as const
-}
-
 
 export type MessagesFromDialogsType = {
     id: number
@@ -29,6 +15,22 @@ export type MessagesFromDialogsType = {
     avatarURL: string
 }
 export type InitialStateDialogsType = typeof initialState
+
+type AddDialogsMessageType = {
+    type: typeof DIALOGS_CONST.ADD_DIALOGS_MESSAGE
+    self: boolean
+}
+type ChangeDialogsInputTextType = {
+    type: typeof DIALOGS_CONST.CHANGE_DIALOGS_INPUT_TEXT
+    item: string
+}
+
+export const addDialogsMessageActionCreator = (self: boolean): AddDialogsMessageType => {
+    return {type: DIALOGS_CONST.ADD_DIALOGS_MESSAGE, self} as const
+}
+export const changeDialogsInputActionCreator = (item: string): ChangeDialogsInputTextType => {
+    return {type: DIALOGS_CONST.CHANGE_DIALOGS_INPUT_TEXT, item} as const
+}
 
 const initialState = {
     currentInputMessageString: '',
@@ -49,7 +51,7 @@ const initialState = {
 
 const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateDialogsType => {
     switch (action.type) {
-        case ADD_DIALOGS_MESSAGE:
+        case DIALOGS_CONST.ADD_DIALOGS_MESSAGE:
             const newMessage = {
                 id: state.messages.length + 1,
                 item: state.currentInputMessageString,
@@ -58,7 +60,7 @@ const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStat
             }
             state.messages.push(newMessage)
             return {...state};
-        case CHANGE_DIALOGS_INPUT_TEXT:
+        case DIALOGS_CONST.CHANGE_DIALOGS_INPUT_TEXT:
             state.currentInputMessageString = action.item;
             return {...state}
         default:
