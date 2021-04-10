@@ -13,25 +13,25 @@ import UserPageContainer from "./UserPage/UserPage.container";
 export function MainWrapper() {
     return (
         <BrowserRouter>
-            <div className={s.mainWrapper}>
+            <div className={ s.mainWrapper }>
                 <NavigationBarContainer/>
-                <div className={s.contentWrapper}>
+                <div className={ s.contentWrapper }>
 
-                    <Route exact path={'/profile'}
-                           render={() => <ProfileWrapperContainer
-                           />}/>
-                    <Route exact path={'/dialogs'}
-                           render={() => <DialogsWrapperContainer
-                           />}/>
-                    <Route exact path={'/friends'}
-                           render={() => <UserPageContainer
-                    />}/>
-                    <Route exact path={'/news'} render={() => <NewsFeed/>}/>
-                    <Route exact path={'/audio'} render={() => <AudioPage/>}/>
-                    <Route exact path={'/settings'} render={() => <Settings/>}/>
-                    <Route exact path={'/'}
-                           render={() => <ProfileWrapperContainer
-                           />}/>
+                    <Route path={ '/profile/:userId?' }
+                           render={ () => <ProfileWrapperContainer
+                           /> }/>
+                    <Route path={ '/dialogs' }
+                           render={ () => <DialogsWrapperContainer
+                           /> }/>
+                    <Route path={ '/friends' }
+                           render={ () => <UserPageContainer
+                           /> }/>
+                    <Route path={ '/news' } render={ () => <NewsFeed/> }/>
+                    <Route path={ '/audio' } render={ () => <AudioPage/> }/>
+                    <Route path={ '/settings' } render={ () => <Settings/> }/>
+                    {/*<Route exact path={ '/' }
+                           render={ () => <ProfileWrapperContainer
+                           /> }/>*/}
                 </div>
 
             </div>

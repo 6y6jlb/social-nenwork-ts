@@ -5,7 +5,7 @@ type SendMessageAreaFromProfilePropsType = {
     currentInputPost: string
     onAddPost: () => void
     onPostChanger: (text: string) => void
-    /* dispatch: (action: ActionsTypes) => void*/
+
 }
 
 
@@ -14,6 +14,9 @@ export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfileProp
 
     const onAddPost = () => {
         props.onAddPost()
+        props.onPostChanger('')
+
+
         /* const trimmedPost = props.currentInputPostString.trim()
          if (trimmedPost) {
              props.dispatch(addPostActionCreator())
@@ -21,12 +24,16 @@ export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfileProp
          } else {
              props.dispatch(changePostInputActionCreator(''))
          }*/
-    } // adding trimmed post with clearing input
+    } // adding trimmed post with clearing input   //old logic with dispatch inside
+
+
     const onPostChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const text = event.currentTarget.value
         props.onPostChanger(text)
+
+
         /*props.dispatch(changePostInputActionCreator(event.currentTarget.value))*/
-    } //flax changer element
+    } //flax changer element //old logic with dispatch inside
 
     return (
         <div className={s.sendMessageAreaFromProfile}>

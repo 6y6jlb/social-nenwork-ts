@@ -12,7 +12,7 @@ import {
     UserType
 } from "../../../Redux/usersReducer";
 import axios from "axios";
-import Users from "./UsersPaget";
+import Users from "./UsersPage";
 import emptyPhoto from '../../../images/emptyUser.png'
 
 type UsersPageAPIComponentPropsType = {
@@ -99,7 +99,6 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
                       currentPage={ this.props.currentPage } pageSize={ this.props.pageSize }/>
     }
 } //class container for USERS
-
 
 function mapStateToProps(state: AppStateType): MapStateToPropsType {
     return {

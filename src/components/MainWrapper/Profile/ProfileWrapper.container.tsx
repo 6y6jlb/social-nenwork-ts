@@ -1,13 +1,14 @@
 import React from "react";
-import {ProfileWrapper} from "./ProfileWrapper";
 import {
     addPostActionCreator,
     changePostInputActionCreator,
-    InitialStateProfileType
+    InitialStateProfileType, setUserProfileActionCreator
 } from "../../../Redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {Dispatch} from "redux";
+import ProfileWrapperAPIContainer from "./SendMessageAreaFromProfile/ProfileWrapperAPIContainer";
+import { withRouter } from "react-router-dom";
 
 
 /*
@@ -50,10 +51,10 @@ export function ProfileWrapperContainer(props:any) {
 type mapStateToProps = {
     profileWrapperObj: InitialStateProfileType
 }
-type MapDispatchToProps = {
+/*type MapDispatchToProps = {
     onPostChanger: (text: string) => void
     onAddPost: () => void
-}
+}*/
 
 
 let mapStateToProps = (state: AppStateType): mapStateToProps => {
@@ -61,18 +62,25 @@ let mapStateToProps = (state: AppStateType): mapStateToProps => {
         profileWrapperObj: state.profileReducer
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch):MapDispatchToProps => {
+/*let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
     return {
         onPostChanger: (text: string) => {
-            dispatch(changePostInputActionCreator(text))
+            dispatch ( changePostInputActionCreator ( text ) )
         },
         onAddPost: () => {
-            dispatch(addPostActionCreator())
-            dispatch(changePostInputActionCreator(''))
+            dispatch ( addPostActionCreator () )
+            dispatch ( changePostInputActionCreator ( '' ) )
         }
     }
-}
+}*/
+let WithURLProfileWrapperApiContainer = withRouter(ProfileWrapperAPIContainer)
+
+const ProfileWrapperContainer = connect ( mapStateToProps, {
+    onPostChanger: changePostInputActionCreator,
+    onAddPost: addPostActionCreator,
+    setUserProfile:setUserProfileActionCreator
+} ) ( WithURLProfileWrapperApiContainer );
 
 
-const ProfileWrapperContainer = connect(mapStateToProps, mapDispatchToProps)(ProfileWrapper);
+
 export default ProfileWrapperContainer;

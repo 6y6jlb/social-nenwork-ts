@@ -1,5 +1,9 @@
 import {combineReducers, createStore} from 'redux'
-import profileReducer, {addPostActionCreator, changePostInputActionCreator} from "./profileReducer";
+import profileReducer, {
+    addPostActionCreator,
+    changePostInputActionCreator,
+    setUserProfileActionCreator
+} from "./profileReducer";
 import dialogsReducer, {addDialogsMessageActionCreator, changeDialogsInputActionCreator} from "./dialogsReducer";
 import navBarReducer from "./navBarReducer";
 import usersReducer, {addMoreUsersActionCreator, changeCurrentPageActionCreator,
@@ -17,6 +21,7 @@ export type ActionsTypes =
     | ReturnType<typeof changeCurrentPageActionCreator>
     | ReturnType<typeof changeTotalCountActionCreator>
     | ReturnType<typeof changeIsFetchingActionCreator>
+    | ReturnType<typeof setUserProfileActionCreator>
 
 
 const rootReducer = combineReducers ( {

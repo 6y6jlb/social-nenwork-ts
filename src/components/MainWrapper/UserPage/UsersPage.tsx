@@ -2,6 +2,7 @@ import React from "react";
 import style from './UserPage.module.css'
 import Preloader from "../../common/preloader/Preloader";
 import {UserType} from "../../../Redux/usersReducer";
+import { NavLink } from "react-router-dom";
 
 
 type UsersPagePropsType = {
@@ -45,7 +46,8 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
         return (
             <div className={ style.user } key={ user.id }>
                 <div className={ style.photoZone }>
-                    <img src={ user.photos.small || emptyPhoto } alt={ "еблет" }/>
+                    <NavLink to={`/profile/${user.id}`}><img src={ user.photos.small || emptyPhoto }
+                                  alt={ `${ user.name }, ${ user.id }` }/></NavLink>
                     { user.followed
                         ? <span className={ style.followed }
                                 onClick={ () => unFollowCallBack ( user.id ) }>друх</span>
