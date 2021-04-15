@@ -9,9 +9,10 @@ import {FriendIconsFromNAvBArType, NavLinkBarFromNAvBArType} from "../../../Redu
 type NavBarPropsType = {
     navLinkBar: Array<NavLinkBarFromNAvBArType>
     friendsIcons: Array<FriendIconsFromNAvBArType>
+    profileName:string|null
 }
 
-export function NavigationBar({navLinkBar, friendsIcons}: NavBarPropsType) {
+export function NavigationBar({navLinkBar, friendsIcons,profileName}: NavBarPropsType) {
 
     const navLinkBlock = navLinkBar.map(i => {
         return <div key={i.id}>
@@ -28,7 +29,7 @@ export function NavigationBar({navLinkBar, friendsIcons}: NavBarPropsType) {
 
     return (
         <div className={s.navigationBar}>
-            <SmallInfo/>
+            <SmallInfo profileName={profileName}/>
             <div className={s.NavElements}>
                 {navLinkBlock}
             </div>

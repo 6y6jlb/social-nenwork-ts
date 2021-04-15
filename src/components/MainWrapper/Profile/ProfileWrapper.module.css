@@ -58,6 +58,22 @@
     grid-column-start: 2;
     margin-bottom: 15px;
 }
+
+.fullName{
+    text-align: end;
+    margin: 10px 50px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.3em;
+    text-transform:capitalize;
+
+}
+.image img {
+    width:100px;
+    height:100px;
+
+}
+
 @media (max-width: 900px) {
     .profileContent {
         margin-left: 5px;
@@ -67,10 +83,5 @@
         grid-template-rows: 200px minmax(70px, auto) 1fr;
     }
 
-
-}
-.image img {
-    width:100px;
-    height:100px;
 
 }

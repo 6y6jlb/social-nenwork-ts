@@ -1,19 +1,30 @@
 import selfPhoto from "../images/face.png";
-import profileReducer, {addPostActionCreator, changePostInputActionCreator} from "./profileReducer";
+import profileReducer, {
+    addPostActionCreator,
+    changePostInputActionCreator, MyPostArrayFromProfileType,
+    UserFromProfileResponseType
+} from "./profileReducer";
 
 test('profile reducer and action test', (() => {
     const state = {
         currentInputPost: 'test',
-        profileSelfPhotoImgUrl: selfPhoto,
-        profileInfoText: [
-            {id: 1, postMessage: 'Человек умелый'},
-            {id: 2, postMessage: 'человек разумный'},
-            {id: 3, postMessage: '46 хромосом. 32 зуба.'},
-            {id: 4, postMessage: '183 сантиметра роста'},
-            {id: 5, postMessage: 'Где-то под полтора килограмма мозга'},
-            {id: 6, postMessage: 'Улыбка до ушей, в теле 36.6'},
-            {id: 7, postMessage: 'Здоров от пяток до шеи, почти совершенен'},
-        ],
+        profile: {
+            userId: null,
+            lookingForAJob: false,
+            lookingForAJobDescription: null,
+            fullName: null,
+            contacts: {
+                github: null,
+                vk: null,
+                facebook: null,
+                instagram: null,
+                twitter: null,
+                website: null,
+                youtube: null,
+                mainLink: null,
+            },
+            photos: { small:  null, large: null }
+        } as UserFromProfileResponseType,
         myPostArray: [
             {
                 profileSelfPhotoImgUrl: selfPhoto,
@@ -34,7 +45,7 @@ test('profile reducer and action test', (() => {
                 profileSelfPhotoImgUrl: selfPhoto,
                 id: 5, message: 'eu, ',
             },
-        ]
+        ] as Array<MyPostArrayFromProfileType>
     }
 
     const actionAddPost=addPostActionCreator()
@@ -50,12 +61,11 @@ test('profile reducer and action test', (() => {
         message: 'test',
     })
     expect(testProfileReducerAdd.myPostArray.length).toBe( 7)
-    expect(testProfileReducerAdd.myPostArray[6]).toBe( undefined)
-    expect(testProfileReducerAdd.currentInputPost).toStrictEqual('test')
+    expect(testProfileReducerAdd.currentInputPost).toStrictEqual('')
 
 
     expect(testProfileReducerChange.currentInputPost).toStrictEqual('stringTest')
-    expect(testProfileReducerChange.currentInputPost.length).toBe(10)
+
 
 
 

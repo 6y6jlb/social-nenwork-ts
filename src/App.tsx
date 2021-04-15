@@ -1,19 +1,20 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
 import {MainWrapper} from "./components/MainWrapper/MainWrapper";
-
-
+import {HashRouter} from "react-router-dom";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 function App() {
     return (
-        <div className="App">
-            <Header/>
-            <MainWrapper/>
-            <Footer/>
-        </div>
+        <HashRouter>
+            <div className="App">
+                <HeaderContainer/>
+                <MainWrapper/>
+                <Footer/>
+            </div>
+        </HashRouter>
     );
 }
 

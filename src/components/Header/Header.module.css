@@ -1,7 +1,7 @@
-.appHeader {
+.wrapperHeader {
     z-index: 1;
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 200px 1fr 200px;
     color: white;
     background-color: #492F7E;
 
@@ -25,4 +25,9 @@
     justify-self: center;
     width: auto;
     height: 70px;
+}
+.loginBlock {
+    align-self: start;
+    justify-self: start;
+    padding-top: 10px;
 }

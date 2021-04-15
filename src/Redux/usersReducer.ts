@@ -81,10 +81,11 @@ export type UsersStateType = typeof initialState
 const usersReducer = (state: UsersStateType = initialState, action: ActionsTypes): UsersStateType => {
     switch (action.type) {
         case USERS_CONST.FOLLOW:
+
             return {
                 ...state, users: [...state.users.map ( user => {
                     if (user.id === action.id) {
-                        return {...user, followed: true}
+                        return {...user, followed: false}
                     } else {
                         return user
                     }
@@ -95,7 +96,7 @@ const usersReducer = (state: UsersStateType = initialState, action: ActionsTypes
             return {
                 ...state, users: state.users.map ( user => {
                         if (user.id === action.id) {
-                            return {...user, followed: false}
+                            return {...user, followed: true}
                         } else {
                             return user
                         }

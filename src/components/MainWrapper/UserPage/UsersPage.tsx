@@ -2,7 +2,8 @@ import React from "react";
 import style from './UserPage.module.css'
 import Preloader from "../../common/preloader/Preloader";
 import {UserType} from "../../../Redux/usersReducer";
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
+import axios from "axios";
 
 
 type UsersPagePropsType = {
@@ -46,13 +47,37 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
         return (
             <div className={ style.user } key={ user.id }>
                 <div className={ style.photoZone }>
-                    <NavLink to={`/profile/${user.id}`}><img src={ user.photos.small || emptyPhoto }
-                                  alt={ `${ user.name }, ${ user.id }` }/></NavLink>
+                    <NavLink to={ `/profile/${ user.id }` }><img src={ user.photos.small || emptyPhoto }
+                                                                 alt={ `${ user.name }, ${ user.id }` }/></NavLink>
                     { user.followed
-                        ? <span className={ style.followed }
-                                onClick={ () => unFollowCallBack ( user.id ) }>друх</span>
+                        ? <span className={ style.followed } onClick={() => {
+                            axios.delete ( `https://social-network.samuraijs.com/api/1.0//follow/${ user.id }`,  {
+                                withCredentials: true,
+                                headers:{
+                                    "API-KEY":'3d2dd236-488d-443e-9eb7-ae8a6831eb76'
+                                }
+                            } )
+                                .then ( response => {
+                                    if (response.data.resultCode === 0) {
+                                        followCallBack ( user.id )
+                                    }
+                                } )
+                        } }
+                                >друх</span>
                         : <span className={ style.followed }
-                                onClick={ () => followCallBack ( user.id ) }>не друх</span> }
+                                onClick={ () => {
+                                    axios.post ( `https://social-network.samuraijs.com/api/1.0//follow/${ user.id }`, {}, {
+                                        withCredentials: true,
+                                        headers:{
+                                            "API-KEY":'3d2dd236-488d-443e-9eb7-ae8a6831eb76'
+                                        }
+                                    } )
+                                        .then ( response => {
+                                            if (response.data.resultCode === 0) {
+                                                unFollowCallBack ( user.id )
+                                            }
+                                        } )
+                                } }>не друх</span> }
                 </div>
                 <div className={ style.description }>
                     <div className={ style.info }>

@@ -1,6 +1,6 @@
 import React from "react";
 import s from './MainWrapper.module.css'
-import {BrowserRouter, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {NewsFeed} from "./NewsFeed/NewsFeed";
 import {AudioPage} from "./AudioPage/AudioPage";
 import {Settings} from "./Settings/Settings";
@@ -12,7 +12,6 @@ import UserPageContainer from "./UserPage/UserPage.container";
 
 export function MainWrapper() {
     return (
-        <BrowserRouter>
             <div className={ s.mainWrapper }>
                 <NavigationBarContainer/>
                 <div className={ s.contentWrapper }>
@@ -35,7 +34,6 @@ export function MainWrapper() {
                 </div>
 
             </div>
-        </BrowserRouter>
     )
 }
 

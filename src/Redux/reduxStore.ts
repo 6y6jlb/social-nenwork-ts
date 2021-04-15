@@ -9,6 +9,7 @@ import navBarReducer from "./navBarReducer";
 import usersReducer, {addMoreUsersActionCreator, changeCurrentPageActionCreator,
     changeIsFetchingActionCreator, changeTotalCountActionCreator,
     followActionCreator, unFollowActionCreator} from "./usersReducer";
+import authReducer, {setUserDataActionCreator} from "./auth-reducer";
 
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator>
@@ -22,13 +23,15 @@ export type ActionsTypes =
     | ReturnType<typeof changeTotalCountActionCreator>
     | ReturnType<typeof changeIsFetchingActionCreator>
     | ReturnType<typeof setUserProfileActionCreator>
+    | ReturnType<typeof setUserDataActionCreator>
 
 
 const rootReducer = combineReducers ( {
     profileReducer,
     dialogsReducer,
     navBarReducer,
-    usersReducer
+    usersReducer,
+    auth:authReducer
 
 } );
 

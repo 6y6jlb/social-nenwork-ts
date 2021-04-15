@@ -11,9 +11,9 @@ import {
     unFollowActionCreator,
     UserType
 } from "../../../Redux/usersReducer";
-import axios from "axios";
 import Users from "./UsersPage";
 import emptyPhoto from '../../../images/emptyUser.png'
+import {UsersAPI} from "../../../api/api";
 
 type UsersPageAPIComponentPropsType = {
     users: UserType[]
@@ -35,7 +35,7 @@ export type UserResponseType = {
     photos: { small: string | null, large: string | null }
     followed: boolean
 }
-type UsersResponseType = {
+export type UsersResponseType = {
     items: Array<UserResponseType>
     totalCount: number
     error: string
@@ -47,28 +47,17 @@ type MapStateToPropsType = {
     currentPage: number,
     isFetching: boolean
 }
-/*type MapDispatchToPropsType = {
-    followCallBack: (id: number) => void
-    unFollowCallBack: (id: number) => void
-    setUsers: (users: UserType[]) => void
-    changeCurrentPage: (currentPage: number) => void
-    changeTotalCount: (currentPage: number) => void
-    changeIsFetching: (isFetching: boolean) => void
-}*/
-
 
 class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsType> {
 
     componentDidMount() {
         this.props.changeIsFetching ( true )
-        axios.get<UsersResponseType> ( `https://social-network.samuraijs.com/api/1.0/users/?count=${ this.props.pageSize }&page=${ this.props.currentPage }` )
-            .then ( response => {
-                    this.props.changeIsFetching ( false )
-                    this.props.changeTotalCount ( response.data.totalCount > 20 ? 20 : response.data.totalCount )
-                    this.props.setUsers ( response.data.items )
-                }
-            )
-    }//axios request with fetching and setUsers
+
+        UsersAPI.getUsers(this.props.pageSize ,this.props.currentPage).then ( response => {
+            this.props.changeIsFetching ( false )
+            this.props.changeTotalCount ( response.data.totalCount > 20 ? 20 : response.data.totalCount )
+            this.props.setUsers ( response.data.items )
+        }); }//axios request with fetching and setUsers
 
     componentWillUnmount() {
         this.props.setUsers ( [] )
@@ -77,9 +66,7 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
     onPageChanged = (pageNumber: number) => {
         this.props.changeIsFetching ( true )
         this.props.changeCurrentPage ( pageNumber )
-        axios.get<UsersResponseType> ( `https://social-network.samuraijs.com/api/1.0/users/?count=${ this.props.pageSize }&page=${ this.props.currentPage }` )
-            .then ( response => {
-
+        UsersAPI.getUsers(this.props.pageSize ,this.props.currentPage).then ( response => {
                     this.props.changeTotalCount ( response.data.totalCount > 20 ? 20 : response.data.totalCount )
                     this.props.setUsers ( response.data.items )
                     this.props.changeIsFetching ( false )
@@ -110,7 +97,6 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
     }
 }
 
-//const UserPageContainer = connect ( mapStateToProps, mapDispatchToProps ) ( UserPageAPIComponent )
 const UserPageContainer = connect ( mapStateToProps, {
     followCallBack: followActionCreator,
     unFollowCallBack: unFollowActionCreator,

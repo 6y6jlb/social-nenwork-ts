@@ -2,85 +2,73 @@ import React from "react";
 import {
     addPostActionCreator,
     changePostInputActionCreator,
-    InitialStateProfileType, setUserProfileActionCreator
+    InitialStateProfileType,
+    setUserProfileActionCreator,
+    UserFromProfileResponseType
 } from "../../../Redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
-import {Dispatch} from "redux";
-import ProfileWrapperAPIContainer from "./SendMessageAreaFromProfile/ProfileWrapperAPIContainer";
-import { withRouter } from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import axios from "axios";
+import {ProfileWrapper} from "./ProfileWrapper";
 
 
-/*
-type ProfileWrapperContainerPropsType = {
-    state: RootStateType
-    dispatch: (action: ActionsTypes) => void
-
-}
-
-export function ProfileWrapperContainer(props:any) {
-
-    return <StoreContext.Consumer>
-        {(store) =>
-        {
-            const state = store.getState()
-            function onAddPost() {
-                const trimmedPost = state.profileReducer.currentInputPost.trim()
-                if (trimmedPost) {
-                    store.dispatch(addPostActionCreator())
-                    store.dispatch(changePostInputActionCreator(''))
-                } else {
-                    store.dispatch(changePostInputActionCreator(''))
-                }
-            }
-
-            function onPostChanger(text: string) {
-                store.dispatch(changePostInputActionCreator(text))
-            }
 
 
-            return <ProfileWrapper onPostChanger={onPostChanger} onAddPost={onAddPost}
-                                   profileWrapperObj={state.profileReducer}/>
-        }}
-    </StoreContext.Consumer>
 
-}
-
-*/
-
-type mapStateToProps = {
-    profileWrapperObj: InitialStateProfileType
-}
-/*type MapDispatchToProps = {
-    onPostChanger: (text: string) => void
+type ProfileWrapperAPIContainerPropsType = {
     onAddPost: () => void
-}*/
+    onPostChanger: (text: string) => void
+    setUserProfile: (user:UserFromProfileResponseType) => void
+    profileWrapperObj: InitialStateProfileType
+    myLoginId:number|null
+}
+
+type WithRouterProfileType = {
+    userId:number|any
+}
+type PropsType = RouteComponentProps<WithRouterProfileType> & ProfileWrapperAPIContainerPropsType
+
+class ProfileWrapperAPIContainer extends React.Component<PropsType>{
+
+    componentDidMount() {
+
+        let userIdForURL = this.props.match.params.userId
+        if (!userIdForURL) {
+            userIdForURL = this.props.myLoginId //my autorzed id
+        }
+        axios.get<UserFromProfileResponseType> ( `https://social-network.samuraijs.com/api/1.0/profile/${userIdForURL}` )
+            .then ( response => {
+                    this.props.setUserProfile ( response.data )
+                }
+            )
+    }//axios request with fetching and setProfile
 
 
-let mapStateToProps = (state: AppStateType): mapStateToProps => {
-    return {
-        profileWrapperObj: state.profileReducer
+    render() {
+        return (
+            <ProfileWrapper profileWrapperObj={this.props.profileWrapperObj} onAddPost={this.props.onAddPost} onPostChanger={this.props.onPostChanger}/>
+        );
     }
 }
-/*let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-    return {
-        onPostChanger: (text: string) => {
-            dispatch ( changePostInputActionCreator ( text ) )
-        },
-        onAddPost: () => {
-            dispatch ( addPostActionCreator () )
-            dispatch ( changePostInputActionCreator ( '' ) )
-        }
-    }
-}*/
+
 let WithURLProfileWrapperApiContainer = withRouter(ProfileWrapperAPIContainer)
+
+type mapStateToPropsType = {
+    profileWrapperObj: InitialStateProfileType
+    myLoginId:number|null
+}
+let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        profileWrapperObj: state.profileReducer,
+        myLoginId:state.auth.data.id
+    }
+}
 
 const ProfileWrapperContainer = connect ( mapStateToProps, {
     onPostChanger: changePostInputActionCreator,
     onAddPost: addPostActionCreator,
     setUserProfile:setUserProfileActionCreator
 } ) ( WithURLProfileWrapperApiContainer );
-
-
 
 export default ProfileWrapperContainer;

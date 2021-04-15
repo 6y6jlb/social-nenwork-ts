@@ -1,5 +1,4 @@
 import {ActionsTypes} from "./reduxStore";
-export const one=1
 
 type NavLinkBarType = {
     id: number
