@@ -8,6 +8,7 @@ import {
     changeTotalCountActionCreator,
     followActionCreator,
     InitialStateUsersType,
+    sendRequestFromFollowUnFollowActionCreator,
     unFollowActionCreator,
     UserType
 } from "../../../Redux/usersReducer";
@@ -17,16 +18,18 @@ import {UsersAPI} from "../../../api/api";
 
 type UsersPageAPIComponentPropsType = {
     users: UserType[]
-    totalCount: number,
+    totalCount: number
     pageSize: number
-    currentPage: number,
+    currentPage: number
     isFetching: boolean
+    isRequestSend: boolean
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
     setUsers: (users: UserType[]) => void
     changeCurrentPage: (currentPage: number) => void
     changeTotalCount: (currentPage: number) => void
     changeIsFetching: (isFetching: boolean) => void
+    sendRequestFromFollowUnFollow: (isRequestSend: boolean) => void
 }
 export type UserResponseType = {
     id: number
@@ -45,7 +48,8 @@ type MapStateToPropsType = {
     totalCount: number,
     pageSize: number,
     currentPage: number,
-    isFetching: boolean
+    isFetching: boolean,
+    isRequestSend: boolean
 }
 
 class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsType> {
@@ -53,11 +57,12 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
     componentDidMount() {
         this.props.changeIsFetching ( true )
 
-        UsersAPI.getUsers(this.props.pageSize ,this.props.currentPage).then ( response => {
+        UsersAPI.getUsers ( this.props.pageSize, this.props.currentPage ).then ( response => {
             this.props.changeIsFetching ( false )
             this.props.changeTotalCount ( response.data.totalCount > 20 ? 20 : response.data.totalCount )
             this.props.setUsers ( response.data.items )
-        }); }//axios request with fetching and setUsers
+        } );
+    }//axios request with fetching and setUsers
 
     componentWillUnmount() {
         this.props.setUsers ( [] )
@@ -66,12 +71,12 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
     onPageChanged = (pageNumber: number) => {
         this.props.changeIsFetching ( true )
         this.props.changeCurrentPage ( pageNumber )
-        UsersAPI.getUsers(this.props.pageSize ,this.props.currentPage).then ( response => {
-                    this.props.changeTotalCount ( response.data.totalCount > 20 ? 20 : response.data.totalCount )
-                    this.props.setUsers ( response.data.items )
-                    this.props.changeIsFetching ( false )
-                }
-            )
+        UsersAPI.getUsers ( this.props.pageSize, this.props.currentPage ).then ( response => {
+                this.props.changeTotalCount ( response.data.totalCount > 20 ? 20 : response.data.totalCount )
+                this.props.setUsers ( response.data.items )
+                this.props.changeIsFetching ( false )
+            }
+        )
     } //axios request with fetching and setUsers
 
     render() {
@@ -83,7 +88,9 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
                       followCallBack={ this.props.followCallBack } unFollowCallBack={ this.props.unFollowCallBack }
                       onPageChanged={ this.onPageChanged } changeCurrentPage={ this.props.changeCurrentPage }
                       isFetching={ this.props.isFetching } changeIsFetching={ this.props.changeIsFetching }
-                      currentPage={ this.props.currentPage } pageSize={ this.props.pageSize }/>
+                      currentPage={ this.props.currentPage } pageSize={ this.props.pageSize }
+                      isRequestSend={ this.props.isRequestSend }
+                      sendRequestFromFollowUnFollow={ this.props.sendRequestFromFollowUnFollow }/>
     }
 } //class container for USERS
 
@@ -93,7 +100,9 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
         totalCount: state.usersReducer.totalCount,
         pageSize: state.usersReducer.pageSize,
         currentPage: state.usersReducer.currentPage,
-        isFetching: state.usersReducer.isFetching
+        isFetching: state.usersReducer.isFetching,
+        isRequestSend: state.usersReducer.isRequestSend
+
     }
 }
 
@@ -103,7 +112,8 @@ const UserPageContainer = connect ( mapStateToProps, {
     setUsers: addMoreUsersActionCreator,
     changeCurrentPage: changeCurrentPageActionCreator,
     changeTotalCount: changeTotalCountActionCreator,
-    changeIsFetching: changeIsFetchingActionCreator
+    changeIsFetching: changeIsFetchingActionCreator,
+    sendRequestFromFollowUnFollow: sendRequestFromFollowUnFollowActionCreator
 } ) ( UserPageAPIComponent ) //without mapDispatch
 
 export default UserPageContainer;

@@ -7,7 +7,8 @@ export enum USERS_CONST {
     ADD_MORE_USERS = 'ADD_MORE_USERS',
     CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE',
     CHANGE_TOTAL_COUNT = 'CHANGE_TOTAL_COUNT',
-    CHANGE_IS_FETCHING = 'CHANGE_IS_FETCHING'
+    CHANGE_IS_FETCHING = 'CHANGE_IS_FETCHING',
+    SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW='SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW'
 
 }
 
@@ -47,6 +48,10 @@ type changeIsFetchingActionCreatorType = {
     type: typeof USERS_CONST.CHANGE_IS_FETCHING
     isFetching: boolean
 }
+type sendingRequestFromFollowUnFollowTypeActionCreatorType={
+    type: typeof USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW,
+    isRequestSend:boolean
+}
 
 
 export const followActionCreator = (id: number): followActionCreationType => {
@@ -67,6 +72,9 @@ export const changeTotalCountActionCreator = (totalCount: number): changeTotalCo
 export const changeIsFetchingActionCreator = (isFetching: boolean): changeIsFetchingActionCreatorType => {
     return {type: USERS_CONST.CHANGE_IS_FETCHING, isFetching} as const
 }
+export const sendRequestFromFollowUnFollowActionCreator = (isRequestSend: boolean): sendingRequestFromFollowUnFollowTypeActionCreatorType => {
+    return {type: USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW, isRequestSend} as const
+}
 
 
 const initialState = {
@@ -74,7 +82,8 @@ const initialState = {
     pageSize: 6,
     totalCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    isRequestSend:false
 }
 export type UsersStateType = typeof initialState
 
@@ -121,6 +130,11 @@ const usersReducer = (state: UsersStateType = initialState, action: ActionsTypes
         case USERS_CONST.CHANGE_IS_FETCHING: {
             return {
                 ...state, isFetching: action.isFetching
+            }
+        }
+        case USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW: {
+            return {
+                ...state,isRequestSend: action.isRequestSend
             }
         }
         default:

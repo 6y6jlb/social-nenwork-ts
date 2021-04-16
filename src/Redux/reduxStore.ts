@@ -8,7 +8,7 @@ import dialogsReducer, {addDialogsMessageActionCreator, changeDialogsInputAction
 import navBarReducer from "./navBarReducer";
 import usersReducer, {addMoreUsersActionCreator, changeCurrentPageActionCreator,
     changeIsFetchingActionCreator, changeTotalCountActionCreator,
-    followActionCreator, unFollowActionCreator} from "./usersReducer";
+    followActionCreator, sendRequestFromFollowUnFollowActionCreator, unFollowActionCreator} from "./usersReducer";
 import authReducer, {setUserDataActionCreator} from "./auth-reducer";
 
 export type ActionsTypes =
@@ -24,6 +24,7 @@ export type ActionsTypes =
     | ReturnType<typeof changeIsFetchingActionCreator>
     | ReturnType<typeof setUserProfileActionCreator>
     | ReturnType<typeof setUserDataActionCreator>
+    | ReturnType<typeof sendRequestFromFollowUnFollowActionCreator>
 
 
 const rootReducer = combineReducers ( {

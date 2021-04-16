@@ -3,7 +3,7 @@ import style from './UserPage.module.css'
 import Preloader from "../../common/preloader/Preloader";
 import {UserType} from "../../../Redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {UsersAPI} from "../../../api/api";
 
 
 type UsersPagePropsType = {
@@ -13,6 +13,7 @@ type UsersPagePropsType = {
     pageSize: number
     currentPage: number,
     isFetching: boolean
+    isRequestSend:boolean
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
     setUsers: (users: UserType[]) => void
@@ -20,8 +21,11 @@ type UsersPagePropsType = {
     changeTotalCount: (currentPage: number) => void
     changeIsFetching: (isFetching: boolean) => void
     onPageChanged: (pageNumber: number) => void
+    sendRequestFromFollowUnFollow:(isRequestSend: boolean) => void
 
 }
+
+
 
 const Users: React.FC<UsersPagePropsType> = (props) => {
 
@@ -50,34 +54,28 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
                     <NavLink to={ `/profile/${ user.id }` }><img src={ user.photos.small || emptyPhoto }
                                                                  alt={ `${ user.name }, ${ user.id }` }/></NavLink>
                     { user.followed
-                        ? <span className={ style.followed } onClick={() => {
-                            axios.delete ( `https://social-network.samuraijs.com/api/1.0//follow/${ user.id }`,  {
-                                withCredentials: true,
-                                headers:{
-                                    "API-KEY":'3d2dd236-488d-443e-9eb7-ae8a6831eb76'
-                                }
-                            } )
+                        ? <button disabled={props.isRequestSend} className={ style.followed } onClick={() => {
+                            props.sendRequestFromFollowUnFollow(true)
+                            UsersAPI.unFollowUser(user.id)
                                 .then ( response => {
                                     if (response.data.resultCode === 0) {
                                         followCallBack ( user.id )
+                                        props.sendRequestFromFollowUnFollow(false)
                                     }
                                 } )
                         } }
-                                >друх</span>
-                        : <span className={ style.followed }
+                                >друх</button>
+                        : <button disabled={props.isRequestSend} className={ style.followed }
                                 onClick={ () => {
-                                    axios.post ( `https://social-network.samuraijs.com/api/1.0//follow/${ user.id }`, {}, {
-                                        withCredentials: true,
-                                        headers:{
-                                            "API-KEY":'3d2dd236-488d-443e-9eb7-ae8a6831eb76'
-                                        }
-                                    } )
+                                    props.sendRequestFromFollowUnFollow(true)
+                                    UsersAPI.followUser(user.id)
                                         .then ( response => {
                                             if (response.data.resultCode === 0) {
                                                 unFollowCallBack ( user.id )
+                                                props.sendRequestFromFollowUnFollow(true)
                                             }
                                         } )
-                                } }>не друх</span> }
+                                } }>не друх</button> }
                 </div>
                 <div className={ style.description }>
                     <div className={ style.info }>
