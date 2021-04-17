@@ -1,6 +1,7 @@
 import React from "react";
 import {
     addPostActionCreator,
+    changeIsFetchingFromProfileActionCreator,
     changePostInputActionCreator,
     InitialStateProfileType,
     setUserProfileActionCreator,
@@ -9,19 +10,18 @@ import {
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import axios from "axios";
 import {ProfileWrapper} from "./ProfileWrapper";
-
-
-
+import {ProfileAPI} from "../../../api/api";
 
 
 type ProfileWrapperAPIContainerPropsType = {
     onAddPost: () => void
     onPostChanger: (text: string) => void
     setUserProfile: (user:UserFromProfileResponseType) => void
+    changeIsFetchingFromProfile:(isFetching:boolean)=>void
     profileWrapperObj: InitialStateProfileType
     myLoginId:number|null
+    isFetching:boolean
 }
 
 type WithRouterProfileType = {
@@ -37,8 +37,10 @@ class ProfileWrapperAPIContainer extends React.Component<PropsType>{
         if (!userIdForURL) {
             userIdForURL = this.props.myLoginId //my autorzed id
         }
-        axios.get<UserFromProfileResponseType> ( `https://social-network.samuraijs.com/api/1.0/profile/${userIdForURL}` )
+        this.props.changeIsFetchingFromProfile(true)
+        ProfileAPI.setUserProfile(userIdForURL)
             .then ( response => {
+                this.props.changeIsFetchingFromProfile(false)
                     this.props.setUserProfile ( response.data )
                 }
             )
@@ -57,18 +59,21 @@ let WithURLProfileWrapperApiContainer = withRouter(ProfileWrapperAPIContainer)
 type mapStateToPropsType = {
     profileWrapperObj: InitialStateProfileType
     myLoginId:number|null
+    isFetching:boolean
 }
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
         profileWrapperObj: state.profileReducer,
-        myLoginId:state.auth.data.id
+        myLoginId:state.auth.data.id,
+        isFetching:state.profileReducer.isFetching
     }
 }
 
 const ProfileWrapperContainer = connect ( mapStateToProps, {
     onPostChanger: changePostInputActionCreator,
     onAddPost: addPostActionCreator,
-    setUserProfile:setUserProfileActionCreator
+    setUserProfile:setUserProfileActionCreator,
+    changeIsFetchingFromProfile:changeIsFetchingFromProfileActionCreator
 } ) ( WithURLProfileWrapperApiContainer );
 
 export default ProfileWrapperContainer;

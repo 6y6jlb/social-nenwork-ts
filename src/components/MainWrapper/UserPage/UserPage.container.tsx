@@ -22,14 +22,14 @@ type UsersPageAPIComponentPropsType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
-    isRequestSend: boolean
+    isRequestSendUsersId: number[]
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
     setUsers: (users: UserType[]) => void
     changeCurrentPage: (currentPage: number) => void
     changeTotalCount: (currentPage: number) => void
     changeIsFetching: (isFetching: boolean) => void
-    sendRequestFromFollowUnFollow: (isRequestSend: boolean) => void
+    sendRequestFromFollowUnFollow: (userId: number,isFetching:boolean) => void
 }
 export type UserResponseType = {
     id: number
@@ -49,7 +49,7 @@ type MapStateToPropsType = {
     pageSize: number,
     currentPage: number,
     isFetching: boolean,
-    isRequestSend: boolean
+    isRequestSendUsersId: number[]
 }
 
 class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsType> {
@@ -89,7 +89,7 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
                       onPageChanged={ this.onPageChanged } changeCurrentPage={ this.props.changeCurrentPage }
                       isFetching={ this.props.isFetching } changeIsFetching={ this.props.changeIsFetching }
                       currentPage={ this.props.currentPage } pageSize={ this.props.pageSize }
-                      isRequestSend={ this.props.isRequestSend }
+                      isRequestSendUsersId={ this.props.isRequestSendUsersId }
                       sendRequestFromFollowUnFollow={ this.props.sendRequestFromFollowUnFollow }/>
     }
 } //class container for USERS
@@ -101,7 +101,7 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
         pageSize: state.usersReducer.pageSize,
         currentPage: state.usersReducer.currentPage,
         isFetching: state.usersReducer.isFetching,
-        isRequestSend: state.usersReducer.isRequestSend
+        isRequestSendUsersId: state.usersReducer.isRequestSendUsersId
 
     }
 }

@@ -7,7 +7,7 @@ export enum USERS_CONST {
     ADD_MORE_USERS = 'ADD_MORE_USERS',
     CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE',
     CHANGE_TOTAL_COUNT = 'CHANGE_TOTAL_COUNT',
-    CHANGE_IS_FETCHING = 'CHANGE_IS_FETCHING',
+    CHANGE_IS_FETCHING_FROM_USERS = 'CHANGE_IS_FETCHING_FROM_USERS',
     SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW='SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW'
 
 }
@@ -45,12 +45,13 @@ type changeTotalCountActionCreatorType = {
     totalCount: number
 }
 type changeIsFetchingActionCreatorType = {
-    type: typeof USERS_CONST.CHANGE_IS_FETCHING
+    type: typeof USERS_CONST.CHANGE_IS_FETCHING_FROM_USERS
     isFetching: boolean
 }
 type sendingRequestFromFollowUnFollowTypeActionCreatorType={
     type: typeof USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW,
-    isRequestSend:boolean
+    userId:number
+    isFetching:boolean
 }
 
 
@@ -70,10 +71,10 @@ export const changeTotalCountActionCreator = (totalCount: number): changeTotalCo
     return {type: USERS_CONST.CHANGE_TOTAL_COUNT, totalCount} as const
 }
 export const changeIsFetchingActionCreator = (isFetching: boolean): changeIsFetchingActionCreatorType => {
-    return {type: USERS_CONST.CHANGE_IS_FETCHING, isFetching} as const
+    return {type: USERS_CONST.CHANGE_IS_FETCHING_FROM_USERS, isFetching} as const
 }
-export const sendRequestFromFollowUnFollowActionCreator = (isRequestSend: boolean): sendingRequestFromFollowUnFollowTypeActionCreatorType => {
-    return {type: USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW, isRequestSend} as const
+export const sendRequestFromFollowUnFollowActionCreator = (userId: number,isFetching:boolean): sendingRequestFromFollowUnFollowTypeActionCreatorType => {
+    return {type: USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW, userId,isFetching} as const
 }
 
 
@@ -83,7 +84,7 @@ const initialState = {
     totalCount: 0,
     currentPage: 1,
     isFetching: false,
-    isRequestSend:false
+    isRequestSendUsersId:[] as number[]
 }
 export type UsersStateType = typeof initialState
 
@@ -114,9 +115,13 @@ const usersReducer = (state: UsersStateType = initialState, action: ActionsTypes
             };
         case USERS_CONST.ADD_MORE_USERS:
             if (action.users) {
-                return {...state, users: [...action.users]}
+                return {
+                    ...state, users: [...action.users]
+                }
             } else {
-                return {...state, users: []}
+                return {
+                    ...state, users: []
+                }
             }
         case USERS_CONST.CHANGE_CURRENT_PAGE:
             return {
@@ -127,14 +132,16 @@ const usersReducer = (state: UsersStateType = initialState, action: ActionsTypes
                 ...state, totalCount: action.totalCount
             }
         }
-        case USERS_CONST.CHANGE_IS_FETCHING: {
+        case USERS_CONST.CHANGE_IS_FETCHING_FROM_USERS: {
             return {
                 ...state, isFetching: action.isFetching
             }
         }
         case USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW: {
             return {
-                ...state,isRequestSend: action.isRequestSend
+                ...state, isRequestSendUsersId: action.isFetching? [
+                    ...state.isRequestSendUsersId,action.userId]
+                    : state.isRequestSendUsersId.filter(id=>id!==action.userId)
             }
         }
         default:

@@ -1,6 +1,7 @@
 import {combineReducers, createStore} from 'redux'
 import profileReducer, {
     addPostActionCreator,
+    changeIsFetchingFromProfileActionCreator,
     changePostInputActionCreator,
     setUserProfileActionCreator
 } from "./profileReducer";
@@ -25,6 +26,7 @@ export type ActionsTypes =
     | ReturnType<typeof setUserProfileActionCreator>
     | ReturnType<typeof setUserDataActionCreator>
     | ReturnType<typeof sendRequestFromFollowUnFollowActionCreator>
+    | ReturnType<typeof changeIsFetchingFromProfileActionCreator>
 
 
 const rootReducer = combineReducers ( {

@@ -4,14 +4,12 @@ import {ActionsTypes} from "./reduxStore";
 export enum PROFILE_CONST {
     ADD_POST = 'ADD-POST',
     CHANGE_POST_INPUT_TEXT = 'CHANGE-POST-INPUT-TEXT',
-    SET_USER_PROFILE = 'SET_USER_PROFILE'
+    SET_USER_PROFILE = 'SET_USER_PROFILE',
+    CHANGE_IS_FETCHING_FROM_PROFILE='CHANGE_IS_FETCHING_FROM_PROFILE'
 }
 
 
-export type ProfileInfoTextFromProfileType = {
-    id: number
-    postMessage: string
-}
+
 export type MyPostArrayFromProfileType = {
     profileSelfPhotoImgUrl: string
     id: number
@@ -47,6 +45,10 @@ type setUserProfileActionCreationType = {
     type: typeof PROFILE_CONST.SET_USER_PROFILE,
     payload: { user: UserFromProfileResponseType }
 }
+type ChangeIsFetchingFromProfileActionCreationType = {
+    type: typeof PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE,
+    payload: { isFetching: boolean}
+}
 
 export const addPostActionCreator = (): AddPostActionCreationType => {
     return {type: PROFILE_CONST.ADD_POST,} as const
@@ -57,41 +59,10 @@ export const changePostInputActionCreator = (item: string): ChangePostInputActio
 export const setUserProfileActionCreator = (user: UserFromProfileResponseType): setUserProfileActionCreationType => {
     return {type: PROFILE_CONST.SET_USER_PROFILE, payload: {user}} as const
 }
+export const changeIsFetchingFromProfileActionCreator = ( isFetching: boolean): ChangeIsFetchingFromProfileActionCreationType => {
+    return {type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE, payload: {isFetching} } as const
+}
 
-/*const initialState = {
-    currentInputPost: '',
-    profileSelfPhotoImgUrl: selfPhoto,
-    profileInfoText: [
-        {id: 1, postMessage: 'Человек умелый'},
-        {id: 2, postMessage: 'человек разумный'},
-        {id: 3, postMessage: '46 хромосом. 32 зуба.'},
-        {id: 4, postMessage: '183 сантиметра роста'},
-        {id: 5, postMessage: 'Где-то под полтора килограмма мозга'},
-        {id: 6, postMessage: 'Улыбка до ушей, в теле 36.6'},
-        {id: 7, postMessage: 'Здоров от пяток до шеи, почти совершенен'},
-    ] as Array<ProfileInfoTextFromProfileType>,
-    myPostArray: [
-        {
-            profileSelfPhotoImgUrl: selfPhoto,
-            id: 1,
-            message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, ',
-        }, {
-            profileSelfPhotoImgUrl: selfPhoto,
-            id: 2, message: ' ultricies nec, pellentesque eu, ',
-        }, {
-            profileSelfPhotoImgUrl: selfPhoto,
-            id: 3,
-            message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu ',
-        }, {
-            profileSelfPhotoImgUrl: selfPhoto,
-            id: 4,
-            message: 'Lorem ipssa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridics, ultricies nec, pellentesque eu, ',
-        }, {
-            profileSelfPhotoImgUrl: selfPhoto,
-            id: 5, message: 'eu, ',
-        },
-    ] as Array<MyPostArrayFromProfileType>
-}*/ //old profile State
 
 const initialState = {
     currentInputPost: '',
@@ -132,7 +103,8 @@ const initialState = {
             profileSelfPhotoImgUrl: selfPhoto,
             id: 5, message: 'eu, ',
         },
-    ] as Array<MyPostArrayFromProfileType>
+    ] as Array<MyPostArrayFromProfileType>,
+    isFetching:false as boolean
 }
 
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateProfileType => {
@@ -149,6 +121,8 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
             return {...state, currentInputPost: action.payload.item}
         case PROFILE_CONST.SET_USER_PROFILE:
             return {...state, profile: action.payload.user}
+        case PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE:
+            return {...state,isFetching: action.payload.isFetching}
         default:
             return state
     }

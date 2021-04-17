@@ -16,14 +16,6 @@ export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfileProp
         props.onAddPost()
         props.onPostChanger('')
 
-
-        /* const trimmedPost = props.currentInputPostString.trim()
-         if (trimmedPost) {
-             props.dispatch(addPostActionCreator())
-             props.dispatch(changePostInputActionCreator(''))
-         } else {
-             props.dispatch(changePostInputActionCreator(''))
-         }*/
     } // adding trimmed post with clearing input   //old logic with dispatch inside
 
 

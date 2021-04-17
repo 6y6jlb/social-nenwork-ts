@@ -1,5 +1,6 @@
 import axios from "axios";
 import {UsersResponseType} from "../components/MainWrapper/UserPage/UserPage.container";
+import {UserFromProfileResponseType} from "../Redux/profileReducer";
 
 type FollowUserResponseType = {
     resultCode:number
@@ -21,6 +22,10 @@ const instanceForUnFollowUserAndFollowUserSamuraiAPI = axios.create({
 
 })
 
+const instanceForProfileSamuraiAPI = axios.create({
+    baseURL:'https://social-network.samuraijs.com/api/1.0/'
+})
+
 export const UsersAPI = {
     getUsers:(pageSize:number,currentPage:number) =>{
         return instanceForGetUsersSamuraiAPI.get<UsersResponseType> ( `users/?count=${pageSize }&page=${currentPage }`,
@@ -34,5 +39,10 @@ export const UsersAPI = {
     followUser:(userId:number) =>{
         return instanceForUnFollowUserAndFollowUserSamuraiAPI.post<FollowUserResponseType> ( `follow/${userId}`,
         )
+    }
+}
+export const ProfileAPI = {
+    setUserProfile:(userIdForURL:string) => {
+        return instanceForProfileSamuraiAPI.get<UserFromProfileResponseType> ( `profile/${ userIdForURL }` )
     }
 }

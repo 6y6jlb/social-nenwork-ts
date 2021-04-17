@@ -13,7 +13,7 @@ type UsersPagePropsType = {
     pageSize: number
     currentPage: number,
     isFetching: boolean
-    isRequestSend:boolean
+    isRequestSendUsersId:number []
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
     setUsers: (users: UserType[]) => void
@@ -21,7 +21,7 @@ type UsersPagePropsType = {
     changeTotalCount: (currentPage: number) => void
     changeIsFetching: (isFetching: boolean) => void
     onPageChanged: (pageNumber: number) => void
-    sendRequestFromFollowUnFollow:(isRequestSend: boolean) => void
+    sendRequestFromFollowUnFollow:(userId: number,isFetching:boolean) => void
 
 }
 
@@ -54,25 +54,25 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
                     <NavLink to={ `/profile/${ user.id }` }><img src={ user.photos.small || emptyPhoto }
                                                                  alt={ `${ user.name }, ${ user.id }` }/></NavLink>
                     { user.followed
-                        ? <button disabled={props.isRequestSend} className={ style.followed } onClick={() => {
-                            props.sendRequestFromFollowUnFollow(true)
+                        ? <button disabled={props.isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed } onClick={() => {
+                            props.sendRequestFromFollowUnFollow(user.id,true)
                             UsersAPI.unFollowUser(user.id)
                                 .then ( response => {
                                     if (response.data.resultCode === 0) {
                                         followCallBack ( user.id )
-                                        props.sendRequestFromFollowUnFollow(false)
+                                        props.sendRequestFromFollowUnFollow(user.id,false)
                                     }
                                 } )
                         } }
                                 >друх</button>
-                        : <button disabled={props.isRequestSend} className={ style.followed }
+                        : <button disabled={props.isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed }
                                 onClick={ () => {
-                                    props.sendRequestFromFollowUnFollow(true)
+                                    props.sendRequestFromFollowUnFollow(user.id,true)
                                     UsersAPI.followUser(user.id)
                                         .then ( response => {
                                             if (response.data.resultCode === 0) {
                                                 unFollowCallBack ( user.id )
-                                                props.sendRequestFromFollowUnFollow(true)
+                                                props.sendRequestFromFollowUnFollow(user.id,false)
                                             }
                                         } )
                                 } }>не друх</button> }
