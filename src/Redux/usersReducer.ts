@@ -1,14 +1,16 @@
 import {ActionsTypes} from "./reduxStore";
 import {UserResponseType} from "../components/MainWrapper/UserPage/UserPage.container";
+import {UsersAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 export enum USERS_CONST {
-    FOLLOW='FOLLOW',
+    FOLLOW = 'FOLLOW',
     UN_FOLLOW = 'UN_FOLLOW',
     ADD_MORE_USERS = 'ADD_MORE_USERS',
     CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE',
     CHANGE_TOTAL_COUNT = 'CHANGE_TOTAL_COUNT',
     CHANGE_IS_FETCHING_FROM_USERS = 'CHANGE_IS_FETCHING_FROM_USERS',
-    SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW='SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW'
+    SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW = 'SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW'
 
 }
 
@@ -48,10 +50,10 @@ type changeIsFetchingActionCreatorType = {
     type: typeof USERS_CONST.CHANGE_IS_FETCHING_FROM_USERS
     isFetching: boolean
 }
-type sendingRequestFromFollowUnFollowTypeActionCreatorType={
+type sendingRequestFromFollowUnFollowTypeActionCreatorType = {
     type: typeof USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW,
-    userId:number
-    isFetching:boolean
+    userId: number
+    isFetching: boolean
 }
 
 
@@ -59,7 +61,7 @@ export const followActionCreator = (id: number): followActionCreationType => {
     return {type: USERS_CONST.FOLLOW, id} as const
 }
 export const unFollowActionCreator = (id: number): unFollowActionCreatorType => {
-    return {type:  USERS_CONST.UN_FOLLOW, id} as const
+    return {type: USERS_CONST.UN_FOLLOW, id} as const
 }
 export const addMoreUsersActionCreator = (users: UserType[] | UserResponseType[]): addMoreUsersActionCreatorType => {
     return {type: USERS_CONST.ADD_MORE_USERS, users} as const
@@ -73,10 +75,38 @@ export const changeTotalCountActionCreator = (totalCount: number): changeTotalCo
 export const changeIsFetchingActionCreator = (isFetching: boolean): changeIsFetchingActionCreatorType => {
     return {type: USERS_CONST.CHANGE_IS_FETCHING_FROM_USERS, isFetching} as const
 }
-export const sendRequestFromFollowUnFollowActionCreator = (userId: number,isFetching:boolean): sendingRequestFromFollowUnFollowTypeActionCreatorType => {
-    return {type: USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW, userId,isFetching} as const
+export const sendRequestFromFollowUnFollowActionCreator = (userId: number, isFetching: boolean): sendingRequestFromFollowUnFollowTypeActionCreatorType => {
+    return {type: USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW, userId, isFetching} as const
 }
-
+export const getUsersTC = (pageSize: number, currentPage: number) => (dispatch: Dispatch) => {
+    dispatch ( changeIsFetchingActionCreator ( true ) )
+    UsersAPI.getUsers ( pageSize, currentPage ).then ( response => {
+            dispatch ( changeTotalCountActionCreator ( response.data.totalCount > 20 ? 20 : response.data.totalCount ) )
+            dispatch ( addMoreUsersActionCreator ( response.data.items ) )
+            dispatch ( changeIsFetchingActionCreator ( false ) )
+        }
+    )
+}
+export const followUserTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch ( sendRequestFromFollowUnFollowActionCreator ( userId, true ) )
+    UsersAPI.unFollowUser ( userId )
+        .then ( response => {
+            if (response.data.resultCode === 0) {
+                dispatch ( followActionCreator ( userId ) )
+                dispatch ( sendRequestFromFollowUnFollowActionCreator ( userId, false ) )
+            }
+        } )
+}
+export const unFollowUserTC = (userId: number) => (dispatch: Dispatch) => {
+    dispatch ( sendRequestFromFollowUnFollowActionCreator ( userId, true ) )
+    UsersAPI.followUser ( userId )
+        .then ( response => {
+            if (response.data.resultCode === 0) {
+                dispatch ( unFollowActionCreator ( userId ) )
+                dispatch ( sendRequestFromFollowUnFollowActionCreator ( userId, false ) )
+            }
+        } )
+}
 
 const initialState = {
     users: [] as UserType[],
@@ -84,7 +114,7 @@ const initialState = {
     totalCount: 0,
     currentPage: 1,
     isFetching: false,
-    isRequestSendUsersId:[] as number[]
+    isRequestSendUsersId: [] as number[]
 }
 export type UsersStateType = typeof initialState
 
@@ -139,9 +169,9 @@ const usersReducer = (state: UsersStateType = initialState, action: ActionsTypes
         }
         case USERS_CONST.SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW: {
             return {
-                ...state, isRequestSendUsersId: action.isFetching? [
-                    ...state.isRequestSendUsersId,action.userId]
-                    : state.isRequestSendUsersId.filter(id=>id!==action.userId)
+                ...state, isRequestSendUsersId: action.isFetching ? [
+                        ...state.isRequestSendUsersId, action.userId]
+                    : state.isRequestSendUsersId.filter ( id => id !== action.userId )
             }
         }
         default:

@@ -1,9 +1,7 @@
 import React from "react";
 import style from './UserPage.module.css'
-import Preloader from "../../common/preloader/Preloader";
 import {UserType} from "../../../Redux/usersReducer";
 import {NavLink} from "react-router-dom";
-import {UsersAPI} from "../../../api/api";
 
 
 type UsersPagePropsType = {
@@ -12,7 +10,6 @@ type UsersPagePropsType = {
     totalCount: number,
     pageSize: number
     currentPage: number,
-    isFetching: boolean
     isRequestSendUsersId:number []
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
@@ -25,15 +22,12 @@ type UsersPagePropsType = {
 
 }
 
-
-
 const Users: React.FC<UsersPagePropsType> = (props) => {
 
     const {
         users,
         totalCount,
         pageSize,
-        isFetching,
         followCallBack,
         unFollowCallBack,
         onPageChanged,
@@ -55,6 +49,8 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
                                                                  alt={ `${ user.name }, ${ user.id }` }/></NavLink>
                     { user.followed
                         ? <button disabled={props.isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed } onClick={() => {
+                            followCallBack(user.id)
+                            /*
                             props.sendRequestFromFollowUnFollow(user.id,true)
                             UsersAPI.unFollowUser(user.id)
                                 .then ( response => {
@@ -63,10 +59,12 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
                                         props.sendRequestFromFollowUnFollow(user.id,false)
                                     }
                                 } )
-                        } }
+                        */} }
                                 >друх</button>
                         : <button disabled={props.isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed }
                                 onClick={ () => {
+                                    unFollowCallBack(user.id)
+                                    /*
                                     props.sendRequestFromFollowUnFollow(user.id,true)
                                     UsersAPI.followUser(user.id)
                                         .then ( response => {
@@ -75,7 +73,7 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
                                                 props.sendRequestFromFollowUnFollow(user.id,false)
                                             }
                                         } )
-                                } }>не друх</button> }
+                                */} }>не друх</button> }
                 </div>
                 <div className={ style.description }>
                     <div className={ style.info }>
@@ -95,12 +93,11 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
     )
 
     return (
-        <>{ isFetching ?
-            <Preloader/>
+        <>
             : <div className={ style.usersFrame }>
                 <div className={ style.pages }>{ mappedPages }</div>
                 { mappedUsers }
-            </div> }
+            </div>
         </>
     );
 }

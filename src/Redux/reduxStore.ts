@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from 'redux'
+import {applyMiddleware,combineReducers, createStore,compose} from 'redux'
 import profileReducer, {
     addPostActionCreator,
     changeIsFetchingFromProfileActionCreator,
@@ -11,6 +11,8 @@ import usersReducer, {addMoreUsersActionCreator, changeCurrentPageActionCreator,
     changeIsFetchingActionCreator, changeTotalCountActionCreator,
     followActionCreator, sendRequestFromFollowUnFollowActionCreator, unFollowActionCreator} from "./usersReducer";
 import authReducer, {setUserDataActionCreator} from "./auth-reducer";
+import thunkMiddleware from 'redux-thunk'
+
 
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator>
@@ -38,10 +40,11 @@ const rootReducer = combineReducers ( {
 
 } );
 
+
 export type RootReducersType = typeof rootReducer
 export type AppStateType = ReturnType<RootReducersType>
 
-let store = createStore ( rootReducer,(window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__() );
-
+let store = createStore ( rootReducer,applyMiddleware(thunkMiddleware));
+//(window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(), need to fix
 
 export default store;
