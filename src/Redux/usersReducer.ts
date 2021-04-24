@@ -85,6 +85,9 @@ export const getUsersTC = (pageSize: number, currentPage: number) => (dispatch: 
             dispatch ( addMoreUsersActionCreator ( response.data.items ) )
             dispatch ( changeIsFetchingActionCreator ( false ) )
         }
+    ).catch(err=>{
+        console.warn(err)
+        }
     )
 }
 export const followUserTC = (userId: number) => (dispatch: Dispatch) => {
@@ -95,7 +98,10 @@ export const followUserTC = (userId: number) => (dispatch: Dispatch) => {
                 dispatch ( followActionCreator ( userId ) )
                 dispatch ( sendRequestFromFollowUnFollowActionCreator ( userId, false ) )
             }
-        } )
+        } ).catch(err=>{
+            console.warn(err)
+        }
+    )
 }
 export const unFollowUserTC = (userId: number) => (dispatch: Dispatch) => {
     dispatch ( sendRequestFromFollowUnFollowActionCreator ( userId, true ) )
@@ -105,7 +111,10 @@ export const unFollowUserTC = (userId: number) => (dispatch: Dispatch) => {
                 dispatch ( unFollowActionCreator ( userId ) )
                 dispatch ( sendRequestFromFollowUnFollowActionCreator ( userId, false ) )
             }
-        } )
+        } ).catch(err=>{
+            console.warn(err)
+        }
+    )
 }
 
 const initialState = {

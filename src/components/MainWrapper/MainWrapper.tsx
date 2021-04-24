@@ -8,14 +8,13 @@ import DialogsWrapperContainer from "./DialogsWrapper/DialogsWrapper.container";
 import ProfileWrapperContainer from "./Profile/ProfileWrapper.container";
 import NavigationBarContainer from "./Navigation/NavigationBar.container";
 import UserPageContainer from "./UserPage/UserPage.container";
+import Login from "../common/login/Login";
 
 
 export function MainWrapper() {
     return (
             <div className={ s.mainWrapper }>
                 <NavigationBarContainer/>
-                <div className={ s.contentWrapper }>
-
                     <Route path={ '/profile/:userId?' }
                            render={ () => <ProfileWrapperContainer
                            /> }/>
@@ -28,11 +27,10 @@ export function MainWrapper() {
                     <Route path={ '/news' } render={ () => <NewsFeed/> }/>
                     <Route path={ '/audio' } render={ () => <AudioPage/> }/>
                     <Route path={ '/settings' } render={ () => <Settings/> }/>
+                    <Route path={ '/login' } render={ () => <Login/> }/>
                     {/*<Route exact path={ '/' }
                            render={ () => <ProfileWrapperContainer
                            /> }/>*/}
-                </div>
-
             </div>
     )
 }

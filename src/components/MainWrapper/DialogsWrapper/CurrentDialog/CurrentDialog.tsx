@@ -7,9 +7,10 @@ import {MessagesFromDialogsType} from "../../../../Redux/dialogsReducer";
 
 export type CurrentDialogPropsType = {
     messages: Array<MessagesFromDialogsType>
-    onAddPost: () => void
-    onPostChanger: (text: string) => void
+    onAddPost: (self:boolean) => void
+    onPostChanger: (item: string) => void
     currentInputMessageString: string
+    name:string|null
     /* dispatch: (action:ActionsTypes)=>void*/
 }
 
@@ -20,7 +21,7 @@ export function CurrentDialog(props: CurrentDialogPropsType) {
     return (
         <div className={s.currentDialogWrapper}>
 
-            <MessageFromCurrentDialog messages={props.messages}/>
+            <MessageFromCurrentDialog name={props.name} messages={props.messages}/>
 
             <SendMessageAreaFromCurrentDialog onAddPost={props.onAddPost} onPostChanger={props.onPostChanger}
                                               currentInputMessageString={props.currentInputMessageString}/>

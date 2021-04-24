@@ -7,7 +7,7 @@ import {
 } from "../../../Redux/dialogsReducer";
 
 import {connect} from "react-redux";
-import {Dispatch} from "redux";
+
 import {AppStateType} from "../../../Redux/reduxStore";
 
 
@@ -44,37 +44,24 @@ import {AppStateType} from "../../../Redux/reduxStore";
 }*/
 
 
-type MapStateToPropsType = InitialStateDialogsType
-type MapDispatchToProps = {
-    onAddPost: () => void
-    onPostChanger: (text: string) => void
+
+type MapStateToPropsType ={
+    isAuth:boolean
+    name:string|null
 }
 
-let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
+let mapStateToProps = (state: AppStateType): MapStateToPropsType & InitialStateDialogsType => {
     return {
         messages: state.dialogsReducer.messages,
-        currentInputMessageString: state.dialogsReducer.currentInputMessageString
-    }
-}
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-    return {
-        onAddPost: () => {
-            dispatch(addDialogsMessageActionCreator(true))
-            dispatch(changeDialogsInputActionCreator(''))
-            /*const trimmedMessage = state.currentInputMessageString.trim()
-            if (trimmedMessage) {
-                dispatch(addDialogsMessageActionCreator(true))
-                dispatch(changeDialogsInputActionCreator(''))
-            } else {
-                dispatch(changeDialogsInputActionCreator(''))
-            }*/
-        },
-        onPostChanger: (text: string) => {
-            dispatch(changeDialogsInputActionCreator(text))
-        }
+        currentInputMessageString: state.dialogsReducer.currentInputMessageString,
+        isAuth:state.auth.isAuth,
+        name:state.profileReducer.profile.fullName
     }
 }
 
-const DialogsWrapperContainer = connect(mapStateToProps, mapDispatchToProps)(DialogsWrapper)
+
+const DialogsWrapperContainer = connect(mapStateToProps, {
+    onPostChanger:changeDialogsInputActionCreator,onAddPost:addDialogsMessageActionCreator
+})(DialogsWrapper)
 export default DialogsWrapperContainer;
 

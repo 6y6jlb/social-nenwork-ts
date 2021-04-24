@@ -1,5 +1,7 @@
 import selfPhoto from "../images/face.png";
 import {ActionsTypes} from "./reduxStore";
+import {ProfileAPI} from "../api/api";
+import {Dispatch} from "redux";
 
 export enum PROFILE_CONST {
     ADD_POST = 'ADD-POST',
@@ -61,6 +63,17 @@ export const setUserProfileActionCreator = (user: UserFromProfileResponseType): 
 }
 export const changeIsFetchingFromProfileActionCreator = ( isFetching: boolean): ChangeIsFetchingFromProfileActionCreationType => {
     return {type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE, payload: {isFetching} } as const
+}
+export const getProfileTC = (userIdForURL:number)=>(dispatch:Dispatch)=>{
+    dispatch(changeIsFetchingFromProfileActionCreator(true))
+    ProfileAPI.setUserProfile(userIdForURL)
+        .then ( response => {
+                dispatch(changeIsFetchingFromProfileActionCreator(false))
+                dispatch(setUserProfileActionCreator ( response.data ))
+            }
+        ).catch(err=>{
+        console.warn(err)
+    })
 }
 
 

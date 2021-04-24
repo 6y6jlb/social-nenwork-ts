@@ -1,3 +1,20 @@
+
+.usersFrame {
+    display: grid;
+    margin: 0 auto 0 30px;
+    row-gap: 10px;
+}
+
+.pages{
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: repeat(auto-fill,15px);
+    column-gap: 3px;
+    height: 30px;
+    color: #492F7E;
+    font-size: 1.5em;
+}
+
 .user {
     display: grid;
     grid-template-columns: 150px 1fr;
@@ -59,9 +76,12 @@
     justify-self: center;
 }
 
+.photoZone a{
+    display: grid;
+   justify-content: center;
+}
+
 .photoZone img {
-    align-self: center;
-    justify-self: center;
     width: 50px;
     height: 50px;
     border-radius: 2px;
@@ -96,22 +116,6 @@
 }
 
 
-.usersFrame {
-    display: grid;
-    width: 60vw;
-    margin: 0 auto 0 30px;
-    row-gap: 10px;
-}
-
-.pages{
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: repeat(auto-fill,15px);
-    column-gap: 3px;
-    height: 30px;
-    color: #492F7E;
-    font-size: 1.5em;
-}
 .activeNumber{
     font-weight: bold;
     border-bottom: 1px #492F7E solid;
@@ -139,4 +143,39 @@
 .addUsersButton:active {
     box-shadow: inset 0px 1px 10px 2px #492F7E;
     color: white;
+}
+@media (max-width: 900px) {
+    .user {
+        grid-template-columns: 70px 1fr;
+    }
+    .description {
+        column-gap: 5px;
+        grid-template-rows: repeat(auto-fit, 1fr);
+        text-align: center;
+
+    }
+    .name {
+        font-size: 1.1em;
+    }
+    .info{
+        display: grid;
+    }
+    .location {
+        display: grid;
+        row-gap: 10px;
+        text-transform: none;
+        grid-row-start: 1;
+        grid-row-end: 3;
+
+
+    }
+    .country {
+        font-size: 1.2em;
+    }
+
+    .city {
+        font-size: 1em;
+    }
+
+
 }

@@ -13,12 +13,7 @@ type UsersPagePropsType = {
     isRequestSendUsersId:number []
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
-    setUsers: (users: UserType[]) => void
-    changeCurrentPage: (currentPage: number) => void
-    changeTotalCount: (currentPage: number) => void
-    changeIsFetching: (isFetching: boolean) => void
     onPageChanged: (pageNumber: number) => void
-    sendRequestFromFollowUnFollow:(userId: number,isFetching:boolean) => void
 
 }
 
@@ -31,7 +26,9 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
         followCallBack,
         unFollowCallBack,
         onPageChanged,
-        emptyPhoto
+        emptyPhoto,
+        isRequestSendUsersId,
+        currentPage
     } = props;
 
 
@@ -45,10 +42,10 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
         return (
             <div className={ style.user } key={ user.id }>
                 <div className={ style.photoZone }>
-                    <NavLink to={ `/profile/${ user.id }` }><img src={ user.photos.small || emptyPhoto }
+                    <NavLink  to={ `/profile/${ user.id }` }><img src={ user.photos.small || emptyPhoto }
                                                                  alt={ `${ user.name }, ${ user.id }` }/></NavLink>
                     { user.followed
-                        ? <button disabled={props.isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed } onClick={() => {
+                        ? <button disabled={isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed } onClick={() => {
                             followCallBack(user.id)
                             /*
                             props.sendRequestFromFollowUnFollow(user.id,true)
@@ -61,7 +58,7 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
                                 } )
                         */} }
                                 >друх</button>
-                        : <button disabled={props.isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed }
+                        : <button disabled={isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed }
                                 onClick={ () => {
                                     unFollowCallBack(user.id)
                                     /*
@@ -89,16 +86,13 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
     } ) //users items mapped for page
 
     const mappedPages = pages.map ( p => <span onClick={ () => onPageChanged ( p ) }
-                                               className={ props.currentPage === p ? style.activeNumber : style.normalNumber }>{ p }</span>
+                                               className={currentPage === p ? style.activeNumber : style.normalNumber }>{ p }</span>
     )
 
-    return (
-        <>
-            : <div className={ style.usersFrame }>
+    return (<div className={ style.usersFrame }>
                 <div className={ style.pages }>{ mappedPages }</div>
                 { mappedUsers }
             </div>
-        </>
     );
 }
 export default Users;

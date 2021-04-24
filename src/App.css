@@ -2,8 +2,9 @@
     font-family: sans-serif;
     text-align: center;
     text-justify: auto;
-    min-height: 100vh;
+    height: 100vh;
     display: grid;
+    width: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: 50px 1fr 30px;
 }
