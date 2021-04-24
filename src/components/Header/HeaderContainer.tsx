@@ -1,17 +1,12 @@
 import React from "react";
 import {Header} from "./Header";
-import axios from "axios";
-import {InitialStateFromAuthType, setUserDataActionCreator, SetUserDataType} from "../../Redux/auth-reducer";
+import {setUserDataActionCreator, SetUserDataType, setUserFromHeaderTC} from "../../Redux/auth-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {setUserProfileActionCreator, UserFromProfileResponseType} from "../../Redux/profileReducer";
+import {AuthAPI, ProfileAPI} from "../../api/api";
 
-type ResponseHeaderContainerType = {
-    data: SetUserDataType
-    fieldsErrors: any
-    messages: string
-    resultCode: number
-}
+
 type MapStatePropsType = {
     isAuth:boolean
     login:string|null
@@ -21,27 +16,35 @@ type MapStatePropsType = {
 type HeaderContainerPropsType = {
     setUser:(data:SetUserDataType)=>void
     setUserProfile:(user:UserFromProfileResponseType) => void
+    setUserFromHeaderTC:()=>void
     isAuth:boolean
     login:string|null
-    userId:number|null
+    userId:number
 }
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     componentDidMount() {
-        console.log (this.props)
-        axios.get<ResponseHeaderContainerType> ( `https://social-network.samuraijs.com/api/1.0/auth/me`,{
+      /*  axios.get<ResponseHeaderContainerType> ( `https://social-network.samuraijs.com/api/1.0/auth/me`,{
         withCredentials:true
-        } )
-            .then ( response => {
-                const newData = response.data.data
-               this.props.setUser( {...newData})
-                }
-            )
-        axios.get<UserFromProfileResponseType> ( `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}` )
+        } )*/
+        this.props.setUserFromHeaderTC()
+        // AuthAPI.setUser()
+        //     .then ( response => {
+        //         const newData = response.data.data
+        //        this.props.setUser( {...newData})
+        //         }
+        //     ).catch(err=>{
+        //         console.error(err)
+        //     }
+        // )
+        /*axios.get<UserFromProfileResponseType> ( `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}` )*/
+            ProfileAPI.setUserProfile(this.props.userId)
             .then ( response => {
                     this.props.setUserProfile ( response.data )
                 }
-            )
+            ).catch(err=>{
+                console.error(err)
+            })
 
     }
 
@@ -63,6 +66,7 @@ const mapStateToProps = (state:AppStateType):MapStatePropsType => {
 
 export default connect (mapStateToProps,{
     setUser:setUserDataActionCreator,
-    setUserProfile:setUserProfileActionCreator})(
+    setUserProfile:setUserProfileActionCreator,
+    setUserFromHeaderTC})(
     // @ts-ignore
         HeaderContainer);

@@ -1,16 +1,17 @@
 import {ActionsTypes} from "./reduxStore";
+import {Dispatch} from "redux";
+import {AuthAPI} from "../api/api";
 
 
 export enum AUTH_CONST {
-    SET_USER_DATA = 'ADD-SET_USER_DATA',
+    SET_USER_DATA = 'ADD_SET_USER_DATA',
 }
 
 
 export type UserDataFromAuthAuthType = {
-    id: null | number
-    email:null |string
-    login:null |string
-
+    id:  number | null
+    login:string | null
+    email:string | null
 }
 export type InitialStateFromAuthType = {
     isAuth:boolean
@@ -24,7 +25,18 @@ export type SetUserDataType = {
 }
 
 export const setUserDataActionCreator = (data:UserDataFromAuthAuthType):SetUserDataType => {
-    return {type: AUTH_CONST.SET_USER_DATA,data} as const
+    return {type: AUTH_CONST.SET_USER_DATA,data}
+}
+
+export const setUserFromHeaderTC = ()=>(dispatch:Dispatch)=>{
+    AuthAPI.setUserFromHeader()
+        .then ( response => {
+            dispatch(setUserDataActionCreator( {...response.data.data}))
+            }
+        ).catch(err=>{
+            console.warn(err)
+        }
+    )
 }
 
 const initialState:InitialStateFromAuthType = {

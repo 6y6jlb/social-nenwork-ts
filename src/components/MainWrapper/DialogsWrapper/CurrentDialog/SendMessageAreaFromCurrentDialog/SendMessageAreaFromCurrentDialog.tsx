@@ -3,8 +3,8 @@ import s from './SendMessageAreaFromCurrentDialog.module.css'
 
 
 type SendMessageAreaFromCurrentDialogPropsType = {
-    onAddPost: () => void
-    onPostChanger: (text: string) => void
+    onAddPost: (self:boolean) => void
+    onPostChanger: (item: string) => void
     currentInputMessageString: string
     /*dispatch: (action: ActionsTypes) => void*/
 }
@@ -12,9 +12,9 @@ type SendMessageAreaFromCurrentDialogPropsType = {
 export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurrentDialogPropsType) {
 
 
-    const addPost = () => {
+    const addPost = (self:boolean) => {
         if (props.currentInputMessageString.trim ()) {
-            props.onAddPost ();
+            props.onAddPost (self);
             props.onPostChanger ( '' )
         }
     } // adding trimmed post with clearing input
@@ -29,11 +29,11 @@ export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurre
                       onChange={ inputChanger }
                       onKeyPress={ (event) => {
                           if (event.ctrlKey) {
-                              addPost ()
+                              addPost (true)
                           }}}
                       value={ props.currentInputMessageString }/>
 
-            <button onClick={ addPost }>send message</button>
+            <button onClick={()=> addPost(true) }>send message</button>
 
         </div>
     )

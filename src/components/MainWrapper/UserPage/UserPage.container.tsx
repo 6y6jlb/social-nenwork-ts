@@ -6,11 +6,11 @@ import {
     changeCurrentPageActionCreator,
     changeIsFetchingActionCreator,
     changeTotalCountActionCreator,
-    followActionCreator, followUserTC,
+    followUserTC,
     getUsersTC,
     InitialStateUsersType,
     sendRequestFromFollowUnFollowActionCreator,
-    unFollowActionCreator, unFollowUserTC,
+    unFollowUserTC,
     UserType
 } from "../../../Redux/usersReducer";
 import Users from "./UsersPage";
@@ -26,11 +26,7 @@ type UsersPageAPIComponentPropsType = {
     isRequestSendUsersId: number[]
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
-    setUsers: (users: UserType[]) => void
     changeCurrentPage: (currentPage: number) => void
-    changeTotalCount: (currentPage: number) => void
-    changeIsFetching: (isFetching: boolean) => void
-    sendRequestFromFollowUnFollow: (userId: number, isFetching: boolean) => void
     getUsers: (pageSize: number, currentPage: number) => void
 }
 export type UserResponseType = {
@@ -87,18 +83,14 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
     render() {
         return <>{ this.props.isFetching ? <Preloader/> : <Users emptyPhoto={ emptyPhoto }
                                                                  users={ this.props.users }
-                                                                 setUsers={ this.props.setUsers }
                                                                  totalCount={ this.props.totalCount }
-                                                                 changeTotalCount={ this.props.changeTotalCount }
                                                                  followCallBack={ this.props.followCallBack }
                                                                  unFollowCallBack={ this.props.unFollowCallBack }
                                                                  onPageChanged={ this.onPageChanged }
-                                                                 changeCurrentPage={ this.props.changeCurrentPage }
-                                                                 changeIsFetching={ this.props.changeIsFetching }
                                                                  currentPage={ this.props.currentPage }
                                                                  pageSize={ this.props.pageSize }
                                                                  isRequestSendUsersId={ this.props.isRequestSendUsersId }
-                                                                 sendRequestFromFollowUnFollow={ this.props.sendRequestFromFollowUnFollow }/> }</>
+                                                                 /> }</>
     }
 } //class container for USERS
 
@@ -117,11 +109,7 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 const UserPageContainer = connect ( mapStateToProps, {
     followCallBack: followUserTC,
     unFollowCallBack: unFollowUserTC,
-    setUsers: addMoreUsersActionCreator,
     changeCurrentPage: changeCurrentPageActionCreator,
-    changeTotalCount: changeTotalCountActionCreator,
-    changeIsFetching: changeIsFetchingActionCreator,
-    sendRequestFromFollowUnFollow: sendRequestFromFollowUnFollowActionCreator,
     getUsers: getUsersTC
 } ) ( UserPageAPIComponent ) //without mapDispatch
 

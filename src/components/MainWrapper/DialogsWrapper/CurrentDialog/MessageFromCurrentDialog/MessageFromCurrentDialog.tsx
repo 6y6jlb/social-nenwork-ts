@@ -7,14 +7,15 @@ import {MessagesFromDialogsType} from "../../../../../Redux/dialogsReducer";
 
 export type MessageFromCurrentDialogPropsType = {
     messages: Array<MessagesFromDialogsType>
+    name:string|null
 }
 
 export function MessageFromCurrentDialog(props: MessageFromCurrentDialogPropsType) {
 
     let messagesBlock = props.messages.map(m => {
         return (
-            !m.self ? <NotMyMessage self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/> :
-                <MyMessage self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/>)
+            !m.self ? <NotMyMessage name={props.name} self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/> :
+                <MyMessage name={props.name} self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/>)
     })
 
 
