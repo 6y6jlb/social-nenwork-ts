@@ -28,7 +28,7 @@ export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurre
             <textarea className={ s.textArea }
                       onChange={ inputChanger }
                       onKeyPress={ (event) => {
-                          if (event.ctrlKey) {
+                          if (event.key === 'Enter' && event.shiftKey) {
                               addPost (true)
                           }}}
                       value={ props.currentInputMessageString }/>

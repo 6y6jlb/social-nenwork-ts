@@ -27,7 +27,7 @@ export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfileProp
     return (
         <div className={ s.sendMessageAreaFromProfile }>
             <textarea value={ props.currentInputPost } onChange={ onPostChanger } onKeyPress={ (event) => {
-                if (event.ctrlKey) {
+                if (event.key === 'Enter' && event.shiftKey) {
 
                     onAddPost ()
                 }
