@@ -4,30 +4,62 @@ import {setUserDataActionCreator, SetUserDataType, setUserFromHeaderTC} from "..
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {setUserProfileActionCreator, UserFromProfileResponseType} from "../../Redux/profileReducer";
-import {AuthAPI, ProfileAPI} from "../../api/api";
+import {ProfileAPI} from "../../api/api";
 
 
 type MapStatePropsType = {
-    isAuth:boolean
-    login:string|null
-    userId:number|null
+    isAuth: boolean
+    login: string | null
+    userId: number | null
 }
 
 type HeaderContainerPropsType = {
-    setUser:(data:SetUserDataType)=>void
-    setUserProfile:(user:UserFromProfileResponseType) => void
-    setUserFromHeaderTC:()=>void
-    isAuth:boolean
-    login:string|null
-    userId:number
+    setUser: (data: SetUserDataType) => void
+    setUserProfile: (user: UserFromProfileResponseType) => void
+    setUserFromHeaderTC: () => void
+    isAuth: boolean
+    login: string | null
+    userId: number
 }
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     componentDidMount() {
-      /*  axios.get<ResponseHeaderContainerType> ( `https://social-network.samuraijs.com/api/1.0/auth/me`,{
-        withCredentials:true
-        } )*/
-        this.props.setUserFromHeaderTC()
+       Promise.resolve( this.props.setUserFromHeaderTC ()).then(()=>{
+           ProfileAPI.setUserProfile ( this.props.userId )
+               .then ( response => {
+                       this.props.setUserProfile ( response.data )
+                   }
+               ).catch ( err => {
+               console.error ( err )
+           } )
+       })
+
+
+        /*  axios.get<ResponseHeaderContainerType> ( `https://social-network.samuraijs.com/api/1.0/auth/me`,{
+          withCredentials:true
+          } )*/
+        /* const setUser = async () => {
+             await this.props.setUserFromHeaderTC ();
+             await ProfileAPI.setUserProfile ( this.props.userId )
+                 .then ( response => {
+                         this.props.setUserProfile ( response.data )
+                     }
+                 ).catch ( err => {
+                     console.error ( err )
+                 } );
+         }
+          setUser()*/
+        /*Promise.all([this.props.setUserFromHeaderTC (),
+         ProfileAPI.setUserProfile ( this.props.userId )
+            .then ( response => {
+                    this.props.setUserProfile ( response.data )
+                }
+            ).catch ( err => {
+                console.error ( err )
+            } )])
+
+*/
+
         // AuthAPI.setUser()
         //     .then ( response => {
         //         const newData = response.data.data
@@ -38,25 +70,18 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
         //     }
         // )
         /*axios.get<UserFromProfileResponseType> ( `https://social-network.samuraijs.com/api/1.0/profile/${this.props.userId}` )*/
-            ProfileAPI.setUserProfile(this.props.userId)
-            .then ( response => {
-                    this.props.setUserProfile ( response.data )
-                }
-            ).catch(err=>{
-                console.error(err)
-            })
+
 
     }
 
     render() {
-            return <Header login={this.props.login} isAuth={this.props.isAuth} />
+        return <Header login={ this.props.login } isAuth={ this.props.isAuth }/>
 
-        }
+    }
 }
 
 
-
-const mapStateToProps = (state:AppStateType):MapStatePropsType => {
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         isAuth: state.auth.isAuth,
         login: state.auth.data.login,
@@ -64,9 +89,10 @@ const mapStateToProps = (state:AppStateType):MapStatePropsType => {
     }
 }
 
-export default connect (mapStateToProps,{
-    setUser:setUserDataActionCreator,
-    setUserProfile:setUserProfileActionCreator,
-    setUserFromHeaderTC})(
+export default connect ( mapStateToProps, {
+    setUser: setUserDataActionCreator,
+    setUserProfile: setUserProfileActionCreator,
+    setUserFromHeaderTC
+} ) (
     // @ts-ignore
-        HeaderContainer);
+    HeaderContainer );

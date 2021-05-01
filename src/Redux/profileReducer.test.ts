@@ -1,11 +1,12 @@
 import selfPhoto from "../images/face.png";
 import profileReducer, {
     addPostActionCreator,
-    changePostInputActionCreator, MyPostArrayFromProfileType,
+    changePostInputActionCreator,
+    MyPostArrayFromProfileType,
     UserFromProfileResponseType
 } from "./profileReducer";
 
-test('profile reducer and action test', (() => {
+test ( 'profile reducer and action test', (() => {
     const state = {
         currentInputPost: 'test',
         profile: {
@@ -23,7 +24,7 @@ test('profile reducer and action test', (() => {
                 youtube: null,
                 mainLink: null,
             },
-            photos: { small:  null, large: null }
+            photos: {small: null, large: null}
         } as UserFromProfileResponseType,
         myPostArray: [
             {
@@ -48,25 +49,24 @@ test('profile reducer and action test', (() => {
         ] as Array<MyPostArrayFromProfileType>
     }
 
-    const actionAddPost=addPostActionCreator()
-    const actionChangePostInput=changePostInputActionCreator('stringTest')
+    const actionAddPost = addPostActionCreator ()
+    const actionChangePostInput = changePostInputActionCreator ( 'stringTest' )
+    //@ts-ignore
+    const testProfileReducerAdd = profileReducer ( state, actionAddPost )
+    //@ts-ignore
+    const testProfileReducerChange = profileReducer ( state, actionChangePostInput )
 
-    const testProfileReducerAdd = profileReducer(state,actionAddPost)
-    const testProfileReducerChange = profileReducer(state,actionChangePostInput)
 
-
-    expect(testProfileReducerAdd.myPostArray[0]).toStrictEqual({
+    expect ( testProfileReducerAdd.myPostArray[0] ).toStrictEqual ( {
         profileSelfPhotoImgUrl: selfPhoto,
         id: 5,
         message: 'test',
-    })
-    expect(testProfileReducerAdd.myPostArray.length).toBe( 7)
-    expect(testProfileReducerAdd.currentInputPost).toStrictEqual('')
+    } )
+    expect ( testProfileReducerAdd.myPostArray.length ).toBe ( 7 )
+    expect ( testProfileReducerAdd.currentInputPost ).toStrictEqual ( '' )
 
 
-    expect(testProfileReducerChange.currentInputPost).toStrictEqual('stringTest')
+    expect ( testProfileReducerChange.currentInputPost ).toStrictEqual ( 'stringTest' )
 
 
-
-
-}))
+}) )

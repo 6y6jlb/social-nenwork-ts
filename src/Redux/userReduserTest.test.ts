@@ -28,7 +28,8 @@ test('user  reducer and action test', (() => {
         currentPage: 2,
         isFetching: true,
         totalCount: 10,
-        isRequestSend: true
+        isRequestSendUsersId: []
+
     }
 
 

@@ -18,12 +18,11 @@ export type DialogsWrapperPropsType = {
 }
 
 export const DialogsWrapper: React.FC<DialogsWrapperPropsType> = (props) => {
-    return props.isAuth
-        ? <div className={ s.dialogsWrapper }>
+    return <div className={ s.dialogsWrapper }>
             <FriendListFromDialogs/>
             <CurrentDialog name={ props.name } onAddPost={ props.onAddPost } onPostChanger={ props.onPostChanger }
                            currentInputMessageString={ props.currentInputMessageString }
                            messages={ props.messages }/>
         </div>
-        : <Redirect to={ '/login' }/>
+
 };

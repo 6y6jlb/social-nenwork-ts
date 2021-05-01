@@ -9,42 +9,44 @@ export enum AUTH_CONST {
 
 
 export type UserDataFromAuthAuthType = {
-    id:  number | null
-    login:string | null
-    email:string | null
+    id: number | null
+    login: string | null
+    email: string | null
 }
 export type InitialStateFromAuthType = {
-    isAuth:boolean
+    isAuth: boolean
     data: UserDataFromAuthAuthType
 }
 
 
 export type SetUserDataType = {
     type: AUTH_CONST.SET_USER_DATA,
-    data:UserDataFromAuthAuthType
+    data: UserDataFromAuthAuthType
 }
 
-export const setUserDataActionCreator = (data:UserDataFromAuthAuthType):SetUserDataType => {
-    return {type: AUTH_CONST.SET_USER_DATA,data}
+export const setUserDataActionCreator = (data: UserDataFromAuthAuthType): SetUserDataType => {
+    return {type: AUTH_CONST.SET_USER_DATA, data}
 }
 
-export const setUserFromHeaderTC = ()=>(dispatch:Dispatch)=>{
-    AuthAPI.setUserFromHeader()
+export const setUserFromHeaderTC = () => (dispatch: Dispatch) => {
+    AuthAPI.setUserFromHeader ()
         .then ( response => {
-            dispatch(setUserDataActionCreator( {...response.data.data}))
+                if (response.data.resultCode === 0) {
+                    dispatch ( setUserDataActionCreator ( {...response.data.data} ) )
+                }
             }
-        ).catch(err=>{
-            console.warn(err)
+        ).catch ( err => {
+            console.warn ( err )
         }
     )
 }
 
-const initialState:InitialStateFromAuthType = {
-    isAuth:false,
-    data : {
+const initialState: InitialStateFromAuthType = {
+    isAuth: false,
+    data: {
         id: null,
-        email:null ,
-        login:null
+        email: null,
+        login: null
     }
 
 
@@ -54,11 +56,11 @@ const initialState:InitialStateFromAuthType = {
 const authReducer = (state = initialState, action: ActionsTypes): InitialStateFromAuthType => {
     switch (action.type) {
         case AUTH_CONST.SET_USER_DATA:
+
             return {
                 ...state, data: {...action.data},
-                isAuth:true
-
-        }
+                isAuth: true
+            }
         default:
             return state
     }

@@ -9,6 +9,7 @@ import {
 import {connect} from "react-redux";
 
 import {AppStateType} from "../../../Redux/reduxStore";
+import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 
 
 /*export function DialogsWrapperContainer(props: any) {
@@ -62,6 +63,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType & InitialStateD
 
 const DialogsWrapperContainer = connect(mapStateToProps, {
     onPostChanger:changeDialogsInputActionCreator,onAddPost:addDialogsMessageActionCreator
-})(DialogsWrapper)
+})(withAuthRedirect(DialogsWrapper))
 export default DialogsWrapperContainer;
 

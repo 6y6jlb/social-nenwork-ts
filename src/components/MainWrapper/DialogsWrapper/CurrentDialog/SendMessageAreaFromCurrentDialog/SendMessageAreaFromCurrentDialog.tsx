@@ -6,7 +6,7 @@ type SendMessageAreaFromCurrentDialogPropsType = {
     onAddPost: (self:boolean) => void
     onPostChanger: (item: string) => void
     currentInputMessageString: string
-    /*dispatch: (action: ActionsTypes) => void*/
+
 }
 
 export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurrentDialogPropsType) {
@@ -21,7 +21,7 @@ export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurre
     const inputChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const text = event.currentTarget.value;
         props.onPostChanger ( text );
-    } //flax changer element
+    }
 
     return (
         <div className={ s.sendMessageAreaFromCurrentDialog }>

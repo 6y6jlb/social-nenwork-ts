@@ -24,7 +24,7 @@ const instanceForUnFollowUserAndFollowUserSamuraiAPI = axios.create({
     withCredentials: true,
     baseURL:"https://social-network.samuraijs.com/api/1.0/",
     headers:{
-        "API-KEY":'3d2dd236-488d-443e-9eb7-ae8a6831eb76'
+        "API-KEY":'5dd18682-d8ca-4034-bcc6-76fd868cb4ec'
     }
 
 })
