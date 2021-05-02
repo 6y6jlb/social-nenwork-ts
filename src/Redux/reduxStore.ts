@@ -1,34 +1,34 @@
 import {applyMiddleware,combineReducers, createStore,compose} from 'redux'
 import profileReducer, {
-    addPostActionCreator,
-    changeIsFetchingFromProfileActionCreator,
-    changePostInputActionCreator,
-    setUserProfileActionCreator
+    addPost,
+    changeIsFetchingFromProfile,
+    changePostInput,
+    setUserProfile
 } from "./profileReducer";
-import dialogsReducer, {addDialogsMessageActionCreator, changeDialogsInputActionCreator} from "./dialogsReducer";
+import dialogsReducer, {addDialogsMessage, changeDialogsInput} from "./dialogsReducer";
 import navBarReducer from "./navBarReducer";
 import usersReducer, {addMoreUsersActionCreator, changeCurrentPageActionCreator,
     changeIsFetchingActionCreator, changeTotalCountActionCreator,
     followActionCreator, sendRequestFromFollowUnFollowActionCreator, unFollowActionCreator} from "./usersReducer";
-import authReducer, {setUserDataActionCreator} from "./auth-reducer";
+import authReducer, {setUserData} from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk'
 
 
 export type ActionsTypes =
-    ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof addDialogsMessageActionCreator>
-    | ReturnType<typeof changePostInputActionCreator>
-    | ReturnType<typeof changeDialogsInputActionCreator>
+    ReturnType<typeof addPost>
+    | ReturnType<typeof addDialogsMessage>
+    | ReturnType<typeof changePostInput>
+    | ReturnType<typeof changeDialogsInput>
     | ReturnType<typeof followActionCreator>
     | ReturnType<typeof unFollowActionCreator>
     | ReturnType<typeof addMoreUsersActionCreator>
     | ReturnType<typeof changeCurrentPageActionCreator>
     | ReturnType<typeof changeTotalCountActionCreator>
     | ReturnType<typeof changeIsFetchingActionCreator>
-    | ReturnType<typeof setUserProfileActionCreator>
-    | ReturnType<typeof setUserDataActionCreator>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserData>
     | ReturnType<typeof sendRequestFromFollowUnFollowActionCreator>
-    | ReturnType<typeof changeIsFetchingFromProfileActionCreator>
+    | ReturnType<typeof changeIsFetchingFromProfile>
 
 
 const rootReducer = combineReducers ( {

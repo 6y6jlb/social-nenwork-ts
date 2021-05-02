@@ -7,7 +7,7 @@ import {Settings} from "./Settings/Settings";
 import DialogsWrapperContainer from "./DialogsWrapper/DialogsWrapper.container";
 import ProfileWrapperContainer from "./Profile/ProfileWrapper.container";
 import NavigationBarContainer from "./Navigation/NavigationBar.container";
-import UserPageContainer from "./UserPage/UserPage.container";
+import UserPageContainer from "./Users/UserPage.container";
 import Login from "../common/login/Login";
 
 

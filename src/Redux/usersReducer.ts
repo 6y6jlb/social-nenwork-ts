@@ -1,5 +1,5 @@
 import {ActionsTypes} from "./reduxStore";
-import {UserResponseType} from "../components/MainWrapper/UserPage/UserPage.container";
+import {UserResponseType} from "../components/MainWrapper/Users/UserPage.container";
 import {UsersAPI} from "../api/api";
 import {Dispatch} from "redux";
 

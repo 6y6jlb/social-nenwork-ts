@@ -1,7 +1,7 @@
 import photo from "../images/face.png";
 import dialogsReducer, {
-    addDialogsMessageActionCreator,
-    changeDialogsInputActionCreator,
+    addDialogsMessage,
+    changeDialogsInput,
     DIALOGS_CONST
 } from "./dialogsReducer";
 
@@ -24,8 +24,8 @@ test('dialog reducer and action test', (() => {
     }
 
 
-    const testDialogsReducerAdd = dialogsReducer(state,addDialogsMessageActionCreator(true))
-    const testDialogsReducerChange = dialogsReducer(state,changeDialogsInputActionCreator('stringTest'))
+    const testDialogsReducerAdd = dialogsReducer(state,addDialogsMessage(true))
+    const testDialogsReducerChange = dialogsReducer(state,changeDialogsInput('stringTest'))
 
 
     expect(testDialogsReducerAdd.messages.length).toBe(12)

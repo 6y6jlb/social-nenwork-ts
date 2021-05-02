@@ -1,9 +1,9 @@
 import React from "react";
 import {Header} from "./Header";
-import {setUserDataActionCreator, SetUserDataType, setUserFromHeaderTC} from "../../Redux/auth-reducer";
+import {setUserData, SetUserDataType, setUserFromHeaderTC} from "../../Redux/auth-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
-import {setUserProfileActionCreator, UserFromProfileResponseType} from "../../Redux/profileReducer";
+import {setUserProfile, UserFromProfileResponseType} from "../../Redux/profileReducer";
 import {ProfileAPI} from "../../api/api";
 
 
@@ -90,8 +90,8 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default connect ( mapStateToProps, {
-    setUser: setUserDataActionCreator,
-    setUserProfile: setUserProfileActionCreator,
+    setUser: setUserData,
+    setUserProfile: setUserProfile,
     setUserFromHeaderTC
 } ) (
     // @ts-ignore
