@@ -7,9 +7,9 @@ export enum PROFILE_CONST {
     ADD_POST = 'ADD-POST',
     CHANGE_POST_INPUT_TEXT = 'CHANGE-POST-INPUT-TEXT',
     SET_USER_PROFILE = 'SET_USER_PROFILE',
-    CHANGE_IS_FETCHING_FROM_PROFILE='CHANGE_IS_FETCHING_FROM_PROFILE'
+    CHANGE_IS_FETCHING_FROM_PROFILE = 'CHANGE_IS_FETCHING_FROM_PROFILE',
+    CHANGE_STATUS = 'CHANGE_STATUS'
 }
-
 
 
 export type MyPostArrayFromProfileType = {
@@ -26,8 +26,13 @@ type ChangePostInputActionCreatorType = {
 type AddPostActionCreationType = {
     type: typeof PROFILE_CONST.ADD_POST
 }
+type ChangeStatusACType = {
+    type: typeof PROFILE_CONST.CHANGE_STATUS
+    payload: { status: string }
+
+}
 export type UserFromProfileResponseType = {
-    userId: number| null
+    userId: number | null
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
     fullName: string | null
@@ -49,7 +54,7 @@ type setUserProfileActionCreationType = {
 }
 type ChangeIsFetchingFromProfileActionCreationType = {
     type: typeof PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE,
-    payload: { isFetching: boolean}
+    payload: { isFetching: boolean }
 }
 
 export const addPost = (): AddPostActionCreationType => {
@@ -62,23 +67,50 @@ export const setUserProfile = (user: UserFromProfileResponseType): setUserProfil
     return {type: PROFILE_CONST.SET_USER_PROFILE, payload: {user}} as const
 }
 export const changeIsFetchingFromProfile = (isFetching: boolean): ChangeIsFetchingFromProfileActionCreationType => {
-    return {type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE, payload: {isFetching} } as const
+    return {type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE, payload: {isFetching}} as const
 }
-export const getProfileTC = (userIdForURL:number)=>(dispatch:Dispatch)=>{
-    dispatch(changeIsFetchingFromProfile(true))
-    ProfileAPI.setUserProfile(userIdForURL)
+export const setStatusAC = (status: string): ChangeStatusACType => {
+    return {
+        type: PROFILE_CONST.CHANGE_STATUS,
+        payload: {status} as const
+    }
+}
+export const getStatusTC = (userID: number) => (dispatch: Dispatch) => {
+    ProfileAPI.getStatus ( userID )
+        .then ( (response) => {
+            dispatch ( setStatusAC ( response.data ) )
+        } ).catch ( err => {
+        console.warn ( err )
+    } )
+};
+export const updateStatusTC = (item: string) => (dispatch: Dispatch) => {
+    ProfileAPI.sendStatus ( item )
+        .then ( (response) => {
+           if (response.data.resultCode===0){
+               dispatch ( setStatusAC (item ) )
+           }
+        } ).catch ( err => {
+        console.warn ( err )
+    } )
+}
+
+export const getProfileTC = (userIdForURL: number) => (dispatch: Dispatch) => {
+    if (userIdForURL) {
+    dispatch ( changeIsFetchingFromProfile ( true ) )
+    ProfileAPI.setUserProfile ( userIdForURL )
         .then ( response => {
-                dispatch(changeIsFetchingFromProfile(false))
-                dispatch(setUserProfile ( response.data ))
+                dispatch ( changeIsFetchingFromProfile ( false ) )
+                dispatch ( setUserProfile ( response.data ) )
             }
-        ).catch(err=>{
-        console.warn(err)
-    })
-}
+        ).catch ( err => {
+        console.warn ( err )
+    } )
+}}
 
 
 const initialState = {
     currentInputPost: '',
+    status: '',
     profile: {
         userId: null,
         lookingForAJob: false,
@@ -94,7 +126,7 @@ const initialState = {
             youtube: null,
             mainLink: null,
         },
-        photos: { small:  null, large: null }
+        photos: {small: null, large: null}
     } as UserFromProfileResponseType,
     myPostArray: [
         {
@@ -117,7 +149,7 @@ const initialState = {
             id: 5, message: 'eu, ',
         },
     ] as Array<MyPostArrayFromProfileType>,
-    isFetching:false as boolean
+    isFetching: false as boolean
 }
 
 const profileReducer = (state = initialState, action: ActionsTypes): InitialStateProfileType => {
@@ -135,7 +167,10 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
         case PROFILE_CONST.SET_USER_PROFILE:
             return {...state, profile: action.payload.user}
         case PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE:
-            return {...state,isFetching: action.payload.isFetching}
+            return {...state, isFetching: action.payload.isFetching}
+        case PROFILE_CONST.CHANGE_STATUS: {
+            return {...state, status: action.payload.status}
+        }
         default:
             return state
     }

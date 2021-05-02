@@ -4,7 +4,7 @@ import {InitialStateProfileType} from "../../../../Redux/profileReducer";
 import noJob from '../../../../images/noJob.jpg'
 import job from '../../../../images/112.jpg'
 import emptyPhoto from '../../../../images/emptyUser.png'
-import EditableSpan from "../../../common/editableSpan/EditableSpan";
+import EditableSpan from "./editableSpanContainer/EditableSpanContainer";
 
 
 type ProfileHeaderPropsType = {
@@ -26,7 +26,7 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = (props) => {
         <div className={ s.profileInfo }>
 
             <div className={ s.selfText }>
-                <EditableSpan item={'ты втираешь мне какую-то дичь'}/>
+                <EditableSpan/>
                 <ul>
                     { arrContacts.map ( (c, i) => c && <li key={ i }>{ c }</li> ) }
                 </ul>

@@ -3,6 +3,7 @@ import profileReducer, {
     addPost,
     changeIsFetchingFromProfile,
     changePostInput,
+    setStatusAC,
     setUserProfile
 } from "./profileReducer";
 import dialogsReducer, {addDialogsMessage, changeDialogsInput} from "./dialogsReducer";
@@ -29,6 +30,8 @@ export type ActionsTypes =
     | ReturnType<typeof setUserData>
     | ReturnType<typeof sendRequestFromFollowUnFollowActionCreator>
     | ReturnType<typeof changeIsFetchingFromProfile>
+    | ReturnType<typeof setStatusAC>
+
 
 
 const rootReducer = combineReducers ( {
@@ -46,5 +49,7 @@ export type AppStateType = ReturnType<RootReducersType>
 
 let store = createStore ( rootReducer,applyMiddleware(thunkMiddleware));
 //(window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(), need to fix
+//@ts-ignore
+window.store= store
 
 export default store;

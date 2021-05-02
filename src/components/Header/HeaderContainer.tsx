@@ -25,7 +25,7 @@ type HeaderContainerPropsType = {
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
     componentDidMount() {
        Promise.resolve( this.props.setUserFromHeaderTC ()).then(()=>{
-           ProfileAPI.setUserProfile ( this.props.userId )
+           ProfileAPI.setUserProfile ( this.props.userId)
                .then ( response => {
                        this.props.setUserProfile ( response.data )
                    }
