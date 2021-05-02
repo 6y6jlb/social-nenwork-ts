@@ -2,20 +2,18 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {
-    addMoreUsersActionCreator,
     changeCurrentPageActionCreator,
-    changeIsFetchingActionCreator,
-    changeTotalCountActionCreator,
     followUserTC,
     getUsersTC,
     InitialStateUsersType,
-    sendRequestFromFollowUnFollowActionCreator,
     unFollowUserTC,
     UserType
 } from "../../../Redux/usersReducer";
 import Users from "./UsersPage";
 import emptyPhoto from '../../../images/emptyUser.png'
 import Preloader from "../../common/preloader/Preloader";
+import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 type UsersPageAPIComponentPropsType = {
     users: UserType[]
@@ -81,16 +79,18 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
     } //axios request with fetching and setUsers
 
     render() {
-        return <>{ this.props.isFetching ? <Preloader/> : <Users emptyPhoto={ emptyPhoto }
-                                                                 users={ this.props.users }
-                                                                 totalCount={ this.props.totalCount }
-                                                                 followCallBack={ this.props.followCallBack }
-                                                                 unFollowCallBack={ this.props.unFollowCallBack }
-                                                                 onPageChanged={ this.onPageChanged }
-                                                                 currentPage={ this.props.currentPage }
-                                                                 pageSize={ this.props.pageSize }
-                                                                 isRequestSendUsersId={ this.props.isRequestSendUsersId }
-                                                                 /> }</>
+        return <>{ this.props.isFetching
+            ? <Preloader/>
+            : <Users emptyPhoto={ emptyPhoto }
+                     users={ this.props.users }
+                     totalCount={ this.props.totalCount }
+                     followCallBack={ this.props.followCallBack }
+                     unFollowCallBack={ this.props.unFollowCallBack }
+                     onPageChanged={ this.onPageChanged }
+                     currentPage={ this.props.currentPage }
+                     pageSize={ this.props.pageSize }
+                     isRequestSendUsersId={ this.props.isRequestSendUsersId }
+            /> }</>
     }
 } //class container for USERS
 
@@ -106,11 +106,12 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
     }
 }
 
-const UserPageContainer = connect ( mapStateToProps, {
-    followCallBack: followUserTC,
-    unFollowCallBack: unFollowUserTC,
-    changeCurrentPage: changeCurrentPageActionCreator,
-    getUsers: getUsersTC
-} ) ( UserPageAPIComponent ) //without mapDispatch
-
-export default UserPageContainer;
+export default compose<React.ComponentType> (
+    connect ( mapStateToProps, {
+        followCallBack: followUserTC,
+        unFollowCallBack: unFollowUserTC,
+        changeCurrentPage: changeCurrentPageActionCreator,
+        getUsers: getUsersTC
+    } ),
+    withAuthRedirect
+)(UserPageAPIComponent)

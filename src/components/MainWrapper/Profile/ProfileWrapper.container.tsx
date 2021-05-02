@@ -1,16 +1,17 @@
 import React from "react";
 import {
-    addPostActionCreator,
-    changePostInputActionCreator,
+    addPost,
+    changePostInput,
     getProfileTC,
     InitialStateProfileType
 } from "../../../Redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
-import {Redirect, RouteComponentProps, withRouter} from "react-router-dom";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ProfileWrapper} from "./ProfileWrapper";
 import Preloader from "../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 type ProfileWrapperAPIContainerPropsType = {
@@ -32,8 +33,6 @@ class ProfileWrapperAPIContainer extends React.Component<PropsType> {
 
 
     componentDidMount() {
-
-
         let userIdForURL = this.props.match.params.userId
         if (!userIdForURL && !this.props.isAuth) {
             userIdForURL = this.props.myLoginId //my autorzed id
@@ -50,11 +49,9 @@ class ProfileWrapperAPIContainer extends React.Component<PropsType> {
             )*/
     }//axios request with fetching and setProfile
 
-
-
     render() {
         return (
-             this.props.isFetching ? <Preloader/> :
+            this.props.isFetching ? <Preloader/> :
                 <ProfileWrapper profileWrapperObj={ this.props.profileWrapperObj }
                                 onAddPost={ this.props.onAddPost }
                                 onPostChanger={ this.props.onPostChanger }/>
@@ -69,7 +66,6 @@ class ProfileWrapperAPIContainer extends React.Component<PropsType> {
         // );
     }
 }
-
 
 
 type mapStateToPropsType = {
@@ -87,10 +83,12 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     }
 }
 
-const ProfileWrapperContainer = connect ( mapStateToProps, {
-    onPostChanger: changePostInputActionCreator,
-    onAddPost: addPostActionCreator,
-    getProfileTC
-} ) ( withRouter ( withAuthRedirect(ProfileWrapperAPIContainer) ) );
-
-export default ProfileWrapperContainer;
+export default compose<React.ComponentType> (
+    connect ( mapStateToProps, {
+        onPostChanger: changePostInput,
+        onAddPost: addPost,
+        getProfileTC
+    } ),
+    withRouter,
+    withAuthRedirect
+) ( ProfileWrapperAPIContainer )

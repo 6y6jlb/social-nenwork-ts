@@ -1,7 +1,7 @@
 import selfPhoto from "../images/face.png";
 import profileReducer, {
-    addPostActionCreator,
-    changePostInputActionCreator,
+    addPost,
+    changePostInput,
     MyPostArrayFromProfileType,
     UserFromProfileResponseType
 } from "./profileReducer";
@@ -49,8 +49,8 @@ test ( 'profile reducer and action test', (() => {
         ] as Array<MyPostArrayFromProfileType>
     }
 
-    const actionAddPost = addPostActionCreator ()
-    const actionChangePostInput = changePostInputActionCreator ( 'stringTest' )
+    const actionAddPost = addPost ()
+    const actionChangePostInput = changePostInput ( 'stringTest' )
     //@ts-ignore
     const testProfileReducerAdd = profileReducer ( state, actionAddPost )
     //@ts-ignore

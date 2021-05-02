@@ -25,10 +25,10 @@ type ChangeDialogsInputTextType = {
     item: string
 }
 
-export const addDialogsMessageActionCreator = (self: boolean): AddDialogsMessageType => {
+export const addDialogsMessage = (self: boolean): AddDialogsMessageType => {
     return {type: DIALOGS_CONST.ADD_DIALOGS_MESSAGE, self} as const
 }
-export const changeDialogsInputActionCreator = (item: string): ChangeDialogsInputTextType => {
+export const changeDialogsInput = (item: string): ChangeDialogsInputTextType => {
     return {type: DIALOGS_CONST.CHANGE_DIALOGS_INPUT_TEXT, item} as const
 }
 

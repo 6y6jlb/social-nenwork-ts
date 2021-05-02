@@ -1,8 +1,8 @@
 import React from 'react';
 import {DialogsWrapper} from "./DialogsWrapper";
 import {
-    addDialogsMessageActionCreator,
-    changeDialogsInputActionCreator,
+    addDialogsMessage,
+    changeDialogsInput,
     InitialStateDialogsType
 } from "../../../Redux/dialogsReducer";
 
@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 
 import {AppStateType} from "../../../Redux/reduxStore";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
+import {compose} from "redux";
 
 
 /*export function DialogsWrapperContainer(props: any) {
@@ -23,15 +24,15 @@ import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
                     function onAddPost() {
                         const trimmedMessage = state.dialogsReducer.currentInputMessageString.trim()
                         if (trimmedMessage) {
-                            store.dispatch(addDialogsMessageActionCreator(true))
-                            store.dispatch(changeDialogsInputActionCreator(''))
+                            store.dispatch(addDialogsMessage(true))
+                            store.dispatch(changeDialogsInput(''))
                         } else {
-                            store.dispatch(changeDialogsInputActionCreator(''))
+                            store.dispatch(changeDialogsInput(''))
                         }
                     }
 
                     function onPostChange(text: string) {
-                        store.dispatch(changeDialogsInputActionCreator(text))
+                        store.dispatch(changeDialogsInput(text))
                     }
 
                     return <DialogsWrapper onAddPost={onAddPost} onPostChanger={onPostChange}
@@ -61,8 +62,10 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType & InitialStateD
 }
 
 
-const DialogsWrapperContainer = connect(mapStateToProps, {
-    onPostChanger:changeDialogsInputActionCreator,onAddPost:addDialogsMessageActionCreator
-})(withAuthRedirect(DialogsWrapper))
-export default DialogsWrapperContainer;
 
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {
+        changeDialogsInput,addDialogsMessage
+    }),
+    withAuthRedirect
+)(DialogsWrapper)

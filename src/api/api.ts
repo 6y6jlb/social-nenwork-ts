@@ -1,5 +1,5 @@
 import axios from "axios";
-import {UsersResponseType} from "../components/MainWrapper/UserPage/UserPage.container";
+import {UsersResponseType} from "../components/MainWrapper/Users/UserPage.container";
 import {UserFromProfileResponseType} from "../Redux/profileReducer";
 import {SetUserDataType, UserDataFromAuthAuthType} from "../Redux/auth-reducer";
 

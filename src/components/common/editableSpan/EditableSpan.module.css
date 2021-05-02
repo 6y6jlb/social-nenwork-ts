@@ -1,0 +1,22 @@
+.editableSpan {
+    box-sizing: border-box;
+    height: 30px;
+    display: grid;
+    justify-content:stretch;
+    align-items: center;
+
+
+}
+.editableSpan input {
+    font-size: 1.1em;
+    border: none;
+    border-radius:10px ;
+    padding-left: 10px;
+    outline: none;
+    width: 90%;
+}
+.editableSpan input:active:focus {
+    inline-size:0;
+    outline: none;
+    width: 90%;
+}

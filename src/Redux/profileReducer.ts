@@ -52,24 +52,24 @@ type ChangeIsFetchingFromProfileActionCreationType = {
     payload: { isFetching: boolean}
 }
 
-export const addPostActionCreator = (): AddPostActionCreationType => {
+export const addPost = (): AddPostActionCreationType => {
     return {type: PROFILE_CONST.ADD_POST,} as const
 }
-export const changePostInputActionCreator = (item: string): ChangePostInputActionCreatorType => {
+export const changePostInput = (item: string): ChangePostInputActionCreatorType => {
     return {type: PROFILE_CONST.CHANGE_POST_INPUT_TEXT, payload: {item}} as const
 }
-export const setUserProfileActionCreator = (user: UserFromProfileResponseType): setUserProfileActionCreationType => {
+export const setUserProfile = (user: UserFromProfileResponseType): setUserProfileActionCreationType => {
     return {type: PROFILE_CONST.SET_USER_PROFILE, payload: {user}} as const
 }
-export const changeIsFetchingFromProfileActionCreator = ( isFetching: boolean): ChangeIsFetchingFromProfileActionCreationType => {
+export const changeIsFetchingFromProfile = (isFetching: boolean): ChangeIsFetchingFromProfileActionCreationType => {
     return {type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE, payload: {isFetching} } as const
 }
 export const getProfileTC = (userIdForURL:number)=>(dispatch:Dispatch)=>{
-    dispatch(changeIsFetchingFromProfileActionCreator(true))
+    dispatch(changeIsFetchingFromProfile(true))
     ProfileAPI.setUserProfile(userIdForURL)
         .then ( response => {
-                dispatch(changeIsFetchingFromProfileActionCreator(false))
-                dispatch(setUserProfileActionCreator ( response.data ))
+                dispatch(changeIsFetchingFromProfile(false))
+                dispatch(setUserProfile ( response.data ))
             }
         ).catch(err=>{
         console.warn(err)
