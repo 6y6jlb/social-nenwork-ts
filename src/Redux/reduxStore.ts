@@ -13,6 +13,7 @@ import usersReducer, {addMoreUsersActionCreator, changeCurrentPageActionCreator,
     followActionCreator, sendRequestFromFollowUnFollowActionCreator, unFollowActionCreator} from "./usersReducer";
 import authReducer, {setUserData} from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk'
+import {reducer as formReducer} from 'redux-form'
 
 
 export type ActionsTypes =
@@ -39,7 +40,8 @@ const rootReducer = combineReducers ( {
     dialogsReducer,
     navBarReducer,
     usersReducer,
-    auth:authReducer
+    auth:authReducer,
+    form:formReducer
 
 } );
 

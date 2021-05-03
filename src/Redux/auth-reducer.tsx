@@ -28,7 +28,7 @@ export const setUserData = (data: UserDataFromAuthAuthType): SetUserDataType => 
     return {type: AUTH_CONST.SET_USER_DATA, data}
 }
 
-export const setUserFromHeaderTC = () => (dispatch: Dispatch) => {
+export const setUserTC = () => (dispatch: Dispatch) => {
     AuthAPI.setUserFromHeader ()
         .then ( response => {
                 if (response.data.resultCode === 0) {

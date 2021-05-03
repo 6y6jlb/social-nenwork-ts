@@ -1,4 +1,19 @@
-.loginWrapper {
+.loginWrapper{
+    text-align: start;
+    display: grid;
+    width: 30vw;
+    grid-template-rows: 70px 1fr;
+    margin:  0 auto 0 0;
+    justify-content: center;
+    font-size: 1.5em;
+    row-gap: 100px;
+
+}
+.loginH1 {
     text-transform: uppercase;
-    margin: 0 auto;
+    height: max-content;
+
+}
+.form {
+
 }

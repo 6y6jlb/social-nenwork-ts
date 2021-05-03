@@ -66,12 +66,18 @@ export const ProfileAPI = {
     getStatus: (userID: number) => {
         return instanceForProfileSamuraiAPI.get ( `profile/status/${ userID }` )
     },
-    sendStatus:(status:string)=>{
-        return instanceForProfileSamuraiAPI.put ( `profile/status`,{status:status} )
+    sendStatus: (status: string) => {
+        return instanceForProfileSamuraiAPI.put ( `profile/status`, {status: status} )
     }
 }
 export const AuthAPI = {
     setUserFromHeader() {
         return instanceForAuthSamuraiAPI.get<ResponseHeaderContainerType> ( `auth/me`, {} )
     },
+    login(email: string, password: string, rememberMe: boolean = false) {
+        const model = {
+            email, password, rememberMe
+        }
+        return instanceForAuthSamuraiAPI.post ( '/auth/login', model )
+    }
 }

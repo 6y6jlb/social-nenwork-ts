@@ -1,6 +1,6 @@
 import React from "react";
 import {Header} from "./Header";
-import {setUserData, SetUserDataType, setUserFromHeaderTC} from "../../Redux/auth-reducer";
+import {setUserData, SetUserDataType, setUserTC} from "../../Redux/auth-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 import {setUserProfile, UserFromProfileResponseType} from "../../Redux/profileReducer";
@@ -42,7 +42,7 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
           withCredentials:true
           } )*/
         /* const setUser = async () => {
-             await this.props.setUserFromHeaderTC ();
+             await this.props.setUserTC ();
              await ProfileAPI.setUserProfile ( this.props.userId )
                  .then ( response => {
                          this.props.setUserProfile ( response.data )
@@ -52,7 +52,7 @@ class HeaderContainer extends React.Component<HeaderContainerPropsType> {
                  } );
          }
           setUser()*/
-        /*Promise.all([this.props.setUserFromHeaderTC (),
+        /*Promise.all([this.props.setUserTC (),
          ProfileAPI.setUserProfile ( this.props.userId )
             .then ( response => {
                     this.props.setUserProfile ( response.data )
@@ -95,7 +95,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 export default connect ( mapStateToProps, {
     setUser: setUserData,
     setUserProfile: setUserProfile,
-    setUserFromHeaderTC
+    setUserFromHeaderTC: setUserTC
 } ) (
     // @ts-ignore
     HeaderContainer );
