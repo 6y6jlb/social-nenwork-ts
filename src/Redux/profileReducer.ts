@@ -76,12 +76,15 @@ export const setStatusAC = (status: string): ChangeStatusACType => {
     }
 }
 export const getStatusTC = (userID: number) => (dispatch: Dispatch) => {
-    ProfileAPI.getStatus ( userID )
-        .then ( (response) => {
-            dispatch ( setStatusAC ( response.data ) )
-        } ).catch ( err => {
-        console.warn ( err )
-    } )
+    if (userID){
+        ProfileAPI.getStatus ( userID )
+            .then ( (response) => {
+                dispatch ( setStatusAC ( response.data ) )
+            } ).catch ( err => {
+            console.warn ( err )
+        } )
+    }
+
 };
 export const updateStatusTC = (item: string) => (dispatch: Dispatch) => {
     ProfileAPI.sendStatus ( item )

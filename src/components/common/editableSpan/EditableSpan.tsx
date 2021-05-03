@@ -17,8 +17,11 @@ class EditableSpan extends Component<EditableSpanPropsType> {
     }
 
     componentDidUpdate(prevProps: Readonly<EditableSpanPropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        console.log ( this.state.value + ' state')
-        console.log ( this.props.item + ' props')
+        if (prevProps.item!== this.props.item) {
+            this.setState({
+                value:this.props.item
+            })
+        }
     }
 
     changeEditMode = (editMode: boolean) => {

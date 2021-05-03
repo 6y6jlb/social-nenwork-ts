@@ -85,7 +85,7 @@ const Users: React.FC<UsersPagePropsType> = (props) => {
         )
     } ) //users items mapped for page
 
-    const mappedPages = pages.map ( p => <span onClick={ () => onPageChanged ( p ) }
+    const mappedPages = pages.map ( (p,i) => <span key={i} onClick={ () => onPageChanged ( p ) }
                                                className={currentPage === p ? style.activeNumber : style.normalNumber }>{ p }</span>
     )
 
