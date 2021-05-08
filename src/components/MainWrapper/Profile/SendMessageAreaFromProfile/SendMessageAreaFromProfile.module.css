@@ -8,30 +8,3 @@
 }
 
 
-.sendMessageAreaFromProfile textarea {
-    min-height: 50px;
-    border-radius: 10px 10px 0px 0px ;
-    border: 2px solid #492F7E;
-    outline-color: #492F7E;
-    resize: none;
-    padding: 5px;
-}
-
-.sendMessageAreaFromProfile button {
-    height: 30px;
-    background-color: #492F7E;
-    color: white;
-    border: none;
-    transition-duration: 0.4s;
-    outline: none;
-}
-
-.sendMessageAreaFromProfile button:hover {
-    background-color: #69BA85;
-    color: white;
-}
-
-.sendMessageAreaFromProfile button:active {
-    box-shadow: inset 0px 1px 10px 2px #492F7E;
-    color: white;
-}

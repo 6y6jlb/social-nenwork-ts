@@ -7,7 +7,7 @@ import {MessagesFromDialogsType} from "../../../Redux/dialogsReducer";
 
 export type DialogsWrapperPropsType = {
     /*dispatch: (action:ActionsTypes)=>void*/
-    addDialogsMessage: (self: boolean) => void
+    addDialogsMessage: (self: boolean,item:string) => void
     changeDialogsInput: (item: string) => void
     messages: Array<MessagesFromDialogsType>
     currentInputMessageString: string

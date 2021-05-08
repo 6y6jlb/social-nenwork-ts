@@ -15,7 +15,7 @@ import {compose} from "redux";
 
 
 type ProfileWrapperAPIContainerPropsType = {
-    onAddPost: () => void
+    onAddPost: (value:string) => void
     onPostChanger: (text: string) => void
     profileWrapperObj: InitialStateProfileType
     myLoginId: number | null

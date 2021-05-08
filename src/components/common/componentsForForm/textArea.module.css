@@ -1,0 +1,31 @@
+
+.textArea textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 50px;
+    border-radius: 10px 10px 0px 0px ;
+    border: 2px solid #492F7E;
+    outline-color: #492F7E;
+    resize: none;
+    padding-left: 5px;
+}
+
+.button button {
+    height: 30px;
+    width: 100%;
+    background-color: #492F7E;
+    color: white;
+    border: none;
+    transition-duration: 0.4s;
+    outline: none;
+}
+
+.button button:hover {
+    background-color: #69BA85;
+    color: white;
+}
+
+.button button:active {
+    box-shadow: inset 0px 1px 10px 2px #492F7E;
+    color: white;
+}

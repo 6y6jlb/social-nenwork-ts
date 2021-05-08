@@ -16,27 +16,7 @@ interface ResponseHeaderContainerType extends SetUserDataType {
 }
 
 
-const instanceForGetUsersSamuraiAPI = axios.create ( {
-    withCredentials: true,
-    baseURL: "https://social-network.samuraijs.com/api/1.0/"
-
-} )
-const instanceForUnFollowUserAndFollowUserSamuraiAPI = axios.create ( {
-    withCredentials: true,
-    baseURL: "https://social-network.samuraijs.com/api/1.0/",
-    headers: {
-        "API-KEY": '5dd18682-d8ca-4034-bcc6-76fd868cb4ec'
-    }
-
-} )
-const instanceForProfileSamuraiAPI = axios.create ( {
-    baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-    withCredentials: true,
-    headers: {
-        "API-KEY": "5dd18682-d8ca-4034-bcc6-76fd868cb4ec"
-    }
-} )
-const instanceForAuthSamuraiAPI = axios.create ( {
+const instanceSamuraiAPI = axios.create ( {
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     withCredentials: true,
     headers: {
@@ -47,37 +27,40 @@ const instanceForAuthSamuraiAPI = axios.create ( {
 
 export const UsersAPI = {
     getUsers: (pageSize: number, currentPage: number) => {
-        return instanceForGetUsersSamuraiAPI.get<UsersResponseType> ( `users/?count=${ pageSize }&page=${ currentPage }`,
+        return instanceSamuraiAPI.get<UsersResponseType> ( `users/?count=${ pageSize }&page=${ currentPage }`,
         )
     },
     unFollowUser: (userId: number) => {
-        return instanceForUnFollowUserAndFollowUserSamuraiAPI.delete<FollowUserResponseType> ( `follow/${ userId }`,
+        return instanceSamuraiAPI.delete<FollowUserResponseType> ( `follow/${ userId }`,
         )
     },
     followUser: (userId: number) => {
-        return instanceForUnFollowUserAndFollowUserSamuraiAPI.post<FollowUserResponseType> ( `follow/${ userId }`,
+        return instanceSamuraiAPI.post<FollowUserResponseType> ( `follow/${ userId }`,
         )
     }
 }
 export const ProfileAPI = {
     setUserProfile: (userIdForURL: number) => {
-        return instanceForProfileSamuraiAPI.get<UserFromProfileResponseType> ( `profile/${ userIdForURL }` )
+        return instanceSamuraiAPI.get<UserFromProfileResponseType> ( `profile/${ userIdForURL }` )
     },
     getStatus: (userID: number) => {
-        return instanceForProfileSamuraiAPI.get ( `profile/status/${ userID }` )
+        return instanceSamuraiAPI.get ( `profile/status/${ userID }` )
     },
     sendStatus: (status: string) => {
-        return instanceForProfileSamuraiAPI.put ( `profile/status`, {status: status} )
+        return instanceSamuraiAPI.put ( `profile/status`, {status: status} )
     }
 }
 export const AuthAPI = {
     setUserFromHeader() {
-        return instanceForAuthSamuraiAPI.get<ResponseHeaderContainerType> ( `auth/me`, {} )
+        return instanceSamuraiAPI.get<ResponseHeaderContainerType> ( `auth/me`, {} )
     },
     login(email: string, password: string, rememberMe: boolean = false) {
         const model = {
             email, password, rememberMe
         }
-        return instanceForAuthSamuraiAPI.post ( '/auth/login', model )
-    }
+        return instanceSamuraiAPI.post ( '/auth/login', model )
+    },
+    logout(){
+        return instanceSamuraiAPI.delete('/auth/login')
+    },
 }

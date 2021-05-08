@@ -8,7 +8,7 @@ import {ProfileHeader} from "./ProfileHeader/ProfileHeader";
 
 
 type ProfileWrapperPropsType = {
-    onAddPost: () => void
+    onAddPost: (value:string) => void
     onPostChanger: (text: string) => void
     profileWrapperObj: InitialStateProfileType
 

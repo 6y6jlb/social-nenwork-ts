@@ -61,8 +61,6 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType & InitialStateD
     }
 }
 
-
-
 export default compose<React.ComponentType>(
     connect(mapStateToProps, {
         changeDialogsInput,addDialogsMessage

@@ -7,7 +7,7 @@ import {MessagesFromDialogsType} from "../../../../Redux/dialogsReducer";
 
 export type CurrentDialogPropsType = {
     messages: Array<MessagesFromDialogsType>
-    onAddPost: (self:boolean) => void
+    onAddPost: (self: boolean,item:string) => void
     onPostChanger: (item: string) => void
     currentInputMessageString: string
     name:string|null

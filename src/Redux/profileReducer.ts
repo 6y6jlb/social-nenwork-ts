@@ -25,6 +25,7 @@ type ChangePostInputActionCreatorType = {
 }
 type AddPostActionCreationType = {
     type: typeof PROFILE_CONST.ADD_POST
+    payload:{value:string}
 }
 type ChangeStatusACType = {
     type: typeof PROFILE_CONST.CHANGE_STATUS
@@ -57,8 +58,8 @@ type ChangeIsFetchingFromProfileActionCreationType = {
     payload: { isFetching: boolean }
 }
 
-export const addPost = (): AddPostActionCreationType => {
-    return {type: PROFILE_CONST.ADD_POST,} as const
+export const addPost = (value:string): AddPostActionCreationType => {
+    return {type: PROFILE_CONST.ADD_POST,payload:{value}} as const
 }
 export const changePostInput = (item: string): ChangePostInputActionCreatorType => {
     return {type: PROFILE_CONST.CHANGE_POST_INPUT_TEXT, payload: {item}} as const
@@ -161,7 +162,7 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
             const newPost = {
                 profileSelfPhotoImgUrl: selfPhoto,
                 id: state.myPostArray.length++,
-                message: state.currentInputPost
+                message: action.payload.value
             }
             state.myPostArray.unshift ( newPost )
             return {...state}

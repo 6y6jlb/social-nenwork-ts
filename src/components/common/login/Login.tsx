@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Login.module.css';
-import LoginForm, {FormType} from "./loginForm/LoginFrom";
+import LoginForm, {FormType} from "./loginForm/LoginForm";
 import {AuthAPI} from "../../../api/api";
 import {Redirect} from "react-router-dom";
 
