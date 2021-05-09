@@ -9,7 +9,6 @@ import {ProfileHeader} from "./ProfileHeader/ProfileHeader";
 
 type ProfileWrapperPropsType = {
     onAddPost: (value:string) => void
-    onPostChanger: (text: string) => void
     profileWrapperObj: InitialStateProfileType
 
 
@@ -18,8 +17,7 @@ type ProfileWrapperPropsType = {
 export const  ProfileWrapper:React.FC<ProfileWrapperPropsType> = (props) => {
     return <div className={s.profileContent}>
         <ProfileHeader profileWrapperObj={props.profileWrapperObj}/>
-        <SendMessageAreaFromProfile onAddPost={props.onAddPost} onPostChanger={props.onPostChanger}
-                                    currentInputPost={props.profileWrapperObj.currentInputPost}/>
+        <SendMessageAreaFromProfile  onAddPost={props.onAddPost}/>
         <Posts myPostArray={props.profileWrapperObj.myPostArray}/>
     </div>
 

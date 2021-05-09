@@ -1,0 +1,13 @@
+
+.textArea textarea {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 50px;
+    border-radius: 10px 10px 0px 0px ;
+    border: 2px solid #492F7E;
+    outline-color: #492F7E;
+    resize: none;
+    padding-left: 5px;
+}
+
+

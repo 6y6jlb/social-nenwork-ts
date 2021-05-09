@@ -1,47 +1,46 @@
-import s from "./SendMessageAreaFromProfile.module.css";
-import React, {ChangeEvent, KeyboardEvent} from "react";
-import TextArea, {AddMessageProfileFormType} from "../../../common/componentsForForm/textArea";
+import style from "./SendMessageAreaFromProfile.module.css";
+import React from "react";
+import {requiredField} from "../../../../utils/validators";
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {createField, Textarea} from "../../../common/formsContols/FormControls";
 
+type PropsType = {
+}
+export type AddPostProfileFormType = {
+    newPostBody: string
+    validate:any[]
+}
 type SendMessageAreaFromProfilePropsType = {
-    currentInputPost: string
     onAddPost: (value:string) => void
-    onPostChanger: (text: string) => void
 }
 
+const AddNewPostForm:React.FC<InjectedFormProps<AddPostProfileFormType>> & PropsType = (props)=>{
+    return (
+        <form onSubmit={ props.handleSubmit }>
+            {/*<div className={style.textArea}>*/}
+            {/*    <Field validate={[requiredField,maxInputLength(25)]} component={ Textarea } name={ 'newMessageBody' } placeholder={ 'enter text here' }/>*/}
+            {/*</div>*/}
+            {createField('enter new post here','newPostBody',[requiredField],Textarea,{type:'text'})}
+            <div className={style.button}>
+                <button>send</button>
+            </div>
+        </form>
+    )
+}
+const AddNewPostFromRedux = reduxForm<AddPostProfileFormType> ( {form: 'profile add message form'} ) (AddNewPostForm)
 
 export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfilePropsType) {
 
-
-/*    const onAddPost = () => {
-        if (props.currentInputPost.trim()) {
-            props.onAddPost ()
-            props.onPostChanger ( '' )
-        }
-    } // adding trimmed post with clearing input   //old logic with dispatch inside
-
-
-    const onPostChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        const text = event.currentTarget.value
-        props.onPostChanger ( text )
-    } //flax changer element //old logic with dispatch inside
-
-    const onKeyPress = (event:KeyboardEvent<HTMLTextAreaElement>) => {
-        if (event.key === 'Enter' && event.shiftKey) {
-            onAddPost ()
-        }
-    }*/
-    const onSubmit = (formData:AddMessageProfileFormType)=>{
-        const message = formData.newMessageBody.trim();
+    const onSubmit = (formData:AddPostProfileFormType)=>{
+        const message = formData.newPostBody;
         if (message) {
-            props.onAddPost (message)
+        message.trim()&&props.onAddPost (message.trim())
         }
     }
 
     return (
-        <div className={ s.sendMessageAreaFromProfile }>
-           {/* <textarea value={ props.currentInputPost } onChange={ onPostChanger } onKeyPress={onKeyPress}/>
-            <button onClick={ onAddPost }>send message</button>*/}
-            <TextArea onSubmit={onSubmit}/>
+        <div className={ style.sendMessageAreaFromProfile }>
+            <AddNewPostFromRedux onSubmit={onSubmit}/>
         </div>
     )
 }
