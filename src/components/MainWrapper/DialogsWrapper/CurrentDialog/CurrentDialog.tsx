@@ -9,7 +9,6 @@ export type CurrentDialogPropsType = {
     messages: Array<MessagesFromDialogsType>
     onAddPost: (self: boolean,item:string) => void
     onPostChanger: (item: string) => void
-    currentInputMessageString: string
     name:string|null
     /* dispatch: (action:ActionsTypes)=>void*/
 }
@@ -23,8 +22,7 @@ export function CurrentDialog(props: CurrentDialogPropsType) {
 
             <MessageFromCurrentDialog name={props.name} messages={props.messages}/>
 
-            <SendMessageAreaFromCurrentDialog onAddPost={props.onAddPost} onPostChanger={props.onPostChanger}
-                                              currentInputMessageString={props.currentInputMessageString}/>
+            <SendMessageAreaFromCurrentDialog onAddPost={props.onAddPost} onPostChanger={props.onPostChanger}/>
 
         </div>
     )

@@ -19,7 +19,8 @@ const Login = (props:LoginPropsType) => {
             }
         )
     }
-    return <div className={ style.loginWrapper }><h1 className={ style.loginH1 }>login</h1>
+    return <div className={ style.loginWrapper }>
+        <h1 className={ style.loginH1 }>login</h1>
         <LoginForm onSubmit={ onSubmit }/>
     </div>
 };

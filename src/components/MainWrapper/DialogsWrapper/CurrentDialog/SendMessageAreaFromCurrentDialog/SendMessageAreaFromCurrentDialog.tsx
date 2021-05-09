@@ -1,48 +1,50 @@
-import React, {ChangeEvent} from "react";
-import s from './SendMessageAreaFromCurrentDialog.module.css'
-import TextArea, {AddMessageProfileFormType} from "../../../../common/componentsForForm/textArea";
+import React from "react";
+import style from './SendMessageAreaFromCurrentDialog.module.css'
+import {InjectedFormProps, reduxForm} from "redux-form";
+import {createField, Textarea} from "../../../../common/formsContols/FormControls";
+import {requiredField} from "../../../../../utils/validators";
+
 
 
 type SendMessageAreaFromCurrentDialogPropsType = {
     onAddPost: (self: boolean,item:string) => void
     onPostChanger: (item: string) => void
-    currentInputMessageString: string
 
 }
+type PropsType = {
+}
+export type AddMessageFormType = {
+    newMessageBody: string
+    validate:any[]
+}
+type SendMessageAreaFromProfilePropsType = {
+    onAddPost: (value:string) => void
+}
 
-export function SendMessageAreaFromCurrentDialog(props: SendMessageAreaFromCurrentDialogPropsType) {
+const AddNewMessageForm:React.FC<InjectedFormProps<AddMessageFormType>> & PropsType = (props)=>{
+    return (
+        <form onSubmit={ props.handleSubmit }>
+            {createField('enter new message here','newMessageBody',[requiredField],Textarea,{type:'text'})}
+            <div className={style.button}>
+                <button>send</button>
+            </div>
+        </form>
+    )
+}
+const AddNewMessageFromRedux = reduxForm<AddMessageFormType> ( {form: 'profile add message form'} ) (AddNewMessageForm)
 
+export const SendMessageAreaFromCurrentDialog:React.FC<SendMessageAreaFromCurrentDialogPropsType> = (props) =>{
 
-   /* const addPost = (self:boolean) => {
-        if (props.currentInputMessageString.trim ()) {
-            props.onAddPost (self);
-            props.onPostChanger ( '' )
-        }
-    } // adding trimmed post with clearing input
-    const inputChanger = (event: ChangeEvent<HTMLTextAreaElement>) => {
-        const text = event.currentTarget.value;
-        props.onPostChanger ( text );
-    }*/
-    const onSubmit = (formData:AddMessageProfileFormType)=>{
-        const message = formData.newMessageBody.trim();
+    const onSubmit = (formData:AddMessageFormType)=>{
+        const message = formData.newMessageBody;
         if (message) {
-            props.onAddPost (true,message)
+        message.trim()&& props.onAddPost (true,message.trim())
         }
     }
 
-
     return (
-        <div className={ s.sendMessageAreaFromCurrentDialog }>
-            <TextArea onSubmit={onSubmit}/>
-            {/*<textarea className={ s.textArea }
-                      onChange={ inputChanger }
-                      onKeyPress={ (event) => {
-                          if (event.key === 'Enter' && event.shiftKey) {
-                              addPost (true)
-                          }}}
-                      value={ props.currentInputMessageString }/>
-
-            <button onClick={()=> addPost(true) }>send message</button>*/}
+        <div className={ style.sendMessageAreaFromCurrentDialog }>
+            <AddNewMessageFromRedux onSubmit={onSubmit}/>
 
         </div>
     )

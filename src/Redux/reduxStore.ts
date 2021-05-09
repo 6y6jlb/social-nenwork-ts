@@ -1,16 +1,21 @@
-import {applyMiddleware,combineReducers, createStore,compose} from 'redux'
+import {applyMiddleware, combineReducers, createStore} from 'redux'
 import profileReducer, {
     addPost,
     changeIsFetchingFromProfile,
-    changePostInput,
     setStatusAC,
     setUserProfile
 } from "./profileReducer";
-import dialogsReducer, {addDialogsMessage, changeDialogsInput} from "./dialogsReducer";
+import dialogsReducer, {addDialogsMessage} from "./dialogsReducer";
 import navBarReducer from "./navBarReducer";
-import usersReducer, {addMoreUsersActionCreator, changeCurrentPageActionCreator,
-    changeIsFetchingActionCreator, changeTotalCountActionCreator,
-    followActionCreator, sendRequestFromFollowUnFollowActionCreator, unFollowActionCreator} from "./usersReducer";
+import usersReducer, {
+    addMoreUsersActionCreator,
+    changeCurrentPageActionCreator,
+    changeIsFetchingActionCreator,
+    changeTotalCountActionCreator,
+    followActionCreator,
+    sendRequestFromFollowUnFollowActionCreator,
+    unFollowActionCreator
+} from "./usersReducer";
 import authReducer, {setUserData} from "./auth-reducer";
 import thunkMiddleware from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
@@ -19,8 +24,6 @@ import {reducer as formReducer} from 'redux-form'
 export type ActionsTypes =
     ReturnType<typeof addPost>
     | ReturnType<typeof addDialogsMessage>
-    | ReturnType<typeof changePostInput>
-    | ReturnType<typeof changeDialogsInput>
     | ReturnType<typeof followActionCreator>
     | ReturnType<typeof unFollowActionCreator>
     | ReturnType<typeof addMoreUsersActionCreator>

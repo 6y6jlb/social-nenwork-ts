@@ -1,15 +1,18 @@
-
-.textArea textarea {
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 50px;
-    border-radius: 10px 10px 0px 0px ;
-    border: 2px solid #492F7E;
-    outline-color: #492F7E;
-    resize: none;
-    padding-left: 5px;
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
+.loginForm span{
+    font-size: 0.8em;
 
+}
+.loginForm input[type=checkbox]  {
+    left: 20px;
+
+
+}
 .button button {
     height: 30px;
     width: 100%;
