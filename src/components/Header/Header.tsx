@@ -10,7 +10,6 @@ type HeaderPropsType = {
 }
 
 export const Header = (props: HeaderPropsType) => {
-    console.log (props)
     return <>
         <header className={ s.wrapperHeader }>
             <div className={ s.circle }><img src={ imageLogo }/></div>

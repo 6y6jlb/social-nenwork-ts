@@ -1,7 +1,52 @@
 import selfPhoto from "../images/face.png";
-import {ActionsTypes} from "./reduxStore";
 import {ProfileAPI} from "../api/api";
 import {Dispatch} from "redux";
+
+//types
+export type UserFromProfileResponseType = {
+    userId: number | null
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    fullName: string | null
+    contacts: {
+        github: string | null
+        vk: string | null
+        facebook: string | null
+        instagram: string | null
+        twitter: string | null
+        website: string | null
+        youtube: string | null
+        mainLink: string | null
+    }
+    photos: { small: string | null, large: string | null }
+}
+
+export type MyPostArrayFromProfileType = {
+    profileSelfPhotoImgUrl: string
+    id: number
+    message: string
+}
+export type InitialStateProfileType = typeof initialState
+type AddPostActionCreationType = {
+    type: PROFILE_CONST.ADD_POST
+    payload:{value:string}}
+type setUserProfileActionCreationType = {
+    type: PROFILE_CONST.SET_USER_PROFILE
+    payload: {user:UserFromProfileResponseType}}
+type ChangeStatusACType = {
+    type: PROFILE_CONST.CHANGE_STATUS,
+    payload: {status:string} }
+type ChangeIsFetchingFromProfileActionCreationType = {
+    type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE
+    payload: {isFetching:boolean}}
+
+export type ProfileActionsTypes =
+    | AddPostActionCreationType
+    | setUserProfileActionCreationType
+    | ChangeStatusACType
+    | ChangeIsFetchingFromProfileActionCreationType
+
+
 
 export enum PROFILE_CONST {
     ADD_POST = 'ADD-POST',
@@ -11,24 +56,24 @@ export enum PROFILE_CONST {
 }
 
 //ac
-export const addPost = (value:string): AddPostActionCreationType => {
-    return {type: PROFILE_CONST.ADD_POST,payload:{value}} as const
-}
-export const setUserProfile = (user: UserFromProfileResponseType): setUserProfileActionCreationType => {
-    return {type: PROFILE_CONST.SET_USER_PROFILE, payload: {user}} as const
-}
-export const changeIsFetchingFromProfile = (isFetching: boolean): ChangeIsFetchingFromProfileActionCreationType => {
-    return {type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE, payload: {isFetching}} as const
-}
-export const setStatusAC = (status: string): ChangeStatusACType => {
+export const addPost = (value: string):AddPostActionCreationType => {
+    return {type: PROFILE_CONST.ADD_POST as const, payload: {value}} as const
+};
+export const setUserProfile = (user: UserFromProfileResponseType):setUserProfileActionCreationType => {
+    return {type: PROFILE_CONST.SET_USER_PROFILE as const, payload: {user}} as const
+};
+export const changeIsFetchingFromProfile = (isFetching: boolean):ChangeIsFetchingFromProfileActionCreationType => {
+    return {type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE as const, payload: {isFetching}} as const
+};
+export const setStatusAC = (status: string):ChangeStatusACType => {
     return {
         type: PROFILE_CONST.CHANGE_STATUS,
         payload: {status} as const
     }
-}
+};
 //tc
 export const getStatusTC = (userID: number) => (dispatch: Dispatch) => {
-    if (userID){
+    if (userID) {
         ProfileAPI.getStatus ( userID )
             .then ( (response) => {
                 dispatch ( setStatusAC ( response.data ) )
@@ -41,25 +86,26 @@ export const getStatusTC = (userID: number) => (dispatch: Dispatch) => {
 export const updateStatusTC = (item: string) => (dispatch: Dispatch) => {
     ProfileAPI.sendStatus ( item )
         .then ( (response) => {
-           if (response.data.resultCode===0){
-               dispatch ( setStatusAC (item ) )
-           }
+            if (response.data.resultCode === 0) {
+                dispatch ( setStatusAC ( item ) )
+            }
         } ).catch ( err => {
         console.warn ( err )
     } )
 }
 export const getProfileTC = (userIdForURL: number) => (dispatch: Dispatch) => {
     if (userIdForURL) {
-    dispatch ( changeIsFetchingFromProfile ( true ) )
-    ProfileAPI.setUserProfile ( userIdForURL )
-        .then ( response => {
-                dispatch ( changeIsFetchingFromProfile ( false ) )
-                dispatch ( setUserProfile ( response.data ) )
-            }
-        ).catch ( err => {
-        console.warn ( err )
-    } )
-}}
+        dispatch ( changeIsFetchingFromProfile ( true ) )
+        ProfileAPI.setUserProfile ( userIdForURL )
+            .then ( response => {
+                    dispatch ( changeIsFetchingFromProfile ( false ) )
+                    dispatch ( setUserProfile ( response.data ) )
+                }
+            ).catch ( err => {
+            console.warn ( err )
+        } )
+    }
+}
 
 //state
 const initialState = {
@@ -105,7 +151,7 @@ const initialState = {
     isFetching: false as boolean
 }
 //reducer
-const profileReducer = (state = initialState, action: ActionsTypes): InitialStateProfileType => {
+const profileReducer = (state = initialState, action: ProfileActionsTypes): InitialStateProfileType => {
     switch (action.type) {
         case PROFILE_CONST.ADD_POST:
             const newPost = {
@@ -128,44 +174,4 @@ const profileReducer = (state = initialState, action: ActionsTypes): InitialStat
 }
 export default profileReducer;
 
-//types
-export type MyPostArrayFromProfileType = {
-    profileSelfPhotoImgUrl: string
-    id: number
-    message: string
-}
-export type InitialStateProfileType = typeof initialState
-type AddPostActionCreationType = {
-    type: typeof PROFILE_CONST.ADD_POST
-    payload:{value:string}
-}
-type ChangeStatusACType = {
-    type: typeof PROFILE_CONST.CHANGE_STATUS
-    payload: { status: string }
 
-}
-export type UserFromProfileResponseType = {
-    userId: number | null
-    lookingForAJob: boolean
-    lookingForAJobDescription: string | null
-    fullName: string | null
-    contacts: {
-        github: string | null
-        vk: string | null
-        facebook: string | null
-        instagram: string | null
-        twitter: string | null
-        website: string | null
-        youtube: string | null
-        mainLink: string | null
-    }
-    photos: { small: string | null, large: string | null }
-}
-type setUserProfileActionCreationType = {
-    type: typeof PROFILE_CONST.SET_USER_PROFILE,
-    payload: { user: UserFromProfileResponseType }
-}
-type ChangeIsFetchingFromProfileActionCreationType = {
-    type: typeof PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE,
-    payload: { isFetching: boolean }
-}

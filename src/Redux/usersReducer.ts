@@ -56,6 +56,9 @@ type sendingRequestFromFollowUnFollowTypeActionCreatorType = {
     isFetching: boolean
 }
 
+export type UsersActionsTypes = | unFollowActionCreatorType | addMoreUsersActionCreatorType | changeCurrentPageActionCreatorType
+| changeTotalCountActionCreatorType | changeIsFetchingActionCreatorType | sendingRequestFromFollowUnFollowTypeActionCreatorType
+ | followActionCreationType
 
 export const followActionCreator = (id: number): followActionCreationType => {
     return {type: USERS_CONST.FOLLOW, id} as const

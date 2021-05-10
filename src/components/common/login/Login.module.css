@@ -1,12 +1,12 @@
 .loginWrapper{
-    text-align: start;
     display: grid;
     width: 30vw;
     grid-template-rows: 70px 1fr;
     margin:  0 auto 0 0;
     justify-content: center;
+    text-align: center;
     font-size: 1.5em;
-    row-gap: 100px;
+    row-gap: 30px;
 
 }
 .loginH1 {

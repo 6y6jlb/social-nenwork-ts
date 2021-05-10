@@ -55,3 +55,4 @@ type AddDialogsMessageType = {
     payload:{self:boolean,item:string}
 
 }
+export type DialogsActionsTypes = | AddDialogsMessageType
