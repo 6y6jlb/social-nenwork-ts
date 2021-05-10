@@ -1,6 +1,8 @@
-import {ActionsTypes} from "./reduxStore";
-import {Dispatch} from "redux";
-import {AuthAPI} from "../api/api";
+import {ActionsTypes, AppStateType, AppThunk} from "./reduxStore";
+import {Dispatch,ActionCreator} from "redux";
+import {AuthAPI, ProfileAPI} from "../api/api";
+import React from "react";
+import {setUserProfile} from "./profileReducer";
 
 
 export enum AUTH_CONST {
@@ -20,25 +22,51 @@ export type InitialStateFromAuthType = {
 
 
 export type SetUserDataType = {
-    type: AUTH_CONST.SET_USER_DATA,
+    type: AUTH_CONST.SET_USER_DATA
+    isAuth:boolean
     data: UserDataFromAuthAuthType
 }
 
-export const setUserData = (data: UserDataFromAuthAuthType): SetUserDataType => {
-    return {type: AUTH_CONST.SET_USER_DATA, data}
+export const setUserData = (isAuth: boolean,data: UserDataFromAuthAuthType): SetUserDataType => {
+    return {type: AUTH_CONST.SET_USER_DATA,isAuth, data}
 }
 
-export const setUserTC = () => (dispatch: Dispatch) => {
+export const setUserTC = (isAuth:boolean): AppThunk => (dispatch,getState:()=>AppStateType) => {
     AuthAPI.setUserFromHeader ()
         .then ( response => {
                 if (response.data.resultCode === 0) {
-                    dispatch ( setUserData ( {...response.data.data} ) )
+                    dispatch ( setUserData ( isAuth,{...response.data.data} ) )
                 }
             }
         ).catch ( err => {
             console.warn ( err )
         }
-    )
+    ).then(response=>{
+        const userId = getState().auth.data.id
+        if (userId){
+            ProfileAPI.setUserProfile (userId)
+                .then ( response => {
+                        dispatch(setUserProfile ( response.data ))
+                    }
+                ).catch ( err => {
+                console.error ( err )
+            } )
+        }
+    })
+}
+export const loginTC = (email:string, password:string, rememberMe:boolean): AppThunk=>(dispatch) =>{
+    AuthAPI.login(email, password,rememberMe)
+        .then((response)=>{
+            if (response.data.resultCode === 0) {
+                dispatch(setUserTC(true))}
+        })
+}
+export const logoutTC = ()=>(dispatch: Dispatch):void =>{
+    AuthAPI.logout()
+        .then((response)=>{
+            if (response.data.resultCode === 0) {
+            dispatch(setUserData(false,{email:null, login:null, id:null}))}
+        })
 }
 
 const initialState: InitialStateFromAuthType = {
@@ -59,7 +87,7 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateFr
 
             return {
                 ...state, data: {...action.data},
-                isAuth: true
+                isAuth: action.isAuth
             }
         default:
             return state
