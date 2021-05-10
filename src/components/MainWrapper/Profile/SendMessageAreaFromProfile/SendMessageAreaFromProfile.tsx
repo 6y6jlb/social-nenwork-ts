@@ -17,9 +17,7 @@ type SendMessageAreaFromProfilePropsType = {
 const AddNewPostForm:React.FC<InjectedFormProps<AddPostProfileFormType>> & PropsType = (props)=>{
     return (
         <form onSubmit={ props.handleSubmit }>
-            {/*<div className={style.textArea}>*/}
-            {/*    <Field validate={[requiredField,maxInputLength(25)]} component={ Textarea } name={ 'newMessageBody' } placeholder={ 'enter text here' }/>*/}
-            {/*</div>*/}
+
             {createField('enter new post here','newPostBody',[requiredField],Textarea,{type:'text'})}
             <div className={style.button}>
                 <button>send</button>
