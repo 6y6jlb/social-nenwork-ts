@@ -5,7 +5,7 @@ import LoginForm, {FormType} from "./loginForm/LoginForm";
 
 
 type LoginPropsType = {
-    loginTC: (email:string,password:string, rememberMe:boolean)=>void
+    loginTC: (email:string,password:string, checkbox:boolean)=>void
 }
 
 const Login = (props:LoginPropsType) => {
