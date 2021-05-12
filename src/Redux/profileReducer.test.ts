@@ -1,14 +1,11 @@
 import selfPhoto from "../images/face.png";
-import profileReducer, {
-    addPost,
-    changePostInput,
+import profileReducer, {InitialStateProfileType,
     MyPostArrayFromProfileType,
     UserFromProfileResponseType
 } from "./profileReducer";
 
 test ( 'profile reducer and action test', (() => {
-    const state = {
-        currentInputPost: 'test',
+    const state:InitialStateProfileType = {status: '',
         profile: {
             userId: null,
             lookingForAJob: false,
@@ -46,15 +43,12 @@ test ( 'profile reducer and action test', (() => {
                 profileSelfPhotoImgUrl: selfPhoto,
                 id: 5, message: 'eu, ',
             },
-        ] as Array<MyPostArrayFromProfileType>
-    }
+        ] as Array<MyPostArrayFromProfileType>,
+        isFetching: false as boolean}
+    const actionAddPost = actionsProfile.addPost ('test')
 
-    const actionAddPost = addPost ()
-    const actionChangePostInput = changePostInput ( 'stringTest' )
-    //@ts-ignore
     const testProfileReducerAdd = profileReducer ( state, actionAddPost )
-    //@ts-ignore
-    const testProfileReducerChange = profileReducer ( state, actionChangePostInput )
+
 
 
     expect ( testProfileReducerAdd.myPostArray[0] ).toStrictEqual ( {
@@ -63,10 +57,7 @@ test ( 'profile reducer and action test', (() => {
         message: 'test',
     } )
     expect ( testProfileReducerAdd.myPostArray.length ).toBe ( 7 )
-    expect ( testProfileReducerAdd.currentInputPost ).toStrictEqual ( '' )
 
-
-    expect ( testProfileReducerChange.currentInputPost ).toStrictEqual ( 'stringTest' )
 
 
 }) )

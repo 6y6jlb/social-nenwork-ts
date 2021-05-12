@@ -1,6 +1,7 @@
 import selfPhoto from "../images/face.png";
-import {ProfileAPI} from "../api/api";
 import {Dispatch} from "redux";
+import {ProfileAPI} from "../api/profileAPI";
+import {AppThunk, InferActionsType} from "./reduxStore";
 
 //types
 export type UserFromProfileResponseType = {
@@ -20,90 +21,59 @@ export type UserFromProfileResponseType = {
     }
     photos: { small: string | null, large: string | null }
 }
-
 export type MyPostArrayFromProfileType = {
     profileSelfPhotoImgUrl: string
     id: number
     message: string
 }
 export type InitialStateProfileType = typeof initialState
-type AddPostActionCreationType = {
-    type: PROFILE_CONST.ADD_POST
-    payload:{value:string}}
-type setUserProfileActionCreationType = {
-    type: PROFILE_CONST.SET_USER_PROFILE
-    payload: {user:UserFromProfileResponseType}}
-type ChangeStatusACType = {
-    type: PROFILE_CONST.CHANGE_STATUS,
-    payload: {status:string} }
-type ChangeIsFetchingFromProfileActionCreationType = {
-    type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE
-    payload: {isFetching:boolean}}
-
-export type ProfileActionsTypes =
-    | AddPostActionCreationType
-    | setUserProfileActionCreationType
-    | ChangeStatusACType
-    | ChangeIsFetchingFromProfileActionCreationType
-
-
-
-export enum PROFILE_CONST {
-    ADD_POST = 'ADD-POST',
-    SET_USER_PROFILE = 'SET_USER_PROFILE',
-    CHANGE_IS_FETCHING_FROM_PROFILE = 'CHANGE_IS_FETCHING_FROM_PROFILE',
-    CHANGE_STATUS = 'CHANGE_STATUS'
-}
-
+export type ProfileActionsTypes = InferActionsType<typeof actionsProfile>
 //ac
-export const addPost = (value: string):AddPostActionCreationType => {
-    return {type: PROFILE_CONST.ADD_POST as const, payload: {value}} as const
-};
-export const setUserProfile = (user: UserFromProfileResponseType):setUserProfileActionCreationType => {
-    return {type: PROFILE_CONST.SET_USER_PROFILE as const, payload: {user}} as const
-};
-export const changeIsFetchingFromProfile = (isFetching: boolean):ChangeIsFetchingFromProfileActionCreationType => {
-    return {type: PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE as const, payload: {isFetching}} as const
-};
-export const setStatusAC = (status: string):ChangeStatusACType => {
-    return {
-        type: PROFILE_CONST.CHANGE_STATUS,
-        payload: {status} as const
+export const actionsProfile = {
+    addPost:(value: string) => {
+        return {type: 'ADD_POST' as const, payload: {value}} as const
+    },setUserProfile:(user: UserFromProfileResponseType) => {
+        return {type: 'SET_USER_PROFILE' as const, payload: {user}} as const
+    },changeIsFetchingFromProfile:(isFetching: boolean) => {
+        return {type: 'CHANGE_IS_FETCHING_FROM_PROFILE' as const, payload: {isFetching}} as const
+    },setStatusAC:(status: string) => {
+        return {
+            type: 'CHANGE_STATUS',
+            payload: {status}
+        }as const
     }
-};
-//tc
-export const getStatusTC = (userID: number) => (dispatch: Dispatch) => {
-    if (userID) {
-        ProfileAPI.getStatus ( userID )
-            .then ( (response) => {
-                dispatch ( setStatusAC ( response.data ) )
-            } ).catch ( err => {
-            console.warn ( err )
-        } )
-    }
-
-};
-export const updateStatusTC = (item: string) => (dispatch: Dispatch) => {
-    ProfileAPI.sendStatus ( item )
-        .then ( (response) => {
-            if (response.data.resultCode === 0) {
-                dispatch ( setStatusAC ( item ) )
-            }
-        } ).catch ( err => {
-        console.warn ( err )
-    } )
 }
-export const getProfileTC = (userIdForURL: number) => (dispatch: Dispatch) => {
+//tc
+export const getStatusTC = (userID: number):AppThunk => async dispatch => {
+    if (userID) {
+        const response = await ProfileAPI.getStatus ( userID )
+            try {
+                dispatch ( actionsProfile.setStatusAC ( response.data ) )
+            } catch (e) {
+                throw new Error(e)
+            }
+    }
+};
+export const updateStatusTC = (item: string):AppThunk => async dispatch => {
+    const response = await ProfileAPI.sendStatus ( item )
+        try {
+            if (response.data.resultCode === 0) {
+                dispatch ( actionsProfile.setStatusAC ( item ) )
+            }
+        } catch (e) {
+            throw new Error(e)
+        }
+}
+export const getProfileTC = (userIdForURL: number):AppThunk =>async dispatch => {
     if (userIdForURL) {
-        dispatch ( changeIsFetchingFromProfile ( true ) )
-        ProfileAPI.setUserProfile ( userIdForURL )
-            .then ( response => {
-                    dispatch ( changeIsFetchingFromProfile ( false ) )
-                    dispatch ( setUserProfile ( response.data ) )
-                }
-            ).catch ( err => {
-            console.warn ( err )
-        } )
+        dispatch ( actionsProfile.changeIsFetchingFromProfile ( true ) )
+        const response = await ProfileAPI.setUserProfile ( userIdForURL )
+            try {
+                    dispatch ( actionsProfile.changeIsFetchingFromProfile ( false ) )
+                    dispatch ( actionsProfile.setUserProfile ( response.data ) )
+                } catch (e) {
+                throw new Error(e)
+            }
     }
 }
 
@@ -153,7 +123,7 @@ const initialState = {
 //reducer
 const profileReducer = (state = initialState, action: ProfileActionsTypes): InitialStateProfileType => {
     switch (action.type) {
-        case PROFILE_CONST.ADD_POST:
+        case 'ADD_POST':
             const newPost = {
                 profileSelfPhotoImgUrl: selfPhoto,
                 id: state.myPostArray.length++,
@@ -161,11 +131,11 @@ const profileReducer = (state = initialState, action: ProfileActionsTypes): Init
             }
             state.myPostArray.unshift ( newPost )
             return {...state}
-        case PROFILE_CONST.SET_USER_PROFILE:
+        case 'SET_USER_PROFILE':
             return {...state, profile: action.payload.user}
-        case PROFILE_CONST.CHANGE_IS_FETCHING_FROM_PROFILE:
+        case 'CHANGE_IS_FETCHING_FROM_PROFILE':
             return {...state, isFetching: action.payload.isFetching}
-        case PROFILE_CONST.CHANGE_STATUS: {
+        case 'CHANGE_STATUS': {
             return {...state, status: action.payload.status}
         }
         default:

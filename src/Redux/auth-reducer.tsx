@@ -1,15 +1,11 @@
-import {ActionsTypes, AppStateType, AppThunk} from "./reduxStore";
-import {Dispatch} from "redux";
-import {AuthAPI, ProfileAPI} from "../api/api";
+import {ActionsTypes, AppStateType, AppThunk, InferActionsType} from "./reduxStore";
 import React from "react";
-import {setUserProfile} from "./profileReducer";
 import {FormAction, stopSubmit} from "redux-form";
 import {ThunkAction} from "redux-thunk";
+import {ProfileAPI} from "../api/profileAPI";
+import {AuthAPI} from "../api/authAPI";
+import {actionsProfile} from "./profileReducer";
 
-//enum
-export enum AUTH_CONST {
-    SET_USER_DATA = 'ADD_SET_USER_DATA',
-}
 
 //types
 export type UserDataFromAuthAuthType = {
@@ -21,53 +17,54 @@ export type InitialStateFromAuthType = {
     isAuth: boolean
     data: UserDataFromAuthAuthType
 }
-export type SetUserDataType = ReturnType<typeof setUserData>
-export type AuthActionsTypes = | SetUserDataType
-//ac & tc
-export const setUserData = (isAuth: boolean, data: UserDataFromAuthAuthType) => {
-    return {type: AUTH_CONST.SET_USER_DATA, isAuth, data}
+export type AuthActionsTypes = InferActionsType<typeof actionsAuth>
+//ac
+export const actionsAuth = {
+    setUserData :(isAuth: boolean, data: UserDataFromAuthAuthType) => {
+        return {type: 'SET_USER_DATA', isAuth, data} as const
+    }
 }
-export const setUserTC = (isAuth: boolean): AppThunk => (dispatch, getState: () => AppStateType) => {
-    AuthAPI.setUserFromHeader ()
-        .then ( response => {
+//tc
+export const setUserTC = (isAuth: boolean): AppThunk => async (dispatch, getState: () => AppStateType) => {
+    const response = await AuthAPI.setUserFromHeader ()
+        try {
                 if (response.data.resultCode === 0) {
-                    dispatch ( setUserData ( isAuth, {...response.data.data} ) )
+                    dispatch ( actionsAuth.setUserData ( isAuth, {...response.data.data} ) )
                 }
-            }
-        ).catch ( err => {
-            console.warn ( err )
+            } catch(e){
+        throw new Error(e)
         }
-    ).then ( response => {
         const userId = getState ().auth.data.id
         if (userId) {
-            ProfileAPI.setUserProfile ( userId )
-                .then ( response => {
-                        dispatch ( setUserProfile ( response.data ) )
-                    }
-                ).catch ( err => {
-                console.error ( err )
-            } )
+            const response = await ProfileAPI.setUserProfile ( userId )
+                try {
+                        dispatch ( actionsProfile.setUserProfile ( response.data ) )
+                    }catch (e) {
+                    throw new Error(e)
+                }
         }
-    } )
 }
-export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, unknown, ActionsTypes | FormAction> => (dispatch) => {
-
-    AuthAPI.login ( email, password, rememberMe )
-        .then ( (response) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, unknown, ActionsTypes | FormAction> => async dispatch => {
+const response = await AuthAPI.login ( email, password, rememberMe )
+        try {
             if (response.data.resultCode === 0) {
                 dispatch ( setUserTC ( true ) )
             } else {
                 dispatch ( stopSubmit ( 'login', {_error: 'shit shit shit'} ) )
             }
-        } )
+        } catch (e) {
+            throw new Error(e)
+        }
 }
-export const logoutTC = () => (dispatch: Dispatch): void => {
-    AuthAPI.logout ()
-        .then ( (response) => {
+export const logoutTC = ():AppThunk => async dispatch=> {
+    const response = await AuthAPI.logout ()
+       try {
             if (response.data.resultCode === 0) {
-                dispatch ( setUserData ( false, {email: null, login: null, id: null} ) )
+                dispatch ( actionsAuth.setUserData ( false, {email: null, login: null, id: null} ) )
             }
-        } )
+        } catch (e) {
+           throw new Error(e)
+       }
 }
 //state
 const initialState: InitialStateFromAuthType = {
@@ -82,9 +79,9 @@ const initialState: InitialStateFromAuthType = {
 }
 
 //reducer
-const authReducer = (state = initialState, action: ActionsTypes): InitialStateFromAuthType => {
+const authReducer = (state = initialState, action: AuthActionsTypes): InitialStateFromAuthType => {
     switch (action.type) {
-        case AUTH_CONST.SET_USER_DATA:
+        case 'SET_USER_DATA':
 
             return {
                 ...state, data: {...action.data},
