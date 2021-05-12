@@ -1,13 +1,10 @@
 import photo from "../images/face.png";
 import dialogsReducer, {
-    addDialogsMessage,
-    changeDialogsInput,
-    DIALOGS_CONST
+    actionsDialogs
 } from "./dialogsReducer";
 
 test('dialog reducer and action test', (() => {
     const state = {
-        currentInputMessageString: 'test',
         messages: [
             {id: 1, item: 'myMessage', self: true, avatarURL: photo},
             {id: 2, item: 'notMyMessage', self: false, avatarURL: photo},
@@ -23,20 +20,10 @@ test('dialog reducer and action test', (() => {
         ]
     }
 
-
-    const testDialogsReducerAdd = dialogsReducer(state,addDialogsMessage(true))
-    const testDialogsReducerChange = dialogsReducer(state,changeDialogsInput('stringTest'))
-
+    const testDialogsReducerAdd = dialogsReducer(state,actionsDialogs.addDialogsMessage(true,'test'))
 
     expect(testDialogsReducerAdd.messages.length).toBe(12)
     expect(testDialogsReducerAdd.messages[11]).toStrictEqual( {id: 12, item: 'test', self: true, avatarURL: photo})
     expect(testDialogsReducerAdd.messages[12]).toBe( undefined)
-    expect(testDialogsReducerAdd.currentInputMessageString).toStrictEqual('test')
-
-
-    expect(testDialogsReducerChange.currentInputMessageString).toStrictEqual('stringTest')
-    expect(testDialogsReducerChange.currentInputMessageString.length).toBe(10)
-
-
 
 }))

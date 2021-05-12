@@ -1,11 +1,13 @@
 import selfPhoto from "../images/face.png";
-import profileReducer, {InitialStateProfileType,
+import profileReducer, {
+    actionsProfile, InitialStateProfileType,
     MyPostArrayFromProfileType,
     UserFromProfileResponseType
 } from "./profileReducer";
 
 test ( 'profile reducer and action test', (() => {
-    const state:InitialStateProfileType = {status: '',
+    const initialState = {
+        status: '',
         profile: {
             userId: null,
             lookingForAJob: false,
@@ -44,10 +46,11 @@ test ( 'profile reducer and action test', (() => {
                 id: 5, message: 'eu, ',
             },
         ] as Array<MyPostArrayFromProfileType>,
-        isFetching: false as boolean}
+        isFetching: false as boolean
+    }
     const actionAddPost = actionsProfile.addPost ('test')
 
-    const testProfileReducerAdd = profileReducer ( state, actionAddPost )
+    const testProfileReducerAdd = profileReducer ( initialState, actionAddPost )
 
 
 
