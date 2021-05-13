@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    addPost,
+    actionsProfile,
     getProfileTC,
     InitialStateProfileType
 } from "../../../Redux/profileReducer";
@@ -46,7 +46,7 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 }
 export default compose<React.ComponentType> (
     connect ( mapStateToProps, {
-        onAddPost: addPost,
+        onAddPost: actionsProfile.addPost,
         getProfileTC
     } ),
     withRouter,

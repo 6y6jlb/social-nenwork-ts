@@ -1,14 +1,26 @@
 .loginForm{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    box-sizing: border-box;
+    padding: 30px;
+    width: 100%;
+    height: max-content;
+
+
 }
 .loginForm span{
-    font-size: 0.8em;
+    height: 0;
+    font-size: 0.7em;
+    bottom:30px;
+    left: 5px;
+    position: relative;
+    top: -100%;
 
 }
 .loginForm input[type=checkbox]  {
+    display: flex;
+    flex: content-box;
+    margin-top: 20px;
+    width: 20px;
+    height: 20px;
 
 
 
@@ -31,4 +43,8 @@
 .button button:active {
     box-shadow: inset 0px 1px 10px 2px #492F7E;
     color: white;
+}
+.error {
+
+    background-color:  #d990a5;
 }

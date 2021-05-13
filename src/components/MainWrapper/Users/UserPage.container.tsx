@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {
-    changeCurrentPageActionCreator,
+    actionsUsers,
     followUserTC,
     getUsersTC,
     InitialStateUsersType,
@@ -52,13 +52,6 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
 
     componentDidMount() {
         this.props.getUsers ( this.props.pageSize, this.props.currentPage )
-        /*this.props.changeIsFetching ( true )
-
-        UsersAPI.getUsers ( this.props.pageSize, this.props.currentPage ).then ( response => {
-            this.props.changeIsFetching ( false )
-            this.props.changeTotalCount ( response.data.totalCount > 20 ? 20 : response.data.totalCount )
-            this.props.setUsers ( response.data.items )
-        } );*///without thunk
     }//axios request with fetching and setUsers
 
     componentWillUnmount() {
@@ -67,15 +60,7 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
     onPageChanged = (pageNumber: number) => {
         this.props.changeCurrentPage ( pageNumber )
         this.props.getUsers ( this.props.pageSize, pageNumber )
-        /*
-          this.props.changeIsFetching ( true )
-          this.props.changeCurrentPage ( pageNumber )
-          UsersAPI.getUsers ( this.props.pageSize, this.props.currentPage ).then ( response => {
-                  this.props.changeTotalCount ( response.data.totalCount > 20 ? 20 : response.data.totalCount )
-                  this.props.setUsers ( response.data.items )
-                  this.props.changeIsFetching ( false )
-              }
-          )*///without thunk
+
     } //axios request with fetching and setUsers
 
     render() {
@@ -110,7 +95,7 @@ export default compose<React.ComponentType> (
     connect ( mapStateToProps, {
         followCallBack: followUserTC,
         unFollowCallBack: unFollowUserTC,
-        changeCurrentPage: changeCurrentPageActionCreator,
+        changeCurrentPage: actionsUsers.changeCurrentPageActionCreator,
         getUsers: getUsersTC
     } ),
     withAuthRedirect

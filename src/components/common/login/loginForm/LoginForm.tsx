@@ -9,14 +9,20 @@ export type FormType = {
     password:string
     checkbox:boolean
 }
+//generic types for createField
+type CurrentFieldsTypes = Extract <keyof  FormType, string>
+
 type PropsType = {}
 
+//function inside component
+const isMaxLengthMore20 = maxInputLength(20)
+
 const LoginForm:React.FC<InjectedFormProps<FormType>> & PropsType = (props)=> {
-    return <form className={style.loginForm} onSubmit={props.handleSubmit}>
-        {createField('login','login',[requiredField,maxInputLength(15)],Input)}
-        {createField('password','password',[requiredField,maxInputLength(15)],Input, {type:'password'})}
-        {createField(undefined,'rememberMe',[],Input, {type:'checkbox'},'rememberMe')}
-        {props.error&&props.error}
+    return <form className={ `${style.loginForm} ${props.error && style.error}`} onSubmit={props.handleSubmit}>
+        {createField<CurrentFieldsTypes>('login','login',[requiredField,isMaxLengthMore20],Input)}
+        {createField<CurrentFieldsTypes>('password','password',[requiredField,isMaxLengthMore20],Input, {type:'password'})}
+        {createField<CurrentFieldsTypes>(undefined,'checkbox',[],Input, {type:'checkbox'},'rememberMe')}
+
         <div className={style.button}>
             <button>submit</button>
         </div>

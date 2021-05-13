@@ -1,7 +1,7 @@
 import Login from "./Login";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
-import {setUserTC} from "../../../Redux/auth-reducer";
+import {loginTC, setUserTC} from "../../../Redux/auth-reducer";
 import {compose} from "redux";
 import React from "react";
 
@@ -17,5 +17,5 @@ const mapStateToProps = (state:AppStateType)=> {
 
 
 export default compose <React.ComponentType> (
-    connect(mapStateToProps,{setUserTC})
+    connect(mapStateToProps,{loginTC})
 )(Login);

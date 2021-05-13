@@ -32,3 +32,9 @@
     justify-self: start;
     padding-top: 10px;
 }
+.loginSpan {
+    background-color: #6f589f;
+    text-transform: uppercase;
+    padding: 2px 15px;
+    cursor: pointer;
+}

@@ -17,9 +17,8 @@ export type AddMessageFormType = {
     newMessageBody: string
     validate:any[]
 }
-type SendMessageAreaFromProfilePropsType = {
-    onAddPost: (value:string) => void
-}
+
+
 
 const AddNewMessageForm:React.FC<InjectedFormProps<AddMessageFormType>> & PropsType = (props)=>{
     return (

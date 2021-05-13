@@ -1,14 +1,12 @@
 import selfPhoto from "../images/face.png";
 import photo from "../images/face.png";
-import {ActionsTypes} from "./reduxStore";
+import {InferActionsType} from "./reduxStore";
 
-
-export enum DIALOGS_CONST {
-    ADD_DIALOGS_MESSAGE = 'ADD-DIALOGS-MESSAGE',
-}
 //ac
-export const addDialogsMessage = (self: boolean,item:string): AddDialogsMessageType => {
-    return {type: DIALOGS_CONST.ADD_DIALOGS_MESSAGE, payload:{self,item}} as const
+export const actionsDialogs = {
+    addDialogsMessage:(self: boolean,item:string) => {
+        return {type: 'ADD_DIALOGS_MESSAGE', payload:{self,item}} as const
+    }
 }
 //state
 const initialState = {
@@ -27,9 +25,9 @@ const initialState = {
     ] as Array<MessagesFromDialogsType>
 }
 //reducer
-const dialogsReducer = (state = initialState, action: ActionsTypes): InitialStateDialogsType => {
+const dialogsReducer = (state = initialState, action: DialogsActionsTypes): InitialStateDialogsType => {
     switch (action.type) {
-        case DIALOGS_CONST.ADD_DIALOGS_MESSAGE:
+        case 'ADD_DIALOGS_MESSAGE':
             const newMessage = {
                 id: state.messages.length + 1,
                 item: action.payload.item,
@@ -50,8 +48,4 @@ export type MessagesFromDialogsType = {
     avatarURL: string
 }
 export type InitialStateDialogsType = typeof initialState
-type AddDialogsMessageType = {
-    type: typeof DIALOGS_CONST.ADD_DIALOGS_MESSAGE
-    payload:{self:boolean,item:string}
-
-}
+export type DialogsActionsTypes = InferActionsType<typeof actionsDialogs>

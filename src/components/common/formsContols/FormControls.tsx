@@ -1,13 +1,13 @@
 import {Field, WrappedFieldProps} from "redux-form";
 import React from "react";
-import style  from './FormControls.module.css'
+import style from './FormControls.module.css'
 
 
 const FormControl: React.FC<WrappedFieldProps> = (props) => {
     const hasError = props.meta.touched && props.meta.error;
     return (
         <div>
-            <div className={`${ style.textArea } ${ hasError && style.error }`}>
+            <div className={ `${ style.textArea } ${ hasError && style.error }` }>
                 { props.children }
             </div>
         </div>
@@ -31,16 +31,20 @@ export const Input: React.FC<WrappedFieldProps> = (props) => {
         </FormControl>
     )
 }
-export const createField = (placeholder: string | undefined,
-                            name: string,
-                            validators: Array<Function>,
-                            component: React.FC<WrappedFieldProps>,
-                            props = {}, text = '') => {
+
+export function createField<FormsKeysType extends string>(placeholder: string | undefined,
+                                           name: FormsKeysType,
+                                           validators: Array<Function>,
+                                           component: React.FC<WrappedFieldProps>,
+                                           props = {}, text = '') {
     return (
         <div>
-            <Field placeholder={ placeholder } name={ name } validate={ validators }
-                   component={ component } { ...props } />
-            <span className={style.span}>{ text }</span>
+            <Field placeholder={ placeholder }
+                   name={ name }
+                   validate={ validators }
+                   component={ component }
+                   { ...props } />
+            <span className={ style.span }>{ text }</span>
         </div>
     )
 }
