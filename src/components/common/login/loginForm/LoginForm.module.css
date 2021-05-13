@@ -16,6 +16,7 @@
 
 }
 .loginForm input[type=checkbox]  {
+
     display: flex;
     flex: content-box;
     margin-top: 20px;

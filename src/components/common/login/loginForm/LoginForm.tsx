@@ -18,10 +18,12 @@ type PropsType = {}
 const isMaxLengthMore20 = maxInputLength(20)
 
 const LoginForm:React.FC<InjectedFormProps<FormType>> & PropsType = (props)=> {
+
     return <form className={ `${style.loginForm} ${props.error && style.error}`} onSubmit={props.handleSubmit}>
         {createField<CurrentFieldsTypes>('login','login',[requiredField,isMaxLengthMore20],Input)}
         {createField<CurrentFieldsTypes>('password','password',[requiredField,isMaxLengthMore20],Input, {type:'password'})}
         {createField<CurrentFieldsTypes>(undefined,'checkbox',[],Input, {type:'checkbox'},'rememberMe')}
+
 
         <div className={style.button}>
             <button>submit</button>
