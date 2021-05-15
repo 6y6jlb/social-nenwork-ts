@@ -1,5 +1,4 @@
 import selfPhoto from "../images/face.png";
-import {Dispatch} from "redux";
 import {ProfileAPI} from "../api/profileAPI";
 import {AppThunk, InferActionsType} from "./reduxStore";
 

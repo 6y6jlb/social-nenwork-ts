@@ -1,12 +1,12 @@
 import selfPhoto from "../images/face.png";
 import profileReducer, {
-    actionsProfile, InitialStateProfileType,
-    MyPostArrayFromProfileType,
-    UserFromProfileResponseType
+    actionsProfile, InitialStateProfileType, MyPostArrayFromProfileType, UserFromProfileResponseType
 } from "./profileReducer";
 
-test ( 'profile reducer and action test', (() => {
-    const initialState = {
+let initialState: InitialStateProfileType;
+
+beforeAll(() => {
+    initialState = {
         status: '',
         profile: {
             userId: null,
@@ -47,20 +47,49 @@ test ( 'profile reducer and action test', (() => {
             },
         ] as Array<MyPostArrayFromProfileType>,
         isFetching: false as boolean
-    }
-    const actionAddPost = actionsProfile.addPost ('test')
+    };
+    ;
+});
 
-    const testProfileReducerAdd = profileReducer ( initialState, actionAddPost )
+test('profile reducer setUser test', (() => {
 
+    const profile = {
+            userId: 123,
+            lookingForAJob: true,
+            lookingForAJobDescription: 'want to eat',
+            fullName: 'biba boba',
+            contacts: {
+                github: null,
+                vk: null,
+                facebook: null,
+                instagram: null,
+                twitter: null,
+                website: null,
+                youtube: null,
+                mainLink: null,
+            },
+            photos: {small: null, large: null}
+        }
 
+    const actionSetUserProfile = actionsProfile.setUserProfile(profile);
+    const testProfileReducerSetUserProfile = profileReducer(initialState, actionSetUserProfile);
 
-    expect ( testProfileReducerAdd.myPostArray[0] ).toStrictEqual ( {
+    expect(testProfileReducerSetUserProfile.profile.userId).toBe(123);
+    expect(testProfileReducerSetUserProfile.profile.lookingForAJobDescription).toBe('want to eat');
+    expect(testProfileReducerSetUserProfile.profile.fullName).toBe('biba boba');
+    expect(testProfileReducerSetUserProfile.profile.lookingForAJob).toBe(true);
+
+}))
+
+test('add post testing', () => {
+    const actionAddPost = actionsProfile.addPost('test')
+    const testProfileReducerAdd = profileReducer(initialState, actionAddPost)
+
+    expect(testProfileReducerAdd.myPostArray[0]).toStrictEqual({
         profileSelfPhotoImgUrl: selfPhoto,
         id: 5,
         message: 'test',
-    } )
-    expect ( testProfileReducerAdd.myPostArray.length ).toBe ( 7 )
+    })
+    expect(testProfileReducerAdd.myPostArray.length).toBe(7)
 
-
-
-}) )
+})
