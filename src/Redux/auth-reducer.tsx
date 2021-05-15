@@ -74,10 +74,7 @@ const initialState: InitialStateFromAuthType = {
         email: null,
         login: null
     }
-
-
 }
-
 //reducer
 const authReducer = (state = initialState, action: AuthActionsTypes): InitialStateFromAuthType => {
     switch (action.type) {
