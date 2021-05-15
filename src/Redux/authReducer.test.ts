@@ -31,7 +31,7 @@ test('setUserData from authReducer testing', () => {
     const data = {
         id: 123,
         login: 'test',
-        email: 'test'
+        email: ' test'
     }
 
     const action = actionsAuth.setUserData(true,data)
