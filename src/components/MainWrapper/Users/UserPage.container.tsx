@@ -98,5 +98,5 @@ export default compose<React.ComponentType> (
         changeCurrentPage: actionsUsers.changeCurrentPageActionCreator,
         getUsers: getUsersTC
     } ),
-    withAuthRedirect
+    //withAuthRedirect
 )(UserPageAPIComponent)

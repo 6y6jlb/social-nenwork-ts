@@ -1,7 +1,7 @@
 import {instanceSamuraiAPI, ResponseHeaderContainerType} from "./api";
 
 export const AuthAPI = {
-    setUserFromHeader() {
+    me() {
         return instanceSamuraiAPI.get<ResponseHeaderContainerType> ( `auth/me`, {} )
     },
     login(email: string, password: string, rememberMe: boolean = false) {

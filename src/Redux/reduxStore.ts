@@ -6,6 +6,7 @@ import usersReducer, {UsersActionsTypes} from "./usersReducer";
 import authReducer, {AuthActionsTypes} from "./auth-reducer";
 import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
+import appReducer, {AppActionsTypes} from "./app-reducer";
 
 
 export type ActionsTypes =
@@ -13,6 +14,7 @@ export type ActionsTypes =
     | ProfileActionsTypes
     | UsersActionsTypes
     | DialogsActionsTypes
+|AppActionsTypes
 
 
 const rootReducer = combineReducers ( {
@@ -21,7 +23,8 @@ const rootReducer = combineReducers ( {
     navBarReducer,
     usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app:appReducer
 
 } );
 

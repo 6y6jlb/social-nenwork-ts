@@ -18,10 +18,11 @@ class ProfileWrapperAPIContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userIdForURL = this.props.match.params.userId
-        if (!userIdForURL && !this.props.isAuth) {
+        if (!userIdForURL) {
             userIdForURL = this.props.myLoginId //my autorzed id
-        } else if (!userIdForURL) {
-            userIdForURL = this.props.myLoginId //my autorzed id
+        } else {
+            //userIdForURL = this.props.myLoginId //my autorzed id
+            userIdForURL = this.props.history.push('/login') //my autorzed id
         }
         this.props.getProfileTC ( userIdForURL )
     }//axios request with fetching and setProfile

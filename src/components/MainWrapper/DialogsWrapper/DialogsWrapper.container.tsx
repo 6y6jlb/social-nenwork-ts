@@ -1,15 +1,12 @@
 import React from 'react';
 import {DialogsWrapper} from "./DialogsWrapper";
-import {
-    actionsDialogs,
-    InitialStateDialogsType
-} from "../../../Redux/dialogsReducer";
-
+import {actionsDialogs, InitialStateDialogsType} from "../../../Redux/dialogsReducer";
 import {connect} from "react-redux";
 
 import {AppStateType} from "../../../Redux/reduxStore";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import {difficultGetMessagestSelector, getFullName, getIsAuth, getMessages} from "../../../selectors/dialogs-selectors";
 
 
 type MapStateToPropsType ={
@@ -19,9 +16,9 @@ type MapStateToPropsType ={
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType & InitialStateDialogsType => {
     return {
-        messages: state.dialogsReducer.messages,
-        isAuth:state.auth.isAuth,
-        name:state.profileReducer.profile.fullName
+        messages: difficultGetMessagestSelector(state),//filter self===true in user-selectors/ test reselect
+        isAuth:getIsAuth(state),
+        name:getFullName(state)
     }
 }
 

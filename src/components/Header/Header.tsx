@@ -22,7 +22,7 @@ export const Header = (props: HeaderPropsType) => {
                             props.logoutTC ()
                         } }>logout
                         </span>
-                        <Redirect to={ '/profile' }/>
+                       {/* <Redirect to={ '/profile' }/>*/}
                     </>
                 }
             </div>

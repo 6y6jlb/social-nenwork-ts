@@ -1,9 +1,8 @@
 import React from "react";
 import {Header} from "./Header";
-import {logoutTC, setUserTC} from "../../Redux/auth-reducer";
+import {logoutTC} from "../../Redux/auth-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
-import {actionsProfile, UserFromProfileResponseType} from "../../Redux/profileReducer";
 
 
 type MapStatePropsType = {
@@ -13,8 +12,6 @@ type MapStatePropsType = {
 }
 
 type HeaderContainerPropsType = {
-    setUserProfile: (user: UserFromProfileResponseType) => void
-    setUserTC: (isAuth:boolean) => void
     isAuth: boolean
     login: string | null
     userId: number | null
@@ -22,16 +19,14 @@ type HeaderContainerPropsType = {
 }
 
 class HeaderContainer extends React.Component<HeaderContainerPropsType> {
-    componentDidMount() {
-        this.props.setUserTC(true)
-
-    }
+    // componentDidMount() {
+    //     this.props.setUserTC(true)
+    //
+    // }
     render() {
         return <Header logoutTC={this.props.logoutTC} login={ this.props.login } isAuth={ this.props.isAuth }/>
-
     }
 }
-
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         isAuth: state.auth.isAuth,
@@ -41,10 +36,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default connect ( mapStateToProps, {
-    setUserProfile:actionsProfile.setUserProfile,
-    setUserTC,
     logoutTC
-
-
 } ) (
     HeaderContainer );

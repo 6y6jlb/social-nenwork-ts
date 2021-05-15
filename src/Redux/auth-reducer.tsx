@@ -20,51 +20,71 @@ export type InitialStateFromAuthType = {
 export type AuthActionsTypes = InferActionsType<typeof actionsAuth>
 //ac
 export const actionsAuth = {
-    setUserData :(isAuth: boolean, data: UserDataFromAuthAuthType) => {
+    setUserData: (isAuth: boolean, data: UserDataFromAuthAuthType) => {
         return {type: 'SET_USER_DATA', isAuth, data} as const
     }
 }
 //tc
 export const setUserTC = (isAuth: boolean): AppThunk => async (dispatch, getState: () => AppStateType) => {
-    const response = await AuthAPI.setUserFromHeader ()
+    const response = await AuthAPI.me ()
+    try {
+        if (response.data.resultCode === 0) {
+            dispatch ( actionsAuth.setUserData ( isAuth, {...response.data.data} ) )
+        }
+    } catch (e) {
+        throw new Error ( e )
+    }
+    const userId = getState ().auth.data.id
+    if (userId) {
+        const response = await ProfileAPI.setUserProfile ( userId )
         try {
-                if (response.data.resultCode === 0) {
-                    dispatch ( actionsAuth.setUserData ( isAuth, {...response.data.data} ) )
-                }
-            } catch(e){
-        throw new Error(e)
+            dispatch ( actionsProfile.setUserProfile ( response.data ) )
+        } catch (e) {
+            throw new Error ( e )
         }
-        const userId = getState ().auth.data.id
-        if (userId) {
-            const response = await ProfileAPI.setUserProfile ( userId )
-                try {
-                        dispatch ( actionsProfile.setUserProfile ( response.data ) )
-                    }catch (e) {
-                    throw new Error(e)
-                }
-        }
+    }
+
+    //if we want use then and promises in thunk
+    // return  AuthAPI.me ()
+    //     .then((response=>{
+    //         if (response.data.resultCode === 0) {
+    //             dispatch ( actionsAuth.setUserData ( isAuth, {...response.data.data} ) )
+    //         }
+    //     })).catch(e=>{
+    //         throw new Error ( e )
+    //     }).then(()=>{
+    //         const userId = getState ().auth.data.id
+    //         if (userId) {
+    //             return ProfileAPI.setUserProfile ( userId )
+    //                 .then(response=> {
+    //                 dispatch ( actionsProfile.setUserProfile ( response.data ) )
+    //             })
+    //         }
+    //     }). catch ((e)=> {
+    //      throw new Error ( e )
+    // })
 }
 export const loginTC = (email: string, password: string, rememberMe: boolean): ThunkAction<void, AppStateType, unknown, ActionsTypes | FormAction> => async dispatch => {
-const response = await AuthAPI.login ( email, password, rememberMe )
-        try {
-            if (response.data.resultCode === 0) {
-                dispatch ( setUserTC ( true ) )
-            } else {
-                dispatch ( stopSubmit ( 'login', {_error: 'shit shit shit'} ) )
-            }
-        } catch (e) {
-            throw new Error(e)
+    const response = await AuthAPI.login ( email, password, rememberMe )
+    try {
+        if (response.data.resultCode === 0) {
+            dispatch ( setUserTC ( true ) )
+        } else {
+            dispatch ( stopSubmit ( 'login', {_error: 'shit shit shit'} ) )
         }
+    } catch (e) {
+        throw new Error ( e )
+    }
 }
-export const logoutTC = ():AppThunk => async dispatch=> {
+export const logoutTC = (): AppThunk => async dispatch => {
     const response = await AuthAPI.logout ()
-       try {
-            if (response.data.resultCode === 0) {
-                dispatch ( actionsAuth.setUserData ( false, {email: null, login: null, id: null} ) )
-            }
-        } catch (e) {
-           throw new Error(e)
-       }
+    try {
+        if (response.data.resultCode === 0) {
+            dispatch ( actionsAuth.setUserData ( false, {email: null, login: null, id: null} ) )
+        }
+    } catch (e) {
+        throw new Error ( e )
+    }
 }
 //state
 const initialState: InitialStateFromAuthType = {
@@ -79,7 +99,6 @@ const initialState: InitialStateFromAuthType = {
 const authReducer = (state = initialState, action: AuthActionsTypes): InitialStateFromAuthType => {
     switch (action.type) {
         case 'SET_USER_DATA':
-
             return {
                 ...state, data: {...action.data},
                 isAuth: action.isAuth

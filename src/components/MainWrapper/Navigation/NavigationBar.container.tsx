@@ -1,28 +1,9 @@
 import React, {Component} from 'react';
 import {NavigationBar} from "./NavigationBar";
 import {connect} from "react-redux";
-import {
-    FriendIconsFromNAvBArType,
-    InitialStateNavBarType,
-    NavLinkBarFromNAvBArType
-} from "../../../Redux/navBarReducer";
+import {FriendIconsFromNAvBArType, NavLinkBarFromNAvBArType} from "../../../Redux/navBarReducer";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {Dispatch} from "redux";
-
-
-/*export function NavigationBarContainer() {
-return (
-    <StoreContext.Consumer>
-        {store=>
-            {
-                const state = store.getState()
-                return <NavigationBar navLinkBar={state.navLinkBar}
-                                      friendsIcons={state.friendsIcons}/>
-            }
-        }
-    </StoreContext.Consumer>
-)
-}*/
 
 
 type MapStateToPropsType = {
