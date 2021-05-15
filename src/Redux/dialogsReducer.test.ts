@@ -1,7 +1,5 @@
 import photo from "../images/face.png";
-import dialogsReducer, {
-    actionsDialogs
-} from "./dialogsReducer";
+import dialogsReducer, {actionsDialogs} from "./dialogsReducer";
 
 test('dialog reducer and action test', (() => {
     const state = {

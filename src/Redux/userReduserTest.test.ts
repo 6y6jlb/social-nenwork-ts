@@ -1,53 +1,82 @@
-import usersReducer, {
-    addMoreUsersActionCreator,
-    followActionCreator,
-    unFollowActionCreator, UsersStateType,
-    UserType
-} from "./usersReducer";
+import usersReducer, {actionsUsers, UsersStateType, UserType,} from "./usersReducer";
 
-test('user  reducer and action test', (() => {
-    const state: UsersStateType = {
+let initialState: UsersStateType;
+
+beforeAll(() => {
+    initialState = {
         users: [
             {
-                id: 2,
-                followed: true,
-                name: 'sdf',
+                id: 123,
+                name: 'one',
+                status: 'two',
                 photos: {small: null, large: null},
-                status: ''
-
+                followed: false
             }, {
-                id: 1,
-                followed: false,
-                name: '123',
+                id: 1234,
+                name: 'three',
+                status: 'four',
                 photos: {small: null, large: null},
-                status: ''
-
-            }
-        ],
-        pageSize: 2,
-        currentPage: 2,
-        isFetching: true,
-        totalCount: 10,
-        isRequestSendUsersId: []
-
+                followed: true
+            },
+        ] as UserType[],
+        pageSize: 6,
+        totalCount: 0,
+        currentPage: 1,
+        isFetching: false,
+        isRequestSendUsersId: [] as number[]
     }
+});
 
 
-    const userReducerTest1 = usersReducer(state, followActionCreator(1))
-    const userReducerTest2 = usersReducer(state, unFollowActionCreator(2))
-    const userReducerTest3 = usersReducer(state,
-        addMoreUsersActionCreator([{
-            id: 3,
-            followed: false,
-            name: '123',
-            photos: {small: null, large: null},
-            status: ''
-        }]))
+test('user follow/unfollow action test', (() => {
 
-    expect(userReducerTest1.users[1].followed).toBe(false)
-    expect(userReducerTest2.users[0].followed).toBe(true)
-    expect(userReducerTest3.users.length).toBe(1)
+    const actionFollow = actionsUsers.followActionCreator(123)
+    const actionUnFollow = actionsUsers.unFollowActionCreator(123)
+
+    const userReducerTest1= usersReducer(initialState,actionFollow)
+    const userReducerTest2= usersReducer(initialState,actionUnFollow)
+
+    expect(userReducerTest1.users[0].followed).toBeTruthy()
+    expect(userReducerTest2.users[0].followed).toBeFalsy()
+
+}))
+
+test('user addMoreUsers action test', (() => {
+
+    const users = [{
+        id: 1235,
+        name: 'five',
+        status: 'six',
+        photos: {small: null, large: null},
+        followed: false
+    }, {
+        id: 1236,
+        name: 'seven',
+        status: 'eight',
+        photos: {small: null, large: null},
+        followed: false
+    }]
+
+    const action = actionsUsers.addMoreUsersActionCreator(users)
+
+    const userReducerTest1= usersReducer(initialState,action)
+
+    expect(userReducerTest1.users.length).toBe(2)
+    expect(userReducerTest1.users[0].id).toBe(1235)
+    expect(userReducerTest1.users[2]).toBeUndefined()
 
 
+}))
+
+test('user change page and total count action test', (() => {
+
+    const actionChangePage = actionsUsers.changeCurrentPageActionCreator(10)
+    const actionChangeTotalCount = actionsUsers.changeTotalCountActionCreator(11)
+
+    const userReducerTest1= usersReducer(initialState,actionChangePage)
+    const userReducerTest2= usersReducer(initialState,actionChangeTotalCount)
+
+    expect(userReducerTest1.currentPage).toBe(10)
+    expect(userReducerTest2.totalCount).toBe(11)
 
 }))

@@ -125,7 +125,7 @@ const profileReducer = (state = initialState, action: ProfileActionsTypes): Init
         case 'ADD_POST':
             const newPost = {
                 profileSelfPhotoImgUrl: selfPhoto,
-                id: state.myPostArray.length++,
+                id: state.myPostArray.length+=1,
                 message: action.payload.value
             }
             state.myPostArray.unshift ( newPost )
