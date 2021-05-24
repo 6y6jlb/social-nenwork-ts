@@ -36,6 +36,14 @@ class ProfileWrapperAPIContainer extends React.Component<PropsType> {
     }
 }
 
+//withHooks
+// const ProfileWrapperAPIContainerWithHooks:React.FC = (props)=>{
+//     return (
+//
+//     )
+// }
+
+
 //connect
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
