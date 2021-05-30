@@ -1,21 +1,18 @@
 import Login from "./Login";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
-import {loginTC, setUserTC} from "../../../Redux/auth-reducer";
+import {loginTC} from "../../../Redux/auth-reducer";
 import {compose} from "redux";
 import React from "react";
 
-type MapStateToPropsType ={
-
+type MapStateToPropsType = {
+    isAuth:boolean
 }
 
-const mapStateToProps = (state:AppStateType)=> {
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-
+        isAuth:state.auth.isAuth
     }
 }
 
-
-export default compose <React.ComponentType> (
-    connect(mapStateToProps,{loginTC})
-)(Login);
+export default compose<React.ComponentType> ( connect ( mapStateToProps, {loginTC} ) ) ( Login );

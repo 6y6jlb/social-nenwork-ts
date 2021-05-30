@@ -9,7 +9,7 @@ type HeaderPropsType = {
     logoutTC: () => void
 }
 
-export const Header = (props: HeaderPropsType) => {
+export const Header = React.memo((props: HeaderPropsType) => {
     return <>
         <header className={ s.wrapperHeader }>
             <div className={ s.circle }><img src={ imageLogo }/></div>
@@ -30,4 +30,4 @@ export const Header = (props: HeaderPropsType) => {
         </header>
     </>
 
-}
+})

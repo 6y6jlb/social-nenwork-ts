@@ -14,7 +14,7 @@ type SendMessageAreaFromProfilePropsType = {
     onAddPost: (value:string) => void
 }
 
-const AddNewPostForm:React.FC<InjectedFormProps<AddPostProfileFormType>> & PropsType = (props)=>{
+const AddNewPostForm:React.FC<InjectedFormProps<AddPostProfileFormType>> & PropsType = React.memo((props)=>{
     return (
         <form onSubmit={ props.handleSubmit }>
 
@@ -24,10 +24,10 @@ const AddNewPostForm:React.FC<InjectedFormProps<AddPostProfileFormType>> & Props
             </div>
         </form>
     )
-}
+})
 const AddNewPostFromRedux = reduxForm<AddPostProfileFormType> ( {form: 'profile add message form'} ) (AddNewPostForm)
 
-export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfilePropsType) {
+export const SendMessageAreaFromProfile = React.memo((props: SendMessageAreaFromProfilePropsType) => {
 
     const onSubmit = (formData:AddPostProfileFormType)=>{
         const message = formData.newPostBody;
@@ -41,4 +41,4 @@ export function SendMessageAreaFromProfile(props: SendMessageAreaFromProfileProp
             <AddNewPostFromRedux onSubmit={onSubmit}/>
         </div>
     )
-}
+});

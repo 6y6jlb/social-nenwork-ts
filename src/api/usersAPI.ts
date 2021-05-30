@@ -11,7 +11,7 @@ export const UsersAPI = {
         )
     },
     followUser: (userId: number) => {
-        return instanceSamuraiAPI.post<FollowUserResponseType> ( `follow/${ userId }`,
-        )
+        return instanceSamuraiAPI.post<FollowUserResponseType> ( `follow/${ userId }`)
+
     }
 }

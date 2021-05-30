@@ -10,14 +10,14 @@ export type MessageFromCurrentDialogPropsType = {
     name:string|null
 }
 
-export function MessageFromCurrentDialog(props: MessageFromCurrentDialogPropsType) {
+export const MessageFromCurrentDialog = React.memo((props: MessageFromCurrentDialogPropsType) => {
 
     let messagesBlock = props.messages.map(m => {
         return (
-            !m.self ? <NotMyMessage name={props.name} self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/> :
-                <MyMessage name={props.name} self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/>)
+            !m.self //определяем чей месадж
+                ? <NotMyMessage name={props.name} self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/>
+                : <MyMessage name={props.name} self={m.self} avatarURL={m.avatarURL} id={m.id} item={m.item} key={m.id}/>)
     })
-
 
     return (
         <div className={s.currentDialog}>
@@ -26,4 +26,4 @@ export function MessageFromCurrentDialog(props: MessageFromCurrentDialogPropsTyp
 
 
     )
-}
+});

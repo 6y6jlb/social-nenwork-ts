@@ -26,7 +26,6 @@ function mapStateToProps(state: AppStateType):MapStateToPropsType {
     };
 }
 
-
 export default compose<React.ComponentType>(
     connect ( mapStateToProps, {getStatus:getStatusTC,updateStatus:updateStatusTC} )
 )(EditableSpanWithAPI)

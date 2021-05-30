@@ -15,18 +15,15 @@ type HeaderContainerPropsType = {
     isAuth: boolean
     login: string | null
     userId: number | null
-    logoutTC:()=>void
+    logoutTC: () => void
 }
 
-class HeaderContainer extends React.Component<HeaderContainerPropsType> {
-    // componentDidMount() {
-    //     this.props.setUserTC(true)
-    //
-    // }
+class HeaderContainer extends React.PureComponent<HeaderContainerPropsType> {
     render() {
-        return <Header logoutTC={this.props.logoutTC} login={ this.props.login } isAuth={ this.props.isAuth }/>
+        return <Header logoutTC={ this.props.logoutTC } login={ this.props.login } isAuth={ this.props.isAuth }/>
     }
 }
+
 const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     return {
         isAuth: state.auth.isAuth,

@@ -20,7 +20,7 @@ export type AddMessageFormType = {
 
 
 
-const AddNewMessageForm:React.FC<InjectedFormProps<AddMessageFormType>> & PropsType = (props)=>{
+const AddNewMessageForm:React.FC<InjectedFormProps<AddMessageFormType>> & PropsType = React.memo((props)=>{
     return (
         <form onSubmit={ props.handleSubmit }>
             {createField('enter new message here','newMessageBody',[requiredField],Textarea,{type:'text'})}
@@ -29,10 +29,10 @@ const AddNewMessageForm:React.FC<InjectedFormProps<AddMessageFormType>> & PropsT
             </div>
         </form>
     )
-}
+})
 const AddNewMessageFromRedux = reduxForm<AddMessageFormType> ( {form: 'profile add message form'} ) (AddNewMessageForm)
 
-export const SendMessageAreaFromCurrentDialog:React.FC<SendMessageAreaFromCurrentDialogPropsType> = (props) =>{
+export const SendMessageAreaFromCurrentDialog:React.FC<SendMessageAreaFromCurrentDialogPropsType> = React.memo((props) =>{
 
     const onSubmit = (formData:AddMessageFormType)=>{
         const message = formData.newMessageBody;
@@ -47,4 +47,4 @@ export const SendMessageAreaFromCurrentDialog:React.FC<SendMessageAreaFromCurren
 
         </div>
     )
-}
+});

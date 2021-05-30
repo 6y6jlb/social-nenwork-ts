@@ -1,9 +1,7 @@
 import React from "react";
 
-export function NewsFeed() {
-    return (
-        <div>
-            NewsFeed
-        </div>
-    )
-}
+export const NewsFeed = React.memo(() => (
+    <div>
+        NewsFeed
+    </div>
+));

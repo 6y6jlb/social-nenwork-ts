@@ -1,0 +1,165 @@
+
+.user {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    background-color: #492F7E;
+    color: white;
+    border-radius: 5px;
+    padding: 15px 5px;
+}
+
+.description {
+    display: grid;
+    column-gap: 20px;
+    grid-template-columns: 1fr minmax(max-content, 200px);
+    grid-template-rows: repeat(auto-fill, 1fr);
+    text-align: center;
+
+}
+.info{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+.name {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    font-size: 1.3em;
+}
+.userStatus {
+    font-size: 0.7em;
+}
+
+.location {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    row-gap: 10px;
+    align-self: start;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    text-transform: uppercase;
+    background-color: #69BA85;
+    border-radius: 5px;
+
+    padding: 5px 2px;
+}
+
+.country {
+    font-size: 1.1em;
+}
+
+.city {
+    font-size: 0.8em;
+}
+
+.photoZone {
+    display: grid;
+    row-gap: 10px;
+    align-self: center;
+    justify-self: center;
+}
+
+.photoZone a{
+    display: grid;
+    justify-content: center;
+}
+
+.photoZone img {
+    width: 50px;
+    height: 50px;
+    border-radius: 2px;
+}
+
+.followed {
+    box-shadow:  2px 4px 6px 3px #301f50;
+    display: inline-block;
+    align-self: center;
+    justify-self: center;
+    cursor: pointer;
+    background-color: #69BA85;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    width: 70px;
+    height: max-content;
+    padding: 3px 0;
+
+}
+.followed:active{
+    box-shadow:  1px 1px 2px 3px #1d0b42;
+    color: white;
+
+}
+.followed:disabled{
+    background-color: #526558;
+    color: #9cd5b1;
+}
+
+
+.activeNumber{
+    font-weight: bold;
+    border-bottom: 1px #492F7E solid;
+}
+.normalNumber{
+    font-weight: normal;
+}
+.addUsersButton {
+    font-size: 3em;
+    height: 120px;
+    background-color: #492F7E;
+    color: white;
+    border: none;
+    transition-duration: 0.4s;
+    outline: none;
+    border-radius: 5px;
+}
+
+
+.addUsersButton:hover {
+    background-color: #69BA85;
+    color: white;
+}
+
+.addUsersButton:active {
+    box-shadow: inset 0px 1px 10px 2px #492F7E;
+    color: white;
+}
+@media (max-width: 900px) {
+    .user {
+        grid-template-columns: 70px 1fr;
+    }
+    .description {
+        column-gap: 5px;
+        grid-template-rows: repeat(auto-fit, 1fr);
+        text-align: center;
+
+    }
+    .name {
+        font-size: 1.1em;
+    }
+    .info{
+        display: grid;
+    }
+    .location {
+        display: grid;
+        row-gap: 10px;
+        text-transform: none;
+        grid-row-start: 1;
+        grid-row-end: 3;
+
+
+    }
+    .country {
+        font-size: 1.2em;
+    }
+
+    .city {
+        font-size: 1em;
+    }
+
+
+}

@@ -3,7 +3,7 @@ import React from "react";
 import style from './FormControls.module.css'
 
 
-const FormControl: React.FC<WrappedFieldProps> = (props) => {
+const FormControl: React.FC<WrappedFieldProps> = React.memo((props) => {
     const hasError = props.meta.touched && props.meta.error;
     return (
         <div>
@@ -12,25 +12,25 @@ const FormControl: React.FC<WrappedFieldProps> = (props) => {
             </div>
         </div>
     )
-}
+})
 
-export const Textarea: React.FC<WrappedFieldProps> = (props) => {
+export const Textarea: React.FC<WrappedFieldProps> = React.memo((props) => {
     const {input, meta, children, ...restProps} = props;
     return (
         <FormControl  { ...props }>
             <textarea { ...input } { ...restProps }/>
         </FormControl>
     )
-}
+})
 
-export const Input: React.FC<WrappedFieldProps> = (props) => {
+export const Input: React.FC<WrappedFieldProps> = React.memo((props) => {
     const {input, meta, children, ...restProps} = props;
     return (
         <FormControl  { ...props }>
             <input { ...input } { ...restProps }/>
         </FormControl>
     )
-}
+})
 
 export function createField<FormsKeysType extends string>(placeholder: string | undefined,
                                            name: FormsKeysType,

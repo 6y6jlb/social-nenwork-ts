@@ -14,7 +14,7 @@ export type ActionsTypes =
     | ProfileActionsTypes
     | UsersActionsTypes
     | DialogsActionsTypes
-|AppActionsTypes
+    | AppActionsTypes
 
 
 const rootReducer = combineReducers ( {
@@ -24,7 +24,7 @@ const rootReducer = combineReducers ( {
     usersReducer,
     auth: authReducer,
     form: formReducer,
-    app:appReducer
+    app: appReducer
 
 } );
 
@@ -32,8 +32,8 @@ const rootReducer = combineReducers ( {
 export type AppStateType = ReturnType<typeof rootReducer>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
 
-type PropertiesType<T> = T extends {[key:string]:infer U}?U:never
-export type InferActionsType<T extends {[key:string]:(...args:any[])=>any}> = ReturnType<PropertiesType <T>>
+type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
+export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>
 
 
 const composeEnhancers =

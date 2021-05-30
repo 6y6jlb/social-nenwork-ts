@@ -14,7 +14,7 @@ import {compose} from "redux";
 
 
 //apiContainer
-class ProfileWrapperAPIContainer extends React.Component<PropsType> {
+class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
 
     componentDidMount() {
         let userIdForURL = this.props.match.params.userId

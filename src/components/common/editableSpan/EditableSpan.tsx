@@ -1,26 +1,22 @@
 import style from './EditableSpan.module.css';
-import {ChangeEvent, Component} from "react";
+import {ChangeEvent, PureComponent} from "react";
 
 type EditableSpanPropsType = {
     item: string | null
     onChange: (item: string) => void
 }
 
-class EditableSpan extends Component<EditableSpanPropsType> {
+class EditableSpan extends PureComponent<EditableSpanPropsType> {
     state = {
         editMode: false,
         value: this.props.item
     };
 
-    componentDidMount() {
-
-    }
-
     componentDidUpdate(prevProps: Readonly<EditableSpanPropsType>, prevState: Readonly<{}>, snapshot?: any) {
-        if (prevProps.item!== this.props.item) {
-            this.setState({
-                value:this.props.item
-            })
+        if (prevProps.item !== this.props.item) {
+            this.setState ( {
+                value: this.props.item
+            } )
         }
     }
 
@@ -29,16 +25,14 @@ class EditableSpan extends Component<EditableSpanPropsType> {
         this.setState ( {
             editMode: editMode
         } )
-        if (!editMode){
+        if (!editMode) {
             this.props.onChange ( this.state.value || '' )
         }
-
     };
     changeValue = (e: ChangeEvent<HTMLInputElement>) => {
         this.setState ( {
             value: e.currentTarget.value
         } )
-
     }
 
     render() {
@@ -48,7 +42,6 @@ class EditableSpan extends Component<EditableSpanPropsType> {
                     ? <span onClick={ () => this.changeEditMode ( true ) }>{ this.props.item || '☺☺☺☺☺' }</span>
                     : <input onChange={ this.changeValue } value={ this.state.value || '' } autoFocus={ true }
                              onBlur={ () => this.changeEditMode ( false ) } type="text"/> }
-
             </div>
         )
     };

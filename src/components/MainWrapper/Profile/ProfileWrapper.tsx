@@ -14,12 +14,12 @@ type ProfileWrapperPropsType = {
 
 }
 
-export const  ProfileWrapper:React.FC<ProfileWrapperPropsType> = (props) => {
+export const  ProfileWrapper:React.FC<ProfileWrapperPropsType> = React.memo((props) => {
     return <div className={s.profileContent}>
         <ProfileHeader profileWrapperObj={props.profileWrapperObj}/>
         <SendMessageAreaFromProfile  onAddPost={props.onAddPost}/>
         <Posts myPostArray={props.profileWrapperObj.myPostArray}/>
     </div>
 
-}
+})
 

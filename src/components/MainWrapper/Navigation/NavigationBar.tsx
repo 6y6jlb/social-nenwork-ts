@@ -12,13 +12,13 @@ type NavBarPropsType = {
     profileName:string|null
 }
 
-export function NavigationBar({navLinkBar, friendsIcons,profileName}: NavBarPropsType) {
+export const NavigationBar = React.memo(({navLinkBar, friendsIcons,profileName}: NavBarPropsType) => {
 
     const navLinkBlock = navLinkBar.map(i => {
         return <div key={i.id}>
             <NavLink to={i.item}>{i.item}</NavLink>
         </div>
-    })
+    }) //navlinks from ban reducer
     const friendsIconsBlock = friendsIcons.map(f => {
         return <div key={f.id} className={s.iconBlock}>
             <div className={s.backGroundBlock}><img src={f.photoUrl}/></div>
@@ -38,4 +38,4 @@ export function NavigationBar({navLinkBar, friendsIcons,profileName}: NavBarProp
             </div>
         </div>
     )
-}
+});

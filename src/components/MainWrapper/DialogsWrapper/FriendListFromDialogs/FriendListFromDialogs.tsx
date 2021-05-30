@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import s from './FriendListFromDialogs.module.css'
 
-export function FriendListFromDialogs() {
+export const FriendListFromDialogs = React.memo(() => {
 const activeItem = s.item + ' ' +s.active
     return (
         <div className={s.friendListFromDialogs}>
@@ -14,4 +14,4 @@ const activeItem = s.item + ' ' +s.active
             <NavLink to='/dialog/6' className={s.item}>etc.</NavLink>
         </div>
     )
-}
+});

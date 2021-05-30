@@ -1,9 +1,7 @@
 import React from "react";
 
-export function AudioPage() {
-    return (
-        <div>
-            AudioPage
-        </div>
-    )
-}
+export const AudioPage = React.memo(() => (
+    <div>
+        AudioPage
+    </div>
+));
