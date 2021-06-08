@@ -1,5 +1,5 @@
 import {UserFromProfileResponseType} from "../Redux/profileReducer";
-import {instanceSamuraiAPI} from "./api";
+import {instanceSamuraiAPI} from "./instance";
 
 export const ProfileAPI = {
     setUserProfile: (userIdForURL: number) => {

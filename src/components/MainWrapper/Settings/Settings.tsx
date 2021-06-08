@@ -1,7 +1,9 @@
 import React from "react";
+import NewsFeed from "../NewsFeed/NewsFeed";
 
-export const Settings = React.memo(() => (
+const Settings = React.memo(() => (
     <div>
         Settings
     </div>
 ));
+export default Settings;

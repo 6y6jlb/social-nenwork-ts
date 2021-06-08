@@ -1,13 +1,13 @@
-import React from "react";
+import React, {Suspense} from "react";
 import {Route, Switch} from "react-router-dom";
-import ProfileWrapperContainer from "../../MainWrapper/Profile/ProfileWrapper.container";
-import DialogsWrapperContainer from "../../MainWrapper/DialogsWrapper/DialogsWrapper.container";
-import UserPageContainer from "../../MainWrapper/Users/UserPage.container";
-import {NewsFeed} from "../../MainWrapper/NewsFeed/NewsFeed";
-import {AudioPage} from "../../MainWrapper/AudioPage/AudioPage";
-import {Settings} from "../../MainWrapper/Settings/Settings";
-import Login from "../login/LoginContainer";
 import {Error_404} from "../errors/Error_404/Error_404";
+const ProfileWrapperContainer = React.lazy ( () => import('../../MainWrapper/Profile/ProfileWrapper.container') );
+const DialogsWrapperContainer = React.lazy ( () => import('../../MainWrapper/DialogsWrapper/DialogsWrapper.container') );
+const UserPageContainer = React.lazy ( () => import('../../MainWrapper/Profile/ProfileWrapper.container') );
+const NewsFeed = React.lazy ( () => import('../../MainWrapper/NewsFeed/NewsFeed') );
+const AudioPage = React.lazy ( () => import('../../MainWrapper/AudioPage/AudioPage') );
+const Settings = React.lazy ( () => import('../../MainWrapper/Settings/Settings') );
+const Login = React.lazy ( () => import('../login/LoginContainer') );
 
 export const PATH = {
     SLASH: '/',
@@ -22,28 +22,29 @@ export const PATH = {
 }
 
 
-const Routes: React.FC = React.memo(() => {
+const Routes: React.FC = React.memo ( () => {
     return (
-        <Switch>
-            {/*<Route exact path={ PATH.SLASH }
+        <Suspense fallback={ <div>Загрузка...</div> }>
+            <Switch>
+                {/*<Route exact path={ PATH.SLASH }
                    render={ () => <ProfileWrapperContainer
-                   /> }/>*/}
-            <Route path={ PATH.PROFILE + ':userId?' }
-                   render={ () => <ProfileWrapperContainer
-                   /> }/>
-            <Route path={ PATH.DIALOGS }
-                   render={ () => <DialogsWrapperContainer
-                   /> }/>
-            <Route path={ PATH.FRIENDS }
-                   render={ () => <UserPageContainer
-                   /> }/>
-            <Route path={ PATH.NEWS } render={ () => <NewsFeed/> }/>
-            <Route path={ PATH.AUDIO } render={ () => <AudioPage/> }/>
-            <Route path={ PATH.AUDIO } render={ () => <Settings/> }/>
-            <Route path={ PATH.LOGIN } render={ () => <Login/> }/>
-            <Route  render={ () => <Error_404/> }/>
-
-        </Switch>
+                   /> }/>*/ }
+                <Route path={ PATH.PROFILE + ':userId?' }
+                       render={ () => <ProfileWrapperContainer
+                       /> }/>
+                <Route path={ PATH.DIALOGS }
+                       render={ () => <DialogsWrapperContainer
+                       /> }/>
+                <Route path={ PATH.FRIENDS }
+                       render={ () => <UserPageContainer
+                       /> }/>
+                <Route path={ PATH.NEWS } render={ () => <NewsFeed/> }/>
+                <Route path={ PATH.AUDIO } render={ () => <AudioPage/> }/>
+                <Route path={ PATH.AUDIO } render={ () => <Settings/> }/>
+                <Route path={ PATH.LOGIN } render={ () => <Login/> }/>
+                <Route render={ () => <Error_404/> }/>
+            </Switch>
+        </Suspense>
     )
-})
+} )
 export default Routes;

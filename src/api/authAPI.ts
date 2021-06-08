@@ -1,4 +1,4 @@
-import {instanceSamuraiAPI, ResponseHeaderContainerType} from "./api";
+import {instanceSamuraiAPI, ResponseHeaderContainerType} from "./instance";
 
 export const AuthAPI = {
     me() {

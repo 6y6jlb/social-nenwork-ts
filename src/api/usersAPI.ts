@@ -1,5 +1,5 @@
 import {UsersResponseType} from "../components/MainWrapper/Users/UserPage.container";
-import {FollowUserResponseType, instanceSamuraiAPI} from "./api";
+import {FollowUserResponseType, instanceSamuraiAPI} from "./instance";
 
 export const UsersAPI = {
     getUsers: (pageSize: number, currentPage: number) => {

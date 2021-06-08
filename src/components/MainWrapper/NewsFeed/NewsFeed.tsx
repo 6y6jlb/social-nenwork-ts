@@ -1,7 +1,8 @@
 import React from "react";
 
-export const NewsFeed = React.memo(() => (
+const NewsFeed = React.memo(() => (
     <div>
         NewsFeed
     </div>
 ));
+export default NewsFeed;

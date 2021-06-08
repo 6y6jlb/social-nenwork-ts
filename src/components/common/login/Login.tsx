@@ -15,7 +15,7 @@ const Login: React.FC<LoginPropsType> = ({isAuth, loginTC}) => {
         loginTC ( login, password, checkbox )
     }
 
-    if (isAuth) return <Redirect exact to={ '/profile' }/> //if isAuth true redirect to profile
+    if (isAuth) return <Redirect exact to={ '/' }/> //if isAuth true redirect to profile
 
     return <div className={ style.loginWrapper }>
         <h1 className={ style.loginH1 }>login</h1>
