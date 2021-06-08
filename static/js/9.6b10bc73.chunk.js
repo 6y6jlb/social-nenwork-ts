@@ -1,2 +1,0 @@
-(this["webpackJsonpnetwork-app-ts"]=this["webpackJsonpnetwork-app-ts"]||[]).push([[9],{305:function(t,n,e){"use strict";e.r(n);var s=e(1),p=e(0),i=e.n(p).a.memo((function(){return Object(s.jsx)("div",{children:"Settings"})}));n.default=i}}]);
-//# sourceMappingURL=9.6b10bc73.chunk.js.map
