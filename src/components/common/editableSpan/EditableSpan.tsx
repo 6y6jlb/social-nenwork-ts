@@ -1,5 +1,6 @@
 import style from './EditableSpan.module.css';
-import {ChangeEvent, PureComponent} from "react";
+import React, {ChangeEvent, PureComponent} from "react";
+import EditableSpanInputForm, {EditableSpanInputFormType} from './EditableSpanInputForm/EditableSpanInputForm';
 
 type EditableSpanPropsType = {
     item: string | null
@@ -34,17 +35,32 @@ class EditableSpan extends PureComponent<EditableSpanPropsType> {
             value: e.currentTarget.value
         } )
     }
+    onSubmit(data: EditableSpanInputFormType){
+        this.changeEditMode ( false )
+
+        const {input} = data
+        this.setState({
+            value:input
+        })
+        this.props.onChange(input)
+
+
+
+    }
 
     render() {
         return (
             <div className={ style.editableSpan }>
                 { !this.state.editMode
                     ? <span onClick={ () => this.changeEditMode ( true ) }>{ this.props.item || '☺☺☺☺☺' }</span>
-                    : <input onChange={ this.changeValue } value={ this.state.value || '' } autoFocus={ true }
-                             onBlur={ () => this.changeEditMode ( false ) } type="text"/> }
+                    : <EditableSpanInputForm initialValues={{input:this.state.value || ''}}   onSubmit={this.onSubmit.bind(this)} />
+                    /*<input onChange={ this.changeValue } value={ this.state.value || '' } autoFocus={ true }
+                             onBlur={ () => this.changeEditMode ( false ) } type="text"/> */ //without redux form
+                }
             </div>
         )
     };
 }
 
 export default EditableSpan;
+

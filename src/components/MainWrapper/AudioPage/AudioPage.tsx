@@ -1,7 +1,10 @@
 import React from "react";
+import NewsFeed from "../NewsFeed/NewsFeed";
 
-export const AudioPage = React.memo(() => (
+const AudioPage = React.memo(() => (
     <div>
         AudioPage
     </div>
 ));
+
+export default AudioPage;
