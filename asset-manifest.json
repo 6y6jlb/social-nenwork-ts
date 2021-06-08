@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/social-nenwork-ts/static/css/main.9d0aeef1.chunk.css",
+    "main.js": "/social-nenwork-ts/static/js/main.eb89c9ba.chunk.js",
+    "main.js.map": "/social-nenwork-ts/static/js/main.eb89c9ba.chunk.js.map",
+    "runtime-main.js": "/social-nenwork-ts/static/js/runtime-main.72b28453.js",
+    "runtime-main.js.map": "/social-nenwork-ts/static/js/runtime-main.72b28453.js.map",
+    "static/js/2.31d41efd.chunk.js": "/social-nenwork-ts/static/js/2.31d41efd.chunk.js",
+    "static/js/2.31d41efd.chunk.js.map": "/social-nenwork-ts/static/js/2.31d41efd.chunk.js.map",
+    "static/js/3.83f46e17.chunk.js": "/social-nenwork-ts/static/js/3.83f46e17.chunk.js",
+    "static/js/3.83f46e17.chunk.js.map": "/social-nenwork-ts/static/js/3.83f46e17.chunk.js.map",
+    "index.html": "/social-nenwork-ts/index.html",
+    "static/css/main.9d0aeef1.chunk.css.map": "/social-nenwork-ts/static/css/main.9d0aeef1.chunk.css.map",
+    "static/js/2.31d41efd.chunk.js.LICENSE.txt": "/social-nenwork-ts/static/js/2.31d41efd.chunk.js.LICENSE.txt",
+    "static/media/112.4a50e26c.jpg": "/social-nenwork-ts/static/media/112.4a50e26c.jpg",
+    "static/media/285 (1).e6645073.gif": "/social-nenwork-ts/static/media/285 (1).e6645073.gif",
+    "static/media/emptyUser.80e4c874.png": "/social-nenwork-ts/static/media/emptyUser.80e4c874.png",
+    "static/media/face.96c96380.png": "/social-nenwork-ts/static/media/face.96c96380.png",
+    "static/media/ProfileWrapper.module.css": "/social-nenwork-ts/static/media/logo193.c9a84fdd.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.72b28453.js",
+    "static/js/2.31d41efd.chunk.js",
+    "static/css/main.9d0aeef1.chunk.css",
+    "static/js/main.eb89c9ba.chunk.js"
+  ]
+}
