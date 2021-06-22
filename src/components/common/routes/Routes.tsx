@@ -3,7 +3,7 @@ import {Route, Switch} from "react-router-dom";
 import {Error_404} from "../errors/Error_404/Error_404";
 const ProfileWrapperContainer = React.lazy ( () => import('../../MainWrapper/Profile/ProfileWrapper.container') );
 const DialogsWrapperContainer = React.lazy ( () => import('../../MainWrapper/DialogsWrapper/DialogsWrapper.container') );
-const UserPageContainer = React.lazy ( () => import('../../MainWrapper/Profile/ProfileWrapper.container') );
+const UserPageContainer = React.lazy ( () => import('../../MainWrapper/Users/UserPage.container') );
 const NewsFeed = React.lazy ( () => import('../../MainWrapper/NewsFeed/NewsFeed') );
 const AudioPage = React.lazy ( () => import('../../MainWrapper/AudioPage/AudioPage') );
 const Settings = React.lazy ( () => import('../../MainWrapper/Settings/Settings') );
@@ -26,9 +26,9 @@ const Routes: React.FC = React.memo ( () => {
     return (
         <Suspense fallback={ <div>Загрузка...</div> }>
             <Switch>
-                {/*<Route exact path={ PATH.SLASH }
+                <Route exact path={ PATH.SLASH }
                    render={ () => <ProfileWrapperContainer
-                   /> }/>*/ }
+                   /> }/>
                 <Route path={ PATH.PROFILE + ':userId?' }
                        render={ () => <ProfileWrapperContainer
                        /> }/>

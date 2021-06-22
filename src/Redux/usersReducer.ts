@@ -45,7 +45,7 @@ export const getUsersTC = (pageSize: number, currentPage: number): AppThunk => a
     dispatch ( actionsUsers.changeIsFetchingActionCreator ( true ) )
     const response = await UsersAPI.getUsers ( pageSize, currentPage )
     try {
-        dispatch ( actionsUsers.changeTotalCountActionCreator ( response.data.totalCount > 20 ? 20 : response.data.totalCount ) )
+        dispatch ( actionsUsers.changeTotalCountActionCreator ( response.data.totalCount ) )
         dispatch ( actionsUsers.addMoreUsersActionCreator ( response.data.items ) )
         dispatch ( actionsUsers.changeIsFetchingActionCreator ( false ) )
     } catch (e) {
