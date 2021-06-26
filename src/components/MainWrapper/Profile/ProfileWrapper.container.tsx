@@ -1,7 +1,7 @@
 import React from "react";
 import {
     actionsProfile,
-    getProfileTC,
+    getProfileTC, getStatusTC,
     InitialStateProfileType
 } from "../../../Redux/profileReducer";
 import {connect} from "react-redux";
@@ -16,16 +16,28 @@ import {compose} from "redux";
 //apiContainer
 class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
 
-    componentDidMount() {
+
+    refreshProfile(){
         let userIdForURL = this.props.match.params.userId
         if (!userIdForURL) {
             userIdForURL = this.props.myLoginId //my autorzed id
-        } else {
-            //userIdForURL = this.props.myLoginId //my autorzed id
-            userIdForURL = this.props.history.push('/login') //my autorzed id
+            if (!userIdForURL){
+                userIdForURL = this.props.history.push('/login') //my autorzed id
+            }
         }
         this.props.getProfileTC ( userIdForURL )
+        this.props.getStatusTC(userIdForURL)
+    }
+
+    componentDidMount() {
+        this.refreshProfile()
     }//axios request with fetching and setProfile
+
+    componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        if (prevProps.match.params.userId!==this.props.match.params.userId) {
+            this.refreshProfile()
+        }
+    }
 
     render() {
         return (
@@ -56,7 +68,8 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
 export default compose<React.ComponentType> (
     connect ( mapStateToProps, {
         onAddPost: actionsProfile.addPost,
-        getProfileTC
+        getProfileTC,
+        getStatusTC,
     } ),
     withRouter,
     withAuthRedirect
@@ -69,6 +82,7 @@ type ProfileWrapperAPIContainerPropsType = {
     myLoginId: number | null
     isFetching: boolean
     getProfileTC: (userIdForURL: number | any) => void
+    getStatusTC: (userId: number | any) => void
     isAuth: boolean
 }
 type WithRouterProfileType = {
