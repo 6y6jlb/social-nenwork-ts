@@ -8,7 +8,7 @@ type PostsPropsType = {
     myPostArray: Array<MyPostArrayFromProfileType>
 }
 
-export const Posts = React.memo((props: PostsPropsType) => (
+export const Posts = (props: PostsPropsType) => (
     <div className={ s.profilePosts }>
         { props.myPostArray.map ( p => {
             return (
@@ -17,4 +17,4 @@ export const Posts = React.memo((props: PostsPropsType) => (
 
         } ) }
     </div>
-));
+);

@@ -14,12 +14,21 @@
     font-size: 1.4em;
     color: #3e2471;
     border: 1px solid #3e2471;
+   transition: all 0.7s;
+
+}
+.activeNumber:hover {
+    transition: all 0.7s;
+    color: #8a888d;
 }
 .normalNumber {
-
+    border: 1px solid transparent;
+    transition: all 0.5ms;
 }
 
 .normalNumber:hover{
+
     font-size: 1.1em;
     border-bottom: 1px solid  #492F7E;
+    transition: all 0.7s;
 }

@@ -36,9 +36,16 @@ const Paginator: React.FC<PropsType> = React.memo ( ({
 
 
     const filteredPages = pages.filter ( p => p >= leftPortionPageNumber && p <= rightPortionPageNumber )
-    const mappedPages = filteredPages.map ( (p, i) => <span key={ i }
-                                                            onClick={ () => onPageChanged ( p ) }
-                                                            className={ currentPage === p ? style.activeNumber : style.normalNumber }>{ p }</span> )
+    const mappedPages = filteredPages.map ( (p, i) => {
+        return (
+            currentPage === p
+            ?<span key={ i }
+              className={style.activeNumber}>{ p }</span>
+            :<span key={ i }
+                   onClick={ () => onPageChanged ( p ) }
+                   className={style.normalNumber }>{ p }</span>
+        )
+    })
 
     const left = portionNumber > 1 && <span onClick={ () => changePortionNumber ( portionNumber - 1 ) }
                                             className={ style.normalNumber }>{ '<<<' }</span>

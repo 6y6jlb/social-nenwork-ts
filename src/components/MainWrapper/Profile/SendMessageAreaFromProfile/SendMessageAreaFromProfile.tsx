@@ -3,6 +3,7 @@ import React from "react";
 import {requiredField} from "../../../../utils/validators";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, Textarea} from "../../../common/formsContols/FormControls";
+import Button from "../../../common/Button/Button";
 
 type PropsType = {
 }
@@ -17,11 +18,8 @@ type SendMessageAreaFromProfilePropsType = {
 const AddNewPostForm:React.FC<InjectedFormProps<AddPostProfileFormType>> & PropsType = React.memo((props)=>{
     return (
         <form onSubmit={ props.handleSubmit }>
-
             {createField('enter new post here','newPostBody',[requiredField],Textarea,{type:'text'})}
-            <div className={style.button}>
-                <button>send</button>
-            </div>
+            <Button text={'add post'} />
         </form>
     )
 })

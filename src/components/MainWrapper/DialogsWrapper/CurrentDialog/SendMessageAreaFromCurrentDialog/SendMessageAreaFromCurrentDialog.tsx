@@ -3,6 +3,7 @@ import style from './SendMessageAreaFromCurrentDialog.module.css'
 import {InjectedFormProps, reduxForm} from "redux-form";
 import {createField, Textarea} from "../../../../common/formsContols/FormControls";
 import {requiredField} from "../../../../../utils/validators";
+import Button from "../../../../common/Button/Button";
 
 
 
@@ -24,9 +25,7 @@ const AddNewMessageForm:React.FC<InjectedFormProps<AddMessageFormType>> & PropsT
     return (
         <form onSubmit={ props.handleSubmit }>
             {createField('enter new message here','newMessageBody',[requiredField],Textarea,{type:'text'})}
-            <div className={style.button}>
-                <button>send</button>
-            </div>
+            <Button text={'send message'}/>
         </form>
     )
 })
