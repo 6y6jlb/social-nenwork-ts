@@ -1,0 +1,9 @@
+.pages{
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(15px,max-content));
+    column-gap: 10px;
+    height: 30px;
+    color: #492F7E;
+    font-size: 1.5em;
+}

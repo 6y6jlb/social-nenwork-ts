@@ -12,7 +12,6 @@ import {
 import Users from "./UsersPage";
 import emptyPhoto from '../../../images/emptyUser.png'
 import Preloader from "../../common/preloader/Preloader";
-import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 
 type UsersPageAPIComponentPropsType = {

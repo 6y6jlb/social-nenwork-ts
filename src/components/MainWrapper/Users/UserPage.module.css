@@ -6,15 +6,7 @@
     row-gap: 10px;
 }
 
-.pages{
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: repeat(auto-fit,minmax(15px,max-content));
-    column-gap: 10px;
-    height: 30px;
-    color: #492F7E;
-    font-size: 1.5em;
-}
+
 @media (max-width: 900px) {
     .usersFrame {
         margin: 0 auto 0 10px;
