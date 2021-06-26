@@ -2,8 +2,24 @@
     cursor: pointer;
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(15px,max-content));
+    align-items: center;
     column-gap: 10px;
     height: 30px;
     color: #492F7E;
     font-size: 1.5em;
+}
+.activeNumber {
+   padding:0 3px;
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #3e2471;
+    border: 1px solid #3e2471;
+}
+.normalNumber {
+
+}
+
+.normalNumber:hover{
+    font-size: 1.1em;
+    border-bottom: 1px solid  #492F7E;
 }

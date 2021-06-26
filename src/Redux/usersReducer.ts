@@ -38,18 +38,27 @@ export const actionsUsers = {
     },
     sendRequestFromFollowUnFollowActionCreator: (userId: number, isFetching: boolean) => {
         return {type: 'SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW', userId, isFetching} as const
-    }
+    },
+    setCurrentPage: (page: number) => {
+        return {type: 'SET_CURRENT_PAGE_FROM_USERS', page} as const
+    },
+    setPortionNumber: (portion: number) => {
+        return {type: 'SET_PORTION_PAGE_FROM_USERS', portion} as const
+    },
 }
 //thunks
 export const getUsersTC = (pageSize: number, currentPage: number): AppThunk => async dispatch => {
     dispatch ( actionsUsers.changeIsFetchingActionCreator ( true ) )
+    dispatch ( actionsUsers.setCurrentPage(currentPage)  )
     const response = await UsersAPI.getUsers ( pageSize, currentPage )
     try {
         dispatch ( actionsUsers.changeTotalCountActionCreator ( response.data.totalCount ) )
         dispatch ( actionsUsers.addMoreUsersActionCreator ( response.data.items ) )
-        dispatch ( actionsUsers.changeIsFetchingActionCreator ( false ) )
+
     } catch (e) {
         throw new Error ( e )
+    } finally {
+        dispatch ( actionsUsers.changeIsFetchingActionCreator ( false ) )
     }
 }
 
@@ -88,7 +97,8 @@ const initialState = {
     totalCount: 0,
     currentPage: 1,
     isFetching: false,
-    isRequestSendUsersId: [] as number[]
+    isRequestSendUsersId: [] as number[],
+    portionNumber:1
 }
 
 //reducer
@@ -100,53 +110,40 @@ const usersReducer = (state: UsersStateType = initialState, action: UsersActions
                     if (user.id === action.id) {
                         return {...user, followed: true}
                     } else {
-                        return user
-                    }
-                } )]
-            };
-
+                        return user}})]};
         case 'UN_FOLLOW':
             return {
                 ...state, users: state.users.map ( user => {
                         if (user.id === action.id) {
                             return {...user, followed: false}
                         } else {
-                            return user
-                        }
-                    }
-                )
-            };
+                            return user}})};
         case 'ADD_MORE_USERS':
             if (action.users) {
                 return {
-                    ...state, users: [...action.users]
-                }
+                    ...state, users: [...action.users]}
             } else {
                 return {
-                    ...state, users: []
-                }
-            }
+                    ...state, users: []}}
         case 'CHANGE_CURRENT_PAGE':
             return {
                 ...state, currentPage: action.currentPage
             }
         case 'CHANGE_TOTAL_COUNT': {
             return {
-                ...state, totalCount: action.totalCount
-            }
-        }
+                ...state, totalCount: action.totalCount}}
         case 'CHANGE_IS_FETCHING_FROM_USERS': {
             return {
-                ...state, isFetching: action.isFetching
-            }
-        }
+                ...state, isFetching: action.isFetching}}
         case 'SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW': {
             return {
                 ...state, isRequestSendUsersId: action.isFetching ? [
                         ...state.isRequestSendUsersId, action.userId]
-                    : state.isRequestSendUsersId.filter ( id => id !== action.userId )
-            }
-        }
+                    : state.isRequestSendUsersId.filter ( id => id !== action.userId )}}
+        case "SET_CURRENT_PAGE_FROM_USERS":
+            return {...state,currentPage: action.page}
+        case "SET_PORTION_PAGE_FROM_USERS": {
+            return {...state,portionNumber: action.portion}}
         default:
             return state
     }

@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import style from './UserPage.module.css'
 import {UserType} from "../../../Redux/usersReducer";
 import User from "./User/User";
@@ -10,11 +10,13 @@ type UsersPagePropsType = {
     users: UserType[]
     totalCount: number
     pageSize: number
+    portionNumber: number
     currentPage: number
     isRequestSendUsersId: number []
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
     onPageChanged: (pageNumber: number) => void
+    changePortionNumber: (portion: number) => void
 
 }
 
@@ -29,11 +31,10 @@ const Users: React.FC<UsersPagePropsType> = React.memo ( (props) => {
         onPageChanged,
         emptyPhoto,
         isRequestSendUsersId,
-        currentPage
+        currentPage,
+        portionNumber,
+        changePortionNumber
     } = props;
-
-
-
 
 
     const mappedUsers = users.map ( user => {
@@ -45,9 +46,9 @@ const Users: React.FC<UsersPagePropsType> = React.memo ( (props) => {
     } ) //users items mapped for page
 
 
-
     return (<div className={ style.usersFrame }>
-           <Paginator  totalCount={totalCount} pageSize={pageSize} currentPage={currentPage} onPageChanged={onPageChanged}/>
+            <Paginator changePortionNumber={ changePortionNumber } portionNumber={ portionNumber }
+                       totalCount={ totalCount } currentPage={ currentPage } onPageChanged={ onPageChanged }/>
             { mappedUsers }
         </div>
     );

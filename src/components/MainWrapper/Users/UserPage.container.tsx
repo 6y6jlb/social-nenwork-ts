@@ -20,10 +20,12 @@ type UsersPageAPIComponentPropsType = {
     pageSize: number
     currentPage: number
     isFetching: boolean
+    portionNumber:number
     isRequestSendUsersId: number[]
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
     changeCurrentPage: (currentPage: number) => void
+    changePortionNumber: (portion: number) => void
     getUsers: (pageSize: number, currentPage: number) => void
 }
 export type UserResponseType = {
@@ -42,6 +44,7 @@ type MapStateToPropsType = {
     users: InitialStateUsersType
     totalCount: number,
     pageSize: number,
+    portionNumber: number,
     currentPage: number,
     isFetching: boolean,
     isRequestSendUsersId: number[]
@@ -74,6 +77,8 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
                      currentPage={ this.props.currentPage }
                      pageSize={ this.props.pageSize }
                      isRequestSendUsersId={ this.props.isRequestSendUsersId }
+                     changePortionNumber={this.props.changePortionNumber}
+                     portionNumber={this.props.portionNumber}
             /> }</>
     }
 } //class container for USERS
@@ -83,6 +88,7 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
         users: state.usersReducer.users,
         totalCount: state.usersReducer.totalCount,
         pageSize: state.usersReducer.pageSize,
+        portionNumber:state.usersReducer.portionNumber,
         currentPage: state.usersReducer.currentPage,
         isFetching: state.usersReducer.isFetching,
         isRequestSendUsersId: state.usersReducer.isRequestSendUsersId
@@ -95,6 +101,7 @@ export default compose<React.ComponentType> (
         followCallBack: followUserTC,
         unFollowCallBack: unFollowUserTC,
         changeCurrentPage: actionsUsers.changeCurrentPageActionCreator,
+        changePortionNumber:actionsUsers.setPortionNumber,
         getUsers: getUsersTC
     } ),
     //withAuthRedirect
