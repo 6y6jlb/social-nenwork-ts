@@ -40,6 +40,8 @@ export const actionsProfile = {
             type: 'CHANGE_STATUS',
             payload: {status}
         }as const
+    }, savePhotosSuccess:(photos:{small:string,large:string})=>{
+        return {type: 'SAVE_PHOTO_FROM_PROFILE' as const, payload: {photos}} as const
     }
 }
 //tc
@@ -63,6 +65,18 @@ export const updateStatusTC = (item: string):AppThunk => async dispatch => {
             throw new Error(e)
         }
 }
+
+export const savePhotoTC = (file: any):AppThunk => async dispatch => {
+    const response = await ProfileAPI.savePhoto ( file )
+    try {
+        if (response.data.resultCode === 0) {
+            dispatch ( actionsProfile.savePhotosSuccess(response.data.data.photos)  )
+        }
+    } catch (e) {
+        throw new Error(e)
+    }
+}
+
 export const getProfileTC = (userIdForURL: number):AppThunk =>async dispatch => {
     if (userIdForURL) {
         dispatch ( actionsProfile.changeIsFetchingFromProfile ( true ) )
@@ -136,6 +150,9 @@ const profileReducer = (state = initialState, action: ProfileActionsTypes): Init
             return {...state, isFetching: action.payload.isFetching}
         case 'CHANGE_STATUS': {
             return {...state, status: action.payload.status}
+        }
+        case "SAVE_PHOTO_FROM_PROFILE": {
+            return {...state, profile: {...state.profile, photos: action.payload.photos}}
         }
         default:
             return state
