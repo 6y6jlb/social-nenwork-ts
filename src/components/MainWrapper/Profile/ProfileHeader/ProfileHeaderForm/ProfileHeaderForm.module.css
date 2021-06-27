@@ -1,0 +1,47 @@
+.formFrame {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    row-gap: 10px;
+}
+
+.formFrame textarea[type=text] {
+    width: 500px;
+    border-radius: inherit;
+    border: 1px;
+
+}
+
+.formFrame input[type=text] {
+    width: 500px;
+    border-radius: inherit;
+    border: 1px;
+
+}
+
+.checkbox {
+    position: relative;
+}
+
+.checkbox span {
+    font-size: 0.8em;
+}
+
+.checkbox input[type=checkbox] {
+    position: absolute;
+    left: -30px;
+
+
+}
+
+.contactItem {
+    display: grid;
+    grid-template-columns: 100px auto;
+}
+
+.error {
+    background-color: #b16797;
+    position: relative;
+    right: 40px;
+}

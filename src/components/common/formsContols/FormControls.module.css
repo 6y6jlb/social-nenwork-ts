@@ -14,6 +14,11 @@
     animation: blinker 2s linear infinite;
     color: #d7f8e2;
 }
+.error textarea  {
+    background-color: #dc9bc5;
+    animation: blinker 2s linear infinite;
+    color: #b16797;
+}
 .error input {
     background-color: #dc9bc5;
     animation: blinker 2s linear infinite;

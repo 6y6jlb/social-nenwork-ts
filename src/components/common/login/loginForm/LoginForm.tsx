@@ -12,12 +12,11 @@ export type FormType = {
 //generic types for createField
 export type CurrentFieldsTypes = Extract <keyof  FormType, string>
 
-type PropsType = {}
 
 //function inside component
 const isMaxLengthMore20 = maxInputLength(20)
 
-const LoginForm:React.FC<InjectedFormProps<FormType>> & PropsType = React.memo((props)=> {
+const LoginForm:React.FC<InjectedFormProps<FormType>>  = React.memo((props)=> {
     return <form className={ `${style.loginForm} ${props.error && style.error}`} onSubmit={props.handleSubmit}>
         {createField<CurrentFieldsTypes>('login','login',[requiredField,isMaxLengthMore20],Input)}
         {createField<CurrentFieldsTypes>('password','password',[requiredField,isMaxLengthMore20],Input, {type:'password'})}

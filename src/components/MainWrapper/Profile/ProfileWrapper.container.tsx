@@ -1,8 +1,11 @@
 import React from "react";
 import {
     actionsProfile,
-    getProfileTC, getStatusTC,
-    InitialStateProfileType, savePhotoTC
+    getProfileTC,
+    getStatusTC,
+    InitialStateProfileType,
+    savePhotoTC,
+    saveNewProfileTC, UserFromProfileResponseType
 } from "../../../Redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
@@ -22,30 +25,31 @@ class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
         if (!userIdForURL) {
             userIdForURL = this.props.myLoginId //my autorzed id
             if (!userIdForURL) {
-                userIdForURL = this.props.history.push('/login') //my autorzed id
+                userIdForURL = this.props.history.push ( '/login' ) //my autorzed id
             }
         }
-        this.props.getProfileTC(userIdForURL)
-        this.props.getStatusTC(userIdForURL)
+        this.props.getProfileTC ( userIdForURL )
+        this.props.getStatusTC ( userIdForURL )
     }
 
     componentDidMount() {
-        this.refreshProfile()
+        this.refreshProfile ()
     }//axios request with fetching and setProfile
 
     componentDidUpdate(prevProps: Readonly<PropsType>, prevState: Readonly<{}>, snapshot?: any) {
         if (prevProps.match.params.userId !== this.props.match.params.userId) {
-            this.refreshProfile()
+            this.refreshProfile ()
         }
     }
 
     render() {
         return (
             this.props.isFetching ? <Preloader/> :
-                <ProfileWrapper profileWrapperObj={this.props.profileWrapperObj}
-                                onAddPost={this.props.onAddPost}
-                                isOwner={!this.props.match.params.userId}
-                savePhotoTC={this.props. savePhotoTC}/>
+                <ProfileWrapper profileWrapperObj={ this.props.profileWrapperObj }
+                                onAddPost={ this.props.onAddPost }
+                                isOwner={ !this.props.match.params.userId }
+                                savePhotoTC={ this.props.savePhotoTC }
+                                saveNewProfileTC={ this.props.saveNewProfileTC }/>
         )
     }
 }
@@ -67,16 +71,17 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         isAuth: state.auth.isAuth
     }
 }
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {
+export default compose<React.ComponentType> (
+    connect ( mapStateToProps, {
         onAddPost: actionsProfile.addPost,
         getProfileTC,
         getStatusTC,
-        savePhotoTC
-    }),
+        savePhotoTC,
+        saveNewProfileTC
+    } ),
     withRouter,
     withAuthRedirect
-)(ProfileWrapperAPIContainer)
+) ( ProfileWrapperAPIContainer )
 
 //type
 type ProfileWrapperAPIContainerPropsType = {
@@ -86,7 +91,8 @@ type ProfileWrapperAPIContainerPropsType = {
     isFetching: boolean
     getProfileTC: (userIdForURL: number | any) => void
     getStatusTC: (userId: number | any) => void
-    savePhotoTC: (file:any) => void
+    savePhotoTC: (file: any) => void
+    saveNewProfileTC: (model: UserFromProfileResponseType) => void
     isAuth: boolean
 }
 type WithRouterProfileType = {

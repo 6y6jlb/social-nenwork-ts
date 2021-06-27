@@ -19,5 +19,8 @@ export const ProfileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    setNewProfile:(model:UserFromProfileResponseType)=>{
+        return instanceSamuraiAPI.put('profile',model)
     }
 }

@@ -14,6 +14,16 @@ const FormControl: React.FC<WrappedFieldProps> = React.memo((props) => {
     )
 })
 
+const FormControlWithoutTouched: React.FC<WrappedFieldProps> = React.memo((props) => {
+    return (
+        <div>
+            <div className={ `${ style.textArea }` }>
+                { props.children }
+            </div>
+        </div>
+    )
+})
+
 export const Textarea: React.FC<WrappedFieldProps> = React.memo((props) => {
     const {input, meta, children, ...restProps} = props;
     return (
@@ -31,6 +41,25 @@ export const Input: React.FC<WrappedFieldProps> = React.memo((props) => {
         </FormControl>
     )
 })
+
+export const TextareaWithoutTouched: React.FC<WrappedFieldProps> = React.memo((props) => {
+    const {input, meta, children, ...restProps} = props;
+    return (
+        <FormControlWithoutTouched  { ...props }>
+            <textarea { ...input } { ...restProps }/>
+        </FormControlWithoutTouched>
+    )
+})
+
+export const InputWithoutTouched: React.FC<WrappedFieldProps> = React.memo((props) => {
+    const {input, meta, children, ...restProps} = props;
+    return (
+        <FormControlWithoutTouched  { ...props }>
+            <input { ...input } { ...restProps }/>
+        </FormControlWithoutTouched>
+    )
+})
+
 
 export function createField<FormsKeysType extends string>(placeholder: string | undefined,
                                            name: FormsKeysType,

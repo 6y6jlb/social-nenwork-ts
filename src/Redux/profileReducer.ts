@@ -1,9 +1,11 @@
 import selfPhoto from "../images/face.png";
 import {ProfileAPI} from "../api/profileAPI";
 import {AppThunk, InferActionsType} from "./reduxStore";
+import {stopSubmit} from "redux-form";
 
 //types
 export type UserFromProfileResponseType = {
+    aboutMe: string | null
     userId: number | null
     lookingForAJob: boolean
     lookingForAJobDescription: string | null
@@ -29,64 +31,82 @@ export type InitialStateProfileType = typeof initialState
 export type ProfileActionsTypes = InferActionsType<typeof actionsProfile>
 //ac
 export const actionsProfile = {
-    addPost:(value: string) => {
+    addPost: (value: string) => {
         return {type: 'ADD_POST' as const, payload: {value}} as const
-    },setUserProfile:(user: UserFromProfileResponseType) => {
+    }, setUserProfile: (user: UserFromProfileResponseType) => {
         return {type: 'SET_USER_PROFILE' as const, payload: {user}} as const
-    },changeIsFetchingFromProfile:(isFetching: boolean) => {
+    }, changeIsFetchingFromProfile: (isFetching: boolean) => {
         return {type: 'CHANGE_IS_FETCHING_FROM_PROFILE' as const, payload: {isFetching}} as const
-    },setStatusAC:(status: string) => {
+    }, setStatusAC: (status: string) => {
         return {
             type: 'CHANGE_STATUS',
             payload: {status}
-        }as const
-    }, savePhotosSuccess:(photos:{small:string,large:string})=>{
+        } as const
+    }, savePhotosSuccess: (photos: { small: string, large: string }) => {
         return {type: 'SAVE_PHOTO_FROM_PROFILE' as const, payload: {photos}} as const
     }
 }
 //tc
-export const getStatusTC = (userID: number):AppThunk => async dispatch => {
+export const getStatusTC = (userID: number): AppThunk => async dispatch => {
     if (userID) {
         const response = await ProfileAPI.getStatus ( userID )
-            try {
-                dispatch ( actionsProfile.setStatusAC ( response.data ) )
-            } catch (e) {
-                throw new Error(e)
-            }
+        try {
+            dispatch ( actionsProfile.setStatusAC ( response.data ) )
+        } catch (e) {
+            throw new Error ( e )
+        }
     }
 };
-export const updateStatusTC = (item: string):AppThunk => async dispatch => {
+export const updateStatusTC = (item: string): AppThunk => async dispatch => {
     const response = await ProfileAPI.sendStatus ( item )
-        try {
-            if (response.data.resultCode === 0) {
-                dispatch ( actionsProfile.setStatusAC ( item ) )
-            }
-        } catch (e) {
-            throw new Error(e)
+    try {
+        if (response.data.resultCode === 0) {
+            dispatch ( actionsProfile.setStatusAC ( item ) )
         }
+    } catch (e) {
+        throw new Error ( e )
+    }
 }
 
-export const savePhotoTC = (file: any):AppThunk => async dispatch => {
+export const savePhotoTC = (file: any): AppThunk => async dispatch => {
     const response = await ProfileAPI.savePhoto ( file )
     try {
         if (response.data.resultCode === 0) {
-            dispatch ( actionsProfile.savePhotosSuccess(response.data.data.photos)  )
+            dispatch ( actionsProfile.savePhotosSuccess ( response.data.data.photos ) )
         }
     } catch (e) {
-        throw new Error(e)
+        throw new Error ( e )
     }
 }
 
-export const getProfileTC = (userIdForURL: number):AppThunk =>async dispatch => {
+export const saveNewProfileTC = (model: UserFromProfileResponseType): AppThunk => async (dispatch, getState) => {
+    const response = await ProfileAPI.setNewProfile ( model )
+    try {
+        if (response.data.resultCode === 0) {
+            const userId = getState ().profileReducer.profile.userId
+            if (userId)
+                return dispatch ( getProfileTC ( userId ) )
+
+        }  else {
+
+            dispatch ( stopSubmit ( 'headerForm', {_error: response.data.messages[0]} ) )
+            return Promise.reject ( response.data.messages[0] )
+        }
+    } catch (e) {
+        throw new Error ( e )
+    }
+}
+
+export const getProfileTC = (userIdForURL: number): AppThunk => async dispatch => {
     if (userIdForURL) {
         dispatch ( actionsProfile.changeIsFetchingFromProfile ( true ) )
         const response = await ProfileAPI.setUserProfile ( userIdForURL )
-            try {
-                    dispatch ( actionsProfile.changeIsFetchingFromProfile ( false ) )
-                    dispatch ( actionsProfile.setUserProfile ( response.data ) )
-                } catch (e) {
-                throw new Error(e)
-            }
+        try {
+            dispatch ( actionsProfile.changeIsFetchingFromProfile ( false ) )
+            dispatch ( actionsProfile.setUserProfile ( response.data ) )
+        } catch (e) {
+            throw new Error ( e )
+        }
     }
 }
 
@@ -94,6 +114,7 @@ export const getProfileTC = (userIdForURL: number):AppThunk =>async dispatch => 
 const initialState = {
     status: '',
     profile: {
+        aboutMe: null,
         userId: null,
         lookingForAJob: false,
         lookingForAJobDescription: null,
@@ -139,7 +160,7 @@ const profileReducer = (state = initialState, action: ProfileActionsTypes): Init
         case 'ADD_POST':
             const newPost = {
                 profileSelfPhotoImgUrl: selfPhoto,
-                id: state.myPostArray.length+=1,
+                id: state.myPostArray.length += 1,
                 message: action.payload.value
             }
             state.myPostArray.unshift ( newPost )
