@@ -4,9 +4,9 @@ export const AuthAPI = {
     me() {
         return instanceSamuraiAPI.get<ResponseHeaderContainerType> ( `auth/me`, {} )
     },
-    login(email: string, password: string, rememberMe: boolean = false) {
+    login(email: string, password: string, rememberMe: boolean = false,captcha:string|null = null) {
         const model = {
-            email, password, rememberMe
+            email, password, rememberMe,captcha
         }
         return instanceSamuraiAPI.post ( '/auth/login', model )
     },

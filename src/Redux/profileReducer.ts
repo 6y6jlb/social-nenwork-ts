@@ -43,7 +43,7 @@ export const actionsProfile = {
             payload: {status}
         } as const
     }, savePhotosSuccess: (photos: { small: string, large: string }) => {
-        return {type: 'SAVE_PHOTO_FROM_PROFILE' as const, payload: {photos}} as const
+        return {type: 'SAVE_PHOTO_FROM_PROFILE' , payload: {photos}} as const
     }
 }
 //tc
@@ -88,12 +88,11 @@ export const saveNewProfileTC = (model: UserFromProfileResponseType): AppThunk =
                 return dispatch ( getProfileTC ( userId ) )
 
         }  else {
-
-            dispatch ( stopSubmit ( 'headerForm', {_error: response.data.messages[0]} ) )
-            return Promise.reject ( response.data.messages[0] )
+            dispatch ( stopSubmit ( 'headerForm', {_error: response.data.messages} ) )
+            return Promise.reject ( response.data.messages )
         }
     } catch (e) {
-        throw new Error ( e )
+        //throw new Error ( e )
     }
 }
 

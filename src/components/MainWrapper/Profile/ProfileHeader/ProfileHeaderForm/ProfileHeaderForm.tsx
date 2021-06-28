@@ -38,8 +38,8 @@ const ProfileHeaderForm: React.FC<InjectedFormProps<HeaderFormType, PropsType> &
     const keys = Object.keys ( initialContacts )
     const contactForms = keys.map ( (el, i) => {
         if (props.error) {
-            const error = props.error.split ( ">" )[1].toString ().slice ( 0, -1 ).toLowerCase () === el.toLowerCase ()
-            return <div className={ `${ style.contactItem } ${ error && style.error }` } key={ i }>
+            //const error = props.error.split ( ">" )[1].toString ().slice ( 0, -1 ).toLowerCase () === el.toLowerCase ()
+            return <div className={ `${ style.contactItem } ${ props.error && style.error }` } key={ i }>
                 <span>{ el } : </span> { createField<any> ( el, 'contacts.' + el, [], Input, {type: 'text'} ) }
             </div>
         } else {
@@ -51,7 +51,6 @@ const ProfileHeaderForm: React.FC<InjectedFormProps<HeaderFormType, PropsType> &
 
     return (
         <form className={ style.formFrame } onSubmit={ props.handleSubmit }>
-            { props.error && props.error }
             <b>main</b>
             <div>{ createField<CurrentFieldsTypes> ( 'full name', 'fullName', [requiredField], Input, {type: 'text'} ) }</div>
             <div>{ createField<CurrentFieldsTypes> ( 'aboutMe', 'aboutMe', [requiredField], Textarea, {type: 'text'} ) }</div>

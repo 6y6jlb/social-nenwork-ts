@@ -35,7 +35,7 @@ const ProfileInfo:React.FC<PropsType>=({isOwner,closeFormMode,openFormMode,profi
                             <span>{ profile.lookingForAJobDescription }</span>
                         </div>
                         { isOwner && <Button onClick={ openFormMode } small text={ 'to change' }/> }</div>
-                    : <ProfileHeaderForm profile={profile} initialValues={profile} onSubmit={ closeFormMode }/>
+                    : <ProfileHeaderForm  profile={profile} initialValues={profile} onSubmit={ closeFormMode }/>
                 }
 
             </div>

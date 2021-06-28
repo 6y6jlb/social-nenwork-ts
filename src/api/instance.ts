@@ -11,6 +11,7 @@ export interface ResponseHeaderContainerType extends AuthActionsTypes {
     fieldsErrors: any
     messages: string
     resultCode: number
+
 }
 
 

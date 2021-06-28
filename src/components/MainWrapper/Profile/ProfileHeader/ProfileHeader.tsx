@@ -1,9 +1,8 @@
 import React, {ChangeEvent, useState} from "react";
 import {InitialStateProfileType, UserFromProfileResponseType} from "../../../../Redux/profileReducer";
-import emptyPhoto from '../../../../images/emptyUser.png'
-import style from './ProfileHeader.module.css'
 import Contact from "./Contacts/Contact";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
+import HatProfileHeader from "./HatProfileHeader/HatProfileHeader";
 
 
 type ProfileHeaderPropsType = {
@@ -13,6 +12,7 @@ type ProfileHeaderPropsType = {
     saveNewProfileTC: (model: UserFromProfileResponseType) => void
 
 }
+
 
 export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
                                                                     profileWrapperObj,
@@ -44,21 +44,10 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
     }
 
     return <>
-        <div className={ style.profileHeader }>
-            <div className={ style.fullName }>{ profile.fullName }</div>
-            <div className={ `${ style.selfPhotoFromProfile } ${ activeAvatarInput && style.active }` }
-                 onMouseEnter={ () => setActiveAvatarInput ( true ) }
-                 onMouseLeave={ () => setActiveAvatarInput ( false ) }>
-                { isOwner && activeAvatarInput && <>
-                    <label htmlFor="file-upload" className={ style.changeAvatarInput }>
-                        change avatar
-                    </label>
-                    <input onChange={ photoSelect } id="file-upload" type="file"/></> }
-                <img src={ profile.photos.large || emptyPhoto }
-                     alt={ profile.userId?.toString () }
-                />
-            </div>
-        </div>
+        <HatProfileHeader profile={ profile } activeAvatarInput={ activeAvatarInput }
+                          onMouseEnter={ () => setActiveAvatarInput ( true ) }
+                          onMouseLeave={ () => setActiveAvatarInput ( false ) } owner={ isOwner }
+                          onChange={ photoSelect }/>
         <ProfileInfo isOwner={ isOwner } isFormOpen={ isFormOpen } profile={ profile } openFormMode={ openFormMode }
                      closeFormMode={ closeFormMode }>
             { contacts }

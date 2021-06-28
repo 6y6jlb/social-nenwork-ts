@@ -7,11 +7,13 @@ import React from "react";
 
 type MapStateToPropsType = {
     isAuth:boolean
+    captchaUrl:string|null
 }
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        isAuth:state.auth.isAuth
+        isAuth:state.auth.isAuth,
+        captchaUrl:state.auth.captchaURL
     }
 }
 
