@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FormEvent} from "react";
 import style from "../ProfileHeader.module.css";
 import EditableSpan from "../editableSpanContainer/EditableSpanContainer";
 import noJob from "../../../../../images/noJob.jpg";
@@ -9,16 +9,25 @@ import {UserFromProfileResponseType} from "../../../../../Redux/profileReducer";
 
 
 type PropsType = {
-    isOwner:boolean
-    isFormOpen:boolean
-    profile:UserFromProfileResponseType
-    openFormMode:()=>void
-    closeFormMode:(formData:any)=>void
+    isOwner: boolean
+    isFormOpen: boolean
+    profile: UserFromProfileResponseType
+    openFormMode: () => void
+    formSucceed: (formData: any) => void
+    formReset: (event: FormEvent<HTMLFormElement>) => void
 
 }
 
 
-const ProfileInfo:React.FC<PropsType>=({isOwner,closeFormMode,openFormMode,profile,isFormOpen,children})=>{
+const ProfileInfo: React.FC<PropsType> = ({
+                                              isOwner,
+                                              formSucceed,
+                                              openFormMode,
+                                              profile,
+                                              isFormOpen,
+                                              formReset,
+                                              children
+                                          }) => {
     return (
         <div className={ style.profileInfo }>
             <div className={ style.selfText }>
@@ -35,7 +44,8 @@ const ProfileInfo:React.FC<PropsType>=({isOwner,closeFormMode,openFormMode,profi
                             <span>{ profile.lookingForAJobDescription }</span>
                         </div>
                         { isOwner && <Button onClick={ openFormMode } small text={ 'to change' }/> }</div>
-                    : <ProfileHeaderForm  profile={profile} initialValues={profile} onSubmit={ closeFormMode }/>
+                    : <ProfileHeaderForm formReset={ formReset } profile={ profile } initialValues={ profile }
+                                         onSubmit={ formSucceed }/>
                 }
 
             </div>

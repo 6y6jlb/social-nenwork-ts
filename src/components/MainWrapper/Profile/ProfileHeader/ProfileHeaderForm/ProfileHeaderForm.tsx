@@ -1,4 +1,4 @@
-import React from "react";
+import React, {FormEvent} from "react";
 import {createField, Input, Textarea} from "../../../../common/formsContols/FormControls";
 import {InjectedFormProps, reduxForm} from "redux-form";
 import Button from "../../../../common/Button/Button";
@@ -8,6 +8,7 @@ import {requiredField} from "../../../../../utils/validators";
 
 type PropsType = {
     profile: UserFromProfileResponseType
+    formReset:(event: FormEvent<HTMLFormElement>) => void
 
 }
 type HeaderFormType = {
@@ -50,7 +51,7 @@ const ProfileHeaderForm: React.FC<InjectedFormProps<HeaderFormType, PropsType> &
     } )
 
     return (
-        <form className={ style.formFrame } onSubmit={ props.handleSubmit }>
+        <form className={ style.formFrame } onReset={props.formReset} onSubmit={ props.handleSubmit }>
             <b>main</b>
             <div>{ createField<CurrentFieldsTypes> ( 'full name', 'fullName', [requiredField], Input, {type: 'text'} ) }</div>
             <div>{ createField<CurrentFieldsTypes> ( 'aboutMe', 'aboutMe', [requiredField], Textarea, {type: 'text'} ) }</div>
@@ -60,7 +61,8 @@ const ProfileHeaderForm: React.FC<InjectedFormProps<HeaderFormType, PropsType> &
             <strong>contacts</strong>
             { contactForms }
 
-            <Button text={ 'save' } small/>
+            <Button type={'submit'} text={ 'save' } small/>
+            <Button type={'reset'} text={ 'undo' } small/>
         </form>
     )
 

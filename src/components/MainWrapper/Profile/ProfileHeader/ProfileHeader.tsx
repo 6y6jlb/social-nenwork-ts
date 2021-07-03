@@ -37,10 +37,13 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
     const openFormMode = () => {
         setIsFormOpen ( true )
     }
-    const closeFormMode = (formData: any) => {
+    const formSucceed = (formData: any) => {
         //@ts-ignore
         saveNewProfileTC ( formData )/*.then(()=>setIsFormOpen ( false ))*/
 
+    }
+    const formReset = ()=>{
+        setIsFormOpen ( false )
     }
 
     return <>
@@ -48,8 +51,8 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
                           onMouseEnter={ () => setActiveAvatarInput ( true ) }
                           onMouseLeave={ () => setActiveAvatarInput ( false ) } owner={ isOwner }
                           onChange={ photoSelect }/>
-        <ProfileInfo isOwner={ isOwner } isFormOpen={ isFormOpen } profile={ profile } openFormMode={ openFormMode }
-                     closeFormMode={ closeFormMode }>
+        <ProfileInfo formReset={formReset} isOwner={ isOwner } isFormOpen={ isFormOpen } profile={ profile } openFormMode={ openFormMode }
+                     formSucceed={ formSucceed }>
             { contacts }
         </ProfileInfo>
     </>
