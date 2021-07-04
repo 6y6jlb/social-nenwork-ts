@@ -1,0 +1,13 @@
+.articles  {
+    z-index: -1;
+    margin-left: 25px;
+    width: 60vw;
+    display: grid;
+    row-gap: 30px;
+    grid-template-columns:1fr;
+    grid-template-rows: repeat(auto-fill,max-content);
+    align-items: center;
+    justify-content: center;
+
+
+}
