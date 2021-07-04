@@ -13,6 +13,7 @@ import Users from "./UsersPage";
 import emptyPhoto from '../../../images/emptyUser.png'
 import Preloader from "../../common/preloader/Preloader";
 import {compose} from "redux";
+import { withAuthRedirect } from "../../../hoc/WithAuthRedirect";
 
 type UsersPageAPIComponentPropsType = {
     users: UserType[]
@@ -104,5 +105,5 @@ export default compose<React.ComponentType> (
         changePortionNumber:actionsUsers.setPortionNumber,
         getUsers: getUsersTC
     } ),
-    //withAuthRedirect
+    withAuthRedirect
 )(UserPageAPIComponent)

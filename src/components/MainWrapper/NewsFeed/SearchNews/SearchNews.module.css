@@ -1,0 +1,22 @@
+.searchingArea input {
+    height: 35px;
+    font-size: 1.5em;
+    border-radius: 7px 7px 0 0;
+}
+
+.search button {
+    height: 55px;
+    position: relative;
+}
+
+.search button::after {
+    content: '';
+    border-radius: 7px 7px 0 0;
+    top: 48px;
+    bottom: 0;
+    left:0;
+    right: 0;
+    background-color: white;
+    z-index: 2;
+    position: absolute;
+}

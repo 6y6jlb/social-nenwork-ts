@@ -1,7 +1,13 @@
-.articles  {
-    z-index: -1;
+.newsFeed {
+    z-index: 1;
     margin-left: 25px;
     width: 60vw;
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+}
+
+.articles  {
     display: grid;
     row-gap: 30px;
     grid-template-columns:1fr;

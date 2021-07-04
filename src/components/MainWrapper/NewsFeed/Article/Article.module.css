@@ -3,13 +3,13 @@
     grid-template-columns:1fr;
     height: max-content;
     grid-template-rows: 300px 1fr max-content;
-    width: 55vw;
+    width: 100%;
     border-top: 3px solid;
     border-bottom: 3px solid;
     border-radius: 10px;
     border-color: #492F7E;
     background-color: #d7f8e2;
-row-gap: 30px;
+    row-gap: 30px;
     justify-content: center;
     align-items: center;
 

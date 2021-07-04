@@ -4,7 +4,7 @@ import {Error_404} from "../errors/Error_404/Error_404";
 const ProfileWrapperContainer = React.lazy ( () => import('../../MainWrapper/Profile/ProfileWrapper.container') );
 const DialogsWrapperContainer = React.lazy ( () => import('../../MainWrapper/DialogsWrapper/DialogsWrapper.container') );
 const UserPageContainer = React.lazy ( () => import('../../MainWrapper/Users/UserPage.container') );
-const NewsFeed = React.lazy ( () => import('../../MainWrapper/NewsFeed/NewsFeed') );
+const NewsFeedContainer = React.lazy ( () => import('../../MainWrapper/NewsFeed/NewsFeedContainer') );
 const AudioPage = React.lazy ( () => import('../../MainWrapper/AudioPage/AudioPage') );
 const Settings = React.lazy ( () => import('../../MainWrapper/Settings/Settings') );
 const Login = React.lazy ( () => import('../login/LoginContainer') );
@@ -38,7 +38,7 @@ const Routes: React.FC = React.memo ( () => {
                 <Route path={ PATH.FRIENDS }
                        render={ () => <UserPageContainer
                        /> }/>
-                <Route path={ PATH.NEWS } render={ () => <NewsFeed/> }/>
+                <Route path={ PATH.NEWS } render={ () => <NewsFeedContainer/> }/>
                 <Route path={ PATH.AUDIO } render={ () => <AudioPage/> }/>
                 <Route path={ PATH.SETTINGS } render={ () => <Settings/> }/>
                 <Route path={ PATH.LOGIN } render={ () => <Login/> }/>
