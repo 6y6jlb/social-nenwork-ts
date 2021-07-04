@@ -22,10 +22,6 @@ const Paginator: React.FC<PropsType> = React.memo ( ({
                                                      }) => {
 
     const pagesCount = Math.ceil ( totalCount / portionSize ) // pages:number
-    //idk doesnot work
-    //const [portionNumber, setPortionNumber] = useState ( 1 )
-    //const [focus, setFocus] = useState ( false )
-    console.log ( portionNumber )
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1
     const rightPortionPageNumber = portionNumber * portionSize
 

@@ -1,10 +1,11 @@
 import React from "react";
-import NewsFeed from "../NewsFeed/NewsFeed";
+import {PATH} from "../../common/routes/Routes";
+import {Redirect} from "react-router-dom";
 
-const AudioPage = React.memo(() => (
+const AudioPage = React.memo ( () => (
     <div>
-        AudioPage
+        <Redirect to={ PATH.ERROR_UNKNOWN_PAGE }/>
     </div>
-));
+) );
 
 export default AudioPage;

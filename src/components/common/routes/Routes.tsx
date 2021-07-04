@@ -18,7 +18,7 @@ export const PATH = {
     AUDIO: '/audio',
     SETTINGS: '/settings',
     LOGIN: '/login',
-    ERROR_UNKNOWN_PAGE: '',
+    ERROR_UNKNOWN_PAGE: '/abracadabra',
 }
 
 
@@ -40,7 +40,7 @@ const Routes: React.FC = React.memo ( () => {
                        /> }/>
                 <Route path={ PATH.NEWS } render={ () => <NewsFeed/> }/>
                 <Route path={ PATH.AUDIO } render={ () => <AudioPage/> }/>
-                <Route path={ PATH.AUDIO } render={ () => <Settings/> }/>
+                <Route path={ PATH.SETTINGS } render={ () => <Settings/> }/>
                 <Route path={ PATH.LOGIN } render={ () => <Login/> }/>
                 <Route render={ () => <Error_404/> }/>
             </Switch>
