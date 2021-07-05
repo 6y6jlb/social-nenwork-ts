@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {actionsNews, getNews} from "../../../Redux/news-reducer";
-import {AppStateType} from "../../../Redux/reduxStore";
 import Preloader from "../../common/preloader/Preloader";
 import NewsFeed from "./NewsFeed";
 import {ArticleType} from "../../../api/newsAPI";
+import selectors from "../../../utils/selectors";
 
-const articlesTest = [
+
+/*const articles = [
     {
         "source": {},
         "author": "cosmonauta",
@@ -252,17 +253,17 @@ const articlesTest = [
         "content": "Todo lo que atañe a Tesla se hace viral. Lo bueno y lo malo. En la balanza está el hecho de que la compañía con base en Fremont vaya a producir más de 200.000 unidades en un trimestre por primera vez… [+3577 chars]"
     }
 ]
-const totalCountTest = 19
+const totalCount = 19*/
 
 
 const NewsFeedContainer = React.memo ( () => {
     const dispatch = useDispatch ()
-    const articles = /*useSelector<AppStateType,ArticleType[]>((state)=>state.news.articles )*/  articlesTest
-    const totalCount = /*useSelector<AppStateType,number>((state)=>state.news.totalResults )*/ totalCountTest
-    const isFetching = useSelector<AppStateType, boolean> ( (state) => state.news.isFetching )
-    const page = useSelector<AppStateType, number> ( (state) => state.news.page )
-    const pageSize = useSelector<AppStateType, number> ( (state) => state.news.pageSize )
-    const portionNumber = useSelector<AppStateType, number> ( (state) => state.news.portionNumber )
+    const articles = useSelector ( selectors.newsSelectors.articlesSelector )
+    const totalCount = useSelector ( selectors.newsSelectors.totalCountSelector )
+    const isFetching = useSelector ( selectors.newsSelectors.isFetchingSelector )
+    const page = useSelector ( selectors.newsSelectors.pageSelector )
+    const pageSize = useSelector ( selectors.newsSelectors.pageSizeSelector )
+    const portionNumber = useSelector ( selectors.newsSelectors.portionNumberSelector )
     const [searchText, setSearchText] = useState ( '' )
 
 
