@@ -36,6 +36,14 @@
     z-index: 1;
 }
 
+a {
+
+    background-color: #2c1c4e;
+}
+a:hover {
+    background-color: #6f589f;
+}
+
 .text {
     margin: 0 10%;
     align-self: center;

@@ -11,7 +11,7 @@ const Article: React.FC<PropsType> = ({article}) => {
         <div className={style.article}>
             <div className={style.img} style={{backgroundImage:`url(${article.urlToImage})`}}></div>
             <h1 className={style.title}>{ article.title }</h1>
-            <p className={style.text}>{ article.content }</p>
+            <a className={style.href} href={article.url}><p className={style.text}>{article.content}</p></a>
         </div>
     );
 };
