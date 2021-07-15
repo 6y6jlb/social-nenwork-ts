@@ -1,6 +1,7 @@
 import {AppThunk, InferActionsType} from "./reduxStore";
 import React from "react";
 import {setUserTC} from "./auth-reducer";
+import {INITIALIZE_SAGA, SET_INITIALIZED} from "./consts";
 
 
 //types
@@ -12,7 +13,10 @@ export type AppActionsTypes = InferActionsType<typeof actionsApp>
 //ac
 export const actionsApp = {
     setInitializedSuccess :() => {
-        return {type: 'SET_INITIALIZED' } as const
+        return {type: SET_INITIALIZED } as const
+    },
+    initializeSaga :() => {
+        return {type: INITIALIZE_SAGA } as const
     }
 }
 //tc
@@ -37,7 +41,7 @@ const initialState: InitialStateFromAppType = {
 //reducer
 const appReducer = (state = initialState, action: AppActionsTypes): InitialStateFromAppType => {
     switch (action.type) {
-        case 'SET_INITIALIZED':
+        case SET_INITIALIZED:
 
             return {
                 ...state,isInitialized:true

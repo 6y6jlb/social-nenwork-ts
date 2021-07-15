@@ -1,3 +1,5 @@
+
+//users
 export const FOLLOW = 'users/FOLLOW'
 export const UN_FOLLOW = 'users/UN_FOLLOW'
 export const ADD_MORE_USERS = 'users/ADD_MORE_USERS'
@@ -12,3 +14,7 @@ export const GET_USERS_SAGA = 'users/GET_USERS_SAGA'
 export const FOLLOW_UNFOLLOW_SAGA = 'users/FOLLOW_UNFOLLOW_SAGA'
 export const UNFOLLOW_SAGA = 'users/UNFOLLOW_SAGA'
 export const FOLLOW_SAGA = 'users/FOLLOW_SAGA'
+
+//app
+export const INITIALIZE_SAGA = 'app/INITIALIZE_SAGA'
+export const SET_INITIALIZED = 'app/SET_INITIALIZED'
