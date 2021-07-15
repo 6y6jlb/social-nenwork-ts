@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
-import {actionsUsers, followUserTC, InitialStateUsersType, unFollowUserTC, UserType} from "../../../Redux/usersReducer";
+import {actionsUsers, InitialStateUsersType, UserType} from "../../../Redux/usersReducer";
 import Users from "./UsersPage";
 import emptyPhoto from '../../../images/emptyUser.png'
 import Preloader from "../../common/preloader/Preloader";
@@ -17,6 +17,7 @@ type UsersPageAPIComponentPropsType = {
     portionNumber:number
     isRequestSendUsersId: number[]
     followCallBack: (id: number) => void
+    followUnfollowCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
     changeCurrentPage: (currentPage: number) => void
     changePortionNumber: (portion: number) => void
@@ -96,8 +97,8 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
 
 export default compose<React.ComponentType> (
     connect ( mapStateToProps, {
-        followCallBack: followUserTC,
-        unFollowCallBack: unFollowUserTC,
+        followCallBack: actionsUsers.followSaga,
+        unFollowCallBack: actionsUsers.unfollowSaga,
         changeCurrentPage: actionsUsers.changeCurrentPageActionCreator,
         changePortionNumber:actionsUsers.setPortionNumber,
         getUsersSaga:actionsUsers.getUsersSaga,

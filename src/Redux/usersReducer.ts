@@ -3,11 +3,18 @@ import {UserResponseType} from "../components/MainWrapper/Users/UserPage.contain
 import {UsersAPI} from "../api/usersAPI";
 import {followUnfollowFlow} from "../utils/objects-helper";
 import {
-    ADD_MORE_USERS, CHANGE_CURRENT_PAGE, CHANGE_IS_FETCHING_FROM_USERS, CHANGE_TOTAL_COUNT, FOLLOW, GET_USERS_SAGA,
+    ADD_MORE_USERS,
+    CHANGE_CURRENT_PAGE,
+    CHANGE_IS_FETCHING_FROM_USERS,
+    CHANGE_TOTAL_COUNT,
+    FOLLOW,
+    FOLLOW_SAGA,
+    FOLLOW_UNFOLLOW_SAGA,
+    GET_USERS_SAGA,
     SENDING_REQUEST_FROM_FOLLOW_UNFOLLOW,
     SET_CURRENT_PAGE_FROM_USERS,
     SET_PORTION_PAGE_FROM_USERS,
-    UN_FOLLOW
+    UN_FOLLOW, UNFOLLOW_SAGA
 } from "./consts";
 
 //types
@@ -25,6 +32,12 @@ export type UsersActionsTypes = InferActionsType<typeof actionsUsers>
 export type UsersStateType = typeof initialState
 //AC
 export const actionsUsers = {
+    followSaga: (userId: number) => {
+        return {type: FOLLOW_SAGA, payload:{userId}} as const
+    },
+    unfollowSaga: (userId: number) => {
+        return {type: UNFOLLOW_SAGA,payload:{userId}} as const
+    },
     followActionCreator: (id: number) => {
         return {type: FOLLOW, id} as const
     },
@@ -73,7 +86,7 @@ export const actionsUsers = {
     }
 }*/
 
-export const followUserTC = (userId: number): AppThunk => dispatch => {
+/*export const followUserTC = (userId: number): AppThunk => dispatch => {
     // dispatch ( actionsUsers.sendRequestFromFollowUnFollowActionCreator ( userId, true ) )
     // const response = await UsersAPI.followUser ( userId )
     //     try{
@@ -100,7 +113,7 @@ export const unFollowUserTC = (userId: number): AppThunk => async dispatch => {
     //         throw new Error(e)
     //     }
     followUnfollowFlow ( dispatch, userId, actionsUsers.unFollowActionCreator, UsersAPI.unFollowUser )
-}
+}*/
 //state
 const initialState = {
     users: [] as UserType[],
