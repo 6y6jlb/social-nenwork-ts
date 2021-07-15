@@ -38,7 +38,9 @@ const Paginator: React.FC<PropsType> = React.memo ( ({
             ?<span key={ i }
               className={style.activeNumber}>{ p }</span>
             :<span key={ i }
-                   onClick={ () => onPageChanged ( p ) }
+                   onClick={ () => {
+                       onPageChanged ( p )
+                   } }
                    className={style.normalNumber }>{ p }</span>
         )
     })

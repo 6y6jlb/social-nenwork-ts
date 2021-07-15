@@ -37,6 +37,10 @@ const Users: React.FC<UsersPagePropsType> = React.memo ( (props) => {
     } = props;
 
 
+
+
+    // const click = () => dispatch ( {type: GET_USERS_SAGA, payload: {pageSize, currentPage}} )
+
     const mappedUsers = users.map ( user => {
         return <User user={ user }
                      emptyPhoto={ emptyPhoto }
@@ -47,6 +51,7 @@ const Users: React.FC<UsersPagePropsType> = React.memo ( (props) => {
 
 
     return (<div className={ style.usersFrame }>
+
             <Paginator changePortionNumber={ changePortionNumber } portionNumber={ portionNumber }
                        totalCount={ totalCount } currentPage={ currentPage } onPageChanged={ onPageChanged }/>
             { mappedUsers }
