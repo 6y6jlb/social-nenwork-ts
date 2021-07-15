@@ -1,5 +1,6 @@
 //utils for followUnfollowThunk
 import {Dispatch} from "redux";
+import {call, put } from "redux-saga/effects";
 import {actionsUsers} from "../Redux/usersReducer";
 
 export const followUnfollowFlow = async (dispatch: Dispatch, userId: number, ActionCreator: Function, apiMethod: Function) => {
@@ -14,6 +15,8 @@ export const followUnfollowFlow = async (dispatch: Dispatch, userId: number, Act
         console.warn ( e )
     }
 }
+
+
 
 export const updateObjectInArray = <I extends Array<any>, P>(items: I, itemsProp: P, objPropName: string, newObjProps: object) => {
     items.map ( user => {

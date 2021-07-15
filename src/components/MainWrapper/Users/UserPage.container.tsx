@@ -1,19 +1,12 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
-import {
-    actionsUsers,
-    followUserTC,
-    getUsersTC,
-    InitialStateUsersType,
-    unFollowUserTC,
-    UserType
-} from "../../../Redux/usersReducer";
+import {actionsUsers, InitialStateUsersType, UserType} from "../../../Redux/usersReducer";
 import Users from "./UsersPage";
 import emptyPhoto from '../../../images/emptyUser.png'
 import Preloader from "../../common/preloader/Preloader";
 import {compose} from "redux";
-import { withAuthRedirect } from "../../../hoc/WithAuthRedirect";
+import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 
 type UsersPageAPIComponentPropsType = {
     users: UserType[]
@@ -24,10 +17,11 @@ type UsersPageAPIComponentPropsType = {
     portionNumber:number
     isRequestSendUsersId: number[]
     followCallBack: (id: number) => void
+    followUnfollowCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
     changeCurrentPage: (currentPage: number) => void
     changePortionNumber: (portion: number) => void
-    getUsers: (pageSize: number, currentPage: number) => void
+    getUsersSaga: (pageSize: number, currentPage: number) => void
 }
 export type UserResponseType = {
     id: number
@@ -54,7 +48,7 @@ type MapStateToPropsType = {
 class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsType> {
 
     componentDidMount() {
-        this.props.getUsers ( this.props.pageSize, this.props.currentPage )
+        this.props.getUsersSaga ( this.props.pageSize, this.props.currentPage )
     }//axios request with fetching and setUsers
 
     componentWillUnmount() {
@@ -62,7 +56,7 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
 
     onPageChanged = (pageNumber: number) => {
         this.props.changeCurrentPage ( pageNumber )
-        this.props.getUsers ( this.props.pageSize, pageNumber )
+        this.props.getUsersSaga ( this.props.pageSize, pageNumber )
 
     } //axios request with fetching and setUsers
 
@@ -97,13 +91,18 @@ function mapStateToProps(state: AppStateType): MapStateToPropsType {
     }
 }
 
+
+
+
+
 export default compose<React.ComponentType> (
     connect ( mapStateToProps, {
-        followCallBack: followUserTC,
-        unFollowCallBack: unFollowUserTC,
+        followCallBack: actionsUsers.followSaga,
+        unFollowCallBack: actionsUsers.unfollowSaga,
         changeCurrentPage: actionsUsers.changeCurrentPageActionCreator,
         changePortionNumber:actionsUsers.setPortionNumber,
-        getUsers: getUsersTC
+        getUsersSaga:actionsUsers.getUsersSaga,
+
     } ),
     withAuthRedirect
 )(UserPageAPIComponent)

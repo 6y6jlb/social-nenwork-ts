@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {initialize} from "./Redux/app-reducer";
+import {actionsApp, initialize} from "./Redux/app-reducer";
 import {AppStateType} from "./Redux/reduxStore";
 import Preloader from "./components/common/preloader/Preloader";
 
@@ -48,5 +48,5 @@ const mapStateToProps = (state:AppStateType):MapStateToPropsType=>{
 
 export default compose<React.ComponentType> (
     withRouter,
-    connect ( mapStateToProps, {initialize} ) ) ( App );
+    connect ( mapStateToProps, {initialize:actionsApp.initializeSaga} ) ) ( App );
 

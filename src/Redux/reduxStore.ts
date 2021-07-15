@@ -8,6 +8,9 @@ import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import appReducer, {AppActionsTypes} from "./app-reducer";
 import newsReducer from "./news-reducer";
+import {getUsersSagaWatcher} from '../sagas/usersSagas'
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from "../sagas/rootSaga";
 
 
 export type ActionsTypes =
@@ -30,13 +33,16 @@ const rootReducer = combineReducers ( {
 
 } );
 
-
+//types
 export type AppStateType = ReturnType<typeof rootReducer>
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStateType, unknown, ActionsTypes>
 
 type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
 export type InferActionsType<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>
 
+
+// create the saga middleware
+const sagaMiddleware = createSagaMiddleware ()
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -46,12 +52,16 @@ const composeEnhancers =
     } ) : compose;
 
 const enhancer = composeEnhancers (
-    applyMiddleware ( thunkMiddleware ),
+    applyMiddleware ( thunkMiddleware, sagaMiddleware ),
     // other store enhancers if any
 );
 const store = createStore ( rootReducer, enhancer );
 //let store = createStore ( rootReducer,applyMiddleware(thunkMiddleware));
 //(window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(), need to fix
+
+
+sagaMiddleware.run ( rootSaga )
+
 //@ts-ignore
 window.store = store
 
