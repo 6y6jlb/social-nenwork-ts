@@ -7,10 +7,11 @@ import {Redirect} from "react-router-dom";
 type LoginPropsType = {
     loginTC: (email: string, password: string, checkbox: boolean,captcha: null|string) => void
     isAuth: boolean
+    userId:number
     captchaUrl: string|null
 }
 
-const Login: React.FC<LoginPropsType> = ({isAuth, loginTC,captchaUrl}) => {
+const Login: React.FC<LoginPropsType> = ({isAuth, loginTC,captchaUrl,userId}) => {
     const onSubmit = (data: FormType) => {
         const {login, password, checkbox,captcha} = data
         loginTC ( login, password, checkbox,captcha)

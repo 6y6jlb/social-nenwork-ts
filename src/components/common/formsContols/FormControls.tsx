@@ -67,13 +67,13 @@ export function createField<FormsKeysType extends string>(placeholder: string | 
                                            component: React.FC<WrappedFieldProps>,
                                            props = {}, text = '') {
     return (
-        <div>
+        <>
             <Field placeholder={ placeholder }
                    name={ name }
                    validate={ validators }
                    component={ component }
                    { ...props } />
             <span className={ style.span }>{ text }</span>
-        </div>
+        </>
     )
 }

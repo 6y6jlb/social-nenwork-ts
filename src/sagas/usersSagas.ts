@@ -54,26 +54,7 @@ export function* unfollowWorker({type, payload}: { type: ActionsTypes, payload: 
     }
 
 }
-//need to fix
-// function* followUnfollowFlowWorker({
-//                                        userId,
-//                                        ActionCreator,
-//                                        apiMethod
-//                                    }: { type: ActionsTypes, userId: number, ActionCreator: Function, apiMethod: Function }) {
-//     yield put ( actionsUsers.sendRequestFromFollowUnFollowActionCreator ( userId, true ) )
-//     //@ts-ignore
-//     const response = call ( apiMethod, userId )
-//     try {
-//         if (response) {
-//             console.log ( response )
-//             put ( ActionCreator ( userId ) )
-//             put ( actionsUsers.sendRequestFromFollowUnFollowActionCreator ( userId, false ) )
-//         }
-//     } catch (e) {
-//         console.warn ( e )
-//     }
-// }
-//watcher
+
 
 
 //watchers

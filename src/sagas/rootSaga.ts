@@ -3,10 +3,12 @@ import {initializeSagaWatcher} from "./appSagas";
 import {followSagaWatcher, getUsersSagaWatcher, unfollowSagaWatcher} from "./usersSagas";
 import {
     getProfileSagaWatcher,
-    getStatusSagaWatcher, saveNewProfileSagaWatcher,
+    getStatusSagaWatcher,
+    saveNewProfileSagaWatcher,
     savePhotoFromProfileSagaWatcher,
     updateStatusFromProfileSagaWatcher
 } from "./profileSagas";
+import {getCaptchaSagaWatcher, loginSagaWatcher, setUserFromAuthSagaWatcher} from "./authSagas";
 
 export default function* rootSaga() {
     yield all ( [
@@ -19,6 +21,9 @@ export default function* rootSaga() {
         savePhotoFromProfileSagaWatcher (),
         saveNewProfileSagaWatcher (),
         getProfileSagaWatcher (),
+        getCaptchaSagaWatcher (),
+        setUserFromAuthSagaWatcher (),
+        loginSagaWatcher (),
 
 
     ] )

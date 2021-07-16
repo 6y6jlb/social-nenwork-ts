@@ -6,19 +6,21 @@ import {withRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {actionsApp, initialize} from "./Redux/app-reducer";
+import {actionsApp} from "./Redux/app-reducer";
 import {AppStateType} from "./Redux/reduxStore";
 import Preloader from "./components/common/preloader/Preloader";
 
 
 type AppPropsType = {
     initialize: () => void
+    userId:number | null
     isInitialized:boolean
 }
 
 class App extends React.Component<AppPropsType> {
     componentDidMount() {
-        this.props.initialize ()
+            this.props.initialize ()
+
 
     }
 
@@ -38,11 +40,13 @@ class App extends React.Component<AppPropsType> {
 }}
 type MapStateToPropsType = {
     isInitialized:boolean
+    userId:number |null
 }
 
 const mapStateToProps = (state:AppStateType):MapStateToPropsType=>{
     return {
-        isInitialized:state.app.isInitialized
+        isInitialized:state.app.isInitialized,
+        userId:state.profileReducer.profile.userId
     }
 }
 

@@ -56,7 +56,7 @@ const ProfileHeaderForm: React.FC<InjectedFormProps<HeaderFormType, PropsType> &
             <div>{ createField<CurrentFieldsTypes> ( 'full name', 'fullName', [requiredField], Input, {type: 'text'} ) }</div>
             <div>{ createField<CurrentFieldsTypes> ( 'aboutMe', 'aboutMe', [requiredField], Textarea, {type: 'text'} ) }</div>
             <div
-                className={ style.checkbox }>{ createField<CurrentFieldsTypes> ( undefined, 'lookingForAJob', [], Input, {type: 'checkbox'}, 'do you have a job?' ) }</div>
+                className={ style.checkbox }>{ createField<CurrentFieldsTypes> ( undefined, 'lookingForAJob', [], Input, {type: 'checkbox'}, 'looking for a job?' ) }</div>
             <div>{ createField<CurrentFieldsTypes> ( 'lookingForAJobDescription', 'lookingForAJobDescription', [requiredField], Textarea, {type: 'text'} ) }</div>
             <strong>contacts</strong>
             { contactForms }
