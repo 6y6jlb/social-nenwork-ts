@@ -8,8 +8,10 @@ import HatProfileHeader from "./HatProfileHeader/HatProfileHeader";
 type ProfileHeaderPropsType = {
     profileWrapperObj: InitialStateProfileType
     isOwner: boolean
+    openSet: (isOpenMenu: boolean) => void
+    isOpenMenu: boolean
     savePhotoTC: (file: any) => void
-    saveNewProfileTC: (model: UserFromProfileResponseType) => void
+    saveNewProfile: (model: UserFromProfileResponseType, userId: number | null) => void
 
 }
 
@@ -18,13 +20,15 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
                                                                     profileWrapperObj,
                                                                     isOwner,
                                                                     savePhotoTC,
-                                                                    saveNewProfileTC
+                                                                    saveNewProfile,
+                                                                    openSet,
+                                                                    isOpenMenu
                                                                 }) => {
     const profile = profileWrapperObj.profile
+    const userId = profileWrapperObj.profile.userId
 
     const keys = Object.keys ( profile.contacts )
     const [activeAvatarInput, setActiveAvatarInput] = useState ( false )
-    const [isFormOpen, setIsFormOpen] = useState ( false )
     const contacts = keys.map ( (key, i) => {
         // @ts-ignore
         return key && <Contact key={ i } contactTitle={ key } contactValue={ profile.contacts[key] }/>
@@ -35,15 +39,15 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
         }
     }
     const openFormMode = () => {
-        setIsFormOpen ( true )
+        openSet ( true )
     }
-    const formSucceed = (formData: any) => {
-        //@ts-ignore
-        saveNewProfileTC ( formData )/*.then(()=>setIsFormOpen ( false ))*/
+    const formSucceed = async (formData: any) => {
+        await saveNewProfile ( formData, userId )
+
 
     }
-    const formReset = ()=>{
-        setIsFormOpen ( false )
+    const formReset = () => {
+        openSet ( false )
     }
 
     return <>
@@ -51,7 +55,8 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
                           onMouseEnter={ () => setActiveAvatarInput ( true ) }
                           onMouseLeave={ () => setActiveAvatarInput ( false ) } owner={ isOwner }
                           onChange={ photoSelect }/>
-        <ProfileInfo formReset={formReset} isOwner={ isOwner } isFormOpen={ isFormOpen } profile={ profile } openFormMode={ openFormMode }
+        <ProfileInfo formReset={ formReset } isOwner={ isOwner } isFormOpen={ isOpenMenu } profile={ profile }
+                     openFormMode={ openFormMode }
                      formSucceed={ formSucceed }>
             { contacts }
         </ProfileInfo>

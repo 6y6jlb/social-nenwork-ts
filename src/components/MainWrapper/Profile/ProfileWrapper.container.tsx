@@ -1,12 +1,5 @@
 import React from "react";
-import {
-    actionsProfile,
-    getProfileTC,
-    getStatusTC,
-    InitialStateProfileType,
-    savePhotoTC,
-    saveNewProfileTC, UserFromProfileResponseType
-} from "../../../Redux/profileReducer";
+import {actionsProfile, InitialStateProfileType, UserFromProfileResponseType} from "../../../Redux/profileReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {RouteComponentProps, withRouter} from "react-router-dom";
@@ -28,8 +21,8 @@ class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
                 userIdForURL = this.props.history.push ( '/login' ) //my autorzed id
             }
         }
-        this.props.getProfileTC ( userIdForURL )
-        this.props.getStatusTC ( userIdForURL )
+        this.props.getProfile ( userIdForURL )
+        this.props.getStatus ( userIdForURL )
     }
 
     componentDidMount() {
@@ -47,9 +40,11 @@ class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
             this.props.isFetching ? <Preloader/> :
                 <ProfileWrapper profileWrapperObj={ this.props.profileWrapperObj }
                                 onAddPost={ this.props.onAddPost }
+                                openSet={ this.props.openSet }
                                 isOwner={ !this.props.match.params.userId }
-                                savePhotoTC={ this.props.savePhotoTC }
-                                saveNewProfileTC={ this.props.saveNewProfileTC }/>
+                                savePhoto={ this.props.savePhoto }
+                                isOpenMenu={this.props.isOpenMenu}
+                                saveNewProfile={ this.props.saveNewProfile }/>
         )
     }
 }
@@ -68,16 +63,18 @@ let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
         profileWrapperObj: state.profileReducer,
         myLoginId: state.auth.data.id,
         isFetching: state.profileReducer.isFetching,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
+        isOpenMenu: state.profileReducer.isOpenMenu
     }
 }
 export default compose<React.ComponentType> (
     connect ( mapStateToProps, {
         onAddPost: actionsProfile.addPost,
-        getProfileTC,
-        getStatusTC,
-        savePhotoTC,
-        saveNewProfileTC
+        getProfile:actionsProfile.getProfileSaga,
+        getStatus:actionsProfile.getStatusProfileSaga,
+        savePhoto:actionsProfile.savePhotoProfileSaga,
+        saveNewProfile:actionsProfile.saveNewProfileSaga,
+        openSet:actionsProfile.openSet
     } ),
     withRouter,
     withAuthRedirect
@@ -89,10 +86,12 @@ type ProfileWrapperAPIContainerPropsType = {
     profileWrapperObj: InitialStateProfileType
     myLoginId: number | null
     isFetching: boolean
-    getProfileTC: (userIdForURL: number | any) => void
-    getStatusTC: (userId: number | any) => void
-    savePhotoTC: (file: any) => void
-    saveNewProfileTC: (model: UserFromProfileResponseType) => void
+    isOpenMenu:boolean
+    getProfile: (userIdForURL: number | any) => void
+    getStatus: (userId: number | any) => void
+    openSet: (isOpenMenu:boolean) => void
+    savePhoto: (file: any) => void
+    saveNewProfile: (model: UserFromProfileResponseType,userId:number|null) => void
     isAuth: boolean
 }
 type WithRouterProfileType = {
@@ -103,5 +102,6 @@ type mapStateToPropsType = {
     profileWrapperObj: InitialStateProfileType
     myLoginId: number | null
     isFetching: boolean
+    isOpenMenu: boolean
     isAuth: boolean
 }
