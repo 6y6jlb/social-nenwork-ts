@@ -7,6 +7,7 @@ import emptyPhoto from '../../../images/emptyUser.png'
 import Preloader from "../../common/preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
+import selectors from "../../../utils/selectors";
 
 type UsersPageAPIComponentPropsType = {
     users: UserType[]
@@ -80,13 +81,13 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
 
 function mapStateToProps(state: AppStateType): MapStateToPropsType {
     return {
-        users: state.usersReducer.users,
-        totalCount: state.usersReducer.totalCount,
-        pageSize: state.usersReducer.pageSize,
-        portionNumber:state.usersReducer.portionNumber,
-        currentPage: state.usersReducer.currentPage,
-        isFetching: state.usersReducer.isFetching,
-        isRequestSendUsersId: state.usersReducer.isRequestSendUsersId
+        users: selectors.usersSelectors.getUsers(state),
+        totalCount: selectors.usersSelectors.getTotalCount(state),
+        pageSize: selectors.usersSelectors.getPageSize(state),
+        portionNumber:selectors.usersSelectors.getPortionNumber(state),
+        currentPage: selectors.usersSelectors.getCurrentPage(state),
+        isFetching: selectors.usersSelectors.getIsFetching(state),
+        isRequestSendUsersId: selectors.usersSelectors.getIsRequestSendUserId(state)
 
     }
 }

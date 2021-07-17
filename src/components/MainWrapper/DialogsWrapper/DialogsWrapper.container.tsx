@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
-import {difficultGetMessagestSelector, getFullName, getIsAuth, getMessages} from "../../../selectors/dialogs-selectors";
+import selectors from '../../../utils/selectors';
 
 
 type MapStateToPropsType ={
@@ -16,9 +16,9 @@ type MapStateToPropsType ={
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType & InitialStateDialogsType => {
     return {
-        messages: difficultGetMessagestSelector(state),//filter self===true in user-selectors/ test reselect
-        isAuth:getIsAuth(state),
-        name:getFullName(state)
+        messages: selectors.dialogsSelectors.difficultGetMessagesSelector(state),//filter self===true in user-selectors/ test reselect
+        isAuth:selectors.authSelectors.getIsAuth(state),
+        name:selectors.dialogsSelectors.getFullName(state)
     }
 }
 

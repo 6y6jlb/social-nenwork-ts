@@ -1,6 +1,6 @@
 import {ActionsTypes} from "../Redux/reduxStore";
 import {actionsAuth} from "../Redux/auth-reducer";
-import {call, put, takeLatest} from "redux-saga/effects";
+import {call, put, select, takeLatest} from "redux-saga/effects";
 import {GET_CAPTCHA_SAGA, LOGIN_SAGA, SET_USER_FROM_AUTH_SAGA} from "../Redux/consts";
 import {securityAPI} from "../api/securityAPI";
 import {AuthAPI} from "../api/authAPI";
@@ -46,6 +46,7 @@ function* loginSagaWorker({type, payload}: {
                             type: ActionsTypes, payload: {
                                 email: string, password: string, rememberMe: boolean, captcha?: string} }) {
     const response = yield call ( AuthAPI.login, payload.email, payload.password, payload.rememberMe, payload.captcha )
+
     try {
         if (response.data.resultCode === 0) {
             yield put ( actionsAuth.setUserFromAuthSaga ( true) )

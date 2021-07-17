@@ -7,6 +7,7 @@ import {ProfileWrapper} from "./ProfileWrapper";
 import Preloader from "../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import selectors from "../../../utils/selectors";
 
 
 //apiContainer
@@ -60,11 +61,11 @@ class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
 //connect
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        profileWrapperObj: state.profileReducer,
-        myLoginId: state.auth.data.id,
-        isFetching: state.profileReducer.isFetching,
-        isAuth: state.auth.isAuth,
-        isOpenMenu: state.profileReducer.isOpenMenu
+        profileWrapperObj: selectors.profileSelectors.getProfileWrapperObj(state),
+        myLoginId: selectors.authSelectors.getMyLoginId(state),
+        isFetching: selectors.profileSelectors.getIsFetchingProfile(state),
+        isAuth: selectors.authSelectors.getIsAuth(state),
+        isOpenMenu: selectors.profileSelectors.getIsOpenMenuProfile(state)
     }
 }
 export default compose<React.ComponentType> (

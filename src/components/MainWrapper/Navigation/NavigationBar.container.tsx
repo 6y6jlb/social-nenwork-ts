@@ -4,7 +4,8 @@ import {connect} from "react-redux";
 import {FriendIconsFromNAvBArType, NavLinkBarFromNAvBArType} from "../../../Redux/navBarReducer";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {Dispatch} from "redux";
-import {getFriendsIcons, getNavLinkBar, getProfileName} from "../../../selectors/nav-selectors";
+import selectors from '../../../utils/selectors';
+
 
 
 type MapStateToPropsType = {
@@ -26,14 +27,12 @@ class NavigationBarAPIContainer extends PureComponent<NavigationBarAPIContainerP
 
 let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        navLinkBar: getNavLinkBar(state),
-        friendsIcons: getFriendsIcons(state),
-        profileName:getProfileName(state)
+        navLinkBar: selectors.navSelectors.getNavLinkBar(state),
+        friendsIcons: selectors.navSelectors.getFriendsIcons(state),
+        profileName:selectors.authSelectors.getProfileName(state)
     }
 }
-let mapDispatchToProps = (dispatch: Dispatch): MapDispatchToProps => {
-    return {}
-}
 
-const NavigationBarContainer = connect ( mapStateToProps, mapDispatchToProps ) ( NavigationBarAPIContainer )
+
+const NavigationBarContainer = connect ( mapStateToProps, null ) ( NavigationBarAPIContainer )
 export default NavigationBarContainer;

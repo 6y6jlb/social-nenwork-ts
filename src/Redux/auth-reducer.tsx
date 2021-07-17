@@ -49,9 +49,8 @@ export const actionsAuth = {
     } catch (e) {
         throw new Error ( e )
     }
-}*/
-
-/*export const setUserTC = (isAuth: boolean): AppThunk => async (dispatch, getState: () => AppStateType) => {
+}
+export const setUserTC = (isAuth: boolean): AppThunk => async (dispatch, getState: () => AppStateType) => {
     const response = await AuthAPI.me ()
     try {
         if (response.data.resultCode === 0) {
@@ -69,8 +68,8 @@ export const actionsAuth = {
             throw new Error ( e )
         }
     }
-}*/
-/*export const loginTC = (email: string, password: string, rememberMe: boolean, captcha?: string): ThunkAction<void, AppStateType, unknown, ActionsTypes | FormAction> => async dispatch => {
+}
+export const loginTC = (email: string, password: string, rememberMe: boolean, captcha?: string): ThunkAction<void, AppStateType, unknown, ActionsTypes | FormAction> => async dispatch => {
     const response = await AuthAPI.login ( email, password, rememberMe, captcha )
     try {
         if (response.data.resultCode === 0) {

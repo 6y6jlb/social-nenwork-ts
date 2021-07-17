@@ -36,11 +36,11 @@
     z-index: 1;
 }
 
-a {
+.article a {
 
     background-color: #2c1c4e;
 }
-a:hover {
+.article a:hover {
     background-color: #6f589f;
 }
 

@@ -1,6 +1,7 @@
 import React, {Suspense} from "react";
 import {Route, Switch} from "react-router-dom";
 import {Error_404} from "../errors/Error_404/Error_404";
+
 const ProfileWrapperContainer = React.lazy ( () => import('../../MainWrapper/Profile/ProfileWrapper.container') );
 const DialogsWrapperContainer = React.lazy ( () => import('../../MainWrapper/DialogsWrapper/DialogsWrapper.container') );
 const UserPageContainer = React.lazy ( () => import('../../MainWrapper/Users/UserPage.container') );
@@ -27,8 +28,8 @@ const Routes: React.FC = React.memo ( () => {
         <Suspense fallback={ <div>Загрузка...</div> }>
             <Switch>
                 <Route exact path={ PATH.SLASH }
-                   render={ () => <ProfileWrapperContainer
-                   /> }/>
+                       render={ () => <ProfileWrapperContainer
+                       /> }/>
                 <Route path={ PATH.PROFILE + ':userId?' }
                        render={ () => <ProfileWrapperContainer
                        /> }/>

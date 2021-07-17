@@ -262,7 +262,6 @@ const NewsFeedContainer = React.memo ( () => {
     const totalCount = useSelector ( selectors.newsSelectors.totalCountSelector )
     const isFetching = useSelector ( selectors.newsSelectors.isFetchingSelector )
     const page = useSelector ( selectors.newsSelectors.pageSelector )
-    const pageSize = useSelector ( selectors.newsSelectors.pageSizeSelector )
     const portionNumber = useSelector ( selectors.newsSelectors.portionNumberSelector )
     const [searchText, setSearchText] = useState ( '' )
 
