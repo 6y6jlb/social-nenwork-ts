@@ -34,5 +34,5 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 
-const NavigationBarContainer = connect ( mapStateToProps, null ) ( NavigationBarAPIContainer )
+const NavigationBarContainer = connect ( mapStateToProps, {} ) ( NavigationBarAPIContainer )
 export default NavigationBarContainer;

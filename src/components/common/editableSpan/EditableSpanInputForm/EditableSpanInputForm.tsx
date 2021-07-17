@@ -1,4 +1,5 @@
-import React from "react";
+import React,{KeyboardEvent} from "react";
+import { useEffect } from "react";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxInputLength, requiredField} from "../../../../utils/validators";
 
@@ -18,13 +19,11 @@ const isMaxLengthMore20 = maxInputLength ( 20 )
 const EditableSpanInputForm: React.FC<InjectedFormProps<EditableSpanInputFormType>> & PropsType = React.memo ( (props) => {
 
     return (
-        <form onBlur={ props.handleSubmit }>
-            <div>
+        <form  onBlur={ props.handleSubmit }>
                 <label htmlFor="input">
-                    <Field autoFocus name="input" component="input" validate={ [] }
-                           type="text"/></label>
-            </div>
-
+                    <Field  autoFocus name="input" component="input" validate={ [] }
+                           type="text"/>
+                </label>
             {/* { createField<CurrentFieldsTypes> ( 'input', 'input', [requiredField, isMaxLengthMore20], Input ) }*/ }
         </form>
     )

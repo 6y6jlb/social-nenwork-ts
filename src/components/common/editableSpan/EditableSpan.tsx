@@ -22,7 +22,6 @@ class EditableSpan extends PureComponent<EditableSpanPropsType> {
     }
 
     changeEditMode = (editMode: boolean) => {
-
         this.setState ( {
             editMode: editMode
         } )
@@ -35,9 +34,9 @@ class EditableSpan extends PureComponent<EditableSpanPropsType> {
             value: e.currentTarget.value
         } )
     }
-    onSubmit(data: EditableSpanInputFormType){
-        this.changeEditMode ( false )
 
+    onSubmit = (data: EditableSpanInputFormType )=>{
+        this.changeEditMode ( false )
         const {input} = data
         this.setState({
             value:input
@@ -53,7 +52,7 @@ class EditableSpan extends PureComponent<EditableSpanPropsType> {
             <div className={ style.editableSpan }>
                 { !this.state.editMode
                     ? <span onClick={ () => this.changeEditMode ( true ) }>{ this.props.item || '☺☺☺☺☺' }</span>
-                    : <EditableSpanInputForm initialValues={{input:this.state.value || ''}}   onSubmit={this.onSubmit.bind(this)} />
+                    : <EditableSpanInputForm initialValues={{input:this.state.value || ''}}   onSubmit={this.onSubmit} />
                     /*<input onChange={ this.changeValue } value={ this.state.value || '' } autoFocus={ true }
                              onBlur={ () => this.changeEditMode ( false ) } type="text"/> */ //without redux form
                 }
