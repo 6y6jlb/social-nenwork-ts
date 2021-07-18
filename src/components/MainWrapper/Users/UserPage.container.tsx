@@ -8,6 +8,7 @@ import Preloader from "../../common/preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import selectors from "../../../utils/selectors";
+import {getUsersDifficult} from "../../../utils/selectors/users-selectors";
 
 type UsersPageAPIComponentPropsType = {
     users: UserType[]
@@ -81,7 +82,7 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
 
 function mapStateToProps(state: AppStateType): MapStateToPropsType {
     return {
-        users: selectors.usersSelectors.getUsers(state),
+        users: selectors.usersSelectors.getUsersDifficult(state),
         totalCount: selectors.usersSelectors.getTotalCount(state),
         pageSize: selectors.usersSelectors.getPageSize(state),
         portionNumber:selectors.usersSelectors.getPortionNumber(state),

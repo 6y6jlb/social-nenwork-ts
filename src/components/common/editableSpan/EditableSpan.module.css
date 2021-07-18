@@ -13,11 +13,12 @@
     align-items: center;
     background-color: #e2fded;
     cursor: pointer;
-
+    transition: all ease-in 200ms;
 
 }
 
 .editableSpan input {
+    background-color: white;
     width: 100%;
     letter-spacing: 2pt;
     justify-self: center;
@@ -25,16 +26,19 @@
     font-size: 1.1em;
     border: none;
     border-radius: 10px;
-
+    color: black;
     outline: none;
 
 
 }
-.editableSpan input:hover{
+
+.editableSpan :hover {
     background-color: white;
+    transition: all ease-in 600ms;
 }
 
 .editableSpan input:active:focus {
+    background-color: white;
     inline-size: 0;
     outline: none;
 
