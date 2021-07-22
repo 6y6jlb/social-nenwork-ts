@@ -1,7 +1,7 @@
 import {ActionsTypes} from "../Redux/reduxStore";
 import {actionsAuth} from "../Redux/auth-reducer";
 import {call, put, select, takeLatest} from "redux-saga/effects";
-import {GET_CAPTCHA_SAGA, LOGIN_SAGA, SET_USER_FROM_AUTH_SAGA} from "../Redux/consts";
+import {GET_CAPTCHA_SAGA, LOGIN_SAGA, LOGOUT_SAGA, SET_USER_FROM_AUTH_SAGA} from "../Redux/consts";
 import {securityAPI} from "../api/securityAPI";
 import {AuthAPI} from "../api/authAPI";
 import {ProfileAPI} from "../api/profileAPI";
@@ -43,10 +43,9 @@ function* setUserFromAuthSagaWorker({
 }
 
 function* loginSagaWorker({type, payload}: {
-                            type: ActionsTypes, payload: {
-                                email: string, password: string, rememberMe: boolean, captcha?: string} }) {
+    type: ActionsTypes, payload: {
+        email: string, password: string, rememberMe: boolean, captcha?: string} }) {
     const response = yield call ( AuthAPI.login, payload.email, payload.password, payload.rememberMe, payload.captcha )
-
     try {
         if (response.data.resultCode === 0) {
             yield put ( actionsAuth.setUserFromAuthSaga ( true) )
@@ -59,7 +58,18 @@ function* loginSagaWorker({type, payload}: {
     } catch (e) {
         throw new Error ( e )
     }
+}
 
+function* logoutSagaWorker({type}: {
+    type: ActionsTypes}) {
+    const response = yield call(AuthAPI.logout)
+    try {
+        if (response.data.resultCode === 0) {
+            yield put( actionsAuth.setUserData ( false, {email: null, login: null, id: null} ) )
+        }
+    } catch (e) {
+        throw new Error ( e )
+    }
 }
 
 
@@ -69,6 +79,9 @@ export function* getCaptchaSagaWatcher() {
 }
 export function* loginSagaWatcher() {
     yield takeLatest ( LOGIN_SAGA, loginSagaWorker )
+}
+export function* logoutSagaWatcher() {
+    yield takeLatest ( LOGOUT_SAGA, logoutSagaWorker )
 }
 export function* setUserFromAuthSagaWatcher() {
     yield takeLatest ( SET_USER_FROM_AUTH_SAGA, setUserFromAuthSagaWorker )

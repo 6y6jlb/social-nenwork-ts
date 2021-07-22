@@ -6,7 +6,14 @@ import {ProfileAPI} from "../api/profileAPI";
 import {AuthAPI} from "../api/authAPI";
 import {actionsProfile} from "./profileReducer";
 import {securityAPI} from "../api/securityAPI";
-import {GET_CAPTCHA_SAGA, GET_CAPTCHA_URL_SUCCESS, LOGIN_SAGA, SET_USER_DATA, SET_USER_FROM_AUTH_SAGA} from "./consts";
+import {
+    GET_CAPTCHA_SAGA,
+    GET_CAPTCHA_URL_SUCCESS,
+    LOGIN_SAGA,
+    LOGOUT_SAGA,
+    SET_USER_DATA,
+    SET_USER_FROM_AUTH_SAGA
+} from "./consts";
 
 
 //types
@@ -26,6 +33,9 @@ export type AuthActionsTypes = any
 export const actionsAuth = {
     getCaptchaSaga: () => {
         return {type: GET_CAPTCHA_SAGA} as const
+    },
+    logoutSaga: () => {
+        return {type: LOGOUT_SAGA}
     },
     loginSaga: (email: string, password: string, rememberMe: boolean, captcha?: string) => {
         return {type: LOGIN_SAGA, payload: {email, password, rememberMe, captcha}} as const
@@ -84,16 +94,18 @@ export const loginTC = (email: string, password: string, rememberMe: boolean, ca
         throw new Error ( e )
     }
 }*/
+/*
 export const logoutTC = (): AppThunk => async dispatch => {
-    const response = await AuthAPI.logout ()
+    const response = await AuthAPI.logout()
     try {
         if (response.data.resultCode === 0) {
-            dispatch ( actionsAuth.setUserData ( false, {email: null, login: null, id: null} ) )
+            dispatch(actionsAuth.setUserData(false, {email: null, login: null, id: null}))
         }
     } catch (e) {
-        throw new Error ( e )
+        throw new Error(e)
     }
 }
+*/
 //state
 const initialState: InitialStateFromAuthType = {
     isAuth: false,

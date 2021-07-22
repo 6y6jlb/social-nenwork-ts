@@ -6,7 +6,7 @@ import {Redirect} from "react-router-dom";
 type HeaderPropsType = {
     isAuth: boolean
     login: string | null
-    logoutTC: () => void
+    logout: () => void
 }
 
 export const Header = React.memo((props: HeaderPropsType) => {
@@ -19,7 +19,7 @@ export const Header = React.memo((props: HeaderPropsType) => {
                     ? <Redirect to={ '/login' }/>
                     : <>
                         <span className={s.loginSpan} onClick={ () => {
-                            props.logoutTC ()
+                            props.logout ()
                         } }>logout
                         </span>
                        {/* <Redirect to={ '/profile' }/>*/}

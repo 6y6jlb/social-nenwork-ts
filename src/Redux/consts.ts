@@ -34,8 +34,15 @@ export const GET_PROFILE_SAGA = 'profile/GET_PROFILE_SAGA'
 //auth
 export const GET_CAPTCHA_SAGA = 'auth/GET_CAPTCHA_SAGA'
 export const SET_USER_FROM_AUTH_SAGA = 'auth/SET_USER_FROM_AUTH_SAGA'
+export const LOGOUT_SAGA = 'auth/LOGOUT_SAGA'
 export const LOGIN_SAGA = 'auth/LOGIN_SAGA'
 export const SET_USER_DATA = 'auth/SET_USER_DATA'
 export const GET_CAPTCHA_URL_SUCCESS = 'auth/GET_CAPTCHA_URL_SUCCESS'
 
-
+//news
+export const GET_NEWS_SAGA = 'news/GET_NEWS_SAGA'
+export const SET_NEWS ='news/SET_NEWS'
+export const SET_IS_FETCHING ='news/SET_IS_FETCHING'
+export const SET_PAGE ='news/SET_PAGE'
+export const SET_PAGE_SIZE ='news/SET_PAGE_SIZE'
+export const SET_PORTION_NUMBER ='news/SET_PORTION_NUMBER'

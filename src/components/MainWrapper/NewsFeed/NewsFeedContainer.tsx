@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {actionsNews, getNews} from "../../../Redux/news-reducer";
+import {actionsNews} from "../../../Redux/news-reducer";
 import Preloader from "../../common/preloader/Preloader";
 import NewsFeed from "./NewsFeed";
 import {ArticleType} from "../../../api/newsAPI";
@@ -256,35 +256,35 @@ import selectors from "../../../utils/selectors";
 const totalCount = 19*/
 
 
-const NewsFeedContainer = React.memo ( () => {
-    const dispatch = useDispatch ()
-    const articles = useSelector ( selectors.newsSelectors.articlesSelector )
-    const totalCount = useSelector ( selectors.newsSelectors.totalCountSelector )
-    const isFetching = useSelector ( selectors.newsSelectors.isFetchingSelector )
-    const page = useSelector ( selectors.newsSelectors.pageSelector )
-    const portionNumber = useSelector ( selectors.newsSelectors.portionNumberSelector )
-    const [searchText, setSearchText] = useState ( '' )
+const NewsFeedContainer = React.memo(() => {
+    const dispatch = useDispatch()
+    const articles = useSelector(selectors.newsSelectors.newsArticlesSelector)
+    const totalCount = useSelector(selectors.newsSelectors.newsTotalCountSelector)
+    const isFetching = useSelector(selectors.newsSelectors.newsIsFetchingSelector)
+    const page = useSelector(selectors.newsSelectors.newsPageSelector)
+    const portionNumber = useSelector(selectors.newsSelectors.newsPortionNumberSelector)
+    const [searchText, setSearchText] = useState('')
 
 
-    useEffect ( () => {
-        dispatch ( getNews ( searchText ) )
-    }, [searchText] )
+    useEffect(() => {
+        dispatch(actionsNews.getNewsSaga(searchText))
+    }, [searchText,page])
 
     const onSearchArea = (text: string) => {
-        setSearchText ( text )
+        setSearchText(text)
     }
     const onPageChange = (page: number) => {
-        dispatch ( actionsNews.setPage ( page ) )
+        dispatch(actionsNews.setPage(page))
     }
     const onPortionNumberChange = (portionNumber: number) => {
-        dispatch ( actionsNews.setPortionNumber ( portionNumber ) )
+        dispatch(actionsNews.setPortionNumber(portionNumber))
     }
 
     return !isFetching ? (
-            <NewsFeed onSearchArea={ onSearchArea } articles={ articles as ArticleType[] } portionNumber={ portionNumber }
-                      totalCount={ totalCount }
-                      currentPage={ page } onPageChange={ onPageChange } onPortionNumberChange={ onPortionNumberChange }/>
+            <NewsFeed onSearchArea={onSearchArea} articles={articles as ArticleType[]} portionNumber={portionNumber}
+                      totalCount={totalCount}
+                      currentPage={page} onPageChange={onPageChange} onPortionNumberChange={onPortionNumberChange}/>
         )
         : <Preloader/>
-} );
+});
 export default NewsFeedContainer;

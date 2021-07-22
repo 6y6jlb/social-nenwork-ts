@@ -1,6 +1,6 @@
 import React from "react";
 import {Header} from "./Header";
-import {logoutTC} from "../../Redux/auth-reducer";
+import {actionsAuth} from "../../Redux/auth-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 
@@ -15,12 +15,12 @@ type HeaderContainerPropsType = {
     isAuth: boolean
     login: string | null
     userId: number | null
-    logoutTC: () => void
+    logout: () => void
 }
 
 class HeaderContainer extends React.PureComponent<HeaderContainerPropsType> {
     render() {
-        return <Header logoutTC={ this.props.logoutTC } login={ this.props.login } isAuth={ this.props.isAuth }/>
+        return <Header logout={ this.props.logout } login={ this.props.login } isAuth={ this.props.isAuth }/>
     }
 }
 
@@ -33,6 +33,6 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 }
 
 export default connect ( mapStateToProps, {
-    logoutTC
+    logout:actionsAuth.logoutSaga
 } ) (
     HeaderContainer );

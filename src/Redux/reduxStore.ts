@@ -8,7 +8,6 @@ import thunkMiddleware, {ThunkAction} from 'redux-thunk'
 import {reducer as formReducer} from 'redux-form'
 import appReducer, {AppActionsTypes} from "./app-reducer";
 import newsReducer from "./news-reducer";
-import {getUsersSagaWatcher} from '../sagas/usersSagas'
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from "../sagas/rootSaga";
 
