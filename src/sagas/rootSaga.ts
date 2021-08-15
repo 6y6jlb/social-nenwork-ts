@@ -8,7 +8,8 @@ import {
     savePhotoFromProfileSagaWatcher,
     updateStatusFromProfileSagaWatcher
 } from "./profileSagas";
-import {getCaptchaSagaWatcher, loginSagaWatcher, setUserFromAuthSagaWatcher} from "./authSagas";
+import {getCaptchaSagaWatcher, loginSagaWatcher, logoutSagaWatcher, setUserFromAuthSagaWatcher} from "./authSagas";
+import {getNewsSagaWatcher} from "./newsSagas";
 
 export default function* rootSaga() {
     yield all ( [
@@ -24,6 +25,8 @@ export default function* rootSaga() {
         getCaptchaSagaWatcher (),
         setUserFromAuthSagaWatcher (),
         loginSagaWatcher (),
+        logoutSagaWatcher(),
+        getNewsSagaWatcher(),
 
 
     ] )
