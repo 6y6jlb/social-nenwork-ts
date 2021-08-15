@@ -1,13 +1,19 @@
 import selfPhoto from "../images/face.png";
-import profileReducer, {actionsProfile, InitialStateProfileType, MyPostArrayFromProfileType, UserFromProfileResponseType
+import profileReducer, {
+    actionsProfile,
+    InitialStateProfileType,
+    MyPostArrayFromProfileType,
+    UserFromProfileResponseType
 } from "./profileReducer";
 
 let initialState: InitialStateProfileType;
 
-beforeAll(() => {
+beforeAll ( () => {
     initialState = {
+        isOpenMenu: false,
         status: '',
         profile: {
+            aboutMe: null,
             userId: null,
             lookingForAJob: false,
             lookingForAJobDescription: null,
@@ -27,31 +33,33 @@ beforeAll(() => {
         myPostArray: [
             {
                 profileSelfPhotoImgUrl: selfPhoto,
-                id: 0,
+                id: 1,
                 message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, ',
             }, {
                 profileSelfPhotoImgUrl: selfPhoto,
-                id: 1, message: ' ultricies nec, pellentesque eu, ',
-            }, {
-                profileSelfPhotoImgUrl: selfPhoto,
-                id: 2,
-                message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu ',
+                id: 2, message: ' ultricies nec, pellentesque eu, ',
             }, {
                 profileSelfPhotoImgUrl: selfPhoto,
                 id: 3,
+                message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu ',
+            }, {
+                profileSelfPhotoImgUrl: selfPhoto,
+                id: 4,
                 message: 'Lorem ipssa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridics, ultricies nec, pellentesque eu, ',
             }, {
                 profileSelfPhotoImgUrl: selfPhoto,
-                id: 4, message: 'eu, ',
+                id: 5, message: 'eu, ',
             },
         ] as Array<MyPostArrayFromProfileType>,
         isFetching: false as boolean
-    };
-});
-afterEach(function () {
+    }
+} );
+afterEach ( function () {
     initialState = {
+        isOpenMenu: false,
         status: '',
         profile: {
+            aboutMe: null,
             userId: null,
             lookingForAJob: false,
             lookingForAJobDescription: null,
@@ -71,80 +79,82 @@ afterEach(function () {
         myPostArray: [
             {
                 profileSelfPhotoImgUrl: selfPhoto,
-                id: 0,
+                id: 1,
                 message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, ',
             }, {
                 profileSelfPhotoImgUrl: selfPhoto,
-                id: 1, message: ' ultricies nec, pellentesque eu, ',
-            }, {
-                profileSelfPhotoImgUrl: selfPhoto,
-                id: 2,
-                message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu ',
+                id: 2, message: ' ultricies nec, pellentesque eu, ',
             }, {
                 profileSelfPhotoImgUrl: selfPhoto,
                 id: 3,
+                message: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu ',
+            }, {
+                profileSelfPhotoImgUrl: selfPhoto,
+                id: 4,
                 message: 'Lorem ipssa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridics, ultricies nec, pellentesque eu, ',
             }, {
                 profileSelfPhotoImgUrl: selfPhoto,
-                id: 4, message: 'eu, ',
+                id: 5, message: 'eu, ',
             },
         ] as Array<MyPostArrayFromProfileType>,
         isFetching: false as boolean
-    };
-});
+    }
+} );
 
-test('profile reducer setUser test', (() => {
 
-    const profile = {
-            userId: 123,
-            lookingForAJob: true,
-            lookingForAJobDescription: 'want to eat',
-            fullName: 'biba boba',
-            contacts: {
-                github: null,
-                vk: null,
-                facebook: null,
-                instagram: null,
-                twitter: null,
-                website: null,
-                youtube: null,
-                mainLink: null,
-            },
-            photos: {small: null, large: null}
-        }
+test ( 'profile reducer setUser test', (() => {
 
-    const actionSetUserProfile = actionsProfile.setUserProfile(profile);
-    const testProfileReducerSetUserProfile = profileReducer(initialState, actionSetUserProfile);
+    const profile: UserFromProfileResponseType = {
+        isOpenMenu: false, aboutMe: 'none',
+        userId: 123,
+        lookingForAJob: true,
+        lookingForAJobDescription: 'want to eat',
+        fullName: 'biba boba',
+        contacts: {
+            github: null,
+            vk: null,
+            facebook: null,
+            instagram: null,
+            twitter: null,
+            website: null,
+            youtube: null,
+            mainLink: null,
+        },
+        photos: {small: null, large: null}
+    }
 
-    expect(testProfileReducerSetUserProfile.profile.userId).toBe(123);
-    expect(testProfileReducerSetUserProfile.profile.lookingForAJobDescription).toBe('want to eat');
-    expect(testProfileReducerSetUserProfile.profile.fullName).toBe('biba boba');
-    expect(testProfileReducerSetUserProfile.profile.lookingForAJob).toBe(true);
+    const actionSetUserProfile = actionsProfile.setUserProfile ( profile );
+    const testProfileReducerSetUserProfile = profileReducer ( initialState, actionSetUserProfile );
 
-}))
+    expect ( testProfileReducerSetUserProfile.profile.userId ).toBe ( 123 );
+    expect ( testProfileReducerSetUserProfile.profile.lookingForAJobDescription ).toBe ( 'want to eat' );
+    expect ( testProfileReducerSetUserProfile.profile.fullName ).toBe ( 'biba boba' );
+    expect ( testProfileReducerSetUserProfile.profile.lookingForAJob ).toBe ( true );
 
-test('add post testing', () => {
-    const actionAddPost = actionsProfile.addPost('test')
-    const testProfileReducerAdd = profileReducer(initialState, actionAddPost)
+}) )
 
-    expect(testProfileReducerAdd.myPostArray[0].message).toStrictEqual('test')
-    expect(testProfileReducerAdd.myPostArray.length).toBe(7)
+test ( 'add post testing', () => {
+    const actionAddPost = actionsProfile.addPost ( 'test' )
+    const testProfileReducerAdd = profileReducer ( initialState, actionAddPost )
 
-})
+    expect ( testProfileReducerAdd.myPostArray[0].message ).toStrictEqual ( 'test' )
+    expect ( testProfileReducerAdd.myPostArray.length ).toBe ( 7 )
 
-test('change isFetching testing', () => {
-    const action = actionsProfile.changeIsFetchingFromProfile(true)
-    const testProfileReducerAdd = profileReducer(initialState, action)
+} )
 
-    expect(testProfileReducerAdd.isFetching).toBe(true)
+test ( 'change isFetching testing', () => {
+    const action = actionsProfile.changeIsFetchingFromProfile ( true )
+    const testProfileReducerAdd = profileReducer ( initialState, action )
 
-})
-test('change status testing', () => {
-    const action = actionsProfile.setStatusAC('hey hey')
-    const testProfileReducerAdd = profileReducer(initialState, action)
+    expect ( testProfileReducerAdd.isFetching ).toBe ( true )
 
-    expect(testProfileReducerAdd.status).toBe('hey hey')
+} )
+test ( 'change status testing', () => {
+    const action = actionsProfile.setStatusAC ( 'hey hey' )
+    const testProfileReducerAdd = profileReducer ( initialState, action )
 
-})
+    expect ( testProfileReducerAdd.status ).toBe ( 'hey hey' )
+
+} )
 
 
