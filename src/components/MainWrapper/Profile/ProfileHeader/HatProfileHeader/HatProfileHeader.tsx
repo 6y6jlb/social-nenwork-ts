@@ -2,6 +2,7 @@ import {UserFromProfileResponseType} from "../../../../../Redux/profileReducer";
 import React from "react";
 import style from "../ProfileHeader.module.css";
 import emptyPhoto from "../../../../../images/emptyUser.png";
+import {FormattedMessage} from "../../../../common/FormattedMessage/FormattedMessage";
 
 interface HatProfileHeaderParams {
     profile: UserFromProfileResponseType;
@@ -20,7 +21,7 @@ const HatProfileHeader = (props: HatProfileHeaderParams) =>
              onMouseLeave={ props.onMouseLeave }>
             { props.owner && props.activeAvatarInput && <>
                 <label htmlFor="file-upload" className={ style.changeAvatarInput }>
-                    change avatar
+                    <FormattedMessage _id={'profile.change.avatar.text'}/>
                 </label>
                 <input onChange={ props.onChange } id="file-upload" type="file"/></> }
             <img src={ props.profile.photos.large || emptyPhoto }

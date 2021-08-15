@@ -3,6 +3,7 @@ import style from "./User.module.css";
 import {NavLink} from "react-router-dom";
 import {PATH} from "../../../common/routes/Routes";
 import {UserType} from "../../../../Redux/usersReducer";
+import {FormattedMessage} from "../../../common/FormattedMessage/FormattedMessage";
 
 type UserPropsType = {
     user:UserType
@@ -31,7 +32,7 @@ const User:React.FC<UserPropsType> = React.memo(({user,emptyPhoto,isRequestSendU
                                 }
                             } )
                     */} }
-                    >unFollow</button>
+                    > <FormattedMessage _id={'unfollow'}/></button>
                     : <button disabled={isRequestSendUsersId.some(id=>id===user.id)} className={ style.followed }
                               onClick={ () => {
                                   followCallBack(user.id)
@@ -44,16 +45,17 @@ const User:React.FC<UserPropsType> = React.memo(({user,emptyPhoto,isRequestSendU
                                               props.sendRequestFromFollowUnFollow(user.id,false)
                                           }
                                       } )
-                              */} }>follow</button> }
+                              */} }><FormattedMessage _id={'follow'}/></button> }
             </div>
             <div className={ style.description }>
                 <div className={ style.info }>
-                    <div className={ style.userStatus }>{ user.status || 'Человечный человек' }</div>
+                    <div className={ style.userStatus }>{ user.status ||  <FormattedMessage _id={'users.status'}/> }</div>
                     <div className={ style.name }>{ user.name }</div>
                 </div>
                 <div className={ style.location }>
                     <span className={ style.country }>"user.location.country"</span>
-                    <span className={ style.city }>"user.location.city"</span></div>
+                    <span className={ style.city }>"user.location.city"</span>
+                </div>
             </div>
         </div>
     )

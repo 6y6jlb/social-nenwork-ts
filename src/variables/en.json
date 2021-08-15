@@ -1,0 +1,11 @@
+{
+  "header.text": "Header",
+  "footer.text": "Stop",
+  "profile.change.avatar.text": "Change avatar",
+  "editable.span.empty.tag": "Empty status",
+  "navBar.info.name": "Empty name",
+  "users.status": "Human",
+  "profile.post.input.placeholder": "Enter new post here",
+  "unfollow": "unfollow",
+  "follow": "follow"
+}

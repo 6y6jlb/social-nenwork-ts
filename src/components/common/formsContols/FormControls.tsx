@@ -1,5 +1,5 @@
-import {Field, WrappedFieldProps} from "redux-form";
-import React from "react";
+import {Field, Validator, WrappedFieldProps} from "redux-form";
+import React, {ReactElement} from "react";
 import style from './FormControls.module.css'
 
 
@@ -63,7 +63,7 @@ export const InputWithoutTouched: React.FC<WrappedFieldProps> = React.memo((prop
 
 export function createField<FormsKeysType extends string>(placeholder: string | undefined,
                                            name: FormsKeysType,
-                                           validators: Array<Function>,
+                                           validators: Validator[],
                                            component: React.FC<WrappedFieldProps>,
                                            props = {}, text = '') {
     return (
