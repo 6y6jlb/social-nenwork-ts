@@ -7,6 +7,7 @@ import {AuthAPI} from "../api/authAPI";
 import {ProfileAPI} from "../api/profileAPI";
 import {actionsProfile} from "../Redux/profileReducer";
 import {stopSubmit} from "redux-form";
+import {jsonMacros} from "../utils/json-helper";
 
 //workers
 export function* getCaptchaSagaWorker({type}: { type: ActionsTypes }) {
@@ -36,7 +37,7 @@ export function* setUserFromAuthSagaWorker({
         try {
             yield put ( actionsProfile.setUserProfile ( response.data ) )
         } catch (e) {
-            throw new Error ( e )
+            yield put ( actionsAuth.setError ( jsonMacros('network.error')  ))
         }
     }
 
@@ -47,9 +48,9 @@ export function* loginSagaWorker({type, payload}: {
         email: string, password: string, rememberMe: boolean, captcha?: string
     }
 }) {
-    const response = yield call ( AuthAPI.login, payload.email, payload.password, payload.rememberMe, payload.captcha )
-
     try {
+        const response = yield call ( AuthAPI.login, payload.email, payload.password, payload.rememberMe, payload.captcha )
+
         if (response.data.resultCode === 0) {
             yield put ( actionsAuth.setUserFromAuthSaga ( true ) )
         } else {

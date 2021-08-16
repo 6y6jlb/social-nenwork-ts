@@ -10,7 +10,7 @@ import {
     GET_CAPTCHA_SAGA,
     GET_CAPTCHA_URL_SUCCESS,
     LOGIN_SAGA,
-    LOGOUT_SAGA,
+    LOGOUT_SAGA, SET_AUTH_NETWORK_ERROR,
     SET_USER_DATA,
     SET_USER_FROM_AUTH_SAGA
 } from "./consts";
@@ -23,6 +23,7 @@ export type UserDataFromAuthAuthType = {
     email: string | null
 }
 export type InitialStateFromAuthType = {
+    error:string | null
     isAuth: boolean
     data: UserDataFromAuthAuthType
     captchaURL: string | null
@@ -31,6 +32,9 @@ export type InitialStateFromAuthType = {
 export type AuthActionsTypes = any
 //ac
 export const actionsAuth = {
+    setError: (message:string|null) => {
+        return {type: SET_AUTH_NETWORK_ERROR,payload:{message}} as const
+    },
     getCaptchaSaga: () => {
         return {type: GET_CAPTCHA_SAGA} as const
     },
@@ -108,6 +112,7 @@ export const logoutTC = (): AppThunk => async dispatch => {
 */
 //state
 const initialState: InitialStateFromAuthType = {
+    error:null,
     isAuth: false,
     captchaURL: null,
     data: {
@@ -121,6 +126,7 @@ const authReducer = (state = initialState, action: AuthActionsTypes): InitialSta
     switch (action.type) {
         case SET_USER_DATA:
         case GET_CAPTCHA_URL_SUCCESS:
+        case SET_AUTH_NETWORK_ERROR:
             return {
                 ...state, ...action.payload
             }

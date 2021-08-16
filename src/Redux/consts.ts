@@ -33,6 +33,7 @@ export const GET_PROFILE_SAGA = 'profile/GET_PROFILE_SAGA'
 
 //auth
 export const GET_CAPTCHA_SAGA = 'auth/GET_CAPTCHA_SAGA'
+export const SET_AUTH_NETWORK_ERROR = 'auth/SET_AUTH_NETWORK_ERROR'
 export const SET_USER_FROM_AUTH_SAGA = 'auth/SET_USER_FROM_AUTH_SAGA'
 export const LOGOUT_SAGA = 'auth/LOGOUT_SAGA'
 export const LOGIN_SAGA = 'auth/LOGIN_SAGA'

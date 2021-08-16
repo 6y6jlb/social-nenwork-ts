@@ -7,5 +7,6 @@
   "users.status": "Human",
   "profile.post.input.placeholder": "Enter new post here",
   "unfollow": "unfollow",
-  "follow": "follow"
+  "follow": "follow",
+  "network.error": "Network error"
 }
