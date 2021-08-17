@@ -15,5 +15,22 @@
 
 }
 .modal {
-
+    min-width: 200px;
+    width: max-content;
+    position: absolute;
+    right: 10px;
+    justify-self: right;
+    height: 30px;
+    padding: 10px;
+    background-color: #851959;
+    color: white;
+    border-radius: 2px;
+    display: none;
+    transition: all ease-in 0.4s;
 }
+.active {
+    display: block;
+    transition: all ease-in 2s;
+}
+
+

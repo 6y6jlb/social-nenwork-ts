@@ -6,6 +6,7 @@ import style from './ProfileHeaderForm.module.css'
 import {UserFromProfileResponseType} from "../../../../../Redux/profileReducer";
 import {requiredField} from "../../../../../utils/validators";
 
+
 type PropsType = {
     profile: UserFromProfileResponseType
     formReset:(event: FormEvent<HTMLFormElement>) => void

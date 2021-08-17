@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import style from './Login.module.css';
 import LoginForm, {FormType} from "./loginForm/LoginForm";
 import {Redirect} from "react-router-dom";
 import {actionsAuth} from "../../../Redux/auth-reducer";
+import {FormattedMessage} from "../FormattedMessage/FormattedMessage";
 
 
 type LoginPropsType = {
@@ -13,8 +14,7 @@ type LoginPropsType = {
     error: string | null
 }
 
-const Login: React.FC<LoginPropsType> = ({isAuth, loginTC, captchaUrl, userId, error}) => {
-    const [isErrorModal, setErrorModal] = useState ( false )
+const Login: React.FC<LoginPropsType> = ({isAuth, loginTC, captchaUrl, userId,error}) => {
     const onSubmit = (data: FormType) => {
         const {login, password, checkbox, captcha} = data
         loginTC ( login, password, checkbox, captcha )
@@ -23,20 +23,21 @@ const Login: React.FC<LoginPropsType> = ({isAuth, loginTC, captchaUrl, userId, e
     const showModal = () => {
         setTimeout ( () => {
             actionsAuth.setError ( null )
-            setErrorModal(false)
         }, 2000 )
     }
-    if (error) {
-        showModal()
-    }
+
 
     if (isAuth) return <Redirect exact to={ '/' }/> //if isAuth true redirect to profile
 
-    return <div className={ style.loginWrapper }>
-        <h1 className={ style.loginH1 }>login</h1>
-        <LoginForm captchaUrl={ captchaUrl } onSubmit={ onSubmit }/>
-        { isErrorModal && <div className={ style.modal }>{ error }</div> }
-    </div>
+    return (
+        <div className={ style.loginWrapper }>
+            <div className={ `${style.modal} ${error && style.active}` }>{ error }</div>
+            <>
+                <h1 className={ style.loginH1 }><FormattedMessage _id={ 'login.title' }/></h1>
+                <LoginForm captchaUrl={ captchaUrl } onSubmit={ onSubmit }/>
+            </>
+        </div>
+    )
 };
 
 export default Login;

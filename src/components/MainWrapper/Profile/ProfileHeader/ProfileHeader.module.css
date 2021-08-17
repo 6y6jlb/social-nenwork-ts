@@ -1,10 +1,11 @@
 .profileHeader {
     grid-column-start: 1;
-    grid-column-end: 3 ;
+    grid-column-end: 3;
     display: grid;
     background-image: url("/src/images/logo193.png");
     width: 1fr;
 }
+
 .profileInfo {
     grid-column-start: 2;
     margin-bottom: 15px;
@@ -24,6 +25,7 @@
     border-color: #492F7E;
     background-color: #d7f8e2;
 }
+
 .infoBlock {
     display: grid;
     row-gap: 30px;
@@ -43,7 +45,6 @@
 }
 
 
-
 .selfPhotoFromProfile img {
     z-index: 5;
     border-radius: 10px 10px 0 0;
@@ -52,57 +53,72 @@
 
 
 }
-.selfOpinion{
+
+.selfOpinion {
 
 }
 
 .contacts {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(auto-fill,1fr);
+    grid-template-rows: repeat(auto-fill, 1fr);
 }
-.contacts ul{
+
+.contacts ul {
     margin: 0;
 }
 
 
-
-
-
-.fullName{
+.fullName {
     text-align: end;
     margin: 10px 50px;
     color: white;
     font-weight: bold;
     font-size: 1.3em;
-    text-transform:capitalize;
+    text-transform: capitalize;
 
 }
+
 .lfj {
     display: grid;
     grid-template-columns: max-content 1fr;
     column-gap: 40px;
 }
+
 .lfj img {
 
-    width:100px;
-    height:100px;
+    width: 100px;
+    height: 100px;
 
 }
+
 input[type="file"] {
     display: none;
 }
 
-.changeAvatarInput{
+.changeAvatarInput {
     border: 1px solid #ccc;
     background-color: #fff;
     position: absolute;
-    top: 32px;
+    bottom: 5px;
     display: inline-block;
-    padding: 6px 12px;
+    padding: 10px 0;
+    width: 100%;
     cursor: pointer;
 }
-.active:before{
+
+.cropAvatar {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    width: 100%;
+    position: absolute;
+    top: 5px;
+    display: inline-block;
+    padding: 4px 0;
+    cursor: pointer;
+}
+
+.active:before {
     content: '';
     background-color: #000;
     opacity: 0.1;
