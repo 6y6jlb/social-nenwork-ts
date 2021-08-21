@@ -54,7 +54,7 @@ class EditableSpan extends PureComponent<EditableSpanPropsType> {
                 { !this.state.editMode
                     ? <span onClick={ () => this.changeEditMode ( true ) }>{ this.props.item ||  <FormattedMessage _id={'editable.span.empty.tag'}/> }</span>
                     : <EditableSpanInputForm initialValues={{input:this.state.value || ''}}   onSubmit={this.onSubmit} />
-                    /*<input onChange={ this.changeValue } value={ this.state.value || '' } autoFocus={ true }
+                    /*<input onPhotoSelect={ this.changeValue } value={ this.state.value || '' } autoFocus={ true }
                              onBlur={ () => this.changeEditMode ( false ) } type="text"/> */ //without redux form
                 }
             </div>

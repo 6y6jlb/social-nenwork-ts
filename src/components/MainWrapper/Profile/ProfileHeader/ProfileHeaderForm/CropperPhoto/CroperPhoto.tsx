@@ -1,29 +1,23 @@
-import React, { useRef } from "react";
-import Cropper from "react-cropper";
-import "cropperjs/dist/cropper.css";
+import React, {useState} from 'react';
+import ReactCrop, {Crop} from 'react-image-crop';
+import 'react-image-crop/dist/ReactCrop.css';
+
 
 interface IProps {
-    imageUrl:string
+    src: string
 }
 
-const CropperPhoto: React.FC<IProps> = ({imageUrl}) => {
-    const cropperRef = useRef<HTMLImageElement>(null);
-    const onCrop = () => {
-        const imageElement: any = cropperRef?.current;
-        const cropper: any = imageElement?.cropper;
-        console.log(cropper.getCroppedCanvas().toDataURL());
-    };
+const CropperPhoto: React.FC<IProps> = ({src}) => {
+    const params = {
+        aspect: 16 / 9,
 
-    return (
-        <Cropper
-            src={imageUrl}
-            style={{ height: 400, width: "100%" }}
-            // Cropper.js options
-            initialAspectRatio={16 / 9}
-            guides={false}
-            crop={onCrop}
-            ref={cropperRef}
-        />
-    );
+    }
+    const [crop, setCrop] = useState<any> ( params );
+    const onChange = (newCrop:Crop) => {
+        console.log(crop)
+        setCrop ( newCrop )
+    };
+    return <ReactCrop src={ src } crop={ crop } onChange={ onChange }/>;
 };
-export default CropperPhoto;
+
+export default CropperPhoto

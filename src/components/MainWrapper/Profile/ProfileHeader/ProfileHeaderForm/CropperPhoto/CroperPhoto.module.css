@@ -1,0 +1,6 @@
+.cropper {
+    max-height: 400px;
+    max-width: 400px;
+    height: 100%;
+    width: 100%;
+}

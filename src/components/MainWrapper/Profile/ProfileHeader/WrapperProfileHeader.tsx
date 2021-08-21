@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useState} from "react";
 import {InitialStateProfileType, UserFromProfileResponseType} from "../../../../Redux/profileReducer";
 import Contact from "./Contacts/Contact";
+import {ProfileHeader} from "./ProfileHeader/ProfileHeader";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import HatProfileHeader from "./HatProfileHeader/HatProfileHeader";
 
 
 type ProfileHeaderPropsType = {
@@ -16,7 +16,7 @@ type ProfileHeaderPropsType = {
 }
 
 
-export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
+export const WrapperProfileHeader: React.FC<ProfileHeaderPropsType> = ({
                                                                     profileWrapperObj,
                                                                     isOwner,
                                                                     savePhotoTC,
@@ -38,6 +38,11 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
             savePhotoTC ( e.currentTarget.files[0] )
         }
     }
+    const saveCroppedPhoto = (image: ChangeEvent<HTMLInputElement> | string) => {
+        if (image) {
+            savePhotoTC (image)
+        }
+    }
     const openFormMode = () => {
         openSet ( true )
     }
@@ -51,10 +56,10 @@ export const ProfileHeader: React.FC<ProfileHeaderPropsType> = ({
     }
 
     return <>
-        <HatProfileHeader profile={ profile } activeAvatarInput={ activeAvatarInput }
-                          onMouseEnter={ () => setActiveAvatarInput ( true ) }
-                          onMouseLeave={ () => setActiveAvatarInput ( false ) } owner={ isOwner }
-                          onChange={ photoSelect }/>
+        <ProfileHeader onCropPhoto={saveCroppedPhoto} profile={ profile } activeAvatarInput={ activeAvatarInput }
+                       onMouseEnter={ () => setActiveAvatarInput ( true ) }
+                       onMouseLeave={ () => setActiveAvatarInput ( false ) } owner={ isOwner }
+                       onPhotoSelect={ photoSelect }/>
         <ProfileInfo formReset={ formReset } isOwner={ isOwner } isFormOpen={ isOpenMenu } profile={ profile }
                      openFormMode={ openFormMode }
                      formSucceed={ formSucceed }>
