@@ -5,10 +5,12 @@
   "profile.crop.avatar": "Crop avatar",
   "editable.span.empty.tag": "Empty status",
   "navBar.info.name": "Empty name",
-  "users.status": "Human",
+  "users.status.empty.follow": "he is your friend",
+  "users.status.empty.unfollow": "he is not a your friend",
   "profile.post.input.placeholder": "Enter new post here",
-  "unfollow": "unfollow",
-  "follow": "follow",
+  "users.dialogs.unfollow": "unfollow",
+  "users.dialogs.follow": "follow",
+  "users.dialogs.dialog": "dialog",
   "network.error": "Network error",
   "login.title": "login"
 }

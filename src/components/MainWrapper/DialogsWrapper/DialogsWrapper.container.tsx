@@ -9,18 +9,23 @@ import {compose} from "redux";
 import selectors from '../../../utils/selectors';
 
 
-type MapStateToPropsType ={
-    isAuth:boolean
-    name:string|null
-}
+// type MapStateToPropsType = {
+//     isAuth: boolean
+//     name: string | null
+// }
+//
+// let mapStateToProps = (state: AppStateType): MapStateToPropsType & InitialStateDialogsType => {
+//     return {
+//         messages: selectors.dialogsSelectors.difficultGetMessagesSelector ( state ),//filter self===true in user-selectors/ test reselect
+//         isAuth: selectors.authSelectors.getIsAuth ( state ),
+//         name: selectors.dialogsSelectors.getFullName ( state ),
+//     };
+// };
 
-let mapStateToProps = (state: AppStateType): MapStateToPropsType & InitialStateDialogsType => {
-    return {
-        messages: selectors.dialogsSelectors.difficultGetMessagesSelector(state),//filter self===true in user-selectors/ test reselect
-        isAuth:selectors.authSelectors.getIsAuth(state),
-        name:selectors.dialogsSelectors.getFullName(state)
-    }
-}
-
-export default compose<React.ComponentType>(
-    connect(mapStateToProps, {addDialogsMessage:actionsDialogs.addDialogsMessage}), withAuthRedirect)(DialogsWrapper)
+export default compose<React.ComponentType> (
+    connect ( null, {
+        addDialogsMessage: actionsDialogs.addDialogsMessage,
+        getDialogs: actionsDialogs.getDialogs,
+        getMessages: actionsDialogs.getMessages,
+        postMessage: actionsDialogs.postMessage,
+    } ), withAuthRedirect ) ( DialogsWrapper );

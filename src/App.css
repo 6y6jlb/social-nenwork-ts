@@ -12,13 +12,5 @@
     width: 100%;
     grid-template-columns: 1fr;
     grid-template-rows: 50px 1fr 30px;
-}
 
-.App {
-    font-family: sans-serif;
-    text-align: center;
-}
-
-img {
-    max-width: 100%;
 }

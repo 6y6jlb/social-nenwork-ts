@@ -47,3 +47,15 @@ export const SET_IS_FETCHING ='news/SET_IS_FETCHING'
 export const SET_PAGE ='news/SET_PAGE'
 export const SET_PAGE_SIZE ='news/SET_PAGE_SIZE'
 export const SET_PORTION_NUMBER ='news/SET_PORTION_NUMBER'
+
+
+//dialogs
+export const ADD_DIALOGS_MESSAGE = 'dialogs/ADD_DIALOGS_MESSAGE'
+export const SET_DIALOGS = 'dialogs/SET_DIALOGS'
+export const SET_MESSAGES = 'dialogs/SET_MESSAGES'
+export const START_DIALOG_SAGA = 'dialogs/START_DIALOG_SAGA'
+export const GET_DIALOGS_SAGA = 'dialogs/GET_DIALOGS_SAGA'
+export const GET_MESSAGES_SAGA = 'dialogs/GET_MESSAGES_SAGA'
+export const POST_MESSAGE_SAGA = 'dialogs/POST_MESSAGE_SAGA'
+export const DELETE_MESSAGE_SAGA = 'dialogs/DELETE_MESSAGE_SAGA'
+export const IS_MESSAGE_VIEWED_SAGA = 'dialogs/IS_MESSAGE_VIEWED_SAGA'

@@ -11,11 +11,12 @@ export const getIsRequestSendUserId = (state: AppStateType) => state.usersReduce
 
 export const getUsersDifficult = createSelector ( getUsers, (users) => {
     return users.map ( u => {
-        const status = u.status && u.status ;
-        const statusText = u.followed ? status && 'and' + ' it is your friend'
-            : status
-                ? status && 'and' + ' he is not a your friend'
-                : u.status ;
+        const status = u.status && u.status;
+        const statusText = status
+            ? status
+            : u.followed
+                ? "users.status.empty.follow"
+                : "users.status.empty.unfollow";
         return {
             ...u,
             status: statusText

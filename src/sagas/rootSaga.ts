@@ -6,10 +6,17 @@ import {
     getStatusSagaWatcher,
     saveNewProfileSagaWatcher,
     savePhotoFromProfileSagaWatcher,
-    updateStatusFromProfileSagaWatcher
+    updateStatusFromProfileSagaWatcher,
 } from "./profileSagas";
 import {getCaptchaSagaWatcher, loginSagaWatcher, logoutSagaWatcher, setUserFromAuthSagaWatcher} from "./authSagas";
 import {getNewsSagaWatcher} from "./newsSagas";
+import {
+    getDialogsSagaWatcher,
+    getMessagesSagaWatcher,
+    postMessageSagaWatcher,
+    startDialogSagaWatcher,
+} from "./dialogsSagas";
+
 
 export default function* rootSaga() {
     yield all ( [
@@ -25,9 +32,13 @@ export default function* rootSaga() {
         getCaptchaSagaWatcher (),
         setUserFromAuthSagaWatcher (),
         loginSagaWatcher (),
-        logoutSagaWatcher(),
-        getNewsSagaWatcher(),
+        logoutSagaWatcher (),
+        getNewsSagaWatcher (),
+        startDialogSagaWatcher (),
+        getDialogsSagaWatcher (),
+        getMessagesSagaWatcher (),
+        postMessageSagaWatcher (),
 
 
-    ] )
+    ] );
 }

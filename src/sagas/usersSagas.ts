@@ -24,7 +24,7 @@ function* getUsersSagaWorker({type, payload}: {
     }
 }
 //follow
-export function* followWorker({type, payload}: { type: ActionsTypes, payload: { userId: number } }) {
+export function* followSagaWorker({type, payload}: { type: ActionsTypes, payload: { userId: number } }) {
     yield put ( actionsUsers.sendRequestFromFollowUnFollowActionCreator ( payload.userId, true ) )
     const response = yield call ( UsersAPI.followUser, payload.userId )
     try {
@@ -62,7 +62,7 @@ export function* getUsersSagaWatcher() {
     yield takeLatest ( GET_USERS_SAGA, getUsersSagaWorker );
 }
 export function* followSagaWatcher() {
-    yield takeLatest ( FOLLOW_SAGA, followWorker );
+    yield takeLatest ( FOLLOW_SAGA, followSagaWorker );
 }
 export function* unfollowSagaWatcher() {
     yield takeLatest ( UNFOLLOW_SAGA, unfollowWorker );

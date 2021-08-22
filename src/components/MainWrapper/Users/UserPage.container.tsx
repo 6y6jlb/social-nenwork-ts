@@ -8,7 +8,7 @@ import Preloader from "../../common/preloader/Preloader";
 import {compose} from "redux";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import selectors from "../../../utils/selectors";
-import {getUsersDifficult} from "../../../utils/selectors/users-selectors";
+import {actionsDialogs} from "../../../Redux/dialogsReducer";
 
 type UsersPageAPIComponentPropsType = {
     users: UserType[]
@@ -21,6 +21,7 @@ type UsersPageAPIComponentPropsType = {
     followCallBack: (id: number) => void
     followUnfollowCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
+    toDialog: (id: number) => void
     changeCurrentPage: (currentPage: number) => void
     changePortionNumber: (portion: number) => void
     getUsersSaga: (pageSize: number, currentPage: number) => void
@@ -76,6 +77,7 @@ class UserPageAPIComponent extends React.Component<UsersPageAPIComponentPropsTyp
                      isRequestSendUsersId={ this.props.isRequestSendUsersId }
                      changePortionNumber={this.props.changePortionNumber}
                      portionNumber={this.props.portionNumber}
+                     toDialog={this.props.toDialog}
             /> }</>
     }
 } //class container for USERS
@@ -104,6 +106,7 @@ export default compose<React.ComponentType> (
         changeCurrentPage: actionsUsers.changeCurrentPageActionCreator,
         changePortionNumber:actionsUsers.setPortionNumber,
         getUsersSaga:actionsUsers.getUsersSaga,
+        toDialog:actionsDialogs.toDialogSaga,
 
     } ),
     withAuthRedirect

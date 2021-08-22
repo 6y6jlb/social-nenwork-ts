@@ -15,6 +15,7 @@ type UsersPagePropsType = {
     isRequestSendUsersId: number []
     followCallBack: (id: number) => void
     unFollowCallBack: (id: number) => void
+    toDialog: (id: number) => void
     onPageChanged: (pageNumber: number) => void
     changePortionNumber: (portion: number) => void
 
@@ -33,7 +34,8 @@ const Users: React.FC<UsersPagePropsType> = React.memo ( (props) => {
         isRequestSendUsersId,
         currentPage,
         portionNumber,
-        changePortionNumber
+        changePortionNumber,
+        toDialog
     } = props;
 
 
@@ -46,7 +48,9 @@ const Users: React.FC<UsersPagePropsType> = React.memo ( (props) => {
                      emptyPhoto={ emptyPhoto }
                      isRequestSendUsersId={ isRequestSendUsersId }
                      followCallBack={ followCallBack }
-                     unFollowCallBack={ unFollowCallBack }/>
+                     unFollowCallBack={ unFollowCallBack }
+                     toDialog={ toDialog }
+        />
     } ) //users items mapped for page
 
 
