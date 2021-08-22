@@ -17,23 +17,22 @@ export function* startDialogSagaWorker({type, payload}: { type: ActionsTypes, pa
 };
 
 export function* getDialogsSagaWorker({type, payload}: { type: ActionsTypes, payload: {} }) {
-
     try {
         const response = yield call ( DialogsAPI.getDialogs );
         const { data } = response
         yield put(actionsDialogs.setDialogs(data))
     } catch (e) {
-        console.log ( e );
+        console.warn ( e );
     } finally {
     }
 };
 export function* getMessagesSagaWorker({type, payload}: { type: ActionsTypes, payload: { id: number } }) {
-
     try {
         const response = yield call ( DialogsAPI.getMessages,payload.id );
-
+        const { items } = response.data
+        yield put(actionsDialogs.setMessages(items))
     } catch (e) {
-        console.log ( e );
+        console.warn ( e );
     } finally {
     }
 };
@@ -43,7 +42,7 @@ export function* postMessageSagaWorker({type, payload}: { type: ActionsTypes, pa
         const response = yield call ( DialogsAPI.sendMessage,payload.id,payload.message );
 
     } catch (e) {
-        console.log ( e );
+        console.warn ( e );
     } finally {
     }
 };

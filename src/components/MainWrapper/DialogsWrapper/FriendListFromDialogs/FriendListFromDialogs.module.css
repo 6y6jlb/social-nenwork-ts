@@ -15,7 +15,8 @@
     color: white;
 }
 .active {
-    background-color: #2c1c4e;
+    background-color: #4C3966;
+
 }
 @media (max-width:  1111px) {
     .friendListFromDialogs {

@@ -1,5 +1,5 @@
 import photo from "../../../../images/face.png";
-import {MessagesArrayFromCurrentDialogType} from "../CurrentDialog/MessageFromCurrentDialog/MessageFromCurrentDialog";
+import {MessagesArrayFromCurrentDialogType} from "../CurrentDialog/MessageFromCurrentDialog/MessagesFromCurrentDialog";
 
 let initialState:Array<MessagesArrayFromCurrentDialogType>
 beforeEach(()=>{

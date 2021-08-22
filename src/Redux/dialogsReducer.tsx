@@ -43,10 +43,7 @@ const initialState = {
 //reducer
 const dialogsReducer = (state = initialState, action: DialogsActionsTypes): InitialStateDialogsType => {
     switch (action.type) {
-        case SET_DIALOGS:{
-            debugger
-            return {...state,...action.payload}
-        }
+        case SET_DIALOGS:
         case SET_MESSAGES:
             return {...state,...action.payload}
 

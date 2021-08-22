@@ -1,19 +1,21 @@
 import React from "react";
-import s from './CurrentDialog.module.css'
+import s from './CurrentDialog.module.css';
 import {SendMessageAreaFromCurrentDialog} from "./SendMessageAreaFromCurrentDialog/SendMessageAreaFromCurrentDialog";
-import {MessageFromCurrentDialog} from "./MessageFromCurrentDialog/MessageFromCurrentDialog";
-import {MessagesFromDialogsType} from "../../../../Redux/dialogsReducer";
+import {IMessage} from "../../../../api/dialogsAPI";
+import {MessagesFromCurrentDialog} from "./MessagesFromCurrentDialog/MessagesFromCurrentDialog";
+
 
 export type CurrentDialogPropsType = {
-    messages: Array<MessagesFromDialogsType>
+    messages: Array<IMessage>
     onAddPost: (self: boolean,item:string) => void
     onPostChanger: (item: string) => void
-    name:string|null
+    masterId:number | null
+
 }
 
-export const CurrentDialog = React.memo((props: CurrentDialogPropsType) => (
+export const CurrentDialog:React.FC<CurrentDialogPropsType> = React.memo(({messages,onAddPost,onPostChanger,masterId}) => (
     <div className={ s.currentDialogWrapper }>
-        <MessageFromCurrentDialog name={ props.name } messages={ props.messages }/>
-        <SendMessageAreaFromCurrentDialog onAddPost={ props.onAddPost } onPostChanger={ props.onPostChanger }/>
+        <MessagesFromCurrentDialog masterId={masterId}  messages={ messages }/>
+        <SendMessageAreaFromCurrentDialog onAddPost={ onAddPost } onPostChanger={ onPostChanger }/>
     </div>
 ));

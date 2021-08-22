@@ -4,7 +4,7 @@ import {Error_404} from "../errors/Error_404/Error_404";
 import Preloader from "../preloader/Preloader";
 
 const ProfileWrapperContainer = React.lazy ( () => import('../../MainWrapper/Profile/ProfileWrapper.container') );
-const DialogsWrapperContainer = React.lazy ( () => import('../../MainWrapper/DialogsWrapper/DialogsWrapper.container') );
+const DialogsWrapperContainer = React.lazy ( () => import('../../MainWrapper/DialogsWrapper/DialogsWrapper') );
 const UserPageContainer = React.lazy ( () => import('../../MainWrapper/Users/UserPage.container') );
 const NewsFeedContainer = React.lazy ( () => import('../../MainWrapper/NewsFeed/NewsFeedContainer') );
 const AudioPage = React.lazy ( () => import('../../MainWrapper/AudioPage/AudioPage') );

@@ -1,17 +1,25 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import s from './FriendListFromDialogs.module.css'
+import {NavLink} from "react-router-dom";
+import style from './FriendListFromDialogs.module.css';
+import {IDialogs} from "../../../../api/dialogsAPI";
 
-export const FriendListFromDialogs = React.memo(() => {
-const activeItem = s.item + ' ' +s.active
+
+interface IProps {
+    dialogs:Array<IDialogs>
+}
+
+
+
+export const FriendListFromDialogs:React.FC<IProps> = React.memo ( ({dialogs}) => {
+
+    const activeItem = style.item + ' ' + style.active;
+
+    const mappedFriends = dialogs.map ( friend => <NavLink to={ `/dialog/${ friend.id}` } className={ activeItem }>
+        <span>{friend.userName}</span>
+    </NavLink> );
     return (
-        <div className={s.friendListFromDialogs}>
-            <NavLink to='/dialog/1' className={activeItem}>Dmitriy Vitcli-Putcli</NavLink>
-            <NavLink to='/dialog/2' className={s.item}>Ivan Vitcli-Putcli</NavLink>
-            <NavLink to='/dialog/3' className={s.item}>Fekla Vitcli-Putcli</NavLink>
-            <NavLink to='/dialog/4' className={s.item}>Antoniy Vitcli-Putcli</NavLink>
-            <NavLink to='/dialog/5' className={s.item}>Vasiliy Vitcli</NavLink>
-            <NavLink to='/dialog/6' className={s.item}>etc.</NavLink>
+        <div className={ style.friendListFromDialogs }>
+            { mappedFriends }
         </div>
-    )
-});
+    );
+} );
