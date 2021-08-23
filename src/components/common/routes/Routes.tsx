@@ -34,6 +34,9 @@ const Routes: React.FC = React.memo ( () => {
                 <Route path={ PATH.PROFILE + ':userId?' }
                        render={ () => <ProfileWrapperContainer
                        /> }/>
+                <Route path={ PATH.DIALOGS + ':userId?' }
+                       render={ () => <DialogsWrapperContainer
+                       /> }/>
                 <Route path={ PATH.DIALOGS }
                        render={ () => <DialogsWrapperContainer
                        /> }/>

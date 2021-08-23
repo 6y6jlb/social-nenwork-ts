@@ -9,22 +9,35 @@ import {actionsDialogs} from "../../../Redux/dialogsReducer";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {AppStateType} from "../../../Redux/reduxStore";
 import selectors from "../../../utils/selectors";
+import {RouteComponentProps, withRouter} from "react-router-dom";
+import {PATH} from "../../common/routes/Routes";
 
 
+const DialogsWrapper: React.FC<IProps> = React.memo ( ({
+                                                           getDialogs,
+                                                           changeDialogsInput,
+                                                           addDialogsMessage,
+                                                           messages,
+                                                           getMessages,
+                                                           postMessage,
+                                                           dialogs,
+                                                           masterId,
+                                                           ...props
+                                                       }) => {
 
-const DialogsWrapper: React.FC<DialogsWrapperPropsType> = React.memo ( ({
-                                                                                   getDialogs,
-                                                                                   changeDialogsInput,
-                                                                                   addDialogsMessage,
-                                                                                   messages,
-                                                                                   getMessages,
-                                                                                   postMessage,
-                                                                                   dialogs,
-                                                                                   masterId
-                                                                               }) => {
+    const refreshProfile = () => {
+        let userIdForURL = props.match.params.userId;
+        debugger
+        console.log ( userIdForURL );
+        if (!userIdForURL) {
+            userIdForURL = props.history.push ( PATH.DIALOGS );
+        }
+
+    };
 
     useEffect ( () => {
         getDialogs ();
+        refreshProfile ();
     }, [] );
     useEffect ( () => {
         getMessages ( 19217 );
@@ -36,7 +49,7 @@ const DialogsWrapper: React.FC<DialogsWrapperPropsType> = React.memo ( ({
     return <div className={ s.dialogsWrapper }>
         <FriendListFromDialogs dialogs={ dialogs }/>
         { messages ?
-            <CurrentDialog masterId={masterId} onAddPost={ addDialogsMessage }
+            <CurrentDialog masterId={ masterId } onAddPost={ addDialogsMessage }
                            onPostChanger={ changeDialogsInput }
                            messages={ messages }/>
             : <div>empty</div> }
@@ -50,8 +63,8 @@ const DialogsWrapper: React.FC<DialogsWrapperPropsType> = React.memo ( ({
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         messages: selectors.dialogsSelectors.getMessages ( state ),//filter self===true in user-selectors/ test reselect
-        dialogs:selectors.dialogsSelectors.getDialogs(state),
-        masterId:selectors.authSelectors.getMyLoginId(state)
+        dialogs: selectors.dialogsSelectors.getDialogs ( state ),
+        masterId: selectors.authSelectors.getMyLoginId ( state ),
     };
 };
 
@@ -61,17 +74,25 @@ export default compose<React.ComponentType> (
         getDialogs: actionsDialogs.getDialogs,
         getMessages: actionsDialogs.getMessages,
         postMessage: actionsDialogs.postMessage,
-    } ), withAuthRedirect ) ( DialogsWrapper );
+    } )
+    , withRouter
+    , withAuthRedirect ) ( DialogsWrapper );
 
 
 //types
 
-type MapStateToPropsType = {
-    messages:Array<IMessage>
-    dialogs:Array<IDialogs>
-    masterId:number | null
+type WithRouterType = {
+    userId: number | any
 }
 
+type MapStateToPropsType = {
+    messages: Array<IMessage>
+    dialogs: Array<IDialogs>
+    masterId: number | null
+}
+
+
+type IProps = RouteComponentProps<WithRouterType> & DialogsWrapperPropsType
 
 export type DialogsWrapperPropsType = {
     addDialogsMessage: (self: boolean, item: string) => void
@@ -81,5 +102,5 @@ export type DialogsWrapperPropsType = {
     getDialogs: () => void
     messages: Array<IMessage>
     dialogs: Array<IDialogs>
-    masterId:number | null
+    masterId: number | null
 }
