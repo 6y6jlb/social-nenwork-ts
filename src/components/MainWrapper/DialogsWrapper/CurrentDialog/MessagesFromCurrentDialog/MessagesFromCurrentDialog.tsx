@@ -8,18 +8,20 @@ import {IMessage} from "../../../../../api/dialogsAPI";
 export type MessageFromCurrentDialogPropsType = {
     messages: Array<IMessage>
     masterId: number | null
+    deleteMessage: (messageId: string) => void
 }
 
 export const MessagesFromCurrentDialog: React.FC<MessageFromCurrentDialogPropsType> = React.memo ( ({
                                                                                                         messages,
                                                                                                         masterId,
+                                                                                                        deleteMessage,
                                                                                                     }) => {
     const messagesBlock = messages.map ( message => {
         const self = message.senderId === masterId; //определяем чей месадж
         return (
             self
-                ? <MyMessage message={ message }/>
-                : <NotMyMessage message={ message }/>);
+                ? <MyMessage deleteMessage={ deleteMessage } message={ message }/>
+                : <NotMyMessage deleteMessage={ deleteMessage } message={ message }/>);
     } );
 
     return (

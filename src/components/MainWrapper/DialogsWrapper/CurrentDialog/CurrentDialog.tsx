@@ -7,15 +7,15 @@ import {MessagesFromCurrentDialog} from "./MessagesFromCurrentDialog/MessagesFro
 
 export type CurrentDialogPropsType = {
     messages: Array<IMessage>
-    onAddPost: (self: boolean,item:string) => void
-    onPostChanger: (item: string) => void
     masterId:number | null
+    sendMessage:(id:string)=>void
+    deleteMessage:(messageId:string)=>void
 
 }
 
-export const CurrentDialog:React.FC<CurrentDialogPropsType> = React.memo(({messages,onAddPost,onPostChanger,masterId}) => (
+export const CurrentDialog:React.FC<CurrentDialogPropsType> = React.memo(({messages,masterId,sendMessage,deleteMessage}) => (
     <div className={ s.currentDialogWrapper }>
-        <MessagesFromCurrentDialog masterId={masterId}  messages={ messages }/>
-        <SendMessageAreaFromCurrentDialog onAddPost={ onAddPost } onPostChanger={ onPostChanger }/>
+        <MessagesFromCurrentDialog deleteMessage={deleteMessage} masterId={masterId}  messages={ messages }/>
+        <SendMessageAreaFromCurrentDialog sendMessage={ sendMessage }/>
     </div>
 ));

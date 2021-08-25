@@ -1,6 +1,7 @@
 import {InferActionsType} from "./reduxStore";
 import {
     ADD_DIALOGS_MESSAGE,
+    DELETE_MESSAGE_SAGA,
     GET_DIALOGS_SAGA,
     GET_MESSAGES_SAGA,
     POST_MESSAGE_SAGA,
@@ -27,25 +28,28 @@ export const actionsDialogs = {
     postMessage: (id: number, message: string) => {
         return {type: POST_MESSAGE_SAGA, payload: {id, message}} as const;
     },
-    setMessages: (messages:Array<IMessage>) => {
+    setMessages: (messages: Array<IMessage>) => {
         return {type: SET_MESSAGES, payload: {messages}} as const;
     },
-    setDialogs: (dialogs:Array<IDialogs>) => {
+    setDialogs: (dialogs: Array<IDialogs>) => {
         return {type: SET_DIALOGS, payload: {dialogs}} as const;
+    },
+    deleteMessage: (id:number,messageId: string) => {
+        return {type: DELETE_MESSAGE_SAGA, payload: {id,messageId}} as const;
     },
 
 };
 //state
 const initialState = {
     dialogs: [] as Array<IDialogs>,
-    messages:[] as  Array<IMessage>,
+    messages: [] as Array<IMessage>,
 };
 //reducer
 const dialogsReducer = (state = initialState, action: DialogsActionsTypes): InitialStateDialogsType => {
     switch (action.type) {
         case SET_DIALOGS:
         case SET_MESSAGES:
-            return {...state,...action.payload}
+            return {...state, ...action.payload};
 
         default:
             return state;

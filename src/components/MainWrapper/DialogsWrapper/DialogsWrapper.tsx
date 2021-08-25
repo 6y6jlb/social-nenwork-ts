@@ -10,7 +10,6 @@ import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {AppStateType} from "../../../Redux/reduxStore";
 import selectors from "../../../utils/selectors";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {PATH} from "../../common/routes/Routes";
 
 
 const DialogsWrapper: React.FC<IProps> = React.memo ( ({
@@ -22,35 +21,34 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
                                                            postMessage,
                                                            dialogs,
                                                            masterId,
+                                                           deleteMessage,
                                                            ...props
                                                        }) => {
 
+    const userIdForURL = props.match.params.userId;
+
     const refreshProfile = () => {
-        let userIdForURL = props.match.params.userId;
-        debugger
-        console.log ( userIdForURL );
-        if (!userIdForURL) {
-            userIdForURL = props.history.push ( PATH.DIALOGS );
+        if (userIdForURL) {
+            getMessages ( userIdForURL );
         }
-
     };
-
     useEffect ( () => {
         getDialogs ();
         refreshProfile ();
-    }, [] );
-    useEffect ( () => {
-        getMessages ( 19217 );
-    }, [] );
-    // useEffect ( () => {
-    //     postMessage ( 19217,'test' );
-    // }, [] );
+    }, [userIdForURL] );
+
+    const sendMessageCallback = (id: string) => (text: string) => {
+        postMessage ( +id, text );
+    };
+    const deleteMessageCallback = (id: string) => (messageId: string) => {
+        deleteMessage ( +id, messageId );
+    };
 
     return <div className={ s.dialogsWrapper }>
         <FriendListFromDialogs dialogs={ dialogs }/>
         { messages ?
-            <CurrentDialog masterId={ masterId } onAddPost={ addDialogsMessage }
-                           onPostChanger={ changeDialogsInput }
+            <CurrentDialog deleteMessage={ deleteMessageCallback(userIdForURL) } sendMessage={ sendMessageCallback ( userIdForURL ) }
+                           masterId={ masterId }
                            messages={ messages }/>
             : <div>empty</div> }
     </div>;
@@ -74,6 +72,7 @@ export default compose<React.ComponentType> (
         getDialogs: actionsDialogs.getDialogs,
         getMessages: actionsDialogs.getMessages,
         postMessage: actionsDialogs.postMessage,
+        deleteMessage: actionsDialogs.deleteMessage,
     } )
     , withRouter
     , withAuthRedirect ) ( DialogsWrapper );
@@ -99,6 +98,7 @@ export type DialogsWrapperPropsType = {
     changeDialogsInput: (item: string) => void
     getMessages: (id: number) => void
     postMessage: (id: number, message: string) => void
+    deleteMessage: (id: number,messageId: string) => void
     getDialogs: () => void
     messages: Array<IMessage>
     dialogs: Array<IDialogs>

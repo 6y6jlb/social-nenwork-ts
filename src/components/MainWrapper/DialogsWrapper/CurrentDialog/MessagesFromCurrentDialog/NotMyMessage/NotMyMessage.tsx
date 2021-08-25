@@ -5,6 +5,7 @@ import {IMessage} from "../../../../../../api/dialogsAPI";
 
 interface IProps {
     message: IMessage;
+    deleteMessage: (messageId: string) => void;
 
 }
 
@@ -16,7 +17,7 @@ export const NotMyMessage: React.FC<IProps> = React.memo ( ({message}) => (
             <div className={ s.textFrame }>
                 <div className={ s.name }>{ message.senderName }</div>
                 <div className={ s.textMessage }>{ message.body }</div>
-                <div className={ s.time }>02.21.22</div>
+                <div className={ s.time }>{message.addedAt}</div>
             </div>
 
         </div>

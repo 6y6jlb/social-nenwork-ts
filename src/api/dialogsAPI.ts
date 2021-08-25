@@ -31,13 +31,13 @@ export interface IMessages {
 }
 
 export interface IDialogs {
-    hasNewMessages: boolean
-    id: number
-    lastDialogActivityDate:Date
-    lastUserActivityDate: Date
-    newMessagesCount: number
-    photos: {small: null | string, large: null | string}
-    userName: string
+    hasNewMessages: boolean;
+    id: number;
+    lastDialogActivityDate: Date;
+    lastUserActivityDate: Date;
+    newMessagesCount: number;
+    photos: { small: null | string, large: null | string };
+    userName: string;
 }
 
 export const DialogsAPI = {
@@ -52,6 +52,9 @@ export const DialogsAPI = {
     },
     sendMessage: (id: number, message: string) => {
         return instanceSamuraiAPI.post<IPostMessage> ( `dialogs/${ id }/messages`, {body: message} );
+    },
+    deleteMessage: (messageId: number) => {
+        return instanceSamuraiAPI.delete<IPostMessage> ( `dialogs/messages/${ messageId }` );
     },
 
 };

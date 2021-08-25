@@ -8,8 +8,8 @@ import Button from "../../../../common/Button/Button";
 
 
 type SendMessageAreaFromCurrentDialogPropsType = {
-    onAddPost: (self: boolean,item:string) => void
-    onPostChanger: (item: string) => void
+    sendMessage: (text:string) => void
+
 
 }
 type PropsType = {
@@ -36,7 +36,7 @@ export const SendMessageAreaFromCurrentDialog:React.FC<SendMessageAreaFromCurren
     const onSubmit = (formData:AddMessageFormType)=>{
         const message = formData.newMessageBody;
         if (message) {
-        message.trim()&& props.onAddPost (true,message.trim())
+        message.trim()&& props.sendMessage (message.trim())
         }
     }
 

@@ -11,6 +11,7 @@ import {
 import {getCaptchaSagaWatcher, loginSagaWatcher, logoutSagaWatcher, setUserFromAuthSagaWatcher} from "./authSagas";
 import {getNewsSagaWatcher} from "./newsSagas";
 import {
+    deleteMessageSagaWatcher,
     getDialogsSagaWatcher,
     getMessagesSagaWatcher,
     postMessageSagaWatcher,
@@ -38,6 +39,8 @@ export default function* rootSaga() {
         getDialogsSagaWatcher (),
         getMessagesSagaWatcher (),
         postMessageSagaWatcher (),
+        deleteMessageSagaWatcher (),
+
 
 
     ] );
