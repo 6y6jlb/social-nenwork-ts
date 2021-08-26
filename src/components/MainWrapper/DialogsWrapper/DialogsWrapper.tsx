@@ -60,7 +60,7 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
 
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        messages: selectors.dialogsSelectors.getMessages ( state ),//filter self===true in user-selectors/ test reselect
+        messages: selectors.dialogsSelectors.getMessages ( state ),//filter isSelf===true in user-selectors/ test reselect
         dialogs: selectors.dialogsSelectors.getDialogs ( state ),
         masterId: selectors.authSelectors.getMyLoginId ( state ),
     };

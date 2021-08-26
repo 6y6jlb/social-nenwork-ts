@@ -86,17 +86,17 @@ let store: StoreType = {
         dialogWrapperObj: {
             currentInputMessageString: '',
             messages: [
-                {id: 1, item: 'myMessage', self: true, avatarURL: photo},
-                {id: 2, item: 'notMyMessage', self: false, avatarURL: photo},
-                {id: 3, item: 'myMessage', self: true, avatarURL: photo},
-                {id: 4, item: 'myMessage', self: true, avatarURL: photo},
-                {id: 5, item: 'notMyMessage', self: false, avatarURL: photo},
-                {id: 6, item: 'notMyMessage', self: false, avatarURL: photo},
-                {id: 7, item: 'myMessage', self: true, avatarURL: photo},
-                {id: 8, item: 'myMessage', self: true, avatarURL: photo},
-                {id: 9, item: 'notMyMessage', self: false, avatarURL: photo},
-                {id: 10, item: 'myMessage', self: true, avatarURL: photo},
-                {id: 11, item: 'notMyMessage', self: false, avatarURL: photo},
+                {id: 1, item: 'myMessage', isSelf: true, avatarURL: photo},
+                {id: 2, item: 'notMyMessage', isSelf: false, avatarURL: photo},
+                {id: 3, item: 'myMessage', isSelf: true, avatarURL: photo},
+                {id: 4, item: 'myMessage', isSelf: true, avatarURL: photo},
+                {id: 5, item: 'notMyMessage', isSelf: false, avatarURL: photo},
+                {id: 6, item: 'notMyMessage', isSelf: false, avatarURL: photo},
+                {id: 7, item: 'myMessage', isSelf: true, avatarURL: photo},
+                {id: 8, item: 'myMessage', isSelf: true, avatarURL: photo},
+                {id: 9, item: 'notMyMessage', isSelf: false, avatarURL: photo},
+                {id: 10, item: 'myMessage', isSelf: true, avatarURL: photo},
+                {id: 11, item: 'notMyMessage', isSelf: false, avatarURL: photo},
 
             ]
         },

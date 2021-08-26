@@ -1,8 +1,8 @@
 import React from "react";
 import s from './MessageFromCurrentDialog.module.css';
-import {MyMessage} from "./MyMessage/MyMessage";
-import {NotMyMessage} from "./NotMyMessage/NotMyMessage";
+
 import {IMessage} from "../../../../../api/dialogsAPI";
+import {Message} from "./Message/Message";
 
 
 export type MessageFromCurrentDialogPropsType = {
@@ -17,11 +17,8 @@ export const MessagesFromCurrentDialog: React.FC<MessageFromCurrentDialogPropsTy
                                                                                                         deleteMessage,
                                                                                                     }) => {
     const messagesBlock = messages.map ( message => {
-        const self = message.senderId === masterId; //определяем чей месадж
-        return (
-            self
-                ? <MyMessage deleteMessage={ deleteMessage } message={ message }/>
-                : <NotMyMessage deleteMessage={ deleteMessage } message={ message }/>);
+        const isSelf = message.senderId === masterId; //определяем чей месадж
+        return <Message isSelf={isSelf} deleteMessage={ deleteMessage } message={ message }/>;
     } );
 
     return (
