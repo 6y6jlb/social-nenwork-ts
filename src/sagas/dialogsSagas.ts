@@ -7,7 +7,7 @@ import {
     START_DIALOG_SAGA,
 } from "../Redux/consts";
 import {ActionsTypes} from "../Redux/reduxStore";
-import {DialogsAPI} from "../api/dialogsAPI";
+import {DialogsAPI, IMessage} from "../api/dialogsAPI";
 import {actionsDialogs} from "../Redux/dialogsReducer";
 import {getMyLoginId} from "../utils/selectors/auth-selectors";
 
@@ -37,8 +37,24 @@ export function* getDialogsSagaWorker({type, payload}: { type: ActionsTypes, pay
 export function* getMessagesSagaWorker({type, payload}: { type: ActionsTypes, payload: { id: number } }) {
     try {
         const response = yield call ( DialogsAPI.getMessages, payload.id );
+
+        const mes:IMessage = {
+            id:'123',
+            body:'sdfsfd',
+            addedAt:"2021-08-26T19:05:47.5",
+            deletedByRecipient:false,
+            deletedBySender:false,
+            distributionId:'asd121',
+            isSpam:false,recipientId:123123,
+            recipientName:"asdasd",
+            senderName:"asdasd",
+            senderId:1233,
+            translatedBody:false,
+            viewed:false
+
+        }
         const {items} = response.data;
-        yield put ( actionsDialogs.setMessages ( items ) );
+        yield put ( actionsDialogs.setMessages (items.concat(mes) ) );
     } catch (e) {
         console.warn ( e );
     } finally {

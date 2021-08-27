@@ -10,19 +10,6 @@
     max-width: 300px;
 }
 
-.messageFriend {
-    min-height: 80px;
-    height: max-content;
-    display: grid;
-    grid-template-areas: "a mF";
-    grid-auto-columns: auto minmax(auto, 400px);
-    min-width: 100px;
-    max-width: 300px;
-
-}
-
-
-
 
 .avatar {
     text-align: center;
@@ -47,36 +34,12 @@
 
 }
 
-.avatarFriend {
-    text-align: center;
-    grid-area: a;
-    display: grid;
-    align-content: center;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
-    justify-self: end;
-    align-self: end;
-    border-radius: 50%;
-    background-color: #150b22;
-}
-
-
-.avatarFriend img {
-
-    border-radius: 50%;
-    width: 31px;
-    height: 31px;
-
-}
-
 
 .messageFrame {
     cursor: pointer;
     grid-area: mF;
     display: grid;
     grid-template-columns: 1fr 20px;
-
 
 
 }
@@ -91,26 +54,6 @@
     position: relative;
     right: 40px;
 
-
-}
-
-
-.messageFrameFriend {
-    cursor: pointer;
-    grid-area: mF;
-    display: grid;
-    grid-template-columns: 20px 1fr;
-
-
-}
-
-.cornetFriend {
-    align-self: end;
-    border: 20px solid transparent;
-    border-right: 20px solid #4c3966;
-    border-bottom: 20px solid #4C3966;
-    width: 20px;
-    height: 20px;
 
 }
 
@@ -139,6 +82,62 @@
     position: relative;
     z-index: 1;
 }
+
+
+.messageFriend {
+    min-height: 80px;
+    height: max-content;
+    display: grid;
+    grid-template-areas: "a mF";
+    grid-auto-columns: auto minmax(auto, 400px);
+    min-width: 100px;
+    max-width: 300px;
+    position: relative;
+
+}
+
+.avatarFriend {
+    text-align: center;
+    grid-area: a;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    justify-self: end;
+    align-self: end;
+    border-radius: 50%;
+    background-color: #150b22;
+}
+
+
+.avatarFriend img {
+    border-radius: 50%;
+    width: 31px;
+    height: 31px;
+
+}
+
+
+.messageFrameFriend {
+    cursor: pointer;
+    grid-area: mF;
+    display: grid;
+    grid-template-columns: 20px 1fr;
+
+
+}
+
+.cornetFriend {
+    align-self: end;
+    border: 20px solid transparent;
+    border-right: 20px solid #4c3966;
+    border-bottom: 20px solid #4C3966;
+    width: 20px;
+    height: 20px;
+
+}
+
 
 .textMessageFriend {
     text-align: end;
@@ -172,11 +171,33 @@
     bottom: 60px;
     right: 0;
 }
+
 .bin img {
     width: 30px;
     height: 30px;
 }
 
 .activeBin {
+    display: block;
+}
+
+.subMenuFriend {
+    display: none;
+    width: 35px;
+    height: 70px;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+}
+
+.img img {
+    width: 25px;
+    height: 25px;
+    margin-bottom: 6px;
+}
+
+
+
+.activeSubMenuFriend {
     display: block;
 }

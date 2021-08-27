@@ -2,7 +2,7 @@ import {instanceSamuraiAPI} from "./instance";
 
 
 export interface IMessage {
-    addedAt: Date;
+    addedAt: string;
     body: string;
     deletedByRecipient: boolean;
     deletedBySender: boolean;

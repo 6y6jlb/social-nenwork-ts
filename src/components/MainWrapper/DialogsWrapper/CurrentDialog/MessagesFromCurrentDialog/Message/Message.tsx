@@ -2,6 +2,7 @@ import s from "./Message.module.css";
 import React, {useState} from "react";
 import {IMessage} from "../../../../../../api/dialogsAPI";
 import bin from '../../../../../../images/dustbin.png';
+import spam from '../../../../../../images/spam.png';
 
 
 interface IProps {
@@ -34,9 +35,15 @@ export const Message: React.FC<IProps> = React.memo ( ({message, deleteMessage, 
         </div>
         :
         <div className={ s.messageFriend }>
-            <div className={ `${ s.spam } ${ isFriendSubMenu && s.activeSpam }` }
-                 onClick={ () => deleteMessage ( message.id ) }>
-                <img src={ bin } alt="spam"/>
+            <div className={ `${s.subMenuFriend} ${ isFriendSubMenu && s.activeSubMenuFriend }`}>
+                <div className={ s.img }
+                     onClick={ () => deleteMessage ( message.id ) }>
+                    <img src={ spam } alt="spam"/>
+                </div>
+                <div className={  s.img }
+                     onClick={ () => deleteMessage ( message.id ) }>
+                    <img src={ bin } alt="spam"/>
+                </div>
             </div>
             <div className={ s.avatar }><img className={ s.avatarChildFriend } src={ '' }/></div>
             <div className={ s.messageFrameFriend } onClick={ () => setFriendSubMenu ( !isFriendSubMenu ) }>
