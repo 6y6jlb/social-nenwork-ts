@@ -22,6 +22,8 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
                                                            dialogs,
                                                            masterId,
                                                            deleteMessage,
+                                                           toViewedMessage,
+                                                           toSpamMessage,
                                                            ...props
                                                        }) => {
 
@@ -40,6 +42,12 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
     const sendMessageCallback = (id: string) => (text: string) => {
         postMessage ( +id, text );
     };
+    const toViewedMessageCallback = (id: string) => (messageId: string) => {
+        deleteMessage ( +id, messageId );
+    };
+    const toSpamMessageCallback = (id: string) => (messageId: string) => {
+        deleteMessage ( +id, messageId );
+    };
     const deleteMessageCallback = (id: string) => (messageId: string) => {
         deleteMessage ( +id, messageId );
     };
@@ -47,7 +55,10 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
     return <div className={ s.dialogsWrapper }>
         <FriendListFromDialogs dialogs={ dialogs }/>
         { messages ?
-            <CurrentDialog deleteMessage={ deleteMessageCallback(userIdForURL) } sendMessage={ sendMessageCallback ( userIdForURL ) }
+            <CurrentDialog deleteMessage={ deleteMessageCallback ( userIdForURL ) }
+                           sendMessage={ sendMessageCallback ( userIdForURL ) }
+                           toSpamMessage={ toSpamMessageCallback ( userIdForURL ) }
+                           toViewedMessage={ toViewedMessageCallback ( userIdForURL ) }
                            masterId={ masterId }
                            messages={ messages }/>
             : <div>empty</div> }
@@ -73,6 +84,8 @@ export default compose<React.ComponentType> (
         getMessages: actionsDialogs.getMessages,
         postMessage: actionsDialogs.postMessage,
         deleteMessage: actionsDialogs.deleteMessage,
+        toSpamMessage: actionsDialogs.toSpamMessage,
+        toViewedMessage: actionsDialogs.toViewedMessage,
     } )
     , withRouter
     , withAuthRedirect ) ( DialogsWrapper );
@@ -98,7 +111,9 @@ export type DialogsWrapperPropsType = {
     changeDialogsInput: (item: string) => void
     getMessages: (id: number) => void
     postMessage: (id: number, message: string) => void
-    deleteMessage: (id: number,messageId: string) => void
+    deleteMessage: (id: number, messageId: string) => void
+    toSpamMessage: (id: number, messageId: string) => void
+    toViewedMessage: (id: number, messageId: string) => void
     getDialogs: () => void
     messages: Array<IMessage>
     dialogs: Array<IDialogs>

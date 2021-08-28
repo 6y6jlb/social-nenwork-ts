@@ -56,5 +56,11 @@ export const DialogsAPI = {
     deleteMessage: (messageId: number) => {
         return instanceSamuraiAPI.delete<IPostMessage> ( `dialogs/messages/${ messageId }` );
     },
+    toSpamMessage: (messageId: number) => {
+        return instanceSamuraiAPI.post<IPostMessage> ( `dialogs/messages/${ messageId }/spam` );
+    },
+    toViewedMessage: (messageId: number) => {
+        return instanceSamuraiAPI.get<IPostMessage> ( `dialogs/messages/${ messageId }/viewed` );
+    },
 
 };

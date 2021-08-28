@@ -69,10 +69,16 @@
 .time {
     text-align: end;
     font-size: 0.8em;
-    color: #614272;
+    color: #a074b9;
     position: relative;
     z-index: 1;
     margin-bottom: 5px;
+}
+
+.time span:first-child {
+    font-size: 0.9em;
+    opacity: 80%;
+    margin-right:20px ;
 }
 
 .bin {
@@ -82,6 +88,7 @@
     position: absolute;
     bottom: 10px;
     left: -55px;
+
 }
 
 .bin img {
@@ -91,6 +98,7 @@
 
 .activeBin {
     display: block;
+    cursor: pointer;
 }
 
 .viewed {
@@ -99,7 +107,7 @@
     height: 25px;
     position: absolute;
     left: 10px;
-    bottom: 0;
+    top: 13px;
 }
 
 .viewed  img{
@@ -183,7 +191,13 @@
 .timeFriend {
     font-size: 0.8em;
     text-align: end;
-    color: #847894;
+    color: #ac9ec0;
+}
+
+.timeFriend span:first-child {
+    font-size: 0.9em;
+    opacity: 80%;
+    margin-right:20px ;
 }
 
 .imgFriend img {
@@ -203,4 +217,5 @@
 
 .activeSubMenuFriend {
     display: block;
+    cursor: pointer;
 }

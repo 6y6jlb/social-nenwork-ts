@@ -9,16 +9,21 @@ export type MessageFromCurrentDialogPropsType = {
     messages: Array<IMessage>
     masterId: number | null
     deleteMessage: (messageId: string) => void
+    toSpamMessage: (messageId: string) => void
+    toViewedMessage: (messageId: string) => void
 }
 
 export const MessagesFromCurrentDialog: React.FC<MessageFromCurrentDialogPropsType> = React.memo ( ({
                                                                                                         messages,
                                                                                                         masterId,
                                                                                                         deleteMessage,
+                                                                                                        toViewedMessage,
+                                                                                                        toSpamMessage,
                                                                                                     }) => {
     const messagesBlock = messages.map ( message => {
         const isSelf = message.senderId === masterId; //определяем чей месадж
-        return <Message isSelf={isSelf} deleteMessage={ deleteMessage } message={ message }/>;
+        return <Message toSpamMessage={ toSpamMessage } toViewedMessage={ toViewedMessage } isSelf={ isSelf }
+                        deleteMessage={ deleteMessage } message={ message }/>;
     } );
 
     return (

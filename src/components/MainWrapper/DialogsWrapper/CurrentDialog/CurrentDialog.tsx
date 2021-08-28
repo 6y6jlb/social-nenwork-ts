@@ -7,15 +7,25 @@ import {MessagesFromCurrentDialog} from "./MessagesFromCurrentDialog/MessagesFro
 
 export type CurrentDialogPropsType = {
     messages: Array<IMessage>
-    masterId:number | null
-    sendMessage:(id:string)=>void
-    deleteMessage:(messageId:string)=>void
+    masterId: number | null
+    sendMessage: (id: string) => void
+    deleteMessage: (messageId: string) => void
+    toSpamMessage: (messageId: string) => void
+    toViewedMessage: (messageId: string) => void
 
 }
 
-export const CurrentDialog:React.FC<CurrentDialogPropsType> = React.memo(({messages,masterId,sendMessage,deleteMessage}) => (
+export const CurrentDialog: React.FC<CurrentDialogPropsType> = React.memo ( ({
+                                                                                 messages,
+                                                                                 masterId,
+                                                                                 sendMessage,
+                                                                                 deleteMessage,
+                                                                                 toSpamMessage,
+                                                                                 toViewedMessage,
+                                                                             }) => (
     <div className={ s.currentDialogWrapper }>
-        <MessagesFromCurrentDialog deleteMessage={deleteMessage} masterId={masterId}  messages={ messages }/>
+        <MessagesFromCurrentDialog toSpamMessage={ toSpamMessage } toViewedMessage={ toViewedMessage }
+                                   deleteMessage={ deleteMessage } masterId={ masterId } messages={ messages }/>
         <SendMessageAreaFromCurrentDialog sendMessage={ sendMessage }/>
     </div>
-));
+) );

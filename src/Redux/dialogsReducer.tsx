@@ -3,11 +3,11 @@ import {
     ADD_DIALOGS_MESSAGE,
     DELETE_MESSAGE_SAGA,
     GET_DIALOGS_SAGA,
-    GET_MESSAGES_SAGA,
+    GET_MESSAGES_SAGA, IS_MESSAGE_VIEWED_SAGA,
     POST_MESSAGE_SAGA,
     SET_DIALOGS,
     SET_MESSAGES,
-    START_DIALOG_SAGA,
+    START_DIALOG_SAGA, TO_SPAM_MESSAGE_SAGA,
 } from "./consts";
 import {IDialogs, IMessage} from "../api/dialogsAPI";
 
@@ -36,6 +36,12 @@ export const actionsDialogs = {
     },
     deleteMessage: (id:number,messageId: string) => {
         return {type: DELETE_MESSAGE_SAGA, payload: {id,messageId}} as const;
+    },
+    toViewedMessage: (id:number,messageId: string) => {
+        return {type: IS_MESSAGE_VIEWED_SAGA, payload: {id,messageId}} as const;
+    },
+    toSpamMessage: (id:number,messageId: string) => {
+        return {type: TO_SPAM_MESSAGE_SAGA, payload: {id,messageId}} as const;
     },
 
 };

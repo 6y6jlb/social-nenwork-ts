@@ -1,15 +1,15 @@
-import {call, put, select, takeLatest} from "redux-saga/effects";
+import {call, put, takeLatest} from "redux-saga/effects";
 import {
     DELETE_MESSAGE_SAGA,
     GET_DIALOGS_SAGA,
     GET_MESSAGES_SAGA,
     POST_MESSAGE_SAGA,
     START_DIALOG_SAGA,
+    TO_SPAM_MESSAGE_SAGA,
 } from "../Redux/consts";
 import {ActionsTypes} from "../Redux/reduxStore";
 import {DialogsAPI, IMessage} from "../api/dialogsAPI";
 import {actionsDialogs} from "../Redux/dialogsReducer";
-import {getMyLoginId} from "../utils/selectors/auth-selectors";
 
 
 //workers
@@ -89,11 +89,30 @@ export function* deleteMessageSagaWorker({
     } finally {
     }
 };
+export function* toSpamMessageSagaWorker({
+                                             type,
+                                             payload,
+                                         }: { type: ActionsTypes, payload: {id:number, messageId: number } }) {
+
+
+    try {
+        const response = yield call ( DialogsAPI.toSpamMessage, payload.messageId );
+        debugger
+        yield put ( actionsDialogs.getMessages ( payload.id ) );
+    } catch (e) {
+        console.warn ( e );
+    } finally {
+    }
+};
 
 //watchers
 
 export function* deleteMessageSagaWatcher() {
     yield takeLatest ( DELETE_MESSAGE_SAGA, deleteMessageSagaWorker );
+};
+
+export function* toSpamMessageSagaWatcher() {
+    yield takeLatest ( TO_SPAM_MESSAGE_SAGA, toSpamMessageSagaWorker );
 };
 
 export function* postMessageSagaWatcher() {
