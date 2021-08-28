@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {CurrentDialog} from "./CurrentDialog/CurrentDialog";
 import {FriendListFromDialogs} from "./FriendListFromDialogs/FriendListFromDialogs";
 import s from './DialogsWrapper.module.css';
@@ -10,6 +10,7 @@ import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {AppStateType} from "../../../Redux/reduxStore";
 import selectors from "../../../utils/selectors";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {MESSAGES_COUNT} from "../../../variables/consts";
 
 
 const DialogsWrapper: React.FC<IProps> = React.memo ( ({
@@ -26,27 +27,33 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
                                                            toSpamMessage,
                                                            ...props
                                                        }) => {
-
+    const [count, setCount] = useState ( MESSAGES_COUNT );
     const userIdForURL = props.match.params.userId;
 
     const refreshProfile = () => {
         if (userIdForURL) {
-            getMessages ( userIdForURL );
+            getMessages ( userIdForURL, count );
         }
     };
+
+    const getMoreMessages = ()=>{
+        setCount(count+10)
+    }
+
     useEffect ( () => {
         getDialogs ();
         refreshProfile ();
-    }, [userIdForURL] );
+    }, [userIdForURL,count] );
+
 
     const sendMessageCallback = (id: string) => (text: string) => {
         postMessage ( +id, text );
     };
     const toViewedMessageCallback = (id: string) => (messageId: string) => {
-        deleteMessage ( +id, messageId );
+        toViewedMessage ( +id, messageId );
     };
     const toSpamMessageCallback = (id: string) => (messageId: string) => {
-        deleteMessage ( +id, messageId );
+        toViewedMessage ( +id, messageId );
     };
     const deleteMessageCallback = (id: string) => (messageId: string) => {
         deleteMessage ( +id, messageId );
@@ -59,6 +66,7 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
                            sendMessage={ sendMessageCallback ( userIdForURL ) }
                            toSpamMessage={ toSpamMessageCallback ( userIdForURL ) }
                            toViewedMessage={ toViewedMessageCallback ( userIdForURL ) }
+                           getMoreMessages={getMoreMessages}
                            masterId={ masterId }
                            messages={ messages }/>
             : <div>empty</div> }
@@ -109,7 +117,7 @@ type IProps = RouteComponentProps<WithRouterType> & DialogsWrapperPropsType
 export type DialogsWrapperPropsType = {
     addDialogsMessage: (self: boolean, item: string) => void
     changeDialogsInput: (item: string) => void
-    getMessages: (id: number) => void
+    getMessages: (id: number, count?: number) => void
     postMessage: (id: number, message: string) => void
     deleteMessage: (id: number, messageId: string) => void
     toSpamMessage: (id: number, messageId: string) => void

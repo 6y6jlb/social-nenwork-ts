@@ -1,6 +1,7 @@
 .currentDialogWrapper{
     display: grid;
+    width: 100%;
     grid-template-rows: 1fr max-content;
     align-content: start ;
+    position: relative;
 }
-

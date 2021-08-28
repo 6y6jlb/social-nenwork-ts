@@ -12,5 +12,6 @@
   "users.dialogs.follow": "follow",
   "users.dialogs.dialog": "dialog",
   "network.error": "Network error",
-  "login.title": "login"
+  "login.title": "login",
+  "messages.empty": "No one message yet,maybe you should choose dialogue."
 }

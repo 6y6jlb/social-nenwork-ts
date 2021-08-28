@@ -49,7 +49,7 @@ export const Message: React.FC<IProps> = React.memo ( ({
             </div>
         </div>
         :
-        <div className={ s.messageFriend } onDoubleClick={ () => toViewedMessage ( message.id ) }>
+        <div className={ s.messageFriend } onLoad={ () => toViewedMessage ( message.id ) }>
             <div className={ `${ s.subMenuFriend } ${ isFriendSubMenu && s.activeSubMenuFriend }` }>
                 <div className={ s.imgFriend }
                      onClick={ () => deleteMessage ( message.id ) }>

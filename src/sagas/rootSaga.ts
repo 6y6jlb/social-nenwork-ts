@@ -15,7 +15,7 @@ import {
     getDialogsSagaWatcher,
     getMessagesSagaWatcher,
     postMessageSagaWatcher,
-    startDialogSagaWatcher,
+    startDialogSagaWatcher, toSpamMessageSagaWatcher, toViewedSagaWatcher,
 } from "./dialogsSagas";
 
 
@@ -40,6 +40,8 @@ export default function* rootSaga() {
         getMessagesSagaWatcher (),
         postMessageSagaWatcher (),
         deleteMessageSagaWatcher (),
+        toViewedSagaWatcher(),
+        toSpamMessageSagaWatcher(),
 
 
 

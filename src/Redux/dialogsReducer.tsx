@@ -10,6 +10,7 @@ import {
     START_DIALOG_SAGA, TO_SPAM_MESSAGE_SAGA,
 } from "./consts";
 import {IDialogs, IMessage} from "../api/dialogsAPI";
+import {MESSAGES_COUNT} from "../variables/consts";
 
 //ac
 export const actionsDialogs = {
@@ -22,7 +23,7 @@ export const actionsDialogs = {
     getDialogs: () => {
         return {type: GET_DIALOGS_SAGA, payload: {}} as const;
     },
-    getMessages: (id: number) => {
+    getMessages: (id: number,count:number = MESSAGES_COUNT) => {
         return {type: GET_MESSAGES_SAGA, payload: {id}} as const;
     },
     postMessage: (id: number, message: string) => {

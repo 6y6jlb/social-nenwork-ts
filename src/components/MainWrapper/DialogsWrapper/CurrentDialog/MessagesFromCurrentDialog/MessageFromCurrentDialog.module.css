@@ -1,7 +1,7 @@
 .currentDialog {
     display: grid;
     gap: 25px;
-    align-content: space-between;
+    align-content: space-evenly;
     background-color: #cfeed9;
     padding: 50px 20px;
 }
@@ -75,4 +75,7 @@
     width: 31px;
     height: 31px;
 
+}
+.end {
+    display: none;
 }
