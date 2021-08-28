@@ -1,6 +1,6 @@
 .currentDialog {
     display: grid;
-    gap: 5px;
+    gap: 25px;
     align-content: space-between;
     background-color: #cfeed9;
     padding: 50px 20px;

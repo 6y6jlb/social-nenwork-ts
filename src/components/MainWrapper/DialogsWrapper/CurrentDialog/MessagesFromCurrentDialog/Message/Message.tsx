@@ -3,6 +3,8 @@ import React, {useState} from "react";
 import {IMessage} from "../../../../../../api/dialogsAPI";
 import bin from '../../../../../../images/dustbin.png';
 import spam from '../../../../../../images/spam.png';
+import viewed from '../../../../../../images/viewWhite.png';
+import visibility from '../../../../../../images/visibilityWhite.png';
 
 
 interface IProps {
@@ -15,7 +17,7 @@ interface IProps {
 export const Message: React.FC<IProps> = React.memo ( ({message, deleteMessage, isSelf}) => {
     const [isSelfSubMenu, setSelfSubMenu] = useState ( false );
     const [isFriendSubMenu, setFriendSubMenu] = useState ( false );
-
+const eye = message.viewed ? viewed : visibility
 
     return isSelf ?
         <div className={ s.message }>
@@ -29,6 +31,7 @@ export const Message: React.FC<IProps> = React.memo ( ({message, deleteMessage, 
                     <div className={ s.name }>{ message.senderName }</div>
                     <div className={ s.textMessage }>{ message.body }</div>
                     <div className={ s.time }>{ message.addedAt }</div>
+                    <div className={ s.viewed }> <img src={ eye } alt="eye"/> </div>
                 </div>
                 <div className={ s.cornet }></div>
             </div>
@@ -36,11 +39,11 @@ export const Message: React.FC<IProps> = React.memo ( ({message, deleteMessage, 
         :
         <div className={ s.messageFriend }>
             <div className={ `${s.subMenuFriend} ${ isFriendSubMenu && s.activeSubMenuFriend }`}>
-                <div className={ s.img }
+                <div className={ s.imgFriend }
                      onClick={ () => deleteMessage ( message.id ) }>
                     <img src={ spam } alt="spam"/>
                 </div>
-                <div className={  s.img }
+                <div className={  s.imgFriend }
                      onClick={ () => deleteMessage ( message.id ) }>
                     <img src={ bin } alt="spam"/>
                 </div>

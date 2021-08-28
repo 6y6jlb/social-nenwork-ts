@@ -3,12 +3,11 @@
     height: max-content;
     display: grid;
     grid-template-areas: "mF a";
-    grid-auto-columns: minmax(auto, 400px) auto;
+    grid-auto-columns: minmax(auto, 465px) auto;
     position: relative;
     margin-left: auto;
-    min-width: 100px;
-    max-width: 300px;
-}
+    max-width: 500px;
+   }
 
 
 .avatar {
@@ -27,21 +26,16 @@
 
 
 .avatar img {
-
     border-radius: 50%;
     width: 31px;
     height: 31px;
-
 }
-
 
 .messageFrame {
     cursor: pointer;
     grid-area: mF;
     display: grid;
     grid-template-columns: 1fr 20px;
-
-
 }
 
 .cornet {
@@ -53,15 +47,11 @@
     height: 20px;
     position: relative;
     right: 40px;
-
-
 }
-
 
 .textMessage {
     text-align: start;
-    padding: 20px 30px 20px 30px;
-
+    margin-bottom: 10px;
 }
 
 .textFrame {
@@ -73,6 +63,7 @@
 
 .name {
     color: #cb8dec;
+    margin: 10px 0 10px 10px;
 }
 
 .time {
@@ -81,17 +72,50 @@
     color: #614272;
     position: relative;
     z-index: 1;
+    margin-bottom: 5px;
 }
 
+.bin {
+    display: none;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    bottom: 10px;
+    left: -55px;
+}
+
+.bin img {
+    width: 40px;
+    height: 40px;
+}
+
+.activeBin {
+    display: block;
+}
+
+.viewed {
+    z-index: 1;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+}
+
+.viewed  img{
+    width: 20px;
+    height: 20px;
+}
+
+/*friendzone*/
 
 .messageFriend {
     min-height: 80px;
     height: max-content;
     display: grid;
     grid-template-areas: "a mF";
-    grid-auto-columns: auto minmax(auto, 400px);
-    min-width: 100px;
-    max-width: 300px;
+    grid-auto-columns: auto minmax(auto, 465px);
+    max-width: 500px;
     position: relative;
 
 }
@@ -124,7 +148,7 @@
     grid-area: mF;
     display: grid;
     grid-template-columns: 20px 1fr;
-
+    width: 400px;
 
 }
 
@@ -138,23 +162,22 @@
 
 }
 
-
-.textMessageFriend {
-    text-align: end;
-    padding: 20px 30px 20px 30px;
-
-}
-
 .textFrameFriend {
     padding: 5px 30px 5px 30px;
     background-color: #4C3966;
     color: white;
     border-radius: 15px 15px 15px 0px;
+}
+
+.textMessageFriend {
+    text-align: end;
+    margin-bottom: 5px;
 
 }
 
 .nameFriend {
     color: #c5ade5;
+    margin:5px 0 10px 10px;
 }
 
 .timeFriend {
@@ -163,22 +186,10 @@
     color: #847894;
 }
 
-.bin {
-    display: none;
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    bottom: 60px;
-    right: 0;
-}
-
-.bin img {
-    width: 30px;
-    height: 30px;
-}
-
-.activeBin {
-    display: block;
+.imgFriend img {
+    width: 25px;
+    height: 25px;
+    margin-bottom: 6px;
 }
 
 .subMenuFriend {
@@ -189,14 +200,6 @@
     bottom: 50px;
     left: 0;
 }
-
-.img img {
-    width: 25px;
-    height: 25px;
-    margin-bottom: 6px;
-}
-
-
 
 .activeSubMenuFriend {
     display: block;
