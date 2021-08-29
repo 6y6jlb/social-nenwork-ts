@@ -25,7 +25,7 @@ const Paginator: React.FC<PropsType> = React.memo ( ({
                                                          color = COLORS.TRANSPARENT,
                                                      }) => {
 
-    const pagesCount = Math.ceil ( totalCount / portionSize ); // pages:number
+    const pagesCount = Math.ceil ( totalCount / (portionSize +1) ); // pages:number
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
 
@@ -42,7 +42,6 @@ const Paginator: React.FC<PropsType> = React.memo ( ({
     const colorStyles = color == COLORS.PURPLE ? style.purple : color == COLORS.GREEN ? style.green : '';
 
     const filteredPages = pages.filter ( p => p >= leftPortionPageNumber && p <= rightPortionPageNumber );
-
     const mappedPages = filteredPages.map ( (p, i) => {
         return (
             currentPage === p
