@@ -14,6 +14,7 @@
   "users.dialogs.dialog": "dialog",
   "network.error": "Network error",
   "login.title": "login",
-  "messages.empty": "No one message yet,maybe you should choose dialogue.",
+  "messages.dialogs.select": "Maybe you should choose dialogue.",
+  "messages.empty": "No one message yet",
   "messages.get.more": "Get more messages."
 }

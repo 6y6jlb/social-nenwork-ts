@@ -28,6 +28,10 @@ export const Message: React.FC<IProps> = React.memo ( ({
     const [isFriendSubMenu, setFriendSubMenu] = useState ( false );
     const eye = message.viewed ? viewed : visibility;
 
+    const setView = () => {
+        if (message.viewed) return;
+        else toViewedMessage ( message.id );
+    };
 
     const date = dateFormat ( message.addedAt ).map ( item => <span>{ item }</span> );
 
@@ -49,7 +53,7 @@ export const Message: React.FC<IProps> = React.memo ( ({
             </div>
         </div>
         :
-        <div className={ s.messageFriend } onLoad={ () => toViewedMessage ( message.id ) }>
+        <div className={ s.messageFriend } onLoad={ setView }>
             <div className={ `${ s.subMenuFriend } ${ isFriendSubMenu && s.activeSubMenuFriend }` }>
                 <div className={ s.imgFriend }
                      onClick={ () => deleteMessage ( message.id ) }>

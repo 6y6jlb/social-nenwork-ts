@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {CurrentDialog} from "./CurrentDialog/CurrentDialog";
 import {FriendListFromDialogs} from "./FriendListFromDialogs/FriendListFromDialogs";
 import s from './DialogsWrapper.module.css';
@@ -26,22 +26,23 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
                                                            ...props
                                                        }) => {
     const userIdForURL = props.match.params.userId;
-    const totalCount = useSelector ( selectors.dialogsSelectors.messagesTotalCountSelector );
-    const isFetching = useSelector ( selectors.dialogsSelectors.messagesIsFetchingSelector );
-    const page = useSelector ( selectors.dialogsSelectors.messagesPageSelector );
-    const portionNumber = useSelector ( selectors.dialogsSelectors.messagesPortionNumberSelector );
-    const messages = useSelector ( selectors.dialogsSelectors.getMessages );
-    const dialogs = useSelector ( selectors.dialogsSelectors.getDialogs );
+    const {
+        page,
+        portionNumber,
+        pageSize,
+        isFetching,
+        totalCount,
+        dialogs,
+        messages,
+    } = useSelector ( selectors.dialogsSelectors.commonDialogsSelector );
+
     const masterId = useSelector ( selectors.authSelectors.getMyLoginId );
 
-
-    const refreshProfile = () => {
+    const refreshProfile = useCallback ( () => {
         if (userIdForURL) {
             getMessages ( userIdForURL );
         }
-    };
-
-
+    }, [userIdForURL] );
     useEffect ( () => {
         getDialogs ();
     }, [userIdForURL] );
@@ -51,18 +52,18 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
     }, [userIdForURL, page] );
 
 
-    const sendMessageCallback = (id: string) => (text: string) => {
+    const sendMessageCallback = useCallback ( (id: string) => (text: string) => {
         postMessage ( +id, text );
-    };
-    const toViewedMessageCallback = (id: string) => (messageId: string) => {
+    }, [] );
+    const toViewedMessageCallback = useCallback ( (id: string) => (messageId: string) => {
         toViewedMessage ( +id, messageId );
-    };
-    const toSpamMessageCallback = (id: string) => (messageId: string) => {
+    }, [] );
+    const toSpamMessageCallback = useCallback ( (id: string) => (messageId: string) => {
         toViewedMessage ( +id, messageId );
-    };
-    const deleteMessageCallback = (id: string) => (messageId: string) => {
+    }, [] );
+    const deleteMessageCallback = useCallback ( (id: string) => (messageId: string) => {
         deleteMessage ( +id, messageId );
-    };
+    }, [] );
 
     const onPageChange = (page: number) => {
         setPage ( page );
@@ -71,23 +72,28 @@ const DialogsWrapper: React.FC<IProps> = React.memo ( ({
         setPortionNumber ( portionNumber );
     };
 
-    return <div className={ s.dialogsWrapper }>
-        <FriendListFromDialogs  dialogs={ dialogs }/>
-        { messages
-            ? <CurrentDialog deleteMessage={ deleteMessageCallback ( userIdForURL ) }
-                             sendMessage={ sendMessageCallback ( userIdForURL ) }
-                             toSpamMessage={ toSpamMessageCallback ( userIdForURL ) }
-                             toViewedMessage={ toViewedMessageCallback ( userIdForURL ) }
-                             friendId={userIdForURL}
-                             portionNumber={ portionNumber }
-                             totalCount={ totalCount }
-                             page={ page }
-                             setPage={ onPageChange }
-                             setPortionNumber={ onPortionNumberChange }
-                             masterId={ masterId }
-                             messages={ messages }/>
-            : <NoData/> }
-    </div>;
+
+    return (
+        <div className={ s.dialogsWrapper }>
+            <FriendListFromDialogs dialogs={ dialogs }/>
+            { messages
+                ? <CurrentDialog deleteMessage={ deleteMessageCallback ( userIdForURL ) }
+                                 sendMessage={ sendMessageCallback ( userIdForURL ) }
+                                 toSpamMessage={ toSpamMessageCallback ( userIdForURL ) }
+                                 toViewedMessage={ toViewedMessageCallback ( userIdForURL ) }
+                                 friendId={ userIdForURL }
+                                 portionNumber={ portionNumber }
+                                 totalCount={ totalCount }
+                                 page={ page }
+                                 setPage={ onPageChange }
+                                 setPortionNumber={ onPortionNumberChange }
+                                 masterId={ masterId }
+                                 messages={ messages }
+                                 isFetching={ isFetching }/>
+
+                : <NoData/> }
+        </div>
+    );
 
 } );
 
