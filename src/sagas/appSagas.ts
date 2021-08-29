@@ -2,7 +2,8 @@ import {ActionsTypes} from "../Redux/reduxStore";
 import {actionsAuth} from "../Redux/auth-reducer";
 import {actionsApp} from "../Redux/app-reducer";
 import {put, takeLatest} from "redux-saga/effects";
-import {INITIALIZE_SAGA} from "../Redux/consts";
+import {APP} from "../Redux/consts";
+
 
 export function* initializeSagaWorker({type}: { type: ActionsTypes}) {
     yield put ( actionsAuth.setUserFromAuthSaga( true) )
@@ -10,5 +11,5 @@ export function* initializeSagaWorker({type}: { type: ActionsTypes}) {
 }
 
 export function* initializeSagaWatcher() {
-    yield takeLatest ( INITIALIZE_SAGA, initializeSagaWorker )
+    yield takeLatest ( APP.INITIALIZE_SAGA, initializeSagaWorker )
 }

@@ -1,4 +1,5 @@
 .pages {
+    background-color: transparent;
     cursor: pointer;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15px, max-content));
@@ -28,7 +29,7 @@
 
 .normalNumber {
     padding: 0 2px;
-    background-color: white;
+    background-color: transparent;
     border: 1px solid transparent;
     transition: all 0.5ms;
 }
@@ -37,4 +38,11 @@
     background-color: #a988e8;
     border-radius: 45%;
     transition: all 0.7s;
+}
+
+.green {
+    background-color: #d7f8e2;
+}
+.purple {
+    background-color: #3e2471;
 }

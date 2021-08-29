@@ -47,8 +47,8 @@ export const DialogsAPI = {
     getDialogs: () => {
         return instanceSamuraiAPI.get<Array<IDialogs>> ( `dialogs/` );
     },
-    getMessages: (id: number,count:number = 10) => {
-        return instanceSamuraiAPI.get<IMessages> ( `dialogs/${ id }/messages?count=${count}` );
+    getMessages: (id: number,count:number,page?:number) => {
+        return instanceSamuraiAPI.get<IMessages> ( `dialogs/${ id }/messages?count=${count}&page=${page}` );
     },
     sendMessage: (id: number, message: string) => {
         return instanceSamuraiAPI.post<IPostMessage> ( `dialogs/${ id }/messages`, {body: message} );

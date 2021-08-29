@@ -1,7 +1,7 @@
 import {ActionsTypes} from "../Redux/reduxStore";
 import {actionsAuth} from "../Redux/auth-reducer";
 import {call, put, takeLatest} from "redux-saga/effects";
-import {GET_CAPTCHA_SAGA, LOGIN_SAGA, LOGOUT_SAGA, SET_USER_FROM_AUTH_SAGA} from "../Redux/consts";
+import {AUTH} from "../Redux/consts";
 import {securityAPI} from "../api/securityAPI";
 import {AuthAPI} from "../api/authAPI";
 import {ProfileAPI} from "../api/profileAPI";
@@ -80,18 +80,18 @@ function* logoutSagaWorker({type}: {
 
 //watchers
 export function* getCaptchaSagaWatcher() {
-    yield takeLatest ( GET_CAPTCHA_SAGA, getCaptchaSagaWorker )
+    yield takeLatest ( AUTH.GET_CAPTCHA_SAGA, getCaptchaSagaWorker )
 }
 
 export function* loginSagaWatcher() {
-    yield takeLatest ( LOGIN_SAGA, loginSagaWorker )
+    yield takeLatest ( AUTH.LOGIN_SAGA, loginSagaWorker )
 }
 
 
 export function* logoutSagaWatcher() {
-    yield takeLatest ( LOGOUT_SAGA, logoutSagaWorker )
+    yield takeLatest ( AUTH.LOGOUT_SAGA, logoutSagaWorker )
 }
 
 export function* setUserFromAuthSagaWatcher() {
-    yield takeLatest ( SET_USER_FROM_AUTH_SAGA, setUserFromAuthSagaWorker )
+    yield takeLatest ( AUTH.SET_USER_FROM_AUTH_SAGA, setUserFromAuthSagaWorker )
 }

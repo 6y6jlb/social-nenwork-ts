@@ -1,7 +1,7 @@
-import {AppThunk, InferActionsType} from "./reduxStore";
+import {InferActionsType} from "./reduxStore";
 import React from "react";
-import {ArticleType, NewsAPI} from "../api/newsAPI";
-import {GET_NEWS_SAGA, SET_IS_FETCHING, SET_NEWS, SET_PAGE, SET_PAGE_SIZE, SET_PORTION_NUMBER} from "./consts";
+import {ArticleType} from "../api/newsAPI";
+import {NEWS} from "./consts";
 
 
 //types
@@ -18,22 +18,22 @@ export type AppActionsTypes = InferActionsType<typeof actionsNews>
 //ac
 export const actionsNews = {
     getNewsSaga:(theme:string)=>{
-        return {type:GET_NEWS_SAGA,payload:{theme}}
+        return {type:NEWS.GET_NEWS_SAGA,payload:{theme}}
     },
     setNews: (articles: ArticleType[], totalResults: number) => {
-        return {type: SET_NEWS, payload: {articles, totalResults}} as const
+        return {type: NEWS.SET_NEWS, payload: {articles, totalResults}} as const
     },
     setIsFetching: (isFetching: boolean) => {
-        return {type: SET_IS_FETCHING, payload: {isFetching}} as const
+        return {type: NEWS.SET_IS_FETCHING, payload: {isFetching}} as const
     },
     setPage: (page: number) => {
-        return {type: SET_PAGE, payload: {page}} as const
+        return {type: NEWS.SET_PAGE, payload: {page}} as const
     },
     setPageSize: (pageSize: number) => {
-        return {type: SET_PAGE_SIZE, payload: {pageSize}} as const
+        return {type: NEWS.SET_PAGE_SIZE, payload: {pageSize}} as const
     },
     setPortionNumber: (portionNumber: number) => {
-        return {type: SET_PORTION_NUMBER, payload: {portionNumber}} as const
+        return {type: NEWS.SET_PORTION_NUMBER, payload: {portionNumber}} as const
     }
 }
 //tc
@@ -68,11 +68,11 @@ const initialState: InitialStateFromAppType = {
 //reducer
 const newsReducer = (state = initialState, action: AppActionsTypes): InitialStateFromAppType => {
     switch (action.type) {
-        case SET_NEWS:
-        case SET_IS_FETCHING:
-        case SET_PAGE:
-        case SET_PAGE_SIZE:
-        case SET_PORTION_NUMBER:
+        case NEWS.SET_NEWS:
+        case NEWS.SET_IS_FETCHING:
+        case NEWS.SET_PAGE:
+        case NEWS.SET_PAGE_SIZE:
+        case NEWS.SET_PORTION_NUMBER:
             return {
                 ...state, ...action.payload
             }

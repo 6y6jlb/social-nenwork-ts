@@ -1,61 +1,74 @@
 import {InferActionsType} from "./reduxStore";
-import {
-    ADD_DIALOGS_MESSAGE,
-    DELETE_MESSAGE_SAGA,
-    GET_DIALOGS_SAGA,
-    GET_MESSAGES_SAGA, IS_MESSAGE_VIEWED_SAGA,
-    POST_MESSAGE_SAGA,
-    SET_DIALOGS,
-    SET_MESSAGES,
-    START_DIALOG_SAGA, TO_SPAM_MESSAGE_SAGA,
-} from "./consts";
+import {DIALOGS} from "./consts";
 import {IDialogs, IMessage} from "../api/dialogsAPI";
-import {MESSAGES_COUNT} from "../variables/consts";
 
 //ac
 export const actionsDialogs = {
     addDialogsMessage: (self: boolean, item: string) => {
-        return {type: ADD_DIALOGS_MESSAGE, payload: {self, item}} as const;
+        return {type: DIALOGS.ADD_DIALOGS_MESSAGE, payload: {self, item}} as const;
     },
     toDialogSaga: (id: number) => {
-        return {type: START_DIALOG_SAGA, payload: {id}} as const;
+        return {type: DIALOGS.START_DIALOG_SAGA, payload: {id}} as const;
     },
     getDialogs: () => {
-        return {type: GET_DIALOGS_SAGA, payload: {}} as const;
+        return {type: DIALOGS.GET_DIALOGS_SAGA, payload: {}} as const;
     },
-    getMessages: (id: number,count:number = MESSAGES_COUNT) => {
-        return {type: GET_MESSAGES_SAGA, payload: {id}} as const;
+    getMessages: (id: number, page: number = 1) => {
+        return {type: DIALOGS.GET_MESSAGES_SAGA, payload: {id, page}} as const;
     },
     postMessage: (id: number, message: string) => {
-        return {type: POST_MESSAGE_SAGA, payload: {id, message}} as const;
+        return {type: DIALOGS.POST_MESSAGE_SAGA, payload: {id, message}} as const;
     },
-    setMessages: (messages: Array<IMessage>) => {
-        return {type: SET_MESSAGES, payload: {messages}} as const;
+    setMessages: (messages: Array<IMessage>, totalResults: number) => {
+        return {type: DIALOGS.SET_MESSAGES, payload: {messages, totalResults}} as const;
     },
     setDialogs: (dialogs: Array<IDialogs>) => {
-        return {type: SET_DIALOGS, payload: {dialogs}} as const;
+        return {type: DIALOGS.SET_DIALOGS, payload: {dialogs}} as const;
     },
-    deleteMessage: (id:number,messageId: string) => {
-        return {type: DELETE_MESSAGE_SAGA, payload: {id,messageId}} as const;
+    deleteMessage: (id: number, messageId: string) => {
+        return {type: DIALOGS.DELETE_MESSAGE_SAGA, payload: {id, messageId}} as const;
     },
-    toViewedMessage: (id:number,messageId: string) => {
-        return {type: IS_MESSAGE_VIEWED_SAGA, payload: {id,messageId}} as const;
+    toViewedMessage: (id: number, messageId: string) => {
+        return {type: DIALOGS.IS_MESSAGE_VIEWED_SAGA, payload: {id, messageId}} as const;
     },
-    toSpamMessage: (id:number,messageId: string) => {
-        return {type: TO_SPAM_MESSAGE_SAGA, payload: {id,messageId}} as const;
+    toSpamMessage: (id: number, messageId: string) => {
+        return {type: DIALOGS.TO_SPAM_MESSAGE_SAGA, payload: {id, messageId}} as const;
     },
+    setIsFetching: (isFetching: boolean) => {
+        return {type: DIALOGS.SET_IS_FETCHING, payload: {isFetching}} as const;
+    },
+    setPage: (page: number) => {
+        return {type: DIALOGS.SET_PAGE, payload: {page}} as const;
+    },
+    setPageSize: (pageSize: number) => {
+        return {type: DIALOGS.SET_PAGE_SIZE, payload: {pageSize}} as const;
+    },
+    setPortionNumber: (portionNumber: number) => {
+        return {type: DIALOGS.SET_PORTION_NUMBER, payload: {portionNumber}} as const;
+    },
+
 
 };
 //state
 const initialState = {
     dialogs: [] as Array<IDialogs>,
     messages: [] as Array<IMessage>,
+    totalResults: 0,
+    isFetching: false,
+    page: 1,
+    pageSize: 7,
+    portionNumber: 1,
+
 };
 //reducer
 const dialogsReducer = (state = initialState, action: DialogsActionsTypes): InitialStateDialogsType => {
     switch (action.type) {
-        case SET_DIALOGS:
-        case SET_MESSAGES:
+        case DIALOGS.SET_DIALOGS:
+        case DIALOGS.SET_MESSAGES:
+        case DIALOGS.SET_IS_FETCHING:
+        case DIALOGS.SET_PAGE:
+        case DIALOGS.SET_PAGE_SIZE:
+        case DIALOGS.SET_PORTION_NUMBER:
             return {...state, ...action.payload};
 
         default:

@@ -1,17 +1,6 @@
 import selfPhoto from "../images/face.png";
-import {ProfileAPI} from "../api/profileAPI";
-import {AppThunk, InferActionsType} from "./reduxStore";
-import {stopSubmit} from "redux-form";
-import {
-    ADD_POST,
-    CHANGE_IS_FETCHING_FROM_PROFILE,
-    CHANGE_STATUS, GET_PROFILE_SAGA,
-    GET_STATUS_FROM_PROFILE_SAGA, IS_OPEN_MENU_FROM_PROFILE, SAVE_NEW_PROFILE_SAGA,
-    SAVE_PHOTO_FROM_PROFILE,
-    SAVE_PHOTO_FROM_PROFILE_SAGA,
-    SET_USER_PROFILE,
-    UPDATE_STATUS_FROM_PROFILE_SAGA
-} from "./consts";
+import {InferActionsType} from "./reduxStore";
+import {PROFILE} from "./consts";
 
 //types
 export type UserFromProfileResponseType = {
@@ -43,30 +32,30 @@ export type ProfileActionsTypes = InferActionsType<typeof actionsProfile>
 //ac
 export const actionsProfile = {
     addPost: (value: string) => {
-        return {type: ADD_POST, payload: {value}} as const
+        return {type: PROFILE.ADD_POST, payload: {value}} as const
     },openSet: (isOpen: boolean) => {
-        return {type: IS_OPEN_MENU_FROM_PROFILE, payload: {isOpen}} as const
+        return {type: PROFILE.IS_OPEN_MENU_FROM_PROFILE, payload: {isOpen}} as const
     }, setUserProfile: (user: UserFromProfileResponseType) => {
-        return {type: SET_USER_PROFILE, payload: {user}} as const
+        return {type: PROFILE.SET_USER_PROFILE, payload: {user}} as const
     }, changeIsFetchingFromProfile: (isFetching: boolean) => {
-        return {type: CHANGE_IS_FETCHING_FROM_PROFILE, payload: {isFetching}} as const
+        return {type: PROFILE.CHANGE_IS_FETCHING_FROM_PROFILE, payload: {isFetching}} as const
     }, setStatusAC: (status: string) => {
         return {
-            type: CHANGE_STATUS,
+            type: PROFILE.CHANGE_STATUS,
             payload: {status}
         } as const
     }, savePhotosSuccess: (photos: { small: string, large: string }) => {
-        return {type: SAVE_PHOTO_FROM_PROFILE, payload: {photos}} as const
+        return {type: PROFILE.SAVE_PHOTO_FROM_PROFILE, payload: {photos}} as const
     }, getStatusProfileSaga: (userID: number) => {
-        return {type: GET_STATUS_FROM_PROFILE_SAGA, payload: {userID}} as const
+        return {type: PROFILE.GET_STATUS_FROM_PROFILE_SAGA, payload: {userID}} as const
     }, updateStatusProfileSaga: (item: string) => {
-        return {type: UPDATE_STATUS_FROM_PROFILE_SAGA, payload: {item}} as const
+        return {type: PROFILE.UPDATE_STATUS_FROM_PROFILE_SAGA, payload: {item}} as const
     }, savePhotoProfileSaga: (file: any) => {
-        return {type: SAVE_PHOTO_FROM_PROFILE_SAGA, payload: {file}} as const
+        return {type: PROFILE.SAVE_PHOTO_FROM_PROFILE_SAGA, payload: {file}} as const
     }, saveNewProfileSaga: (model: UserFromProfileResponseType,userId: number) => {
-        return {type: SAVE_NEW_PROFILE_SAGA, payload: {model,userId}} as const
+        return {type: PROFILE.SAVE_NEW_PROFILE_SAGA, payload: {model,userId}} as const
     }, getProfileSaga: (userIdForURL: number) => {
-        return {type: GET_PROFILE_SAGA, payload: {userIdForURL}} as const
+        return {type: PROFILE.GET_PROFILE_SAGA, payload: {userIdForURL}} as const
     },
 }
 //tc
@@ -180,7 +169,7 @@ const initialState = {
 //reducer
 const profileReducer = (state = initialState, action: ProfileActionsTypes): InitialStateProfileType => {
     switch (action.type) {
-        case ADD_POST:
+        case PROFILE.ADD_POST:
             const newPost = {
                 profileSelfPhotoImgUrl: selfPhoto,
                 id: state.myPostArray.length += 1,
@@ -188,17 +177,17 @@ const profileReducer = (state = initialState, action: ProfileActionsTypes): Init
             }
             state.myPostArray.unshift ( newPost )
             return {...state}
-        case SET_USER_PROFILE:
+        case PROFILE.SET_USER_PROFILE:
             return {...state, profile: action.payload.user}
-        case CHANGE_IS_FETCHING_FROM_PROFILE:
+        case PROFILE.CHANGE_IS_FETCHING_FROM_PROFILE:
             return {...state, isFetching: action.payload.isFetching}
-        case CHANGE_STATUS: {
+        case PROFILE.CHANGE_STATUS: {
             return {...state, status: action.payload.status}
         }
-        case SAVE_PHOTO_FROM_PROFILE: {
+        case PROFILE.SAVE_PHOTO_FROM_PROFILE: {
             return {...state, profile: {...state.profile, photos: action.payload.photos}}
         }
-        case IS_OPEN_MENU_FROM_PROFILE: {
+        case PROFILE.IS_OPEN_MENU_FROM_PROFILE: {
             return {...state,isOpenMenu:action.payload.isOpen}
         }
         default:

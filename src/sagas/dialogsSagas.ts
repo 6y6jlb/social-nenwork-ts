@@ -1,16 +1,10 @@
-import {call, put, takeLatest} from "redux-saga/effects";
-import {
-    DELETE_MESSAGE_SAGA,
-    GET_DIALOGS_SAGA,
-    GET_MESSAGES_SAGA,
-    IS_MESSAGE_VIEWED_SAGA,
-    POST_MESSAGE_SAGA,
-    START_DIALOG_SAGA,
-    TO_SPAM_MESSAGE_SAGA,
-} from "../Redux/consts";
+import {call, put, select, takeLatest} from "redux-saga/effects";
+import {DIALOGS} from "../Redux/consts";
 import {ActionsTypes} from "../Redux/reduxStore";
 import {DialogsAPI} from "../api/dialogsAPI";
 import {actionsDialogs} from "../Redux/dialogsReducer";
+import {messagesPageSelector, messagesPageSizeSelector} from "../utils/selectors/dialogs-selectors";
+import {actionsNews} from "../Redux/news-reducer";
 
 
 //workers
@@ -25,6 +19,7 @@ export function* startDialogSagaWorker({type, payload}: { type: ActionsTypes, pa
 };
 
 export function* getDialogsSagaWorker({type, payload}: { type: ActionsTypes, payload: {} }) {
+
     try {
         const response = yield call ( DialogsAPI.getDialogs );
         const {data} = response;
@@ -35,14 +30,22 @@ export function* getDialogsSagaWorker({type, payload}: { type: ActionsTypes, pay
     }
 };
 
-export function* getMessagesSagaWorker({type, payload}: { type: ActionsTypes, payload: { id: number ,count:number} }) {
+export function* getMessagesSagaWorker({
+                                           type,
+                                           payload,
+                                       }: { type: ActionsTypes, payload: { id: number } }) {
+    yield put(actionsNews.setIsFetching(true))
+    const count = yield select ( messagesPageSizeSelector );
+    const page = yield select ( messagesPageSelector );
+
     try {
-        const response = yield call ( DialogsAPI.getMessages, payload.id ,payload.count);
-        const {items} = response.data;
-        yield put ( actionsDialogs.setMessages (items) );
+        const response = yield call ( DialogsAPI.getMessages, payload.id, count, page );
+        const {items,totalCount} = response.data;
+        yield put ( actionsDialogs.setMessages ( items,totalCount ) );
     } catch (e) {
         console.warn ( e );
     } finally {
+        yield put(actionsNews.setIsFetching(false))
     }
 };
 
@@ -63,7 +66,7 @@ export function* postMessageSagaWorker({
 export function* deleteMessageSagaWorker({
                                              type,
                                              payload,
-                                         }: { type: ActionsTypes, payload: {id:number, messageId: number } }) {
+                                         }: { type: ActionsTypes, payload: { id: number, messageId: number } }) {
 
 
     try {
@@ -75,10 +78,11 @@ export function* deleteMessageSagaWorker({
     } finally {
     }
 };
+
 export function* toSpamMessageSagaWorker({
                                              type,
                                              payload,
-                                         }: { type: ActionsTypes, payload: {id:number, messageId: number } }) {
+                                         }: { type: ActionsTypes, payload: { id: number, messageId: number } }) {
 
 
     try {
@@ -90,18 +94,18 @@ export function* toSpamMessageSagaWorker({
     } finally {
     }
 };
+
 export function* toViewedMessageSagaWorker({
-                                             type,
-                                             payload,
-                                         }: { type: ActionsTypes, payload: {id:number, messageId: number } }) {
+                                               type,
+                                               payload,
+                                           }: { type: ActionsTypes, payload: { id: number, messageId: number } }) {
 
 
     try {
         const response = yield call ( DialogsAPI.toViewedMessage, payload.messageId );
         if (response.data) {
             yield put ( actionsDialogs.getMessages ( payload.id ) );
-        }
-        else {
+        } else {
             return;
         }
     } catch (e) {
@@ -113,28 +117,29 @@ export function* toViewedMessageSagaWorker({
 //watchers
 
 export function* deleteMessageSagaWatcher() {
-    yield takeLatest ( DELETE_MESSAGE_SAGA, deleteMessageSagaWorker );
+    yield takeLatest ( DIALOGS.DELETE_MESSAGE_SAGA, deleteMessageSagaWorker );
 };
+
 export function* toViewedSagaWatcher() {
-    yield takeLatest ( IS_MESSAGE_VIEWED_SAGA, toViewedMessageSagaWorker );
+    yield takeLatest ( DIALOGS.IS_MESSAGE_VIEWED_SAGA, toViewedMessageSagaWorker );
 };
 
 export function* toSpamMessageSagaWatcher() {
-    yield takeLatest ( TO_SPAM_MESSAGE_SAGA, toSpamMessageSagaWorker );
+    yield takeLatest ( DIALOGS.TO_SPAM_MESSAGE_SAGA, toSpamMessageSagaWorker );
 };
 
 export function* postMessageSagaWatcher() {
-    yield takeLatest ( POST_MESSAGE_SAGA, postMessageSagaWorker );
+    yield takeLatest ( DIALOGS.POST_MESSAGE_SAGA, postMessageSagaWorker );
 };
 
 export function* startDialogSagaWatcher() {
-    yield takeLatest ( START_DIALOG_SAGA, startDialogSagaWorker );
+    yield takeLatest ( DIALOGS.START_DIALOG_SAGA, startDialogSagaWorker );
 };
 
 export function* getMessagesSagaWatcher() {
-    yield takeLatest ( GET_MESSAGES_SAGA, getMessagesSagaWorker );
+    yield takeLatest ( DIALOGS.GET_MESSAGES_SAGA, getMessagesSagaWorker );
 };
 
 export function* getDialogsSagaWatcher() {
-    yield takeLatest ( GET_DIALOGS_SAGA, getDialogsSagaWorker );
+    yield takeLatest ( DIALOGS.GET_DIALOGS_SAGA, getDialogsSagaWorker );
 };

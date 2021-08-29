@@ -1,4 +1,5 @@
 {
+  "button.empty": "on/off",
   "header.text": "Header",
   "footer.text": "Stop",
   "profile.change.avatar": "Change avatar",
@@ -13,5 +14,6 @@
   "users.dialogs.dialog": "dialog",
   "network.error": "Network error",
   "login.title": "login",
-  "messages.empty": "No one message yet,maybe you should choose dialogue."
+  "messages.empty": "No one message yet,maybe you should choose dialogue.",
+  "messages.get.more": "Get more messages."
 }

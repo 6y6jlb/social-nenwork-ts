@@ -1,7 +1,7 @@
-import {call, put, takeLatest} from 'redux-saga/effects'
+import {call, put, takeLatest} from 'redux-saga/effects';
 import {UsersAPI} from "../api/usersAPI";
 import {actionsUsers} from "../Redux/usersReducer";
-import {FOLLOW_SAGA, GET_USERS_SAGA, UNFOLLOW_SAGA} from "../Redux/consts";
+import {USERS} from "../Redux/consts";
 import {ActionsTypes} from "../Redux/reduxStore";
 
 //workers
@@ -59,13 +59,13 @@ export function* unfollowWorker({type, payload}: { type: ActionsTypes, payload: 
 
 //watchers
 export function* getUsersSagaWatcher() {
-    yield takeLatest ( GET_USERS_SAGA, getUsersSagaWorker );
+    yield takeLatest ( USERS.GET_USERS_SAGA, getUsersSagaWorker );
 }
 export function* followSagaWatcher() {
-    yield takeLatest ( FOLLOW_SAGA, followSagaWorker );
+    yield takeLatest ( USERS.FOLLOW_SAGA, followSagaWorker );
 }
 export function* unfollowSagaWatcher() {
-    yield takeLatest ( UNFOLLOW_SAGA, unfollowWorker );
+    yield takeLatest ( USERS.UNFOLLOW_SAGA, unfollowWorker );
 }
 
 

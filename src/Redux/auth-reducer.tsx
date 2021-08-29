@@ -1,19 +1,5 @@
-import {ActionsTypes, AppStateType, AppThunk} from "./reduxStore";
 import React from "react";
-import {FormAction, stopSubmit} from "redux-form";
-import {ThunkAction} from "redux-thunk";
-import {ProfileAPI} from "../api/profileAPI";
-import {AuthAPI} from "../api/authAPI";
-import {actionsProfile} from "./profileReducer";
-import {securityAPI} from "../api/securityAPI";
-import {
-    GET_CAPTCHA_SAGA,
-    GET_CAPTCHA_URL_SUCCESS,
-    LOGIN_SAGA,
-    LOGOUT_SAGA, SET_AUTH_NETWORK_ERROR,
-    SET_USER_DATA,
-    SET_USER_FROM_AUTH_SAGA
-} from "./consts";
+import {AUTH} from "./consts";
 
 
 //types
@@ -33,25 +19,25 @@ export type AuthActionsTypes = any
 //ac
 export const actionsAuth = {
     setError: (message:string|null) => {
-        return {type: SET_AUTH_NETWORK_ERROR,payload:{message}} as const
+        return {type: AUTH.SET_AUTH_NETWORK_ERROR,payload:{message}} as const
     },
     getCaptchaSaga: () => {
-        return {type: GET_CAPTCHA_SAGA} as const
+        return {type: AUTH.GET_CAPTCHA_SAGA} as const
     },
     logoutSaga: () => {
-        return {type: LOGOUT_SAGA}
+        return {type: AUTH.LOGOUT_SAGA}
     },
     loginSaga: (email: string, password: string, rememberMe: boolean, captcha?: string) => {
-        return {type: LOGIN_SAGA, payload: {email, password, rememberMe, captcha}} as const
+        return {type: AUTH.LOGIN_SAGA, payload: {email, password, rememberMe, captcha}} as const
     },
     setUserFromAuthSaga: (isAuth: boolean) => {
-        return {type: SET_USER_FROM_AUTH_SAGA, payload: {isAuth}} as const
+        return {type: AUTH.SET_USER_FROM_AUTH_SAGA, payload: {isAuth}} as const
     },
     setUserData: (isAuth: boolean, data: UserDataFromAuthAuthType) => {
-        return {type: SET_USER_DATA, payload: {isAuth, data} as const} as const
+        return {type: AUTH.SET_USER_DATA, payload: {isAuth, data} as const} as const
     },
     getCaptchaUrlSuccess: (captchaURL: string) => {
-        return {type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaURL} as const} as const
+        return {type: AUTH.GET_CAPTCHA_URL_SUCCESS, payload: {captchaURL} as const} as const
     }
 }
 
@@ -124,9 +110,9 @@ const initialState: InitialStateFromAuthType = {
 //reducer
 const authReducer = (state = initialState, action: AuthActionsTypes): InitialStateFromAuthType => {
     switch (action.type) {
-        case SET_USER_DATA:
-        case GET_CAPTCHA_URL_SUCCESS:
-        case SET_AUTH_NETWORK_ERROR:
+        case AUTH.SET_USER_DATA:
+        case AUTH.GET_CAPTCHA_URL_SUCCESS:
+        case AUTH.SET_AUTH_NETWORK_ERROR:
             return {
                 ...state, ...action.payload
             }

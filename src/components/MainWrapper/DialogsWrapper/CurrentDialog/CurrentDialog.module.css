@@ -1,7 +1,13 @@
 .currentDialogWrapper{
     display: grid;
     width: 100%;
-    grid-template-rows: 1fr max-content;
+    grid-template-rows: max-content 1fr max-content;
     align-content: start ;
-    position: relative;
+
+}
+.paginator {
+    z-index: 2;
+    width: 100%;
+
+
 }

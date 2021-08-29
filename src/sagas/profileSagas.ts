@@ -1,12 +1,6 @@
 import {ActionsTypes} from "../Redux/reduxStore";
 import {call, put, takeLatest} from "redux-saga/effects";
-import {
-    GET_PROFILE_SAGA,
-    GET_STATUS_FROM_PROFILE_SAGA,
-    SAVE_NEW_PROFILE_SAGA,
-    SAVE_PHOTO_FROM_PROFILE_SAGA,
-    UPDATE_STATUS_FROM_PROFILE_SAGA
-} from "../Redux/consts";
+import {PROFILE} from "../Redux/consts";
 import {ProfileAPI} from "../api/profileAPI";
 import {actionsProfile, UserFromProfileResponseType} from "../Redux/profileReducer";
 import {stopSubmit} from "redux-form";
@@ -88,21 +82,21 @@ function* getProfileSagaWorker({
 
 //watchers
 export function* getStatusSagaWatcher() {
-    yield takeLatest ( GET_STATUS_FROM_PROFILE_SAGA, getStatusSagaWorker )
+    yield takeLatest ( PROFILE.GET_STATUS_FROM_PROFILE_SAGA, getStatusSagaWorker )
 }
 
 export function* updateStatusFromProfileSagaWatcher() {
-    yield takeLatest ( UPDATE_STATUS_FROM_PROFILE_SAGA, updateStatusFromProfileSagaWorker )
+    yield takeLatest ( PROFILE.UPDATE_STATUS_FROM_PROFILE_SAGA, updateStatusFromProfileSagaWorker )
 }
 
 export function* savePhotoFromProfileSagaWatcher() {
-    yield takeLatest ( SAVE_PHOTO_FROM_PROFILE_SAGA, savePhotoFromProfileSagaWorker )
+    yield takeLatest ( PROFILE.SAVE_PHOTO_FROM_PROFILE_SAGA, savePhotoFromProfileSagaWorker )
 }
 
 export function* saveNewProfileSagaWatcher() {
-    yield takeLatest ( SAVE_NEW_PROFILE_SAGA, saveNewProfileSagaWorker )
+    yield takeLatest ( PROFILE.SAVE_NEW_PROFILE_SAGA, saveNewProfileSagaWorker )
 }
 
 export function* getProfileSagaWatcher() {
-    yield takeLatest ( GET_PROFILE_SAGA, getProfileSagaWorker )
+    yield takeLatest ( PROFILE.GET_PROFILE_SAGA, getProfileSagaWorker )
 }
