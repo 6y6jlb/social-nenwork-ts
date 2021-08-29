@@ -3,6 +3,8 @@ import s from './MessageFromCurrentDialog.module.css';
 
 import {IMessage} from "../../../../../api/dialogsAPI";
 import {Message} from "./Message/Message";
+import {FormattedMessage} from "../../../../common/FormattedMessage/FormattedMessage";
+import {NoData} from "../../../../common/NoData/NoData";
 
 
 export type MessageFromCurrentDialogPropsType = {
@@ -21,26 +23,27 @@ export const MessagesFromCurrentDialog: React.FC<MessageFromCurrentDialogPropsTy
                                                                                                         toSpamMessage,
                                                                                                     }) => {
 
-    const messagesEndRef = useRef<HTMLDivElement>(null)
+    const messagesEndRef = useRef<HTMLDivElement> ( null );
 
     const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    }
+        messagesEndRef.current?.scrollIntoView ( {behavior: "smooth"} );
+    };
 
-    useEffect(() => {
-        scrollToBottom()
-    }, [messages]);
+    useEffect ( () => {
+        scrollToBottom ();
+    }, [messages] );
 
     const messagesBlock = messages.map ( message => {
         const isSelf = message.senderId === masterId; //определяем чей месадж
         return <Message toSpamMessage={ toSpamMessage } toViewedMessage={ toViewedMessage } isSelf={ isSelf }
                         deleteMessage={ deleteMessage } message={ message }/>;
     } );
-
     return (
         <div className={ s.currentDialog }>
-            { messagesBlock }
-            <div className={s.end} ref={messagesEndRef} />
+            { messagesBlock.length
+                ? messagesBlock
+                : <NoData emptyBox={ 2 }><FormattedMessage _id={ 'messages.empty' }/></NoData> }
+            <div className={ s.end } ref={ messagesEndRef }/>
         </div>
 
 

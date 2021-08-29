@@ -1,11 +1,6 @@
-import React from "react";
+import React, {useCallback} from "react";
 import style from "./Paginator.module.css";
 import {COLORS} from "./consts";
-
-
-
-
-
 
 
 type PropsType = {
@@ -22,7 +17,7 @@ type PropsType = {
 
 const Paginator: React.FC<PropsType> = React.memo ( ({
                                                          totalCount,
-                                                         portionSize = 10,
+                                                         portionSize = 5,
                                                          currentPage,
                                                          onPageChanged,
                                                          portionNumber,
@@ -34,13 +29,20 @@ const Paginator: React.FC<PropsType> = React.memo ( ({
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
 
-    let pages: number[] = [];
-    for (let i = 1; i < pagesCount + 1; i++) {
-        pages = [...pages, i];
-    }
-const colorStyles = color == COLORS.PURPLE? style.purple :  color == COLORS.GREEN? style.green : ''
+    const getPages = useCallback ( () => {
+        let tempPages: number[] = [];
+        for (let i = 1; i < pagesCount + 1; i++) {
+            tempPages = [...tempPages, i];
+        }
+        return tempPages;
+    }, [pagesCount] );
+
+    const pages = getPages ();
+
+    const colorStyles = color == COLORS.PURPLE ? style.purple : color == COLORS.GREEN ? style.green : '';
 
     const filteredPages = pages.filter ( p => p >= leftPortionPageNumber && p <= rightPortionPageNumber );
+
     const mappedPages = filteredPages.map ( (p, i) => {
         return (
             currentPage === p
@@ -54,16 +56,33 @@ const colorStyles = color == COLORS.PURPLE? style.purple :  color == COLORS.GREE
         );
     } );
 
-    const left = portionNumber > 1 && <span onClick={ () => changePortionNumber ( portionNumber - 1 ) }
-                                            className={ style.normalNumber }>{ '<<<' }</span>;
-    const right = pagesCount > portionNumber && <span onClick={ () => changePortionNumber ( portionNumber + 1 ) }
-                                                      className={ style.normalNumber }>{ '>>>' }</span>;
+    const left = portionNumber > 1 &&
+        <span onClick={ () => changePortionNumber ( portionNumber - 1 ) }
+                                            className={ style.normalNumber }>{ '<' }</span>;
+    const right = pagesCount/portionSize > portionNumber &&
+        <span onClick={ () => changePortionNumber ( portionNumber + 1 ) }
+                                                      className={ style.normalNumber }>{ '>' }</span>;
+    const bigRight = portionNumber + 23 <= pagesCount / portionSize &&
+        <span onClick={ () => changePortionNumber ( portionNumber + 23 ) }
+              className={ style.normalNumber }>{ '>>' }</span>;
+    const bigLeft = portionNumber - 23 > 23 && <span onClick={ () => changePortionNumber ( portionNumber - 23 ) }
+                                                     className={ style.normalNumber }>{ '<<' }</span>;
+    const end = portionNumber + portionSize < pagesCount / portionSize &&
+        <span onClick={ () => changePortionNumber ( pagesCount / portionSize ) }
+              className={ style.normalNumber }>{ 'end' }</span>;
+    const start = portionNumber - portionSize > 0 &&
+        <span onClick={ () => changePortionNumber ( 1 ) }
+                                                           className={ style.normalNumber }>{ 'start' }</span>;
     return (
         <>
             <div className={ `${ style.pages } ${ colorStyles }` }>
+                { start }
+                { bigLeft }
                 { left }
                 { mappedPages }
                 { right }
+                { bigRight }
+                { end }
             </div>
 
 

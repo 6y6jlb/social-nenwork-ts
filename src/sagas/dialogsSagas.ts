@@ -4,22 +4,23 @@ import {ActionsTypes} from "../Redux/reduxStore";
 import {DialogsAPI} from "../api/dialogsAPI";
 import {actionsDialogs} from "../Redux/dialogsReducer";
 import {messagesPageSelector, messagesPageSizeSelector} from "../utils/selectors/dialogs-selectors";
-import {actionsNews} from "../Redux/news-reducer";
 
 
 //workers
 export function* startDialogSagaWorker({type, payload}: { type: ActionsTypes, payload: { id: number } }) {
+    yield put(actionsDialogs.setIsFetching(true))
     //yield put(actionsDialogs.toDialogSaga(payload.id))
     try {
         const response = yield call ( DialogsAPI.startDialog, payload.id );
     } catch (e) {
         console.log ( e );
     } finally {
+        yield put(actionsDialogs.setIsFetching(false))
     }
 };
 
 export function* getDialogsSagaWorker({type, payload}: { type: ActionsTypes, payload: {} }) {
-
+    yield put(actionsDialogs.setIsFetching(true))
     try {
         const response = yield call ( DialogsAPI.getDialogs );
         const {data} = response;
@@ -27,6 +28,7 @@ export function* getDialogsSagaWorker({type, payload}: { type: ActionsTypes, pay
     } catch (e) {
         console.warn ( e );
     } finally {
+        yield put(actionsDialogs.setIsFetching(false))
     }
 };
 
@@ -34,7 +36,7 @@ export function* getMessagesSagaWorker({
                                            type,
                                            payload,
                                        }: { type: ActionsTypes, payload: { id: number } }) {
-    yield put(actionsNews.setIsFetching(true))
+    yield put(actionsDialogs.setIsFetching(true))
     const count = yield select ( messagesPageSizeSelector );
     const page = yield select ( messagesPageSelector );
 
@@ -45,7 +47,7 @@ export function* getMessagesSagaWorker({
     } catch (e) {
         console.warn ( e );
     } finally {
-        yield put(actionsNews.setIsFetching(false))
+        yield put(actionsDialogs.setIsFetching(false))
     }
 };
 
@@ -53,13 +55,14 @@ export function* postMessageSagaWorker({
                                            type,
                                            payload,
                                        }: { type: ActionsTypes, payload: { id: number, message: string } }) {
-
+    yield put(actionsDialogs.setIsFetching(true))
     try {
         const response = yield call ( DialogsAPI.sendMessage, payload.id, payload.message );
         yield put ( actionsDialogs.getMessages ( payload.id ) );
     } catch (e) {
         console.warn ( e );
     } finally {
+        yield put(actionsDialogs.setIsFetching(false))
     }
 };
 
@@ -67,8 +70,7 @@ export function* deleteMessageSagaWorker({
                                              type,
                                              payload,
                                          }: { type: ActionsTypes, payload: { id: number, messageId: number } }) {
-
-
+    yield put(actionsDialogs.setIsFetching(true))
     try {
         const response = yield call ( DialogsAPI.deleteMessage, payload.messageId );
         debugger
@@ -76,6 +78,7 @@ export function* deleteMessageSagaWorker({
     } catch (e) {
         console.warn ( e );
     } finally {
+        yield put(actionsDialogs.setIsFetching(false))
     }
 };
 
@@ -83,8 +86,7 @@ export function* toSpamMessageSagaWorker({
                                              type,
                                              payload,
                                          }: { type: ActionsTypes, payload: { id: number, messageId: number } }) {
-
-
+    yield put(actionsDialogs.setIsFetching(true))
     try {
         const response = yield call ( DialogsAPI.toSpamMessage, payload.messageId );
         debugger
@@ -92,6 +94,7 @@ export function* toSpamMessageSagaWorker({
     } catch (e) {
         console.warn ( e );
     } finally {
+        yield put(actionsDialogs.setIsFetching(false))
     }
 };
 
@@ -99,8 +102,6 @@ export function* toViewedMessageSagaWorker({
                                                type,
                                                payload,
                                            }: { type: ActionsTypes, payload: { id: number, messageId: number } }) {
-
-
     try {
         const response = yield call ( DialogsAPI.toViewedMessage, payload.messageId );
         if (response.data) {

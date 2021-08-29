@@ -48,6 +48,7 @@ export const actionsUsers = {
         return {type: USERS.SET_CURRENT_PAGE_FROM_USERS, page} as const
     },
     setPortionNumber: (portion: number) => {
+        debugger
         return {type: USERS.SET_PORTION_PAGE_FROM_USERS, portion} as const
     },
     getUsersSaga: (pageSize:number,currentPage:number)=>{

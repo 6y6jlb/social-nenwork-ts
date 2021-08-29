@@ -11,6 +11,7 @@ function* getUsersSagaWorker({type, payload}: {
     type: ActionsTypes,
     payload: { pageSize: number, currentPage: number }
 }) {
+    debugger
     yield put ( actionsUsers.changeIsFetchingActionCreator ( true ) )
     yield put ( actionsUsers.setCurrentPage ( payload.currentPage ) )
     try {
