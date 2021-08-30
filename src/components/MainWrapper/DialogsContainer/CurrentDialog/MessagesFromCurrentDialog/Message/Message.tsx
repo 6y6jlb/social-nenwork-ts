@@ -6,6 +6,8 @@ import spam from '../../../../../../images/spam.png';
 import viewed from '../../../../../../images/viewWhite.png';
 import visibility from '../../../../../../images/visibilityWhite.png';
 import {dateFormat} from "../../../../../../utils/dateFormatHelper";
+import {PhotosPropsType} from "../../../DialogsContainer";
+import emptyPhoto from '../../../../../../images/emptyUser.png';
 
 
 interface IProps {
@@ -14,6 +16,7 @@ interface IProps {
     deleteMessage: (messageId: string) => void;
     toSpamMessage: (messageId: string) => void;
     toViewedMessage: (messageId: string) => void;
+    photos: PhotosPropsType;
 
 }
 
@@ -23,6 +26,7 @@ export const Message: React.FC<IProps> = React.memo ( ({
                                                            isSelf,
                                                            toSpamMessage,
                                                            toViewedMessage,
+                                                           photos,
                                                        }) => {
     const [isSelfSubMenu, setSelfSubMenu] = useState ( false );
     const [isFriendSubMenu, setFriendSubMenu] = useState ( false );
@@ -34,6 +38,8 @@ export const Message: React.FC<IProps> = React.memo ( ({
     };
 
     const date = dateFormat ( message.addedAt ).map ( item => <span>{ item }</span> );
+    const photoObj = isSelf ? photos.master : photos.user;
+    const photo = photoObj?.small ? photoObj.small : photoObj?.large ? photoObj?.large : emptyPhoto;
 
     return isSelf ?
         <div className={ s.message }>
@@ -41,7 +47,7 @@ export const Message: React.FC<IProps> = React.memo ( ({
                  onClick={ () => deleteMessage ( message.id ) }>
                 <img src={ bin } alt="delete"/>
             </div>
-            <div className={ s.avatar }><img className={ s.avatarChild } src={ '' }/></div>
+            <div className={ s.avatar }><img className={ s.avatarChild } src={ photo }/></div>
             <div className={ s.messageFrame } onClick={ () => setSelfSubMenu ( !isSelfSubMenu ) }>
                 <div className={ s.textFrame }>
                     <div className={ s.name }>{ message.senderName }</div>
@@ -64,7 +70,7 @@ export const Message: React.FC<IProps> = React.memo ( ({
                     <img src={ bin } alt="spam"/>
                 </div>
             </div>
-            <div className={ s.avatar }><img className={ s.avatarChildFriend } src={ '' }/></div>
+            <div className={ s.avatar }><img className={ s.avatarChildFriend } src={ photo }/></div>
             <div className={ s.messageFrameFriend } onClick={ () => setFriendSubMenu ( !isFriendSubMenu ) }>
                 <div className={ s.cornetFriend }></div>
                 <div className={ s.textFrameFriend }>

@@ -7,6 +7,7 @@ import {NoData} from "../../../common/NoData/NoData";
 import {FormattedMessage} from "../../../common/FormattedMessage/FormattedMessage";
 import Paginator from "../../../common/Paginator/Paginator";
 import Preloader from "../../../common/preloader/Preloader";
+import {PhotosPropsType} from "../DialogsContainer";
 
 
 export type CurrentDialogPropsType = {
@@ -23,6 +24,8 @@ export type CurrentDialogPropsType = {
     portionNumber: number
     page: number
     isFetching: boolean
+    photos: PhotosPropsType
+
 
 }
 
@@ -40,6 +43,7 @@ export const CurrentDialog: React.FC<CurrentDialogPropsType> = React.memo ( ({
                                                                                  totalCount,
                                                                                  friendId,
                                                                                  isFetching,
+                                                                                 photos,
                                                                              }) => {
 
     if (!friendId) {
@@ -61,7 +65,8 @@ export const CurrentDialog: React.FC<CurrentDialogPropsType> = React.memo ( ({
                                              toViewedMessage={ toViewedMessage }
                                              deleteMessage={ deleteMessage }
                                              masterId={ masterId }
-                                             messages={ messages }/> }
+                                             messages={ messages }
+                                             photos={ photos }/> }
             <SendMessageAreaFromCurrentDialog sendMessage={ sendMessage }/>
         </div>
     );

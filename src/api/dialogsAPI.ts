@@ -30,13 +30,18 @@ export interface IMessages {
     totalCount: number;
 }
 
+export interface IPhotos {
+    small: null | string,
+    large: null | string
+};
+
 export interface IDialogs {
     hasNewMessages: boolean;
     id: number;
     lastDialogActivityDate: Date;
     lastUserActivityDate: Date;
     newMessagesCount: number;
-    photos: { small: null | string, large: null | string };
+    photos: IPhotos;
     userName: string;
 }
 
@@ -47,8 +52,8 @@ export const DialogsAPI = {
     getDialogs: () => {
         return instanceSamuraiAPI.get<Array<IDialogs>> ( `dialogs/` );
     },
-    getMessages: (id: number,count:number,page?:number) => {
-        return instanceSamuraiAPI.get<IMessages> ( `dialogs/${ id }/messages?count=${count}&page=${page}` );
+    getMessages: (id: number, count: number, page?: number) => {
+        return instanceSamuraiAPI.get<IMessages> ( `dialogs/${ id }/messages?count=${ count }&page=${ page }` );
     },
     sendMessage: (id: number, message: string) => {
         return instanceSamuraiAPI.post<IPostMessage> ( `dialogs/${ id }/messages`, {body: message} );

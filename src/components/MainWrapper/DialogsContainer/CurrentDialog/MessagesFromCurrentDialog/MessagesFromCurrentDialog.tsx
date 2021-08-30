@@ -5,6 +5,7 @@ import {IMessage} from "../../../../../api/dialogsAPI";
 import {Message} from "./Message/Message";
 import {FormattedMessage} from "../../../../common/FormattedMessage/FormattedMessage";
 import {NoData} from "../../../../common/NoData/NoData";
+import {PhotosPropsType} from "../../DialogsContainer";
 
 
 export type MessageFromCurrentDialogPropsType = {
@@ -13,6 +14,7 @@ export type MessageFromCurrentDialogPropsType = {
     deleteMessage: (messageId: string) => void
     toSpamMessage: (messageId: string) => void
     toViewedMessage: (messageId: string) => void
+    photos: PhotosPropsType
 }
 
 export const MessagesFromCurrentDialog: React.FC<MessageFromCurrentDialogPropsType> = React.memo ( ({
@@ -21,6 +23,7 @@ export const MessagesFromCurrentDialog: React.FC<MessageFromCurrentDialogPropsTy
                                                                                                         deleteMessage,
                                                                                                         toViewedMessage,
                                                                                                         toSpamMessage,
+                                                                                                        photos,
                                                                                                     }) => {
 
     const messagesEndRef = useRef<HTMLDivElement> ( null );
@@ -35,7 +38,7 @@ export const MessagesFromCurrentDialog: React.FC<MessageFromCurrentDialogPropsTy
 
     const messagesBlock = messages.map ( message => {
         const isSelf = message.senderId === masterId; //определяем чей месадж
-        return <Message toSpamMessage={ toSpamMessage } toViewedMessage={ toViewedMessage } isSelf={ isSelf }
+        return <Message photos={photos} toSpamMessage={ toSpamMessage } toViewedMessage={ toViewedMessage } isSelf={ isSelf }
                         deleteMessage={ deleteMessage } message={ message }/>;
     } );
     return (

@@ -4,6 +4,7 @@ import {ActionsTypes} from "../Redux/reduxStore";
 import {DialogsAPI} from "../api/dialogsAPI";
 import {actionsDialogs} from "../Redux/dialogsReducer";
 import {messagesPageSelector, messagesPageSizeSelector} from "../utils/selectors/dialogs-selectors";
+import {ProfileAPI} from "../api/profileAPI";
 
 
 //workers
@@ -44,6 +45,8 @@ export function* getMessagesSagaWorker({
         const response = yield call ( DialogsAPI.getMessages, payload.id, count, page );
         const {items,totalCount} = response.data;
         yield put ( actionsDialogs.setMessages ( items,totalCount ) );
+        // const userProfile = yield call ( ProfileAPI.setUserProfile, payload.id )
+
     } catch (e) {
         console.warn ( e );
     } finally {
