@@ -1,6 +1,6 @@
 import React from "react";
 import {Header} from "./Header";
-import {actionsAuth} from "../../Redux/auth-reducer";
+import {actionsAuth} from "../../Redux/authReducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/reduxStore";
 

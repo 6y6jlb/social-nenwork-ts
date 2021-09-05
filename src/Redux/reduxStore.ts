@@ -1,15 +1,16 @@
-import {applyMiddleware, combineReducers, compose, createStore} from 'redux'
+import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import profileReducer, {ProfileActionsTypes} from "./profileReducer";
 import dialogsReducer, {DialogsActionsTypes} from "./dialogsReducer";
 import navBarReducer from "./navBarReducer";
 import usersReducer, {UsersActionsTypes} from "./usersReducer";
-import authReducer, {AuthActionsTypes} from "./auth-reducer";
-import thunkMiddleware, {ThunkAction} from 'redux-thunk'
-import {reducer as formReducer} from 'redux-form'
-import appReducer, {AppActionsTypes} from "./app-reducer";
+import authReducer, {AuthActionsTypes} from "./authReducer";
+import thunkMiddleware, {ThunkAction} from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form';
+import appReducer, {AppActionsTypes} from "./appReducer";
 import newsReducer from "./news-reducer";
 import createSagaMiddleware from 'redux-saga';
 import rootSaga from "../sagas/rootSaga";
+import chatReducer, {ChatActionsTypes} from "./chatReducer";
 
 
 export type ActionsTypes =
@@ -18,17 +19,19 @@ export type ActionsTypes =
     | UsersActionsTypes
     | DialogsActionsTypes
     | AppActionsTypes
+    | ChatActionsTypes
 
 
 const rootReducer = combineReducers ( {
+    form: formReducer,
     profileReducer,
     dialogsReducer,
     navBarReducer,
     usersReducer,
     auth: authReducer,
-    form: formReducer,
     app: appReducer,
-    news: newsReducer
+    news: newsReducer,
+    chat: chatReducer,
 
 } );
 
@@ -41,7 +44,7 @@ export type InferActionsType<T extends { [key: string]: (...args: any[]) => any 
 
 
 // create the saga middleware
-const sagaMiddleware = createSagaMiddleware ()
+const sagaMiddleware = createSagaMiddleware ();
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -59,9 +62,9 @@ const store = createStore ( rootReducer, enhancer );
 //(window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__(), need to fix
 
 
-sagaMiddleware.run ( rootSaga )
+sagaMiddleware.run ( rootSaga );
 
 //@ts-ignore
-window.store = store
+window.store = store;
 
 export default store;

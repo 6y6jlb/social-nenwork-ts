@@ -1,5 +1,5 @@
 import {ActionsTypes} from "../Redux/reduxStore";
-import {actionsAuth} from "../Redux/auth-reducer";
+import {actionsAuth} from "../Redux/authReducer";
 import {call, put, takeLatest} from "redux-saga/effects";
 import {AUTH} from "../Redux/consts";
 import {securityAPI} from "../api/securityAPI";

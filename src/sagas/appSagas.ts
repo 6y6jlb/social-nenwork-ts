@@ -1,6 +1,6 @@
 import {ActionsTypes} from "../Redux/reduxStore";
-import {actionsAuth} from "../Redux/auth-reducer";
-import {actionsApp} from "../Redux/app-reducer";
+import {actionsAuth} from "../Redux/authReducer";
+import {actionsApp} from "../Redux/appReducer";
 import {put, takeLatest} from "redux-saga/effects";
 import {APP} from "../Redux/consts";
 

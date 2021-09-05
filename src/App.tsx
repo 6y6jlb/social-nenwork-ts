@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import {actionsApp} from "./Redux/app-reducer";
+import {actionsApp} from "./Redux/appReducer";
 import {AppStateType} from "./Redux/reduxStore";
 import Preloader from "./components/common/preloader/Preloader";
 

@@ -2,7 +2,7 @@ import React from 'react';
 import style from './Login.module.css';
 import LoginForm, {FormType} from "./loginForm/LoginForm";
 import {Redirect} from "react-router-dom";
-import {actionsAuth} from "../../../Redux/auth-reducer";
+import {actionsAuth} from "../../../Redux/authReducer";
 import {FormattedMessage} from "../FormattedMessage/FormattedMessage";
 
 

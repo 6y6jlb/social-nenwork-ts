@@ -1,4 +1,4 @@
-import authReducer, {actionsAuth, InitialStateFromAuthType} from "./auth-reducer";
+import authReducer, {actionsAuth, InitialStateFromAuthType} from "./authReducer";
 
 let initialState: InitialStateFromAuthType;
 

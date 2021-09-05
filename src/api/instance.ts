@@ -1,5 +1,5 @@
 import axios from "axios";
-import {AuthActionsTypes} from "../Redux/auth-reducer";
+import {AuthActionsTypes} from "../Redux/authReducer";
 
 export type FollowUserResponseType = {
     resultCode: number

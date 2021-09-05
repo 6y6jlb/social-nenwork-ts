@@ -80,3 +80,13 @@ export enum DIALOGS {
     , SET_PORTION_NUMBER = 'dialogs/SET_PORTION_NUMBER'
     , SET_SELECTED_FRIEND = 'dialogs/SET_SELECTED_FRIEND'
 }
+
+//websocket
+export enum WEBSOCKET {
+    SET_MESSAGES = 'websocket/SET_MESSAGES'
+    , GET_MESSAGES = 'websocket/GET_MESSAGES'
+    , POST_MESSAGE = 'websocket/POST_MESSAGE'
+    , DELETE_MESSAGE = 'websocket/DELETE_MESSAGE'
+    , SET_IS_FETCHING = 'websocket/SET_IS_FETCHING'
+
+}

@@ -16,5 +16,6 @@
   "login.title": "login",
   "messages.dialogs.select": "Maybe you should choose dialogue.",
   "messages.empty": "No one message yet",
-  "messages.get.more": "Get more messages."
+  "messages.get.more": "Get more messages.",
+  "chat.title": "Mirc like chat"
 }
