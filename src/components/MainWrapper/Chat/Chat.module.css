@@ -1,42 +1,52 @@
 .chatWrapper {
-    width: 275px;
-    max-height: 550px;
-    position: fixed;
+    width: 20px;
+    height: max-content;
     bottom: 50px;
     right: 20px;
+    position: fixed;
     z-index: 2;
     color: white;
-
-
+    transition-duration: 1s;
 }
 
 .active {
-
+    width: 275px;
+    max-height: 550px;
+    bottom: 50px;
+    right: 20px;
+    transition-duration: 1s;
 }
-
-.chat {
-    background-color: #bda3f1;
-    border-radius: 10px;
-
-}
-
-.frame {
-    display: grid;
-    row-gap: 5px;
-
-}
-
-
 
 .title {
     height: max-content;
+    text-align: center;
     padding: 10px 0;
     display: flex;
     justify-content: center;
     text-transform: uppercase;
     background-color: #9970ee;
-    border-radius: 10px 10px 0 0 ;
     margin-bottom: 5px;
+    border-radius: 10px;
+
+}
+
+.activeTitle {
+    border-radius: 10px 10px 0 0 ;
+
+}
+
+
+.chat {
+    display: none;
+}
+.activeChat {
+    row-gap: 5px;
+    display:grid;
+}
+
+.chat {
+    background-color: #bda3f1;
+    border-radius: 10px;
 
 }
 

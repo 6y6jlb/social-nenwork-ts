@@ -38,7 +38,6 @@ const initialState = {
 const chatReducer = (state = initialState, action: ChatActionsTypes): InitialStateFromChatType => {
     switch (action.type) {
         case WEBSOCKET.SET_MESSAGES:
-            debugger
             return {...state,  ...action.payload };
         default:
             return state;

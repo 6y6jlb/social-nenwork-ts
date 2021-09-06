@@ -76,7 +76,6 @@ export function* deleteMessageSagaWorker({
     yield put(actionsDialogs.setIsFetching(true))
     try {
         const response = yield call ( DialogsAPI.deleteMessage, payload.messageId );
-        debugger
         yield put ( actionsDialogs.getMessages ( payload.id ) );
     } catch (e) {
         console.warn ( e );
@@ -92,7 +91,6 @@ export function* toSpamMessageSagaWorker({
     yield put(actionsDialogs.setIsFetching(true))
     try {
         const response = yield call ( DialogsAPI.toSpamMessage, payload.messageId );
-        debugger
         yield put ( actionsDialogs.getMessages ( payload.id ) );
     } catch (e) {
         console.warn ( e );
