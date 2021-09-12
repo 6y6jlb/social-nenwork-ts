@@ -6,6 +6,9 @@ export const UsersAPI = {
         return instanceSamuraiAPI.get<UsersResponseType> ( `users/?count=${ pageSize }&page=${ currentPage }`,
         )
     },
+    friendCheck:(userId: number)=>{
+        return instanceSamuraiAPI.get<FollowUserResponseType> ( `follow/${ userId }`)
+    },
     unFollowUser: (userId: number) => {
         return instanceSamuraiAPI.delete<FollowUserResponseType> ( `follow/${ userId }`,
         )

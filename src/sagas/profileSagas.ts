@@ -4,6 +4,8 @@ import {PROFILE} from "../Redux/consts";
 import {ProfileAPI} from "../api/profileAPI";
 import {actionsProfile, UserFromProfileResponseType} from "../Redux/profileReducer";
 import {stopSubmit} from "redux-form";
+import {actionsUsers} from "../Redux/usersReducer";
+import {UsersAPI} from "../api/usersAPI";
 
 //workers
 function* getStatusSagaWorker({type, payload}: { type: ActionsTypes, payload: { userID: number } }) {
@@ -80,9 +82,61 @@ function* getProfileSagaWorker({
     }
 }
 
+//check
+export function* friendCheckWorker({type, payload}: { type: ActionsTypes, payload: { userId: number } }) {
+    yield put ( actionsProfile.friendCheckSaga ( payload.userId ) )
+    const response = yield call ( UsersAPI.friendCheck, payload.userId )
+    try {
+        if (response.data.resultCode === 0) {
+            yield put ( actionsProfile.setIsFriend ( response.data) )
+
+        }
+    } catch (e) {
+        //throw new Error(e)
+        console.warn ( e )
+    }
+}
+
+//check
+export function* setFriendlyStatus({type, payload}: { type: ActionsTypes, payload: { userId: number,isFriend:boolean } }) {
+    const {isFriend,userId} = payload
+    let response;
+    if (isFriend) {
+        debugger
+       response = yield call ( UsersAPI.unFollowUser, payload.userId );
+        try {
+            if (response.data.resultCode === 0) {
+                debugger
+                yield put ( actionsProfile.setIsFriend ( response.data) )
+            }
+        } catch (e) {
+            //throw new Error(e)
+            console.warn ( e )
+        }
+    } else {
+        response = yield call ( UsersAPI.followUser, payload.userId );
+        try {
+            if (response.data.resultCode === 0) {
+                debugger
+                yield put ( actionsProfile.setIsFriend ( response.data) )
+            }
+        } catch (e) {
+            //throw new Error(e)
+            console.warn ( e )
+        }
+    }
+
+}
+
 //watchers
 export function* getStatusSagaWatcher() {
     yield takeLatest ( PROFILE.GET_STATUS_FROM_PROFILE_SAGA, getStatusSagaWorker )
+}
+export function* setFriendlySagaWatcher() {
+    yield takeLatest ( PROFILE.SET_FRIENDLY_FROM_PROFILE_SAGA, setFriendlyStatus )
+}
+export function* friendCheckSagaWatcher() {
+    yield takeLatest ( PROFILE.IS_FRIEND_PROFILE, friendCheckWorker )
 }
 
 export function* updateStatusFromProfileSagaWatcher() {

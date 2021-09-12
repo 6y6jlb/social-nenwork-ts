@@ -49,7 +49,7 @@ type RootStateType = {
 /*
 let store: StoreType = {
     _state: {
-        profileWrapperObj: {
+        profile: {
             currentInputPost: '',
             profileSelfPhotoImgUrl: selfPhoto,
             profileInfoText: [
@@ -132,7 +132,7 @@ let store: StoreType = {
     },
     dispatch(action) {
 
-        profileReducer(this._state.profileWrapperObj, action)
+        profileReducer(this._state.profile, action)
         dialogsReducer(this._state.dialogWrapperObj, action)
         navBarReducer(this._state.navBarObj, action)
 

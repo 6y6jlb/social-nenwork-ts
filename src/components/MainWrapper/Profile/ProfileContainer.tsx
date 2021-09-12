@@ -3,11 +3,11 @@ import {actionsProfile, InitialStateProfileType, UserFromProfileResponseType} fr
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/reduxStore";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {ProfileWrapper} from "./ProfileWrapper";
 import Preloader from "../../common/preloader/Preloader";
 import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import selectors from "../../../utils/selectors";
+import {Profile} from "./Profile";
 
 
 //apiContainer
@@ -19,7 +19,7 @@ class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
         if (!userIdForURL) {
             userIdForURL = this.props.myLoginId //my autorzed id
             if (!userIdForURL) {
-                userIdForURL = this.props.history.push ( '/login' ) //my autorzed id
+                this.props.history.push ( '/login' ) //my autorzed id
             }
         }
         this.props.getProfile ( userIdForURL )
@@ -39,29 +39,23 @@ class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
     render() {
         return (
             this.props.isFetching ? <Preloader/> :
-                <ProfileWrapper profileWrapperObj={ this.props.profileWrapperObj }
-                                onAddPost={ this.props.onAddPost }
-                                openSet={ this.props.openSet }
-                                isOwner={ !this.props.match.params.userId }
-                                savePhoto={ this.props.savePhoto }
-                                isOpenMenu={this.props.isOpenMenu}
-                                saveNewProfile={ this.props.saveNewProfile }/>
+                <Profile profile={ this.props.profile }
+                         onAddPost={ this.props.onAddPost }
+                         openSet={ this.props.openSet }
+                         isOwner={ !this.props.match.params.userId }
+                         savePhoto={ this.props.savePhoto }
+                         isOpenMenu={this.props.isOpenMenu}
+                         setFriendlyStatus={this.props.setFriendlyStatus}
+                         saveNewProfile={ this.props.saveNewProfile }/>
         )
     }
 }
-
-//withHooks
-// const ProfileWrapperAPIContainerWithHooks:React.FC = (props)=>{
-//     return (
-//
-//     )
-// }
 
 
 //connect
 let mapStateToProps = (state: AppStateType): mapStateToPropsType => {
     return {
-        profileWrapperObj: selectors.profileSelectors.getProfileWrapperObj(state),
+        profile: selectors.profileSelectors.getProfile(state),
         myLoginId: selectors.authSelectors.getMyLoginId(state),
         isFetching: selectors.profileSelectors.getIsFetchingProfile(state),
         isAuth: selectors.authSelectors.getIsAuth(state),
@@ -75,7 +69,8 @@ export default compose<React.ComponentType> (
         getStatus:actionsProfile.getStatusProfileSaga,
         savePhoto:actionsProfile.savePhotoProfileSaga,
         saveNewProfile:actionsProfile.saveNewProfileSaga,
-        openSet:actionsProfile.openSet
+        openSet:actionsProfile.openSet,
+        setFriendlyStatus:actionsProfile.setFriendLyStatusSaga
     } ),
     withRouter,
     withAuthRedirect
@@ -84,12 +79,13 @@ export default compose<React.ComponentType> (
 //type
 type ProfileWrapperAPIContainerPropsType = {
     onAddPost: (value: string) => void
-    profileWrapperObj: InitialStateProfileType
+    profile: InitialStateProfileType
     myLoginId: number | null
     isFetching: boolean
     isOpenMenu:boolean
     getProfile: (userIdForURL: number | any) => void
     getStatus: (userId: number | any) => void
+    setFriendlyStatus: (isFriend:boolean | null,userId:number| null) => void
     openSet: (isOpenMenu:boolean) => void
     savePhoto: (file: any) => void
     saveNewProfile: (model: UserFromProfileResponseType,userId:number|null) => void
@@ -100,7 +96,7 @@ type WithRouterProfileType = {
 }
 type PropsType = RouteComponentProps<WithRouterProfileType> & ProfileWrapperAPIContainerPropsType
 type mapStateToPropsType = {
-    profileWrapperObj: InitialStateProfileType
+    profile: InitialStateProfileType
     myLoginId: number | null
     isFetching: boolean
     isOpenMenu: boolean

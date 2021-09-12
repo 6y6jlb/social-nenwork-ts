@@ -24,6 +24,9 @@ function* getUsersSagaWorker({type, payload}: {
         yield put ( actionsUsers.changeIsFetchingActionCreator ( false ) )
     }
 }
+
+
+
 //follow
 export function* followSagaWorker({type, payload}: { type: ActionsTypes, payload: { userId: number } }) {
     yield put ( actionsUsers.sendRequestFromFollowUnFollowActionCreator ( payload.userId, true ) )

@@ -11,6 +11,7 @@
     margin-bottom: 15px;
 }
 
+
 .selfText {
     grid-column-start: 3;
     display: grid;
@@ -69,15 +70,30 @@
 }
 
 
-.fullName {
+.followNameBlock {
     text-align: end;
     margin: 10px 50px;
     color: white;
     font-weight: bold;
     font-size: 1.3em;
     text-transform: capitalize;
+    display: grid;
+    justify-content: flex-end;
+    align-items: flex-start;
+    row-gap: 20px;
 
 }
+.fullName {
+
+}
+.isFriend {
+    cursor: pointer;
+    text-align: center;
+    background-color: #492F7E;
+    border-radius: 4px;
+    padding: 4px 0;
+}
+
 
 .lfj {
     display: grid;

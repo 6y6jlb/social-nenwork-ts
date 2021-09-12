@@ -2,10 +2,12 @@ import {all} from "redux-saga/effects";
 import {initializeSagaWatcher} from "./appSagas";
 import {followSagaWatcher, getUsersSagaWatcher, unfollowSagaWatcher} from "./usersSagas";
 import {
+    friendCheckSagaWatcher,
     getProfileSagaWatcher,
     getStatusSagaWatcher,
     saveNewProfileSagaWatcher,
     savePhotoFromProfileSagaWatcher,
+    setFriendlySagaWatcher,
     updateStatusFromProfileSagaWatcher,
 } from "./profileSagas";
 import {getCaptchaSagaWatcher, loginSagaWatcher, logoutSagaWatcher, setUserFromAuthSagaWatcher} from "./authSagas";
@@ -15,7 +17,9 @@ import {
     getDialogsSagaWatcher,
     getMessagesSagaWatcher,
     postMessageSagaWatcher,
-    startDialogSagaWatcher, toSpamMessageSagaWatcher, toViewedSagaWatcher,
+    startDialogSagaWatcher,
+    toSpamMessageSagaWatcher,
+    toViewedSagaWatcher,
 } from "./dialogsSagas";
 
 
@@ -40,10 +44,9 @@ export default function* rootSaga() {
         getMessagesSagaWatcher (),
         postMessageSagaWatcher (),
         deleteMessageSagaWatcher (),
-        toViewedSagaWatcher(),
-        toSpamMessageSagaWatcher(),
-
-
-
+        toViewedSagaWatcher (),
+        toSpamMessageSagaWatcher (),
+        setFriendlySagaWatcher (),
+        friendCheckSagaWatcher (),
     ] );
 }
