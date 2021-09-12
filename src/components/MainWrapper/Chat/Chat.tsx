@@ -2,32 +2,36 @@ import * as React from 'react';
 import {useEffect, useRef, useState} from 'react';
 import style from "./Chat.module.css";
 import {FormattedMessage} from "../../common/FormattedMessage/FormattedMessage";
-import {getWebSocket} from "./Websocket";
+import {wsConnect} from "./Websocket";
 import {useDispatch, useSelector} from "react-redux";
 import {getMessages as getMessagesSelector} from "../../../utils/selectors/chat-selectors";
 import {actionsChat, WebSocketMessageType} from "../../../Redux/chatReducer";
-import {InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm, reset} from "redux-form";
 import {createField, Textarea} from "../../common/formsContols/FormControls";
 import {requiredField} from "../../../utils/validators";
 import Button from "../../common/Button/Button";
+import classNames from "classnames";
 
 
-type PropsType = {}
+type PropsType = {
+    disabled: boolean
+}
 export type WebsocketMessageFormType = {
     newMessageBody: string
     validate: any[]
 }
 
 
-const WebsocketMessageForm: React.FC<InjectedFormProps<WebsocketMessageFormType>> & PropsType = React.memo ( (props) => {
+const WebsocketMessageForm: React.NamedExoticComponent<InjectedFormProps<WebsocketMessageFormType, PropsType> & PropsType> = React.memo ( (props) => {
+    const {handleSubmit, disabled} = props;
     return (
-        <form onSubmit={ props.handleSubmit }>
+        <form className={style.form} onSubmit={ handleSubmit }>
             { createField ( 'enter new message here', 'newMessageBody', [requiredField], Textarea, {type: 'text'} ) }
-            <Button text={ 'send message' }/>
+            <Button disabled={ disabled } text={ 'send message' }/>
         </form>
     );
 } );
-const WebsocketNewMessage = reduxForm<WebsocketMessageFormType> ( {form: 'websocket post message form'} ) ( WebsocketMessageForm );
+const WebsocketNewMessage = reduxForm<WebsocketMessageFormType, PropsType> ( {form: 'websocketPostMessageForm'} ) ( WebsocketMessageForm );
 
 
 export const Chat: React.FC<{}> = () => {
@@ -36,28 +40,30 @@ export const Chat: React.FC<{}> = () => {
     const messages = useSelector ( getMessagesSelector );
     const dispatch = useDispatch ();
     const chatRef = useRef<HTMLDivElement> ( null );
-    const setMessagesCallback = (messages: WebSocketMessageType[]) => {
-        dispatch ( actionsChat.setMessages ( messages ) );
+    const setMessagesCallback = (newMessages: WebSocketMessageType[]) => {
+        dispatch ( actionsChat.setMessages ( newMessages ) );
     };
-
-
 
 
     const openChat = () => {
-        setIsActive(true);
+        setIsActive ( true );
+        if (ws) {
+            setTimeout ( () => chatRef.current?.scrollTo ( 0, chatRef.current.scrollHeight ), 1000 );
+        }
     };
 
 
-    useEffect(() => {
-         setWS(getWebSocket())
-        ws?.addEventListener ( 'message', (messageEvent) => {
+    useEffect ( () => {
+        setWS ( wsConnect () );
+        const onListener = (messageEvent: any) => {
             setMessagesCallback ( [...messages, ...JSON.parse ( messageEvent.data )] );
-        }
-        )
+        };
+        ws?.addEventListener ( 'message', onListener );
         return () => {
-            ws?.close();
-        }
-    },[])
+            ws?.removeEventListener ( 'message', onListener );
+            ws?.close ();
+        };
+    }, [] );
 
     if (ws) {
         ws.onmessage = (messageEvent) => {
@@ -66,15 +72,17 @@ export const Chat: React.FC<{}> = () => {
         };
     }
     const closeChat = () => {
-        setIsActive(false)
+        setIsActive ( false );
 
-    }
-
-    const onSubmit = (form: WebsocketMessageFormType) => {
-        ws?.send ( form.newMessageBody.trim () );
     };
 
-
+    const onSubmit = (form: WebsocketMessageFormType) => {
+        const message = form.newMessageBody;
+        if (message && message.trim ()) {
+            ws?.send ( message.trim () );
+            dispatch ( reset ( 'websocketPostMessageForm' ) );
+        }
+    };
 
 
     const mappedMessages = messages.map ( m => {
@@ -90,13 +98,14 @@ export const Chat: React.FC<{}> = () => {
     } );
 
     return (
-        <div  className={ `${style.chatWrapper} ${isActive && style.active}` }>
-            <div onClick={isActive ? closeChat : openChat} className={ `${style.title} ${isActive && style.activeTitle}` }>
+        <div className={ `${ style.chatWrapper } ${ isActive && style.active }` }>
+            <div onClick={ isActive ? closeChat : openChat }
+                 className={ classNames ( style.title, isActive && style.activeTitle ) }>
                 <FormattedMessage _id={ isActive ? "chat.title" : "chat.handler" }/>
             </div>
-            <div className={ `${style.chat} ${isActive && style.activeChat}` }>
+            <div className={ `${ style.chat } ${ isActive && style.activeChat }` }>
                 <div ref={ chatRef } className={ style.messages }>{ mappedMessages }</div>
-                <WebsocketNewMessage onSubmit={ onSubmit }/>
+                <WebsocketNewMessage disabled={ ws?.readyState === ws?.CLOSED } onSubmit={ onSubmit }/>
             </div>
         </div>
     );

@@ -18,6 +18,7 @@
 }
 
 .title {
+    cursor: pointer;
     height: max-content;
     text-align: center;
     padding: 10px 0;
@@ -27,28 +28,37 @@
     background-color: #9970ee;
     margin-bottom: 5px;
     border-radius: 10px;
-
+    position: relative;
+    bottom: -400px;
+    transition-duration: 0.7s;
+    z-index: 3;
 }
 
 .activeTitle {
+    background-color:#492F7E;
+    position: relative;
+    cursor: pointer;
     border-radius: 10px 10px 0 0 ;
-
+    bottom: -0px;
+    transition-duration: 1s;
 }
 
 
 .chat {
-    display: none;
-}
-.activeChat {
     row-gap: 5px;
     display:grid;
-}
-
-.chat {
+    position: relative;
+    right: -300px;
     background-color: #bda3f1;
     border-radius: 10px;
-
+    transition-duration: 1s;
 }
+.activeChat {
+    right: 0px;
+    transition-duration: 0.5s;
+}
+
+
 
 .messages {
     display: grid;
@@ -78,4 +88,8 @@
 
 .body {
 padding: 0 5px;
+}
+
+
+.form {
 }

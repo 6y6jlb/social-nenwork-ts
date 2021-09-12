@@ -25,7 +25,7 @@ const initialState = {
     navLinkBar: [
         {id: 1, item: 'profile'},
         {id: 2, item: 'dialogs'},
-        {id: 3, item: 'friends'},
+        {id: 3, item: 'users'},
         {id: 4, item: 'news'},
         {id: 5, item: 'audio'},
         {id: 6, item: 'settings'}

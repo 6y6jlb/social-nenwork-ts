@@ -15,7 +15,7 @@ export const PATH = {
     SLASH: '/',
     PROFILE: '/profile',
     DIALOGS: '/dialogs',
-    FRIENDS: '/friends',
+    USERS: '/users',
     NEWS: '/news',
     AUDIO: '/audio',
     SETTINGS: '/settings',
@@ -40,7 +40,7 @@ const Routes: React.FC = React.memo ( () => {
                 <Route path={ PATH.DIALOGS }
                        render={ () => <Dialogs
                        /> }/>
-                <Route path={ PATH.FRIENDS }
+                <Route path={ PATH.USERS }
                        render={ () => <Users
                        /> }/>
                 <Route path={ PATH.NEWS } render={ () => <NewsFeed/> }/>
