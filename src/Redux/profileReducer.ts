@@ -32,7 +32,7 @@ export type ProfileActionsTypes = InferActionsType<typeof actionsProfile>
 //ac
 export const actionsProfile = {
     friendCheckSaga: (userId: number) => {
-        return {type: PROFILE.FRIEND_CHECK, payload: {userId}} as const;
+        return {type: PROFILE.FRIENDLY_CHECK_SAGA, payload: {userId}} as const;
     }, addPost: (value: string) => {
         return {type: PROFILE.ADD_POST, payload: {value}} as const;
     }, openSet: (isOpen: boolean) => {
@@ -59,7 +59,7 @@ export const actionsProfile = {
     }, getProfileSaga: (userIdForURL: number) => {
         return {type: PROFILE.GET_PROFILE_SAGA, payload: {userIdForURL}} as const;
     }, setIsFriend: (isFriend: boolean | null) => {
-        return {type: PROFILE.IS_FRIEND_PROFILE, payload: {isFriend}} as const;
+        return {type: PROFILE.SET_IS_FRIEND_PROFILE_SAGA, payload: {isFriend}} as const;
     },setFriendLyStatusSaga: (isFriend: boolean | null,userId:number) => {
         return {type: PROFILE.SET_FRIENDLY_FROM_PROFILE_SAGA, payload: {isFriend,userId}} as const;
     },
@@ -198,7 +198,7 @@ const profileReducer = (state = initialState, action: ProfileActionsTypes): Init
         case PROFILE.IS_OPEN_MENU_FROM_PROFILE: {
             return {...state, isOpenMenu: action.payload.isOpen};
         }
-        case PROFILE.IS_FRIEND_PROFILE: {
+        case PROFILE.SET_IS_FRIEND_PROFILE_SAGA: {
             return {...state, isFriend: action.payload.isFriend};
         }
         default:

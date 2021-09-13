@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {InitialStateProfileType, UserFromProfileResponseType} from "../../../../Redux/profileReducer";
 import Contact from "./Contacts/Contact";
 import {ProfileHeader} from "./ProfileHeader";
@@ -14,6 +14,7 @@ type ProfileHeaderPropsType = {
     saveNewProfile: (model: UserFromProfileResponseType, userId: number | null) => void
     isFriend: boolean | null
     setFriendlyStatus: (isFriend:boolean | null,userId:number| null) => void
+    friendlyCheck: (userId: number | any) => void
 }
 
 
@@ -26,7 +27,8 @@ export const ProfileHeaderContainer: React.FC<ProfileHeaderPropsType> = (props) 
         openSet,
         isOpenMenu,
         isFriend,
-        setFriendlyStatus
+        setFriendlyStatus,
+        friendlyCheck
     } = props;
 
     const profile = profileWrapperObj.profile;
@@ -58,6 +60,13 @@ export const ProfileHeaderContainer: React.FC<ProfileHeaderPropsType> = (props) 
     const formReset = () => {
         openSet ( false );
     };
+
+    useEffect(()=>{
+        if (!isOwner) {
+
+            friendlyCheck(profile.userId)
+        }
+    },[])
 
     return <>
         <ProfileHeader onCropPhoto={ saveCroppedPhoto }

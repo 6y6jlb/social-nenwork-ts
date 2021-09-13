@@ -37,7 +37,7 @@ export const ProfileHeader: React.FC<IHatProfileHeaderParams> = (props) => {
     };
 
 
-    const setIsFriendCallBack = useCallback(()=>setFriendlyStatus(!isFriend,profile.userId),[isFriend,profile])
+    const setIsFriendCallBack = useCallback(()=>setFriendlyStatus(isFriend,profile.userId),[isFriend,profile])
 
 
     return <div className={ style.profileHeader }>

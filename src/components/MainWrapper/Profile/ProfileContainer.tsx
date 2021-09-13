@@ -45,6 +45,7 @@ class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
                          isOwner={ !this.props.match.params.userId }
                          savePhoto={ this.props.savePhoto }
                          isOpenMenu={this.props.isOpenMenu}
+                         friendlyCheck={this.props.friendlyCheck}
                          setFriendlyStatus={this.props.setFriendlyStatus}
                          saveNewProfile={ this.props.saveNewProfile }/>
         )
@@ -70,6 +71,7 @@ export default compose<React.ComponentType> (
         savePhoto:actionsProfile.savePhotoProfileSaga,
         saveNewProfile:actionsProfile.saveNewProfileSaga,
         openSet:actionsProfile.openSet,
+        friendlyCheck:actionsProfile.friendCheckSaga,
         setFriendlyStatus:actionsProfile.setFriendLyStatusSaga
     } ),
     withRouter,
@@ -85,6 +87,7 @@ type ProfileWrapperAPIContainerPropsType = {
     isOpenMenu:boolean
     getProfile: (userIdForURL: number | any) => void
     getStatus: (userId: number | any) => void
+    friendlyCheck: (userId: number | any) => void
     setFriendlyStatus: (isFriend:boolean | null,userId:number| null) => void
     openSet: (isOpenMenu:boolean) => void
     savePhoto: (file: any) => void

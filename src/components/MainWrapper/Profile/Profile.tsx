@@ -14,23 +14,35 @@ type PropsType = {
     saveNewProfile: (model: UserFromProfileResponseType, userId: number | null) => void
     profile: InitialStateProfileType
     isOwner: boolean
-    setFriendlyStatus: (isFriend:boolean | null,userId:number| null) => void
-
+    setFriendlyStatus: (isFriend: boolean | null, userId: number | null) => void
+    friendlyCheck: (userId: number | any) => void
 
 
 }
 
 export const Profile: React.FC<PropsType> = React.memo ( (props) => {
-    const {onAddPost,isOwner,profile,saveNewProfile,openSet,savePhoto,isOpenMenu,setFriendlyStatus}= props
+    const {
+        onAddPost,
+        isOwner,
+        profile,
+        saveNewProfile,
+        openSet,
+        savePhoto,
+        isOpenMenu,
+        setFriendlyStatus,
+        friendlyCheck,
+    } = props;
+
     return (
         <div className={ style.profileContent }>
             <ProfileHeaderContainer isOpenMenu={ isOpenMenu }
                                     openSet={ openSet }
-                                    setFriendlyStatus={setFriendlyStatus}
+                                    setFriendlyStatus={ setFriendlyStatus }
                                     saveNewProfile={ saveNewProfile }
                                     savePhotoTC={ savePhoto }
-                                    isFriend={profile.isFriend}
+                                    isFriend={ profile.isFriend }
                                     isOwner={ isOwner }
+                                    friendlyCheck={ friendlyCheck }
                                     profileWrapperObj={ profile }/>
             <SendMessageAreaFromProfile onAddPost={ onAddPost }/>
             <Posts myPostArray={ profile.myPostArray }/>

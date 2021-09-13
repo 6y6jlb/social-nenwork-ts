@@ -8,6 +8,8 @@ import visibility from '../../../../../../images/visibilityWhite.png';
 import {dateFormat} from "../../../../../../utils/dateFormatHelper";
 import {PhotosPropsType} from "../../../DialogsContainer";
 import emptyPhoto from '../../../../../../images/emptyUser.png';
+import {NavLink} from "react-router-dom";
+import {PATH} from "../../../../../common/routes/Routes";
 
 
 interface IProps {
@@ -47,7 +49,9 @@ export const Message: React.FC<IProps> = React.memo ( ({
                  onClick={ () => deleteMessage ( message.id ) }>
                 <img src={ bin } alt="delete"/>
             </div>
-            <div className={ s.avatar }><img className={ s.avatarChild } src={ photo }/></div>
+            <NavLink to={ `${ PATH.PROFILE + message.senderId }` }>
+                <div className={ s.avatar }><img className={ s.avatarChild } src={ photo }/></div>
+            </NavLink>
             <div className={ s.messageFrame } onClick={ () => setSelfSubMenu ( !isSelfSubMenu ) }>
                 <div className={ s.textFrame }>
                     <div className={ s.name }>{ message.senderName }</div>
@@ -70,7 +74,9 @@ export const Message: React.FC<IProps> = React.memo ( ({
                     <img src={ bin } alt="spam"/>
                 </div>
             </div>
-            <div className={ s.avatar }><img className={ s.avatarChildFriend } src={ photo }/></div>
+            <NavLink to={ `${ PATH.PROFILE + message.senderId }` }>
+                <div className={ s.avatar }><img className={ s.avatarChildFriend } src={ photo }/></div>
+            </NavLink>
             <div className={ s.messageFrameFriend } onClick={ () => setFriendSubMenu ( !isFriendSubMenu ) }>
                 <div className={ s.cornetFriend }></div>
                 <div className={ s.textFrameFriend }>

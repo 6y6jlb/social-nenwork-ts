@@ -11,6 +11,7 @@
 
 
 .avatar {
+    cursor: pointer;
     text-align: center;
     grid-area: a;
     display: grid;
@@ -200,6 +201,7 @@
 }
 
 .imgFriend img {
+    cursor: pointer;
     width: 25px;
     height: 25px;
     margin-bottom: 6px;
