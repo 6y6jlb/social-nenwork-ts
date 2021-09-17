@@ -14,7 +14,7 @@ interface IHatProfileHeaderParams {
     onPhotoSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onCropPhoto: (image: React.ChangeEvent<HTMLInputElement> | string) => void;
     isFriend: boolean | null;
-    setFriendlyStatus: (isFriend: boolean | null,userId:number | null) => void;
+    setFriendlyStatus: (isFriend: boolean | null, userId: number | null) => void;
 }
 
 export const ProfileHeader: React.FC<IHatProfileHeaderParams> = (props) => {
@@ -37,16 +37,22 @@ export const ProfileHeader: React.FC<IHatProfileHeaderParams> = (props) => {
     };
 
 
-    const setIsFriendCallBack = useCallback(()=>setFriendlyStatus(isFriend,profile.userId),[isFriend,profile])
+    const setIsFriendCallBack = useCallback ( () => setFriendlyStatus ( isFriend, profile.userId ), [isFriend, profile] );
+    const openDialogCallback = useCallback ( () => setFriendlyStatus ( isFriend, profile.userId ), [isFriend, profile] );
 
 
     return <div className={ style.profileHeader }>
         <div className={ style.followNameBlock }>
-            <div className={ style.fullName }>{ profile.fullName }</div>
+            <div className={ style.optionBlock }>{ profile.fullName }</div>
             { !isOwner &&
-                <div className={style.isFriend} onClick={setIsFriendCallBack}>
+            <>
+                <div className={ style.button } onClick={ setIsFriendCallBack }>
                     <FormattedMessage _id={ `${ !isFriend ? 'users.dialogs.follow' : 'users.dialogs.unfollow' }` }/>
                 </div>
+                <div className={ style.button } onClick={ openDialogCallback }>
+                    <FormattedMessage _id={ `users.dialogs.dialog` }/>
+                </div>
+            </>
             }
         </div>
         <div className={ `${ style.selfPhotoFromProfile } ${ activeAvatarInput && style.active }` }

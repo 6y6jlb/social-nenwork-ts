@@ -100,7 +100,35 @@ export function* setFriendlyStatus({
     const {isFriend, userId} = payload;
     let response;
     if (isFriend) {
-        response = yield call ( UsersAPI.unFollowUser, payload.userId );
+        response = yield call ( UsersAPI.unFollowUser, userId );
+        try {
+            yield put ( actionsProfile.setIsFriend ( response.data ) );
+
+        } catch (e) {
+            //throw new Error(e)
+            console.warn ( e );
+        }
+    } else {
+        response = yield call ( UsersAPI.followUser, payload.userId );
+        try {
+            yield put ( actionsProfile.setIsFriend ( response.data ) );
+
+        } catch (e) {
+            //throw new Error(e)
+            console.warn ( e );
+        }
+    }
+
+}
+//get dialog
+export function* getDialog({
+                                       type,
+                                       payload,
+                                   }: { type: ActionsTypes, payload: { userId: number, isFriend: boolean } }) {
+    const {isFriend, userId} = payload;
+    let response;
+    if (isFriend) {
+        response = yield call ( UsersAPI.unFollowUser, userId );
         try {
             yield put ( actionsProfile.setIsFriend ( response.data ) );
 
@@ -124,6 +152,9 @@ export function* setFriendlyStatus({
 //watchers
 export function* getStatusSagaWatcher() {
     yield takeLatest ( PROFILE.GET_STATUS_FROM_PROFILE_SAGA, getStatusSagaWorker );
+}
+export function* getDialogSagaWatcher() {
+    yield takeLatest ( PROFILE.GET_DIALOG_FROM_PROFILE_SAGA, getDialog );
 }
 
 export function* setFriendlySagaWatcher() {

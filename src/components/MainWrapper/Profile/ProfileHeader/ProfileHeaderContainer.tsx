@@ -63,10 +63,9 @@ export const ProfileHeaderContainer: React.FC<ProfileHeaderPropsType> = (props) 
 
     useEffect(()=>{
         if (!isOwner) {
-
             friendlyCheck(profile.userId)
         }
-    },[])
+    },[profile])
 
     return <>
         <ProfileHeader onCropPhoto={ saveCroppedPhoto }

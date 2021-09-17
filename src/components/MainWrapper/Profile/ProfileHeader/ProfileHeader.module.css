@@ -38,7 +38,7 @@
     width: 125px;
     height: 125px;
     align-self: end;
-    margin-left: 125px;
+    margin-left: 120px;
     border: 10px solid white;
     border-bottom: none;
     border-radius: 10px 10px 0 0;
@@ -50,7 +50,7 @@
     z-index: 5;
     border-radius: 10px 10px 0 0;
     width: 125px;
-    height: auto;
+    height:  125px;
 
 
 }
@@ -83,10 +83,11 @@
     row-gap: 20px;
 
 }
-.fullName {
-
+.optionBlock {
+    display: grid;
+    justify-content: space-evenly;
 }
-.isFriend {
+.button {
     cursor: pointer;
     text-align: center;
     background-color: #492F7E;
