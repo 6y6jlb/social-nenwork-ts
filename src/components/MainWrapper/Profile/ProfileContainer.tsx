@@ -8,6 +8,7 @@ import {withAuthRedirect} from "../../../hoc/WithAuthRedirect";
 import {compose} from "redux";
 import selectors from "../../../utils/selectors";
 import {Profile} from "./Profile";
+import {actionsDialogs} from "../../../Redux/dialogsReducer";
 
 
 //apiContainer
@@ -47,6 +48,7 @@ class ProfileWrapperAPIContainer extends React.PureComponent<PropsType> {
                          isOpenMenu={this.props.isOpenMenu}
                          friendlyCheck={this.props.friendlyCheck}
                          setFriendlyStatus={this.props.setFriendlyStatus}
+                         toDialog={this.props.toDialog}
                          saveNewProfile={ this.props.saveNewProfile }/>
         )
     }
@@ -72,7 +74,8 @@ export default compose<React.ComponentType> (
         saveNewProfile:actionsProfile.saveNewProfileSaga,
         openSet:actionsProfile.openSet,
         friendlyCheck:actionsProfile.friendCheckSaga,
-        setFriendlyStatus:actionsProfile.setFriendLyStatusSaga
+        setFriendlyStatus:actionsProfile.setFriendLyStatusSaga,
+        toDialog:actionsDialogs.toDialogSaga
     } ),
     withRouter,
     withAuthRedirect
@@ -93,6 +96,7 @@ type ProfileWrapperAPIContainerPropsType = {
     savePhoto: (file: any) => void
     saveNewProfile: (model: UserFromProfileResponseType,userId:number|null) => void
     isAuth: boolean
+    toDialog: (userId: number) => void
 }
 type WithRouterProfileType = {
     userId: number | any

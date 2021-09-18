@@ -14,12 +14,14 @@ type ProfileHeaderPropsType = {
     saveNewProfile: (model: UserFromProfileResponseType, userId: number | null) => void
     isFriend: boolean | null
     setFriendlyStatus: (isFriend:boolean | null,userId:number| null) => void
+    toDialog:(userId:number)=>void
     friendlyCheck: (userId: number | any) => void
 }
 
 
 export const ProfileHeaderContainer: React.FC<ProfileHeaderPropsType> = (props) => {
     const {
+        toDialog,
         profileWrapperObj,
         isOwner,
         savePhotoTC,
@@ -74,6 +76,7 @@ export const ProfileHeaderContainer: React.FC<ProfileHeaderPropsType> = (props) 
                        onMouseEnter={ () => setActiveAvatarInput ( true ) }
                        onMouseLeave={ () => setActiveAvatarInput ( false ) }
                        isOwner={ isOwner }
+                       toDialog={toDialog}
                        isFriend={ isFriend }
                        setFriendlyStatus={setFriendlyStatus}
                        onPhotoSelect={ photoSelect }/>

@@ -16,6 +16,7 @@ type PropsType = {
     isOwner: boolean
     setFriendlyStatus: (isFriend: boolean | null, userId: number | null) => void
     friendlyCheck: (userId: number | any) => void
+    toDialog:(userId:number)=>void
 
 
 }
@@ -31,6 +32,7 @@ export const Profile: React.FC<PropsType> = React.memo ( (props) => {
         isOpenMenu,
         setFriendlyStatus,
         friendlyCheck,
+        toDialog
     } = props;
 
     return (
@@ -42,6 +44,7 @@ export const Profile: React.FC<PropsType> = React.memo ( (props) => {
                                     savePhotoTC={ savePhoto }
                                     isFriend={ profile.isFriend }
                                     isOwner={ isOwner }
+                                    toDialog={toDialog}
                                     friendlyCheck={ friendlyCheck }
                                     profileWrapperObj={ profile }/>
             <SendMessageAreaFromProfile onAddPost={ onAddPost }/>

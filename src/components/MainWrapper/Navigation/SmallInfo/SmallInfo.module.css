@@ -7,22 +7,25 @@
     border-radius: 0px 0px 5px 5px;
     border-top: none;
     margin-bottom: 100px;
-    text-align: center;
-
+    display: grid;
+    justify-content: center;
+    align-items: center;
 }
 
 .smallInfo img {
+
     width: 50px;
-
-    height: auto;
+    height: max-content;
 }
+
 @media (max-width: 1400px) {
-.smallInfo {
-    left: 30px;
-    width: 120px;
-}
+    .smallInfo {
+        left: 30px;
+        width: 120px;
+    }
 
 }
+
 @media (max-width: 1111px) {
     .smallInfo {
         width: 100px;
