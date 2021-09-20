@@ -50,8 +50,8 @@ export const actionsUsers = {
     setPortionNumber: (portion: number) => {
         return {type: USERS.SET_PORTION_PAGE_FROM_USERS, portion} as const
     },
-    getUsersSaga: (pageSize:number,currentPage:number)=>{
-        return {type: USERS.GET_USERS_SAGA, payload: {pageSize, currentPage}
+    getUsersSaga: (pageSize:number,currentPage:number,userName?:string)=>{
+        return {type: USERS.GET_USERS_SAGA, payload: {pageSize, currentPage,userName}
         }as const
     }
 }

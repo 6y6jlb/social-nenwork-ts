@@ -2,8 +2,8 @@ import {UsersResponseType} from "../components/MainWrapper/Users/UserPage.contai
 import {FollowUserResponseType, instanceSamuraiAPI} from "./instance";
 
 export const UsersAPI = {
-    getUsers: (pageSize: number, currentPage: number) => {
-        return instanceSamuraiAPI.get<UsersResponseType> ( `users/?count=${ pageSize }&page=${ currentPage }`,
+    getUsers: (pageSize: number, currentPage: number,userName='') => {
+        return instanceSamuraiAPI.get<UsersResponseType> ( `users/?count=${ pageSize }&page=${ currentPage }&term=${userName}`,
         )
     },
     friendCheck:(userId: number)=>{

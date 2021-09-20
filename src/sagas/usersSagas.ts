@@ -9,13 +9,13 @@ import {ActionsTypes} from "../Redux/reduxStore";
 //getusers
 function* getUsersSagaWorker({type, payload}: {
     type: ActionsTypes,
-    payload: { pageSize: number, currentPage: number }
+    payload: { pageSize: number, currentPage: number,userName?:string }
 }) {
 
     yield put ( actionsUsers.changeIsFetchingActionCreator ( true ) )
     yield put ( actionsUsers.setCurrentPage ( payload.currentPage ) )
     try {
-        const response = yield call ( UsersAPI.getUsers, payload.pageSize, payload.currentPage );
+        const response = yield call ( UsersAPI.getUsers, payload.pageSize, payload.currentPage,payload.userName );
         yield put ( actionsUsers.changeTotalCountActionCreator ( response.data.totalCount ) );
         yield put ( actionsUsers.addMoreUsersActionCreator ( response.data.items ) );
     } catch (e) {

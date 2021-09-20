@@ -1,10 +1,10 @@
 import React from "react";
 import Article from "./Article/Article";
 import style from './NewsFeed.module.css'
-import SearchNewsForm from "./SearchNews/SearchNewsForm";
 import Paginator from "../../common/Paginator/Paginator";
 import {ArticleType} from "../../../api/newsAPI";
 import Preloader from "../../common/preloader/Preloader";
+import SearchArea from "./SearchArea/SearchArea";
 
 type PropsType = {
     totalCount: number
@@ -37,7 +37,7 @@ const NewsFeed: React.FC<PropsType> = React.memo ( ({
         <div className={ style.newsFeed }>
             <Paginator totalCount={ totalCount } currentPage={ currentPage } portionNumber={ portionNumber }
                        onPageChanged={ onPageChange } changePortionNumber={ onPortionNumberChange }/>
-            <SearchNewsForm onSearchArea={ onSearchArea }/>
+            <SearchArea onSearchArea={ onSearchArea }/>
             {totalCount?
             <div className={ style.articles }>
                 {mappedArticles}
