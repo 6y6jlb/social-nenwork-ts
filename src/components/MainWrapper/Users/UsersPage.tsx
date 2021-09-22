@@ -16,6 +16,7 @@ type UsersPagePropsType = {
     currentPage: number
     isRequestSendUsersId: number []
     onPageChanged: (pageNumber: number) => void
+    onSearchArea:(searchText:string) => void
 
 }
 
@@ -30,23 +31,15 @@ const Users: React.FC<UsersPagePropsType> = React.memo ( (props) => {
         isRequestSendUsersId,
         currentPage,
         portionNumber,
+        onSearchArea
     } = props;
 
-    const [searchText, setSearchText] = useState('')
+
     const dispatch = useDispatch ();
     const setPortionNumber = (portionNumber: number) => {
         dispatch ( actionsUsers.setPortionNumber ( portionNumber ) );
     };
 
-
-    useEffect ( () => {
-        dispatch ( actionsUsers.getUsersSaga ( pageSize, currentPage ,searchText) );
-    }, [searchText,currentPage,searchText] );
-
-
-    const onSearchArea = (text: string) => {
-        setSearchText(text)
-    }
 
 
     const mappedUsers = users.map ( user => {
@@ -57,10 +50,11 @@ const Users: React.FC<UsersPagePropsType> = React.memo ( (props) => {
     } );
 
 
-    return (<div className={ style.usersFrame }>
-           <SearchArea onSearchArea={onSearchArea}/>
+    return (
+        <div className={ style.usersFrame }>
             <Paginator changePortionNumber={ setPortionNumber } portionNumber={ portionNumber }
                        totalCount={ totalCount } currentPage={ currentPage } onPageChanged={ onPageChanged }/>
+            <SearchArea onSearchArea={onSearchArea}/>
             { mappedUsers }
         </div>
     );

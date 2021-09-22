@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {actionsUsers, UserType} from "../../../Redux/usersReducer";
 import Users from "./UsersPage";
@@ -42,6 +42,10 @@ export type UsersResponseType = {
 const UsersPageContainer: React.FC<PropsType> = (props) => {
 
     const dispatch = useDispatch ();
+    const [searchText, setSearchText] = useState('')
+
+
+
     const {
         users,
         totalCount,
@@ -52,13 +56,18 @@ const UsersPageContainer: React.FC<PropsType> = (props) => {
         isFetching,
     } = useSelector ( commonUsersSelector );
 
-
-
     const onPageChanged = (pageNumber: number) => {
         dispatch ( actionsUsers.changeCurrentPageActionCreator ( pageNumber ) );
         dispatch ( actionsUsers.getUsersSaga ( pageSize, pageNumber ) );
-
     };
+
+    const onSearchArea = (text: string) => {
+        setSearchText(text)
+    }
+
+    useEffect ( () => {
+        dispatch ( actionsUsers.getUsersSaga ( pageSize, currentPage ,searchText) );
+    }, [searchText,currentPage,pageSize,dispatch] );
 
 
     return <>{ isFetching
@@ -71,6 +80,7 @@ const UsersPageContainer: React.FC<PropsType> = (props) => {
                  pageSize={ pageSize }
                  isRequestSendUsersId={ isRequestSendUsersId }
                  portionNumber={ portionNumber }
+                 onSearchArea={onSearchArea}
         /> }</>;
 
 };
