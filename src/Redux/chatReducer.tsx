@@ -1,10 +1,10 @@
 import {InferActionsType} from "./reduxStore";
 import React from "react";
 import {WEBSOCKET} from "./consts";
+import {Dispatch} from "redux";
 
 
 //types
-
 export type WebSocketMessageType = {
     message: string,
     photo: string,
@@ -27,6 +27,15 @@ export const actionsChat = {
     postMessage: (message: WebSocketMessageType) => {
         return {type: WEBSOCKET.POST_MESSAGE as const, payload: {message}};
     },
+    startMessageListening: (dispatch:Dispatch) => {
+        return {type: WEBSOCKET.START_MESSAGE_LISTENING as const,dispatch};
+    },
+    stopMessageListening: (dispatch:Dispatch) => {
+        return {type: WEBSOCKET.STOP_MESSAGE_LISTENING as const,dispatch};
+    },
+    sendMessage: (message:string) => {
+        return {type: WEBSOCKET.SEND_MESSAGE as const,payload:{message}};
+    },
 };
 
 
@@ -38,6 +47,7 @@ const initialState = {
 const chatReducer = (state = initialState, action: ChatActionsTypes): InitialStateFromChatType => {
     switch (action.type) {
         case WEBSOCKET.SET_MESSAGES:
+            debugger
             return {...state,  ...action.payload };
         default:
             return state;

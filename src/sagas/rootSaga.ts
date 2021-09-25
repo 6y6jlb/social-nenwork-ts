@@ -21,6 +21,7 @@ import {
     toSpamMessageSagaWatcher,
     toViewedSagaWatcher,
 } from "./dialogsSagas";
+import {sendMessageWatcher, startMessageListeningWatcher, stopMessageListeningWatcher} from "./tests/chatSagas";
 
 
 export default function* rootSaga() {
@@ -48,5 +49,8 @@ export default function* rootSaga() {
         toSpamMessageSagaWatcher (),
         setFriendlySagaWatcher (),
         friendCheckSagaWatcher (),
+        startMessageListeningWatcher (),
+        stopMessageListeningWatcher (),
+        sendMessageWatcher (),
     ] );
 }

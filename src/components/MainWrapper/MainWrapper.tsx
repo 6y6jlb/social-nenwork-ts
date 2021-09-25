@@ -9,7 +9,6 @@ import {getIsAuth} from "../../utils/selectors/auth-selectors";
 
 export function MainWrapper() {
     const isAuth = useSelector(getIsAuth)
-
     return (
         <div className={ s.mainWrapper }>
             <NavigationBarContainer/>
