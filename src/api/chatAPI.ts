@@ -16,6 +16,15 @@ export const createChanel = () => {
     ws = new WebSocket ( 'wss://social-network.samuraijs.com/handlers/ChatHandler.ashx' );
     ws.addEventListener ( 'close', closeHandler );
     ws.addEventListener ( 'message', messageHandler );
+    ws.onmessage = function(e) {
+        console.log('Message:', e.data);
+    };
+    ws.onclose = function (e) {
+        console.log ( 'Socket is closed. Reconnect will be attempted in 1 second.', e.reason );
+        setTimeout ( function () {
+            ChatAPI.start ();
+        }, 1000 );
+    };
 };
 
 let subscribers = [] as SubscriberType[];
@@ -29,15 +38,6 @@ export const ChatAPI = {
         ws?.removeEventListener ( 'message', messageHandler );
         ws?.close ();
         subscribers = [];
-
-    },
-    onClose: () => {
-        ws.onclose = function (e) {
-            console.log ( 'Socket is closed. Reconnect will be attempted in 1 second.', e.reason );
-            setTimeout ( function () {
-                ChatAPI.start ();
-            }, 1000 );
-        };
     },
     subscribe: (callback: SubscriberType) => {
         subscribers.push ( callback );
@@ -53,15 +53,16 @@ export const ChatAPI = {
     },
 };
 
-let _newMessageHandler: ((messages: WebSocketMessageType[]) => void) | null = null;
-const newMessageHandlerCreator = (dispatch: Dispatch) => {
-    if (!_newMessageHandler) {
-        _newMessageHandler = (messages) => {
-            dispatch ( actionsChat.setMessages ( messages ) );
-        };
-    }
-    return _newMessageHandler;
-};
+// // хз вообще
+// let _newMessageHandler: ((messages: WebSocketMessageType[]) => void) | null = null;
+// const newMessageHandlerCreator = (dispatch: Dispatch) => {
+//     if (!_newMessageHandler) {
+//         _newMessageHandler = (messages) => {
+//             dispatch ( actionsChat.setMessages ( messages ) );
+//         };
+//     }
+//     return _newMessageHandler;
+// };
 
 const messageHandler = (e: MessageEvent) => {
     const newMessages = JSON.parse ( e.data );

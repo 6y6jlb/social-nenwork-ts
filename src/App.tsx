@@ -20,8 +20,7 @@ type AppPropsType = {
 class App extends React.Component<AppPropsType> {
     componentDidMount() {
             this.props.initialize ()
-
-
+            document.title = "make love not war"
     }
 
     render() {

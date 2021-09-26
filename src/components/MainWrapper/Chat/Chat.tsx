@@ -4,7 +4,7 @@ import style from "./Chat.module.css";
 import {FormattedMessage} from "../../common/FormattedMessage/FormattedMessage";
 import {useDispatch, useSelector} from "react-redux";
 import {getMessages as getMessagesSelector} from "../../../utils/selectors/chat-selectors";
-import {actionsChat, WebSocketMessageType} from "../../../Redux/chatReducer";
+import {actionsChat} from "../../../Redux/chatReducer";
 import classNames from "classnames";
 import {v4 as uuidv4} from 'uuid';
 import {WebSocketMessage} from "./WebsocketNewMessage/WebsocketMessage/WebSocketMessage";
@@ -16,9 +16,6 @@ export const Chat: React.FC<{}> = () => {
     const messages = useSelector ( getMessagesSelector );
     const dispatch = useDispatch ();
     const chatRef = useRef<HTMLDivElement> ( null );
-    // const setMessagesCallback = (newMessages: WebSocketMessageType[]) => {
-    //     dispatch ( actionsChat.setMessages ( newMessages ) );
-    // };
 
 
     const openChat = () => {
@@ -30,18 +27,15 @@ export const Chat: React.FC<{}> = () => {
 
 
     useEffect ( () => {
-        dispatch ( actionsChat.startMessageListening (dispatch) );
+        dispatch ( actionsChat.startMessageListening ( dispatch ) );
         return () => {
-            dispatch ( actionsChat.stopMessageListening (dispatch) );
+            dispatch ( actionsChat.stopMessageListening ( dispatch ) );
         };
     }, [] );
 
-    // if (ws) {
-    //     ws.onmessage = (messageEvent) => {
-    //         setMessagesCallback ( [...messages, ...JSON.parse ( messageEvent.data )] );
-    //         chatRef.current?.scrollTo ( 0, chatRef.current.scrollHeight );
-    //     };
-    // }
+    useEffect ( () => chatRef.current?.scrollTo ( 0, chatRef.current.scrollHeight ), [messages] );
+
+
     const closeChat = () => {
         setIsActive ( false );
 
